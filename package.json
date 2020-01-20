@@ -28,6 +28,7 @@
     "url": "https://github.com/CartoCosmos/CartoCosmos.git"
   },
   "scripts": {
+    "build": "webpack",
     "lint": "eslint --ext .js src",
     "fix": "npm run lint -- --fix",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
@@ -49,6 +50,7 @@
   },
   "dependencies": {
     "leaflet": "^1.6.0",
+    "lodash": "^4.17.15",
     "proj4leaflet": "^1.0.2"
   }
 }
