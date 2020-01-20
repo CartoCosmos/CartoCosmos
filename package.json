@@ -1,0 +1,30 @@
+{
+  "name": "cartocosmos",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "description": "Leaflet extension for planetary mapping of non-Earth bodies with varying radii.",
+  "author": "CartoCosmos",
+  "contributors": [
+    {
+      "name": "Scott Ames",
+      "url": "https://github.com/scottaames"
+    },
+    {
+      "name": "Kaitlyn Lee",
+      "url": "https://github.com/kaitlyndlee"
+    },
+    {
+      "name": "Jacob Kaufman",
+      "url": "https://github.com/"
+    },
+    {
+      "name": "Christopher Moore",
+      "url": "https://github.com/cgm78"
+    }
+  ],
+  "homepage": "https://github.com/CartoCosmos/CartoCosmos",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CartoCosmos/CartoCosmos.git"
+  }
+}
