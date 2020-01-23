@@ -1,7 +1,18 @@
 {
+  "env": {
+    "es6": true,
+    "browser": true
+  },
   "extends": ["airbnb-base", "prettier"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error"
-  }
+  },
+  "ignorePatterns": [
+    ".prettierrc",
+    "postcss.config.js",
+    ".eslintrc",
+    ".babelrc",
+    "webpack.*"
+  ]
 }
