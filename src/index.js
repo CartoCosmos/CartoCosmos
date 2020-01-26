@@ -1,10 +1,3 @@
-import _ from 'lodash';
-function component() {
-  const element = document.createElement('div');
+import "./styles.css";
 
-  element.innerHTML = _.join(['Hello', 'Test'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());
+console.log("hello world!");
