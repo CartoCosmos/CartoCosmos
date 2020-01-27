@@ -13,12 +13,12 @@
     <script src="../lib/leaflet/leaflet.js"></script>
     <script src="../lib/proj4.js"></script>
     <script src="../lib/proj4leaflet.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+    <script src="../src/layers.js"></script>
+    <script src="../src/PlanetaryMap.js"></script>
+    <script src="../src/LayerCollection.js"></script>
+    <script src="../src/Projection.js"></script>
 
-    <!-- Get USGS JSON containing layers -->
-    <script src="https://astrowebmaps.wr.usgs.gov/webmapatlas/Layers/maps.js"></script>
-    <script src="script.js"></script>
-    <script src="../src/map.js"></script>
     <title>Mars Map</title>
   </head>
   <body>
@@ -47,22 +47,22 @@
       <div id="consoleProjectionButtons">
         <img
           id="projectionNorthPole"
-          alt="North Polar Stereographic"
-          title="North Polar Stereographic"
+          alt="north-polar stereographic"
+          title="north-polar stereographic"
           src="./images/north-pole.png"
           class="consoleProjectionButton"
         />
         <img
           id="projectionCylindrical"
-          alt="Simple Cylindrical"
-          title="Simple Cylindrical"
+          alt="cylindrical"
+          title="cylindrical"
           src="./images/cylindrical-hot.png"
           class="consoleProjectionButton"
         />
         <img
           id="projectionSouthPole"
-          alt="South Polar Stereographic"
-          title="South Polar Stereographic"
+          alt="south-polar stereographic"
+          title="south-polar stereographic"
           src="./images/south-pole.png"
           class="consoleProjectionButton"
         />
@@ -103,7 +103,8 @@
 
       <img class="consoleBackground" src="./images/console.png" />
     </div>
-    <div id="MarsMap"></div>
+    <div id="map"></div>
+    <script src="script.js"></script>
     <span id="testing"> </span>
   </body>
 </html>
