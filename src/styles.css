@@ -1,3 +1,5 @@
-body {
-  background-color: rgb(53, 149, 167);
+#console {
+  width: 800px;
+  height: 100px;
+  flex: 1;
 }
