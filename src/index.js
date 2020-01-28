@@ -1,6 +1,6 @@
 import "./styles.css";
-import * from 'leaflet';
-import * from 'proj4leaflet';
+import L from 'leaflet';
+import L.Proj from 'proj4leaflet';
 
 export * from './LayerCollection';
 export * from './PlanetaryLayer';

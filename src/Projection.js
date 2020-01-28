@@ -17,19 +17,8 @@ L.Control.Projection = L.Control.extend({
   },
 
   loadNorthPolar: function(e) {
-    var northStere = new L.Proj.CRS(
-      "EPSG:32661",
-      "+proj=stere +lat_0=90 +lon_0=0" +
-        "+k=1 +x_0=0 +y_0=0 +a=3396190 +b=3376200 +units=m +no_defs",
-      {
-        resolutions: [8192, 4096, 2048, 1024, 512, 256, 128],
-        origin: [0, 0]
-      }
-    );
     var center = [90, 0];
-    this._map.options.crs = northStere;
-    this._map._resetView(center, 1, true); //we need this to redraw all layers (polygons, markers...) in the new projection.
-    this._map.loadLayerCollection("northPolar");
+    this._map.changeProjection("northPolar", center);
   },
 
   loadSouthPolar: function(e) {

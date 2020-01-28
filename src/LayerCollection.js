@@ -5,6 +5,7 @@ L.LayerCollection = L.Class.extend({
     this.baseLayers = {};
     this.overlays = {};
     this.defaultLayerIndex = 0;
+    L.LayerCollection.layerControl = null;
 
     var layers = this.parseJSON();
     this.createBaseLayers(layers["base"]);
@@ -89,14 +90,17 @@ L.LayerCollection = L.Class.extend({
       map.removeLayer(layer);
     });
 
-    if (map.layerControl) {
-      map.layerControl.remove();
+    if (L.LayerCollection.layerControl) {
+      L.LayerCollection.layerControl.remove();
     }
 
     var defaultLayer = Object.keys(this.baseLayers)[this.defaultLayerIndex];
     this.baseLayers[defaultLayer].addTo(map);
 
-    map.layerControl = L.control.layers(this.baseLayers, this.overlays);
-    map.layerControl.addTo(map);
+    L.LayerCollection.layerControl = L.control.layers(
+      this.baseLayers,
+      this.overlays
+    );
+    L.LayerCollection.layerControl.addTo(map);
   }
 });
