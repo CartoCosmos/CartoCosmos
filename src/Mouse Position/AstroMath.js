@@ -1,10 +1,8 @@
-class AstroMath
-{
-  constructor( targetName )
-  {
-    this.targetName = targetName
+class AstroMath {
+  constructor(targetName) {
+    this.targetName = targetName;
 
-    switch(this.targetName) {
+    switch (this.targetName) {
       case "mars":
         this.dMajorRadius = 3396190.0;
         this.dMinorRadius = 3376200.0;
@@ -22,62 +20,53 @@ class AstroMath
     }
   }
 
-  toRadians(degrees)
-  {
-    return degrees * Math.PI / 180;
+  toRadians(degrees) {
+    return (degrees * Math.PI) / 180;
   }
 
-  toDegrees(radians)
-  {
-    return radians * 180 / Math.PI;
+  toDegrees(radians) {
+    return (radians * 180) / Math.PI;
   }
 
-  latLonSwitcher(lat, lng, lonTo180, planetocentric, postiveEast, projection)
-  {
-    var convertedLatitude = 0;
+  latLonSwitcher(lat, lng, lonTo180, planetocentric, postiveEast, projection) {
+    let convertedLatitude = 0;
+    let convertedLng = lng;
+    let convertedLat = lat;
+    let proj = "";
 
-    if (projection == "EPSG:4326")
-    {
+    if (projection === "EPSG:4326") {
       proj = "cylindrical";
-    }
-    else 
-    {
+    } else {
       proj = "";
     }
 
-    if (!lonTo180)
-    {
-      if(proj == "cylindrical") {
-        lng -= 180;
+    if (!lonTo180) {
+      if (proj === "cylindrical") {
+        convertedLng -= 180;
       }
-      if(lng < 0) {
-        lng += 360;
-      }
-    }
-
-    if(!postiveEast)
-    {
-      if(lonTo180)
-      {
-        lng *= -1;
-      }
-      else
-      {
-        lng = Math.abs(lng - 360);
+      if (convertedLng < 0) {
+        convertedLng += 360;
       }
     }
 
-    if(!planetocentric)
-    {
-      convertedLatitude = this.toRadians(lat);
-      convertedLatitude = Math.atan(((this.dMajorRadius / this.dMinorRadius)**2) * 
-                                          (Math.tan(convertedLatitude)));
+    if (!postiveEast) {
+      if (lonTo180) {
+        convertedLng *= -1;
+      } else {
+        convertedLng = Math.abs(convertedLng - 360);
+      }
+    }
+
+    if (!planetocentric) {
+      convertedLatitude = this.toRadians(convertedLat);
+      convertedLatitude = Math.atan(
+        (this.dMajorRadius / this.dMinorRadius) ** 2 *
+          Math.tan(convertedLatitude)
+      );
       convertedLatitude = this.toDegrees(convertedLatitude);
 
-      lat = convertedLatitude;
+      convertedLat = convertedLatitude;
     }
-    return [lat,lng]
+    return [convertedLat, convertedLng];
   }
 }
-
-
