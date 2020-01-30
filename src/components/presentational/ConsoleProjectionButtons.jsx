@@ -23,21 +23,21 @@ export default function ConsoleProjectionButtons(props) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Grid item xs={4}>
+      <Grid item xs>
         <div className={classes.image}>
           <ButtonBase>
             <img className={classes.img} src={northPolar} />
           </ButtonBase>
         </div>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs>
         <div className={classes.image}>
           <ButtonBase>
             <img className={classes.img} src={simpleCylindrical} />
           </ButtonBase>
         </div>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs>
         <div className={classes.image}>
           <ButtonBase>
             <img className={classes.img} src={southPolar} />
