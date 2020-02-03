@@ -1,4 +1,4 @@
-var marsMap = new L.Map.AstroMap("map", "Mars");
+var marsMap = new L.Map.AstroMap("map", "Mars", {});
 
 var projectionControl = new L.Control.Projection();
 projectionControl.addTo(marsMap);
@@ -14,19 +14,16 @@ northPoleProjection.onclick = function() {
   northPoleProjection.src = "./images/north-pole-hot.png";
   southPoleProjection.src = "./images/south-pole.png";
   cylindricalProjection.src = "./images/cylindrical.png";
-  // marsMap.createMap(northPoleProjection.title);
 };
 
 southPoleProjection.onclick = function() {
   northPoleProjection.src = "./images/north-pole.png";
   southPoleProjection.src = "./images/south-pole-hot.png";
   cylindricalProjection.src = "./images/cylindrical.png";
-  // marsMap.createMap(southPoleProjection.title);
 };
 
 cylindricalProjection.onclick = function() {
   northPoleProjection.src = "./images/north-pole.png";
   southPoleProjection.src = "./images/south-pole.png";
   cylindricalProjection.src = "./images/cylindrical-hot.png";
-  // marsMap.createMap(cylindricalProjection.title);
 };

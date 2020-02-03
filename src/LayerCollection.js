@@ -1,4 +1,14 @@
+/*
+ * @class LayerCollection
+ * @aka L.Class.LayerCollection
+ * @inherits L.Class
+ *
+ * Holds the base layers and overlays of a particular projection
+ * for quick and easy use in the AstroMap class.
+ */
 L.LayerCollection = L.Class.extend({
+  // @method initialize(target: String. projName: String)
+  // Constructor that creates the layers.
   initialize: function(target, projName) {
     this.target = target;
     this.projName = projName;
@@ -7,26 +17,29 @@ L.LayerCollection = L.Class.extend({
     this.defaultLayerIndex = 0;
     L.LayerCollection.layerControl = null;
 
-    var layers = this.parseJSON();
+    let layers = this.parseJSON();
     this.createBaseLayers(layers["base"]);
     this.createOverlays(layers["overlays"]);
   },
 
+  // @method parseJSON(): Object of Layers
+  // Parses the USGS JSON, creates layer objects for a particular
+  // target and projection, and stores them in a JS object.
   parseJSON: function() {
-    var layers = {
+    let layers = {
       base: [],
       overlays: [],
       wfs: []
     };
 
-    var targets = myJSONmaps["targets"];
-    for (var i = 0; i < targets.length; i++) {
-      var currentTarget = targets[i];
+    let targets = myJSONmaps["targets"];
+    for (let i = 0; i < targets.length; i++) {
+      let currentTarget = targets[i];
 
       if (currentTarget["name"].toLowerCase() == this.target.toLowerCase()) {
-        var jsonLayers = currentTarget["webmap"];
-        for (var j = 0; j < jsonLayers.length; j++) {
-          var currentLayer = jsonLayers[j];
+        let jsonLayers = currentTarget["webmap"];
+        for (let j = 0; j < jsonLayers.length; j++) {
+          let currentLayer = jsonLayers[j];
           if (
             currentLayer["projection"].toLowerCase() !=
             this.projName.toLowerCase()
@@ -52,26 +65,30 @@ L.LayerCollection = L.Class.extend({
     return layers;
   },
 
+  // @method createBaseLayers(layers: Object of layers)
+  // Creates WMS layers and adds them to the list of base layers.
   createBaseLayers: function(layers) {
-    for (var i = 0; i < layers.length; i++) {
-      var layer = layers[i];
+    for (let i = 0; i < layers.length; i++) {
+      let layer = layers[i];
       if (layer["projection"] == this.projName) {
-        var baseLayer = L.tileLayer.wms(
+        let baseLayer = L.tileLayer.wms(
           String(layer["url"]) + "?map=" + String(layer["map"]),
           {
             layers: String(layer["layer"])
           }
         );
-        var name = String(layer["displayname"]);
+        let name = String(layer["displayname"]);
         this.baseLayers[name] = baseLayer;
       }
     }
   },
 
+  // @method createOverlays(layers: Object of layers)
+  // Creates WMS layers and adds them to the list of overlays.
   createOverlays: function(layers) {
-    for (var i = 0; i < layers.length; i++) {
-      var layer = layers[i];
-      var overlay = L.tileLayer.wms(
+    for (let i = 0; i < layers.length; i++) {
+      let layer = layers[i];
+      let overlay = L.tileLayer.wms(
         String(layer["url"]) + "?map=" + String(layer["map"]),
         {
           layers: String(layer["layer"]),
@@ -79,11 +96,14 @@ L.LayerCollection = L.Class.extend({
           format: "image/png"
         }
       );
-      var name = String(layer["displayname"]);
+      let name = String(layer["displayname"]);
       this.overlays[name] = overlay;
     }
   },
 
+  // @method addTo(map: AstroMap)
+  // Removes the current layers, adds the base layers and overlays to the map,
+  // and sets teh default layer.
   addTo: function(map) {
     // Remove old layers
     map.eachLayer(function(layer) {
@@ -94,7 +114,7 @@ L.LayerCollection = L.Class.extend({
       L.LayerCollection.layerControl.remove();
     }
 
-    var defaultLayer = Object.keys(this.baseLayers)[this.defaultLayerIndex];
+    let defaultLayer = Object.keys(this.baseLayers)[this.defaultLayerIndex];
     this.baseLayers[defaultLayer].addTo(map);
 
     L.LayerCollection.layerControl = L.control.layers(
@@ -104,3 +124,7 @@ L.LayerCollection = L.Class.extend({
     L.LayerCollection.layerControl.addTo(map);
   }
 });
+
+// exports.L.layerCollection = function(target, projName) {
+//   return new L.LayerCollection(target, projName);
+// };
