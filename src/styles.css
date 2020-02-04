@@ -1,3 +1,5 @@
-body {
-  background-color: black;
+#console {
+  max-width: 800px;
+  max-height: 100px;
+  flex: 1;
 }
