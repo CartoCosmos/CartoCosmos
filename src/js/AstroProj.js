@@ -1,4 +1,4 @@
-let projectionDefs = {
+const projectionDefs = {
   mars: [
     {
       name: "northpolar",
