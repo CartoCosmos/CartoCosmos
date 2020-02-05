@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -9,6 +10,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "./index.html"
+    }),
+    new webpack.ProvidePlugin({
+      L: "leaflet",
+      Leaflet: "leaflet"
     })
   ],
   watch: true,

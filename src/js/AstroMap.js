@@ -15,7 +15,7 @@
  * L.Map.AstroMap("map", "Mars", {});
  * ```
  */
-L.Map.AstroMap = L.Map.extend({
+export default L.Map.AstroMap = L.Map.extend({
   options: {
     center: [0, 0],
     zoom: 1,
