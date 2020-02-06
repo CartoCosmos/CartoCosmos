@@ -69,6 +69,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.41",
     "leaflet": "^1.6.0",
     "proj4": "^2.6.0",
     "proj4leaflet": "^1.0.2",
