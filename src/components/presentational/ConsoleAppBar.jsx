@@ -13,9 +13,9 @@ const useStyles = makeStyles(theme => ({
     width: "100%"
   },
   appbar: {
-    background: "#d6ddbc",
-    background: "-webkit-linear-gradient(to right, #d6ddbc, #bcddca)",
-    background: "linear-gradient(to right, #d6ddbc, #bcddca)"
+    background: "#96DEDA",
+    background: "-webkit-linear-gradient(to right, #96DEDA, #86fde8)",
+    background: "linear-gradient(to right, #96DEDA, #86fde8)"
   },
   toolbar: {
     height: "100%",

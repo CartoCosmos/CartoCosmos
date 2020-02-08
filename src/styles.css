@@ -1,5 +1,11 @@
-#console {
+@import url("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css");
+
+#map-container {
   max-width: 800px;
-  height: 100px;
-  flex: 1;
+  height: 600px;
+}
+
+#map {
+  max-width: 800px;
+  max-height: 700px;
 }

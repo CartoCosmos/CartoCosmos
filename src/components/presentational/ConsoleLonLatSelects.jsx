@@ -50,23 +50,23 @@ const StyledTooltip = withStyles(theme => ({
 
 const StyledToggleButton = withStyles(theme => ({
   root: {
-    color: fade("#022", 0.5),
-    background: fade("#EFE6EE", 0.5),
+    color: fade("#022", 0.6),
+    background: fade("#B0D0D3", 0.2),
     "&:hover": {
-      backgroundColor: fade("#dce7b2", 0.99)
+      backgroundColor: fade("#FFFDB4", 0.8)
     },
     "&$selected": {
       color: "#022",
-      backgroundColor: "#bcd6dd",
+      backgroundColor: "#B0D0D3",
       "&:hover": {
-        backgroundColor: "#bcd6dd",
+        backgroundColor: "#B0D0D3",
         border: `1px solid ${fade(theme.palette.action.active, 0.12)}`
       }
     }
   },
   selected: {
     color: "#022",
-    backgroundColor: "#bcd6dd"
+    backgroundColor: "#B0D0D3"
   }
 }))(ToggleButton);
 

@@ -1,3 +1,4 @@
+import "leaflet";
 /*
  * @class Projection
  * @aka L.Control.Projection
@@ -6,7 +7,7 @@
  * Control that allows users to change the projection of the map.
  * Uses predefined GUI elements.
  */
-L.Control.Projection = L.Control.extend({
+export default L.Control.Projection = L.Control.extend({
   // @method onAdd(map: AstroMap)
   // Grabs the button GUI elements and adds onclick events to them.
   onAdd: function(map) {

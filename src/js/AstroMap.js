@@ -1,3 +1,6 @@
+import AstroProj from "./AstroProj";
+import LayerCollection from "./LayerCollection";
+
 /*
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -32,15 +35,9 @@ export default L.Map.AstroMap = L.Map.extend({
     this.target = target;
     this.AstroProj = new AstroProj();
     this.layers = {
-      geodesic: new L.LayerCollection(this.target, "cylindrical"),
-      northPolar: new L.LayerCollection(
-        this.target,
-        "north-polar stereographic"
-      ),
-      southPolar: new L.LayerCollection(
-        this.target,
-        "south-polar stereographic"
-      )
+      geodesic: new LayerCollection(this.target, "cylindrical"),
+      northPolar: new LayerCollection(this.target, "north-polar stereographic"),
+      southPolar: new LayerCollection(this.target, "south-polar stereographic")
     };
 
     L.setOptions(this, options);
@@ -61,7 +58,7 @@ export default L.Map.AstroMap = L.Map.extend({
     if (name == "geodesic") {
       newCRS = L.CRS.EPSG4326;
     } else {
-      proj = this.AstroProj.getStringAndCode(this.target, name);
+      let proj = this.AstroProj.getStringAndCode(this.target, name);
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
         resolutions: [8192, 4096, 2048, 1024, 512, 256, 128],
         origin: [0, 0]

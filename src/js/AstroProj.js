@@ -26,7 +26,7 @@ const projectionDefs = {
  * Helper class that stores projections for each target supported
  * by the USGS.
  */
-class AstroProj {
+export default class AstroProj {
   // @method getString(target: String, code: String): String
   // Returns the proj-string for a requested target given the proj-code.
   getString(target, code) {

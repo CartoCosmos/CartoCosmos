@@ -1,4 +1,4 @@
-var myJSONmaps = {
+export const MY_JSON_MAPS = {
   targets: [
     {
       name: "CERES",

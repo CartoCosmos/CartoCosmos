@@ -1,3 +1,4 @@
+import { MY_JSON_MAPS } from "./layers";
 /*
  * @class LayerCollection
  * @aka L.Class.LayerCollection
@@ -6,7 +7,7 @@
  * Holds the base layers and overlays of a particular projection
  * for quick and easy use in the AstroMap class.
  */
-L.LayerCollection = L.Class.extend({
+export default L.LayerCollection = L.Class.extend({
   // @method initialize(target: String. projName: String)
   // Constructor that creates the layers.
   initialize: function(target, projName) {
@@ -32,7 +33,7 @@ L.LayerCollection = L.Class.extend({
       wfs: []
     };
 
-    let targets = myJSONmaps["targets"];
+    let targets = MY_JSON_MAPS["targets"];
     for (let i = 0; i < targets.length; i++) {
       let currentTarget = targets[i];
 

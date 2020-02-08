@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { makeStyles } from "@material-ui/core/styles";
 import northPolar from "../../assets/img/NorthPolar.png";
 import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
@@ -20,10 +19,17 @@ const useStyles = makeStyles({
       background: "yellow"
     },
     "&:hover, &$focusVisible": {
-      border: "2px orange solid",
+      border: "3px orange solid",
       borderRadius: "15%",
       borderStyle: "outset"
     }
+  },
+  activeBtn: {
+    width: 32,
+    height: 32,
+    border: "2px orange solid",
+    borderRadius: "15%",
+    borderStyle: "outset"
   },
   grid: {
     maxWidth: 40,
@@ -36,6 +42,8 @@ const useStyles = makeStyles({
 export default function ConsoleProjectionButtons(props) {
   const classes = useStyles();
 
+  const [active, setActive] = React.useState("cylindrical");
+
   return (
     <Grid
       className={classes.grid}
@@ -46,27 +54,35 @@ export default function ConsoleProjectionButtons(props) {
     >
       <Grid item>
         <ButtonBase
+          id="projectionNorthPole"
           focusRipple
-          className={classes.button}
+          className={active == "north" ? classes.activeBtn : classes.button}
           focusVisibleClassName={classes.focusVisible}
+          onClick={() => setActive("north")}
         >
           <img className={classes.img} src={northPolar} />
         </ButtonBase>
       </Grid>
       <Grid item>
         <ButtonBase
+          id="projectionCylindrical"
           focusRipple
-          className={classes.button}
+          className={
+            active == "cylindrical" ? classes.activeBtn : classes.button
+          }
           focusVisibleClassName={classes.focusVisible}
+          onClick={() => setActive("cylindrical")}
         >
           <img className={classes.img} src={simpleCylindrical} />
         </ButtonBase>
       </Grid>
       <Grid item>
         <ButtonBase
+          id="projectionSouthPole"
           focusRipple
-          className={classes.button}
+          className={active == "south" ? classes.activeBtn : classes.button}
           focusVisibleClassName={classes.focusVisible}
+          onClick={() => setActive("south")}
         >
           <img className={classes.img} src={southPolar} />
         </ButtonBase>
