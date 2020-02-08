@@ -8,42 +8,85 @@ import southPolar from "../../assets/img/SouthPolar.png";
 
 const useStyles = makeStyles({
   img: {
-    maxWidth: "100%",
-    maxHeight: "auto",
-    margin: "auto",
-    display: "block"
+    width: 31,
+    height: 31,
+    paddingBottom: 3
   },
-  image: {
-    width: 28,
-    height: 28
-  }
+  button: {
+    width: 32,
+    height: 32,
+    "&:active": {
+      background: "yellow"
+    },
+    "&:hover, &$focusVisible": {
+      border: "3px orange solid",
+      borderRadius: "15%",
+      borderStyle: "outset"
+    }
+  },
+  activeBtn: {
+    width: 32,
+    height: 32,
+    border: "2px orange solid",
+    borderRadius: "15%",
+    borderStyle: "outset"
+  },
+  grid: {
+    maxWidth: 40,
+    width: "100%",
+    height: "100%"
+  },
+  focusVisible: {}
 });
 
 export default function ConsoleProjectionButtons(props) {
   const classes = useStyles();
+
+  const [active, setActive] = React.useState("cylindrical");
+
   return (
-    <React.Fragment>
-      <Grid item xs>
-        <div className={classes.image}>
-          <ButtonBase>
-            <img className={classes.img} src={northPolar} />
-          </ButtonBase>
-        </div>
+    <Grid
+      className={classes.grid}
+      container
+      item
+      direction="column"
+      justify="center"
+    >
+      <Grid item>
+        <ButtonBase
+          id="projectionNorthPole"
+          focusRipple
+          className={active == "north" ? classes.activeBtn : classes.button}
+          focusVisibleClassName={classes.focusVisible}
+          onClick={() => setActive("north")}
+        >
+          <img className={classes.img} src={northPolar} />
+        </ButtonBase>
       </Grid>
-      <Grid item xs>
-        <div className={classes.image}>
-          <ButtonBase>
-            <img className={classes.img} src={simpleCylindrical} />
-          </ButtonBase>
-        </div>
+      <Grid item>
+        <ButtonBase
+          id="projectionCylindrical"
+          focusRipple
+          className={
+            active == "cylindrical" ? classes.activeBtn : classes.button
+          }
+          focusVisibleClassName={classes.focusVisible}
+          onClick={() => setActive("cylindrical")}
+        >
+          <img className={classes.img} src={simpleCylindrical} />
+        </ButtonBase>
       </Grid>
-      <Grid item xs>
-        <div className={classes.image}>
-          <ButtonBase>
-            <img className={classes.img} src={southPolar} />
-          </ButtonBase>
-        </div>
+      <Grid item>
+        <ButtonBase
+          id="projectionSouthPole"
+          focusRipple
+          className={active == "south" ? classes.activeBtn : classes.button}
+          focusVisibleClassName={classes.focusVisible}
+          onClick={() => setActive("south")}
+        >
+          <img className={classes.img} src={southPolar} />
+        </ButtonBase>
       </Grid>
-    </React.Fragment>
+    </Grid>
   );
 }

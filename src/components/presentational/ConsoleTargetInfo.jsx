@@ -6,43 +6,46 @@ import marsLogo from "../../assets/img/marsLogo.png";
 
 const useStyles = makeStyles({
   img: {
-    width: 30,
-    height: 30,
+    width: 36,
+    height: 36,
+    margin: "auto",
     float: "left"
   },
   title: {
     float: "right"
   },
-  container: {
-    paddingTop: 5
+  subtitle: {
+    fontSize: "1.05rem"
   },
   grid: {
-    height: 100,
-    width: "100%",
+    width: "inherit",
+    height: "75%",
     margin: "auto"
-  },
-  h6: {
-    paddingTop: 5
   }
 });
 
 export default function ConsoleTargetInfo(props) {
   const classes = useStyles();
   return (
-    <React.Fragment>
-      <Grid className={classes.grid} item xs={6}>
-        <div className={classes.container}>
-          <img className={classes.img} src={marsLogo} />
-          <Typography className={classes.title} variant="h5">
-            {props.targetName}
-          </Typography>
-        </div>
+    <Grid
+      container
+      item
+      justify="space-between"
+      direction="column"
+      className={classes.grid}
+      xs={2}
+    >
+      <Grid item>
+        <img className={classes.img} src={marsLogo} />
+        <Typography className={classes.title} variant="h4">
+          {props.targetName}
+        </Typography>
       </Grid>
-      <Grid className={classes.grid} item xs={6}>
-        <Typography className={classes.h6} variant="subtitle1">
+      <Grid item>
+        <Typography className={classes.subtitle} variant="subtitle1">
           Lon, Lat:{" "}
         </Typography>
       </Grid>
-    </React.Fragment>
+    </Grid>
   );
 }
