@@ -51,15 +51,15 @@ const StyledTooltip = withStyles(theme => ({
 const StyledToggleButton = withStyles(theme => ({
   root: {
     color: fade("#022", 0.6),
-    background: fade("#B0D0D3", 0.2),
+    background: fade("#ffdb62", 0.2),
     "&:hover": {
-      backgroundColor: fade("#FFFDB4", 0.8)
+      backgroundColor: fade("#ffdb62", 0.8)
     },
     "&$selected": {
       color: "#022",
-      backgroundColor: "#B0D0D3",
+      backgroundColor: "#ffdb62",
       "&:hover": {
-        backgroundColor: "#B0D0D3",
+        backgroundColor: "#ffdb62",
         border: `1px solid ${fade(theme.palette.action.active, 0.12)}`
       }
     }
@@ -71,8 +71,8 @@ const StyledToggleButton = withStyles(theme => ({
 }))(ToggleButton);
 
 export default function ConsoleLonLatSelects(props) {
-  const [posEastWest, setPosEastWest] = React.useState("east");
-  const [coordSystem, setCoordSystem] = React.useState("ocentric");
+  const [posEastWest, setPosEastWest] = React.useState("PositiveEast");
+  const [coordSystem, setCoordSystem] = React.useState("Planetocentric");
   const [lonRange, setLonRange] = React.useState(180);
 
   const handlePosEastWest = (event, newPosEastWest) => {
@@ -125,11 +125,11 @@ export default function ConsoleLonLatSelects(props) {
               value={posEastWest}
               onChange={handlePosEastWest}
             >
-              <StyledToggleButton value="east">
+              <StyledToggleButton value="PositiveEast">
                 <AutorenewIcon className={classes.flip} />
                 <Typography>East</Typography>
               </StyledToggleButton>
-              <StyledToggleButton value="west">
+              <StyledToggleButton value="PositiveWest">
                 <AutorenewIcon />
                 <Typography>West</Typography>
               </StyledToggleButton>
@@ -157,11 +157,11 @@ export default function ConsoleLonLatSelects(props) {
               value={coordSystem}
               onChange={handleCoordSystem}
             >
-              <StyledToggleButton value="ocentric">
+              <StyledToggleButton value="Planetocentric">
                 <span className={classes.circle} />
                 <Typography>centric</Typography>
               </StyledToggleButton>
-              <StyledToggleButton value="ographic">
+              <StyledToggleButton value="Planetographic">
                 <span className={classes.oval} />
                 <Typography>graphic</Typography>
               </StyledToggleButton>
