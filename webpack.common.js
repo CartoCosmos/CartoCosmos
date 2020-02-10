@@ -1,13 +1,19 @@
 const path = require("path");
+const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.jsx",
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "CartoCosmos"
+      template: "./src/index.html",
+      filename: "./index.html"
+    }),
+    new webpack.ProvidePlugin({
+      L: "leaflet",
+      Leaflet: "leaflet"
     })
   ],
   watch: true,
@@ -18,9 +24,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: "babel-loader",
+        test: /\.(js|jsx)$/,
+        use: {
+          loader: "babel-loader"
+        },
         exclude: /node_modules/
+      },
+      {
+        test: /\.html/,
+        use: [
+          {
+            loader: "html-loader"
+          }
+        ]
       },
       {
         test: /\.css$/,
@@ -34,9 +50,6 @@ module.exports = {
             options: {
               importLoaders: 1
             }
-          },
-          {
-            loader: "postcss-loader"
           }
         ]
       },
@@ -44,10 +57,7 @@ module.exports = {
         test: /\.png$/,
         use: [
           {
-            loader: "url-loader",
-            options: {
-              mimetype: "image/png"
-            }
+            loader: "url-loader"
           }
         ]
       }
