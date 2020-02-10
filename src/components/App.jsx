@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Paper from "@material-ui/core/Paper";
-import AstroMap from "./js/AstroMap.js";
-import Projection from "./js/Projection.js";
-import ConsoleContainer from "./components/container/ConsoleContainer.jsx";
+import AstroMap from "../js/AstroMap.js";
+import Projection from "../js/Projection.js";
+import ConsoleContainer from "./container/ConsoleContainer.jsx";
 import "leaflet";
 import "proj4leaflet";
 import "proj4";
