@@ -6,9 +6,9 @@ import geojson
 import shapely.geometry as geo
 import shapely.wkt
 
-class Planetary_Maps:
+class planetary_maps:
     def __init__(self, targetName):
-        self.targetName = targetName
+        self.target_name = targetName
         self.json_file = 'geoServerLayers.json'
         self.base_layers = []
         self.planet_map = None
@@ -16,39 +16,39 @@ class Planetary_Maps:
             'base': [],
             'overlays': []
             }
-        self.longitudeRange = None
-        self.latDomain = None
-        self.longitudeDirection = None
-        self.latLonLabel = None
-        self.drawLabel = None
-        self.wktTextBox = None
-        self.wktButton = None
-        self.dMajorRadius = 0
-        self.dMinorRadius = 0
-        self.Find_Radius()
-        self.Create_Layers()
-        self.Create_Widgets()
-        self.Create_Map()
+        self.longitude_range = None
+        self.lat_domain = None
+        self.longitude_direction = None
+        self.lat_lon_label = None
+        self.draw_Label = None
+        self.wkt_text_box = None
+        self.wkt_button = None
+        self.dmajor_radius = 0
+        self.dminor_radius = 0
+        self.find_radius()
+        self.create_layers()
+        self.create_widgets()
+        self.create_map()
         self.feature_collection = {
             'type': 'FeatureCollection',
             'features': []
         }
 
-    def Find_Radius(self):
-        if self.targetName == "mars":
-            self.dMajorRadius = 3396190.0
-            self.dMinorRadius = 3376200.0
-        elif self.targetName == "moon":
-            self.dMajorRadius = 1737400.0
-            self.dMinorRadius = 1737400.0
-        elif self.targetName == "mercury":
-            self.dMajorRadius = 2439400.0
-            self.dMinorRadius = 2439400.0
+    def find_radius(self):
+        if self.target_name == "mars":
+            self.dmajor_radius = 3396190.0
+            self.dminor_radius = 3376200.0
+        elif self.target_name == "moon":
+            self.dmajor_radius = 1737400.0
+            self.dminor_radius = 1737400.0
+        elif self.target_name == "mercury":
+            self.dmajor_radius = 2439400.0
+            self.dminor_radius = 2439400.0
         else:
             print("Target Planet Not Supported")
 
-    def Create_Widgets(self):
-        self.longitudeRange = widgets.ToggleButtons(
+    def create_widgets(self):
+        self.longitude_range = widgets.ToggleButtons(
             options=['0 to 360', '-180 to 180'],
             description='',
             disabled=False,
@@ -56,7 +56,7 @@ class Planetary_Maps:
             tooltips=['Longitude from 0 to 360', 'Longitude from -180 to 180']
         )
         
-        self.latDomain = widgets.ToggleButtons(
+        self.lat_domain = widgets.ToggleButtons(
             options=['Planetocentric', 'Planetographic'],
             description='',
             disabled=False,
@@ -64,10 +64,10 @@ class Planetary_Maps:
             tooltips=['Regular Latitude', 'Tangent Latitude']
         )
 
-        self.latLonLabel = widgets.Label()
-        self.drawLabel = widgets.Label()
+        self.lat_lon_label = widgets.Label()
+        self.draw_label = widgets.Label()
 
-        self.longitudeDirection = widgets.ToggleButtons(
+        self.longitude_direction = widgets.ToggleButtons(
             options=['Positive East', 'Positive West'],
             description='',
             disabled=False,
@@ -75,7 +75,7 @@ class Planetary_Maps:
             tooltips=['Longitude increasing east', 'Longitude Increasing West']
         )
 
-        self.wktTextBox = widgets.Text(
+        self.wkt_text_box = widgets.Text(
             value='',
             placeholder='Type something',
             description='WKT String:',
@@ -83,7 +83,7 @@ class Planetary_Maps:
             layout=widgets.Layout(width='75%')
         )
 
-        self.wktButton = widgets.Button(
+        self.wkt_button = widgets.Button(
             description='Draw',
             disabled=False,
             button_style='', # 'success', 'info', 'warning', 'danger' or ''
@@ -91,16 +91,16 @@ class Planetary_Maps:
         )
 
         
-        self.wktButton.on_click(self.handle_WKT_button)
+        self.wkt_button.on_click(self.handle_WKT_button)
 
-    def Create_Layers(self):
+    def create_layers(self):
         with open(self.json_file, 'r') as fp:
             json_dict = json.load(fp)
 
         targets = json_dict['targets']
         for i, target in enumerate(targets):
             current_target = targets[i]
-            if current_target['name'].lower() == self.targetName:
+            if current_target['name'].lower() == self.target_name:
                 json_layers = current_target['webmap']
                 for j, layers in enumerate(json_layers):
                     current_layer = json_layers[j]
@@ -140,26 +140,26 @@ class Planetary_Maps:
                 else:
                     lng = -180 + (abs(lng) % 180)
         
-            if self.longitudeRange.value == "0 to 360":
+            if self.longitude_range.value == "0 to 360":
                 lng += 180;
             
         
-            if self.latDomain.value == "Planetographic":
-                convertedLatitude = Math.radians(lat)
-                convertedLatitude = Math.atan(((self.dMajorRadius / self.dMinorRadius)**2) * (Math.tan(convertedLatitude)))
-                convertedLatitude = Math.degrees(convertedLatitude);
-                lat = convertedLatitude;
+            if self.lat_domain.value == "Planetographic":
+                converted_latitude = Math.radians(lat)
+                converted_latitude = Math.atan(((self.dmajor_radius / self.dminor_radius)**2) * (Math.tan(converted_latitude)))
+                converted_latitude = Math.degrees(converted_latitude);
+                lat = converted_latitude;
         
                 
-            if self.longitudeDirection.value == "Positive West":
-                if(self.longitudeRange.value == "-180 to 180"):
+            if self.longitude_direction.value == "Positive West":
+                if(self.longitude_range.value == "-180 to 180"):
                     lng *= -1
                 else:
                     lng = Math.fabs(lng - 360)
         
-            self.latLonLabel.value = "Lat, Lon: "+ str(round(lat, 2)) + ", " + str(round(lng, 2))
+            self.lat_lon_label.value = "Lat, Lon: "+ str(round(lat, 2)) + ", " + str(round(lng, 2))
 
-    def Create_Map(self):
+    def create_map(self):
         self.planet_map = Map(layers=tuple(self.base_layers), center=(0, 0), zoom=1, crs='EPSG4326')
     
         draw_control = DrawControl()
@@ -205,50 +205,22 @@ class Planetary_Maps:
         self.planet_map.add_control(draw_control)
         self.planet_map.add_control(LayersControl(position='topright'))
         self.planet_map.on_interaction(self.handle_interaction)
-        range_control = WidgetControl(widget=self.longitudeRange, position='topright')
-        lat_control = WidgetControl(widget=self.latDomain, position='topright')
-        direction_control = WidgetControl(widget=self.longitudeDirection, position='topright')
-        label_control = WidgetControl(widget=self.latLonLabel, position='bottomright')
+        range_control = WidgetControl(widget=self.longitude_range, position='topright')
+        lat_control = WidgetControl(widget=self.lat_domain, position='topright')
+        direction_control = WidgetControl(widget=self.longitude_direction, position='topright')
+        label_control = WidgetControl(widget=self.lat_lon_label, position='bottomright')
         self.planet_map.add_control(range_control)
         self.planet_map.add_control(lat_control)
         self.planet_map.add_control(direction_control)
         self.planet_map.add_control(label_control)
         self.planet_map.add_control(FullScreenControl(position='bottomleft'))
 
-    def Display_Map(self):
-        display(self.drawLabel)
-        #display(self.longitudeDirection)
-        #display(self.longitudeRange)
-        #display(self.latDomain)
-        #display(self.latLonLabel)
+    def display_map(self):
+        display(self.draw_label)
         display(self.planet_map)
-        display(self.wktTextBox)
-        display(self.wktButton)
-
-    def Add_Rectangle(self, point1, point2):
-        rectangle = Rectangle(bounds=(point1, point2))
-        self.planet_map.add_layer(rectangle)
-
-    def Add_Circle(self, point, radius):
-        circle = Circle()
-        circle.location = point
-        circle.radius = radius
-        circle.color = "yellow"
-        circle.fill_color = "yellow"
-        self.planet_map.add_layer(circle)
-
-    def Add_marker(self, point):
-        marker = Marker(location=point, draggable=False)
-        self.planet_map.add_layer(marker)
-
-    def Add_polygon(self, points):
-        polygon = Polygon(
-            locations=points,
-            color="green",
-            fill_color="green"
-            )
-        self.planet_map.add_layer(polygon)
-
+        display(self.wkt_text_box)
+        display(self.wkt_button)
+    
     def add_wkt(self, wktString):
         try:
             g1 = shapely.wkt.loads(wktString)
@@ -268,7 +240,7 @@ class Planetary_Maps:
         self.wktTextBox.value = geom.wkt
 
     def handle_WKT_button(self, *args, **kwargs):
-        self.add_wkt(self.wktTextBox.value)
+        self.add_wkt(self.wkt_text_box.value)
         
 
         
