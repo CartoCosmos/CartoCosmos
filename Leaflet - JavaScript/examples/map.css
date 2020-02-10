@@ -1,0 +1,92 @@
+
+#map
+{
+    width: 800px; 
+    height: 375px;
+}
+
+.console
+{
+    color:#FFF;
+    position:relative;
+    z-index:1;
+    width:500px;
+    font-family:arial,helvetica,sans-serif;
+}
+
+.consoleBackground
+{
+    width:100%;
+    height:95px;
+    max-height:95px;
+    z-index:1;
+}
+#consoleTargetInfo
+{
+    position:absolute;
+    z-index:2;
+    top:10px;
+    left:45px;
+}
+.consoleTargetImg
+{
+    height:30px;
+    width:30px;
+    margin:5px 7px 0 0;
+}
+.consoleTargetName
+{
+    font-size:20px;
+    font-weight:bold;
+    color:#444;
+    vertical-align:10%;
+}
+#consoleProjectionButtons
+{
+    position:absolute;
+    z-index:2;
+    top:11px;
+    left:15px;
+    color:#000;
+}
+.consoleProjectionButton
+{
+    margin:1px 10px 1px 0;
+    cursor:pointer;
+    float:left;
+    clear:both;
+}
+
+.consoleLonLatTitle
+{
+    font-weight:bold;
+    margin:5px 5px 0 0;
+    font-size:11px;
+    color:#333;float:left;
+}
+
+
+.consoleLonLat
+{
+    width:180px;
+    font-size:13px;
+    color:#000;
+    margin-top:5px;
+}
+#consoleLonLatSelects
+{
+    position:absolute;
+    z-index:2;
+    top:10px;
+    left:240px;
+    color:#000;
+    padding:3px 0 0 0;
+}
+.consoleSelect
+{
+    font-size:11px;
+    margin:1px 0 1px 0;
+    width:100px;
+}
+
+
