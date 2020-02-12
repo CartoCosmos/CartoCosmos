@@ -2,33 +2,31 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import marsLogo from "../../assets/img/marsLogo.png";
 
 const useStyles = makeStyles({
-  img: {
-    width: 36,
-    height: 36,
-    margin: "auto"
-  },
   grid: {
     width: "100%",
-    maxHeight: 45
+    height: "100%",
+    maxHeight: 60
   }
 });
 
-export default function ConsoleTargetInfo(props) {
+export default function ConsoleCoordinates(props) {
   const classes = useStyles();
+
   return (
     <Grid
       container
-      item
-      justify="center"
-      alignItems="center"
       className={classes.grid}
-      xs
+      justify="flex-end"
+      alignItems="center"
+      item
+      xs={2}
     >
-      <Grid item>
-        <Typography variant="h4">{props.targetName}</Typography>
+      <Grid item xs>
+        <Typography noWrap id="coordinateDisplay" variant="subtitle1">
+          (-----, -----)
+        </Typography>
       </Grid>
     </Grid>
   );

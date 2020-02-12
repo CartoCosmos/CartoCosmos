@@ -1,10 +1,12 @@
-/** 
+import AstroMath from "./AstroMath";
+import "leaflet";
+/**
  * @class AstroMap
  * @aka L.Control.AstroMousePosition
  * @extends L.Control
- * Class that inherits from the class L.Control and handles the back-end when a user clicks on the lat/lon buttons. 
- * Since this class inherits L.Control, it is added to the AstroMap in the same way as other controls, like the zoom control. 
- * 
+ * Class that inherits from the class L.Control and handles the back-end when a user clicks on the lat/lon buttons.
+ * Since this class inherits L.Control, it is added to the AstroMap in the same way as other controls, like the zoom control.
+ *
  * * @example
  *
  * ```js
@@ -14,86 +16,111 @@
  * mouseControl.addTo(map);
  * ```
  */
-L.Control.AstroMousePosition = L.Control.extend({
+export default L.Control.MousePosition = L.Control.extend({
   options: {
-    separator: " : ",
+    separator: ", ",
     numDigits: 5,
     prefix: "",
     targetPlanet: ""
   },
 
-   /**
-    * Grabs the lat/lon buttons from the GUI and adds on-change events to them. 
-    * It also adds an on mouse-over event to the AstroMap to grab the current 
-    * mouse position of the user's mouse pointer.
-    * @param  {AstroMap} map - The AstroMap to add the control to.
-    * @return {Object} The div-container the control is in. 
-    */
-   onAdd(map) {
+  /**
+   * Grabs the lat/lon buttons from the GUI and adds on-change events to them.
+   * It also adds an on mouse-over event to the AstroMap to grab the current
+   * mouse position of the user's mouse pointer.
+   * @param  {AstroMap} map - The AstroMap to add the control to.
+   * @return {Object} The div-container the control is in.
+   */
+  onAdd: function(map) {
     this.container = L.DomUtil.create("div", "leaflet-control-mouseposition");
     L.DomEvent.disableClickPropagation(this.container);
     map.on("mousemove", this.onMouseMove, this);
+    map.on("mouseout", this.onMouseOut, this);
 
     this.map = map;
 
-    this.lonTo180 = false;
-    this.planetocentric = true;
-    this.postiveEast = true;
+    this.isLonDom180 = true;
+    this.isLatTypeOcentric = true;
+    this.isLonDirEast = true;
 
     this.astroMath = new AstroMath(this.options.targetPlanet);
-    this.htmlDiv = L.DomUtil.get("latLng");
+    this.coordDisplayElement = L.DomUtil.get("coordinateDisplay");
 
-    this.lonDomain = L.DomUtil.get("consoleLonDomSelect");
-    L.DomEvent.on(this.lonDomain, "change", this.changeLonDomain, this);
-    this.lonDirection = L.DomUtil.get("consoleLonDirSelect");
-    L.DomEvent.on(this.lonDirection, "change", this.changeLonDirection, this);
-    this.latitudeType = L.DomUtil.get("consoleLatTypeSelect");
-    L.DomEvent.on(this.latitudeType, "change", this.changeLatType, this);
+    this.lonDomain180 = L.DomUtil.get("consoleLon180Btn");
+    L.DomEvent.on(this.lonDomain180, "click", this.changeLonDomain, this);
+    this.lonDomain360 = L.DomUtil.get("consoleLon360Btn");
+    L.DomEvent.on(this.lonDomain360, "click", this.changeLonDomain, this);
+
+    this.lonDirectionEast = L.DomUtil.get("consoleLonEastBtn");
+    L.DomEvent.on(
+      this.lonDirectionEast,
+      "click",
+      this.changeLonDirection,
+      this
+    );
+    this.lonDirectionWest = L.DomUtil.get("consoleLonWestBtn");
+    L.DomEvent.on(
+      this.lonDirectionWest,
+      "click",
+      this.changeLonDirection,
+      this
+    );
+
+    this.latitudeTypeOcentric = L.DomUtil.get("consoleLatTypeOcentric");
+    L.DomEvent.on(this.latitudeTypeOcentric, "click", this.changeLatType, this);
+    this.latitudeTypeOgraphic = L.DomUtil.get("consoleLatTypeOgraphic");
+    L.DomEvent.on(this.latitudeTypeOgraphic, "click", this.changeLatType, this);
 
     return this.container;
   },
 
   /**
-   * Is called when a user changes the longitude domain selector. 
-   * Changes the longitude domain class variable to false if 0 to 
-   * 360 is selected and true if -180 to 180 is selected. 
+   * Is called when a user changes the longitude domain selector.
+   * Changes the longitude domain class variable to false if 0 to
+   * 360 is selected and true if -180 to 180 is selected.
    * @param  {DomEvent} e  - On change of consoleLonDomSelect.
    */
   changeLonDomain(e) {
-    const lonDomain = this.lonDomain.value;
+    /*     let lonDomain = e.currentTarget.value;
+    console.log(lonDomain);
     if (lonDomain === "180") {
-      this.lonTo180 = true;
-    } else if (lonDomain === "360") {
-      this.lonTo180 = false;
-    }
+      this.isLonDom180 = true;
+    } else {
+      this.isLonDom180 = false;
+    } */
+    this.isLonDom180 = !this.isLonDom180;
   },
   /**
-   * Is called when a user changes the latitude type selector. 
-   * Changes the latitude type class variable to false if planetographic is 
-   * selected and true if planetocentric is selected. 
+   * Is called when a user changes the latitude type selector.
+   * Changes the latitude type class variable to false if planetographic is
+   * selected and true if isLatTypeOcentric is selected.
    * @param  {DomEvent} e - On change of consoleLatTypeSelect.
    */
   changeLatType(e) {
-    const latitudeType = this.latitudeType.value;
+    /* const latitudeType = e.currentTarget.value;
+    console.log(latitudeType);
     if (latitudeType === "Planetographic") {
-      this.planetocentric = false;
-    } else if (latitudeType === "Planetocentric") {
-      this.planetocentric = true;
-    }
+      this.isLatTypeOcentric = false;
+    } else if (latitudeType === "isLatTypeOcentric") {
+      this.isLatTypeOcentric = true;
+    } */
+    this.isLatTypeOcentric = !this.isLatTypeOcentric;
   },
   /**
-   * Is called when a user changes the longitude direction selector. 
-   * Changes the longitude direction class variable to false if positive west 
+   * Is called when a user changes the longitude direction selector.
+   * Changes the longitude direction class variable to false if positive west
    * is selected and true if positive east is selected.
    * @param  {DomEvent} e - On change of consoleLonDirSelect.
    */
   changeLonDirection(e) {
-    const lonDirection = this.lonDirection.value;
+    /*     const lonDirection = e.currentTarget.value;
+    console.log(lonDirection);
     if (lonDirection === "PositiveWest") {
-      this.postiveEast = false;
+      this.isLonDirEast = false;
     } else if (lonDirection === "PositiveEast") {
-      this.postiveEast = true;
-    }
+      this.isLonDirEast = true;
+    } */
+    this.isLonDirEast = !this.isLonDirEast;
   },
   /**
    * @param  {AstroMap} map - The AstroMap to remove the control from.
@@ -101,30 +128,30 @@ L.Control.AstroMousePosition = L.Control.extend({
   onRemove(map) {
     map.off("mousemove", this.onMouseMove);
   },
-  
+
   /**
-   *  Is called when a user moves their mouse over the AstroMap. 
+   *  Is called when a user moves their mouse over the AstroMap.
    *  The function uses the class latitude and longitude class variables combined with the AstroMath class
    *  to calculate the correct coordinate mouse position of the users mouse pointer.
    * @param  {DomEvent} e - On mouse move over the AstroMap.
    */
   onMouseMove(e) {
-    let {lng} = e.latlng;
-    let {lat} = e.latlng;
-    
+    let { lng } = e.latlng;
+    let { lat } = e.latlng;
+
     lat = L.Util.wrapNum(lat, [-180.0, 180.0]);
     lng = L.Util.wrapNum(lng, [-180.0, 180.0]);
-    
-    if (!this.planetocentric) {
-      lat = this.astroMath.latoPLanetOgraphic(lat);
+
+    if (!this.isLatTypeOcentric) {
+      lat = this.astroMath.latToPlanetOgraphic(lat);
     }
 
-    if (!this.lonTo180){
-      lng = this.astroMath.lngTo360(lng, this.map.options.crs.code);
+    if (!this.isLonDom180) {
+      lng = this.astroMath.lonTo360(lng, this.map.options.crs.code);
     }
 
-    if (!this.postiveEast){
-      lng = this.astroMath.domainToPositiveWest(lng, this.lonTo180);
+    if (!this.isLonDirEast) {
+      lng = this.astroMath.domainToPositiveWest(lng, this.isLonDom180);
     }
 
     lng = L.Util.formatNum(lng, this.options.numDigits);
@@ -134,8 +161,11 @@ L.Control.AstroMousePosition = L.Control.extend({
       ? lng + this.options.separator + lat
       : lat + this.options.separator + lng;
 
-    const prefixAndValue = `${this.options.prefix} ${value}`;
-    this.htmlDiv.innerHTML = prefixAndValue;
+    const prefixAndValue = `${this.options.prefix}${value}`;
+    this.coordDisplayElement.innerHTML = "(" + prefixAndValue + ")";
+  },
+  onMouseOut(e) {
+    this.coordDisplayElement.innerHTML = "(-----, -----)";
   }
 });
 
@@ -145,11 +175,11 @@ L.Map.mergeOptions({
 
 L.Map.addInitHook(function() {
   if (this.options.positionControl) {
-    this.positionControl = new L.Control.AstroMousePosition();
+    this.positionControl = new L.Control.MousePosition();
     this.addControl(this.positionControl);
   }
 });
 
-L.astroMousePosition = function(options) {
-  return new L.Control.AstroMousePosition(options);
+L.mousePosition = function(options) {
+  return new L.Control.MousePosition(options);
 };

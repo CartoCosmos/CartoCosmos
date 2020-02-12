@@ -8,25 +8,25 @@ import southPolar from "../../assets/img/SouthPolar.png";
 
 const useStyles = makeStyles({
   img: {
-    width: 31,
-    height: 31,
-    paddingBottom: 3
+    width: "100%",
+    height: "100%"
+    //paddingBottom: 3
   },
   button: {
-    width: 32,
-    height: 32,
+    width: 31,
+    height: 31,
     "&:active": {
       background: "yellow"
     },
     "&:hover, &$focusVisible": {
-      border: "3px orange solid",
+      border: "2px orange solid",
       borderRadius: "15%",
       borderStyle: "outset"
     }
   },
   activeBtn: {
-    width: 32,
-    height: 32,
+    width: 31,
+    height: 31,
     border: "2px orange solid",
     borderRadius: "15%",
     borderStyle: "outset"
@@ -51,6 +51,7 @@ export default function ConsoleProjectionButtons(props) {
       item
       direction="column"
       justify="center"
+      xs
     >
       <Grid item>
         <ButtonBase

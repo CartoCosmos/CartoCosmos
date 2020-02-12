@@ -1,22 +1,23 @@
-/** 
- * 
- * @class AstroMap 
- * 
- * 
- * A helper class that can be used by any mapping application, not just Leaflet, to calculate different 
- *  longitude and latitude domains and ranges for a specific target. 
+import "./MousePosition";
+/**
+ *
+ * @class AstroMap
+ *
+ *
+ * A helper class that can be used by any mapping application, not just Leaflet, to calculate different
+ *  longitude and latitude domains and ranges for a specific target.
  * It uses a JSON file in the background to store the targets and their associated radii.
- * 
- * 
+ *
+ *
  * @example
  * ```js
  * // initialize an instance of AstroMath with a target name string.
  * astroMath = new AstroMath("mars");
  * ```
  * */
-class AstroMath {
+export default class AstroMath {
   /**
-   * Creates an instance of of AstroMath by taking in a target name and finds the 
+   * Creates an instance of of AstroMath by taking in a target name and finds the
    * dMajorRadius and dMinorRadius that corresponds to that specific target.
    * @param  { String } targetName - the name of the specific target.
    */
@@ -63,7 +64,7 @@ class AstroMath {
    * @param  {double} lat - The latitude value that is going to be converted
    * @return {double} The latitude converted into planetOgrpahic
    */
-  latoPLanetOgraphic(lat) {
+  latToPlanetOgraphic(lat) {
     let convertedLatitude = 0;
     convertedLatitude = this.toRadians(lat);
     convertedLatitude = Math.atan(
@@ -79,18 +80,17 @@ class AstroMath {
    * @param  {boolean} projection - The current projection of the map
    * @return {double} The converted longitude range.
    */
-  lngTo360(lng, projection) {
-    let convertedLng = lng;
+  lonTo360(lon, projection) {
+    let convertedLon = lon;
 
-    if (!lonTo180) {
-      if (projection === "EPSG:4326") {
-        convertedLng -= 180;
-      }
-      if (convertedLng < 0) {
-        convertedLng += 360;
-      }
+    if (projection === "EPSG:4326") {
+      convertedLon -= 180;
     }
-    return convertedLng;
+    if (convertedLon < 0) {
+      convertedLon += 360;
+    }
+
+    return convertedLon;
   }
 
   /**
@@ -101,8 +101,7 @@ class AstroMath {
    */
   domainToPositiveWest(lng, normalRange) {
     let convertedLng = lng;
-    if(normalRange)
-    {
+    if (normalRange) {
       convertedLng *= -1;
     } else {
       convertedLng = Math.abs(convertedLng - 360);
@@ -113,20 +112,19 @@ class AstroMath {
   /**
    * Wraps the longitude of the map.
    * @param  {double} lng - The longitude that needs to be wrapped.
-   * @return {double} The longitude value thats wrapped. 
+   * @return {double} The longitude value thats wrapped.
    */
-  wrapLongitude (lng) {
+  wrapLongitude(lng) {
     let convertedLng = lng;
 
     if (convertedLng < 0) {
-      if (Math.floor(convertedLng/180)%2 == 0){
+      if (Math.floor(convertedLng / 180) % 2 == 0) {
         convertedLng = 180 - (abs(convertedLng) % 180);
       } else {
         convertedLng = (convertedLng % 180) - 180;
       }
     } else {
-      if (Math.floor(convertedLng/180)%2 == 0)
-      {
+      if (Math.floor(convertedLng / 180) % 2 == 0) {
         convertedLng = convertedLng % 180;
       } else {
         convertedLng = -180 + (abs(convertedLng) % 180);
