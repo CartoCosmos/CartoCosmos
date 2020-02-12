@@ -81,13 +81,6 @@ export default L.Control.MousePosition = L.Control.extend({
    * @param  {DomEvent} e  - On change of consoleLonDomSelect.
    */
   changeLonDomain(e) {
-    /*     let lonDomain = e.currentTarget.value;
-    console.log(lonDomain);
-    if (lonDomain === "180") {
-      this.isLonDom180 = true;
-    } else {
-      this.isLonDom180 = false;
-    } */
     this.isLonDom180 = !this.isLonDom180;
   },
   /**
@@ -97,13 +90,6 @@ export default L.Control.MousePosition = L.Control.extend({
    * @param  {DomEvent} e - On change of consoleLatTypeSelect.
    */
   changeLatType(e) {
-    /* const latitudeType = e.currentTarget.value;
-    console.log(latitudeType);
-    if (latitudeType === "Planetographic") {
-      this.isLatTypeOcentric = false;
-    } else if (latitudeType === "isLatTypeOcentric") {
-      this.isLatTypeOcentric = true;
-    } */
     this.isLatTypeOcentric = !this.isLatTypeOcentric;
   },
   /**
@@ -113,13 +99,6 @@ export default L.Control.MousePosition = L.Control.extend({
    * @param  {DomEvent} e - On change of consoleLonDirSelect.
    */
   changeLonDirection(e) {
-    /*     const lonDirection = e.currentTarget.value;
-    console.log(lonDirection);
-    if (lonDirection === "PositiveWest") {
-      this.isLonDirEast = false;
-    } else if (lonDirection === "PositiveEast") {
-      this.isLonDirEast = true;
-    } */
     this.isLonDirEast = !this.isLonDirEast;
   },
   /**
