@@ -1,3 +1,5 @@
+import { MY_JSON_MAPS } from "./layers";
+
 /** 
  * 
  * @class AstroMap 
@@ -20,26 +22,19 @@ class AstroMath {
    * dMajorRadius and dMinorRadius that corresponds to that specific target.
    * @param  { String } targetName - the name of the specific target.
    */
-  constructor(targetName) {
-    this.targetName = targetName;
+    constructor(targetName) {
+      this.targetName = targetName;
 
-    switch (this.targetName) {
-      case "mars":
-        this.dMajorRadius = 3396190.0;
-        this.dMinorRadius = 3376200.0;
-        break;
-      case "moon":
-        this.dMajorRadius = 1737400.0;
-        this.dMinorRadius = 1737400.0;
-        break;
-      case "mercury":
-        this.dMajorRadius = 2439400.0;
-        this.dMinorRadius = 2439400.0;
-        break;
-      default:
-        this.dMajorRadius = 0;
-        this.dMinorRadius = 0;
-        console.log("target not supported");
+      var targets = MY_JSON_MAPS['targets'];
+      for(var i = 0; i < targets.length; i++) {
+        var currentTarget = targets[i];
+
+        if (currentTarget['name'].toLowerCase() == targetName ) {
+          this.dMajorRadius = parseFloat(currentTarget['aaxisradius'] * 1000);
+          this.dMinorRadius = parseFloat(currentTarget['caxisradius'] * 1000);
+          break;
+        }
+      } 
     }
   }
   /**

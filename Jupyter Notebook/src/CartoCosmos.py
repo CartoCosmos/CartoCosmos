@@ -35,17 +35,17 @@ class planetary_maps:
         }
 
     def find_radius(self):
-        if self.target_name == "mars":
-            self.dmajor_radius = 3396190.0
-            self.dminor_radius = 3376200.0
-        elif self.target_name == "moon":
-            self.dmajor_radius = 1737400.0
-            self.dminor_radius = 1737400.0
-        elif self.target_name == "mercury":
-            self.dmajor_radius = 2439400.0
-            self.dminor_radius = 2439400.0
-        else:
-            print("Target Planet Not Supported")
+
+        with open(self.json_file, 'r') as fp:
+            json_dict = json.load(fp)
+
+        targets = json_dict['targets']
+        for i, target in enumerate(targets):
+            current_target = targets[i]
+            if current_target['name'].lower() == self.target_name:
+                self.dmajor_radius = float(current_target['aaxisradius']) * 1000.0
+                self.dminor_radius = float(current_target['caxisradius']) * 1000.0
+                break;
 
     def create_widgets(self):
         self.longitude_range = widgets.ToggleButtons(
