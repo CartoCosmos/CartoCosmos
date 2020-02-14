@@ -1,6 +1,5 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-
 /*
  * @class AstroMap
  * @aka L.Map.AstroMap
