@@ -15,8 +15,8 @@ export default L.Control.Projection = L.Control.extend({
 
     this.northPolar = L.DomUtil.get("projectionNorthPole");
     L.DomEvent.on(this.northPolar, "click", this.loadNorthPolar, this);
-    this.geodesic = L.DomUtil.get("projectionCylindrical");
-    L.DomEvent.on(this.geodesic, "click", this.loadGeodesic, this);
+    this.cylindrical = L.DomUtil.get("projectionCylindrical");
+    L.DomEvent.on(this.cylindrical, "click", this.loadCylindrical, this);
     this.southPolar = L.DomUtil.get("projectionSouthPole");
     L.DomEvent.on(this.southPolar, "click", this.loadSouthPolar, this);
 
@@ -39,12 +39,8 @@ export default L.Control.Projection = L.Control.extend({
 
   // @method loadGeodesic(e: DomEvent)
   // Sets the map's projection to geodesic.
-  loadGeodesic: function(e) {
+  loadCylindrical: function(e) {
     let center = [0, 0];
-    this._map.changeProjection("geodesic", center);
+    this._map.changeProjection("cylindrical", center);
   }
 });
-
-// exports.L.control.projection = function(options) {
-//   return new L.Control.Projection(options);
-// };

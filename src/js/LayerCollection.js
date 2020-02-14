@@ -125,7 +125,3 @@ export default L.LayerCollection = L.Class.extend({
     L.LayerCollection.layerControl.addTo(map);
   }
 });
-
-// exports.L.layerCollection = function(target, projName) {
-//   return new L.LayerCollection(target, projName);
-// };
