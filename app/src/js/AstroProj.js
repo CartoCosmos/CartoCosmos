@@ -7,6 +7,12 @@ import { MY_JSON_MAPS } from "./layers";
  * by the USGS.
  */
 export default class AstroProj {
+  /**
+   * @details Finds the a and c radii of a given target.
+   *
+   * @param {String} target Name of the target.
+   * @return {Object} Radii Object in form: {'a': , 'c'}.
+   */
   getRadii(target) {
     var targets = MY_JSON_MAPS["targets"];
 
@@ -24,6 +30,14 @@ export default class AstroProj {
 
   // @method getStringAndCode(target: String, name: String): [String, String]
   // Returns the proj-string for a requested target and projection name.
+  /**
+   * @details Returns the proj-string for a requested target and projection name.
+   *
+   * @param {String} target Name of the target.
+   * @param {String} name Name of the projection.
+   * @return {Object} Object storing the proj-string and code
+   * in the form: {'code': , 'string'}.
+   */
   getStringAndCode(target, name) {
     let radii = this.getRadii(target);
 

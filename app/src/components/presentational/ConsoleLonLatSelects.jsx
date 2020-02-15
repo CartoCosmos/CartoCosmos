@@ -12,15 +12,16 @@ import Zoom from "@material-ui/core/Zoom";
 
 const useStyles = makeStyles(theme => ({
   grid: {
-    width: "inherit",
-    margin: "auto"
+    width: "100%",
+    height: "100%",
+    maxHeight: 55
   },
   flip: {
     transform: "scaleY(-1)"
   },
   oval: {
-    width: 21,
-    height: 15,
+    width: 20,
+    height: 14,
     borderRadius: "50%",
     border: "2px solid",
     background: "transparent",
@@ -28,8 +29,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 3
   },
   circle: {
-    width: 15,
-    height: 15,
+    width: 14,
+    height: 14,
     borderRadius: "50%",
     border: "2px solid",
     background: "transparent",
@@ -51,45 +52,55 @@ const StyledTooltip = withStyles(theme => ({
 const StyledToggleButton = withStyles(theme => ({
   root: {
     color: fade("#022", 0.6),
-    background: fade("#B0D0D3", 0.2),
+    background: fade("#ffdb62", 0.2),
     "&:hover": {
-      backgroundColor: fade("#FFFDB4", 0.8)
+      backgroundColor: fade("#ffdb62", 0.8)
     },
     "&$selected": {
+      cursor: "not-allowed",
+      pointerEvents: "none",
       color: "#022",
-      backgroundColor: "#B0D0D3",
+      backgroundColor: "#ffdb62",
       "&:hover": {
-        backgroundColor: "#B0D0D3",
+        backgroundColor: "#ffdb62",
         border: `1px solid ${fade(theme.palette.action.active, 0.12)}`
       }
     }
   },
   selected: {
+    cursor: "not-allowed",
+    pointerEvents: "none",
     color: "#022",
     backgroundColor: "#B0D0D3"
   }
 }))(ToggleButton);
 
 export default function ConsoleLonLatSelects(props) {
-  const [posEastWest, setPosEastWest] = React.useState("east");
-  const [coordSystem, setCoordSystem] = React.useState("ocentric");
+  const [posEastWest, setPosEastWest] = React.useState("PositiveEast");
+  const [coordSystem, setCoordSystem] = React.useState("Planetocentric");
   const [lonRange, setLonRange] = React.useState(180);
 
   const handlePosEastWest = (event, newPosEastWest) => {
     if (newPosEastWest != null) {
       setPosEastWest(newPosEastWest);
+    } else {
+      event.stopPropagation();
     }
   };
 
   const handleCoordSystem = (event, newCoordSystem) => {
     if (newCoordSystem != null) {
       setCoordSystem(newCoordSystem);
+    } else {
+      event.stopPropagation();
     }
   };
 
   const handleLonRange = (event, newLonRange) => {
     if (newLonRange != null) {
       setLonRange(newLonRange);
+    } else {
+      event.stopPropagation();
     }
   };
 
@@ -99,11 +110,11 @@ export default function ConsoleLonLatSelects(props) {
     <Grid
       container
       item
-      className={classes.grid}
-      justify="space-evenly"
-      alignItems="flex-end"
       wrap="nowrap"
-      xs={9}
+      justify="space-evenly"
+      alignItems="center"
+      className={classes.grid}
+      xs={10}
     >
       <Grid item>
         <StyledTooltip
@@ -125,11 +136,11 @@ export default function ConsoleLonLatSelects(props) {
               value={posEastWest}
               onChange={handlePosEastWest}
             >
-              <StyledToggleButton value="east">
+              <StyledToggleButton id="consoleLonEastBtn" value="PositiveEast">
                 <AutorenewIcon className={classes.flip} />
                 <Typography>East</Typography>
               </StyledToggleButton>
-              <StyledToggleButton value="west">
+              <StyledToggleButton id="consoleLonWestBtn" value="PositiveWest">
                 <AutorenewIcon />
                 <Typography>West</Typography>
               </StyledToggleButton>
@@ -157,12 +168,18 @@ export default function ConsoleLonLatSelects(props) {
               value={coordSystem}
               onChange={handleCoordSystem}
             >
-              <StyledToggleButton value="ocentric">
-                <span className={classes.circle} />
+              <StyledToggleButton
+                value="Planetocentric"
+                id="consoleLatTypeOcentric"
+              >
+                <i className={classes.circle} />
                 <Typography>centric</Typography>
               </StyledToggleButton>
-              <StyledToggleButton value="ographic">
-                <span className={classes.oval} />
+              <StyledToggleButton
+                id="consoleLatTypeOgraphic"
+                value="Planetographic"
+              >
+                <i className={classes.oval} />
                 <Typography>graphic</Typography>
               </StyledToggleButton>
             </ToggleButtonGroup>
@@ -189,11 +206,11 @@ export default function ConsoleLonLatSelects(props) {
               value={lonRange}
               onChange={handleLonRange}
             >
-              <StyledToggleButton value={180}>
+              <StyledToggleButton id="consoleLon180Btn" value={180}>
                 <ExposureIcon />
                 <Typography>180&deg;</Typography>
               </StyledToggleButton>
-              <StyledToggleButton value={360}>
+              <StyledToggleButton id="consoleLon360Btn" value={360}>
                 <AddBoxIcon />
                 <Typography>360&deg;</Typography>
               </StyledToggleButton>

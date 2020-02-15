@@ -3,7 +3,7 @@
     "es6": true,
     "browser": true
   },
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["airbnb-base", "prettier", "airbnb"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error"

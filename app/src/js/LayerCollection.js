@@ -8,8 +8,12 @@ import { MY_JSON_MAPS } from "./layers";
  * for quick and easy use in the AstroMap class.
  */
 export default L.LayerCollection = L.Class.extend({
-  // @method initialize(target: String. projName: String)
-  // Constructor that creates the layers.
+  /**
+   * @details Constructor that creates the layers.
+   *
+   * @param {String} target Name of the target.
+   * @param {String} projName Name of the projection.
+   */
   initialize: function(target, projName) {
     this.target = target;
     this.projName = projName;

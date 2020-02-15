@@ -1,6 +1,5 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-
 /*
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -26,9 +25,14 @@ export default L.Map.AstroMap = L.Map.extend({
     attributionControl: false
   },
 
-  // @method initialize(mapDiv: String, target: String, options?: Zoom/pan options)
-  // Initializes the map by loading the LayerCollection for each supported projection
-  // and setting the default options.
+  /**
+   * @details Initializes the map by loading the LayerCollection for
+   * each supported projection and setting default options.
+   *
+   * @param {String} mapDiv ID of the div for the map.
+   * @param {String} target Name of target to display layers for.
+   * @param {Object} options Options for the map.
+   */
   initialize: function(mapDiv, target, options) {
     this.mapDiv = mapDiv;
     this.target = target;
@@ -48,14 +52,21 @@ export default L.Map.AstroMap = L.Map.extend({
     this.loadLayerCollection("cylindrical");
   },
 
-  // @method loadLayerCollection(name: String)
-  // Adds the LayerCollection with the requrested projection name.
+  /**
+   * @details Adds the LayerCollection with the requrested projection name.
+   *
+   * @param {String} name Name of the projection.
+   */
   loadLayerCollection: function(name) {
     this.layers[name].addTo(this);
   },
 
-  // @method changeProjection(name: String, center: List)
-  // Changes the projection of the map and resets the center and view.
+  /**
+   * @details Changes the projection of the map and resets the center and view.
+   * 
+   * @param {String} name Name of Projection.
+   * @param {List} center - Center of map based off of projection.
+]   */
   changeProjection: function(name, center) {
     let newCRS = null;
     if (name == "cylindrical") {

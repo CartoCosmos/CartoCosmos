@@ -6,6 +6,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import { fade, makeStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
+import ConsoleCoordinates from "./ConsoleCoordinates.jsx";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,12 +15,12 @@ const useStyles = makeStyles(theme => ({
     width: "100%"
   },
   appbar: {
-    background: "#96DEDA",
-    background: "-webkit-linear-gradient(to right, #96DEDA, #86fde8)",
-    background: "linear-gradient(to right, #96DEDA, #86fde8)"
+    background: "#f5dd95",
+    background: "-webkit-linear-gradient(to right, #f5dd95, #faf5e6)",
+    background: "linear-gradient(to right, #f5dd95, #faf5e6)"
   },
   toolbar: {
-    height: "100%",
+    height: 100,
     maxWidth: 800,
     width: "auto",
     padding: 0
@@ -36,10 +38,28 @@ export default function ConsoleAppBar(props) {
     <div className={classes.root}>
       <AppBar className={classes.appbar} position="static" color="inherit">
         <Toolbar className={classes.toolbar}>
-          <Grid className={classes.grid} container>
+          <Grid
+            className={classes.grid}
+            container
+            justify="space-between"
+            alignItems="stretch"
+          >
             <ConsoleProjectionButtons />
-            <ConsoleTargetInfo targetName="Mars" />
-            <ConsoleLonLatSelects />
+            <Divider orientation="vertical" />
+            <Grid container item direction="column" xs>
+              <ConsoleTargetInfo targetName="MARS" />
+              <Grid
+                container
+                item
+                xs
+                justify="center"
+                wrap="nowrap"
+                spacing={1}
+              >
+                <ConsoleLonLatSelects />
+                <ConsoleCoordinates />
+              </Grid>
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
