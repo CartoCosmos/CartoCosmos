@@ -10,7 +10,7 @@ export default class AstroProj {
   /**
    * @details Finds the a and c radii of a given target.
    *
-   * @param {String} target Name of the target.
+   * @param {String} target - Name of the target.
    * @return {Object} Radii Object in form: {'a': , 'c'}.
    */
   getRadii(target) {
@@ -33,8 +33,8 @@ export default class AstroProj {
   /**
    * @details Returns the proj-string for a requested target and projection name.
    *
-   * @param {String} target Name of the target.
-   * @param {String} name Name of the projection.
+   * @param {String} target - Name of the target.
+   * @param {String} name - Name of the projection.
    * @return {Object} Object storing the proj-string and code
    * in the form: {'code': , 'string'}.
    */

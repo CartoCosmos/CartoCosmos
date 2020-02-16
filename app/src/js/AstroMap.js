@@ -29,9 +29,9 @@ export default L.Map.AstroMap = L.Map.extend({
    * @details Initializes the map by loading the LayerCollection for
    * each supported projection and setting default options.
    *
-   * @param {String} mapDiv ID of the div for the map.
-   * @param {String} target Name of target to display layers for.
-   * @param {Object} options Options for the map.
+   * @param {String} mapDiv - ID of the div for the map.
+   * @param {String} target - Name of target to display layers for.
+   * @param {Object} options - Options for the map.
    */
   initialize: function(mapDiv, target, options) {
     this.mapDiv = mapDiv;
@@ -55,7 +55,7 @@ export default L.Map.AstroMap = L.Map.extend({
   /**
    * @details Adds the LayerCollection with the requrested projection name.
    *
-   * @param {String} name Name of the projection.
+   * @param {String} name - Name of the projection.
    */
   loadLayerCollection: function(name) {
     this.layers[name].addTo(this);
@@ -64,7 +64,7 @@ export default L.Map.AstroMap = L.Map.extend({
   /**
    * @details Changes the projection of the map and resets the center and view.
    * 
-   * @param {String} name Name of Projection.
+   * @param {String} name - Name of Projection.
    * @param {List} center - Center of map based off of projection.
 ]   */
   changeProjection: function(name, center) {

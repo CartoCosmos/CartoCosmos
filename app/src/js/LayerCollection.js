@@ -27,9 +27,12 @@ export default L.LayerCollection = L.Class.extend({
     this.createOverlays(layers["overlays"]);
   },
 
-  // @method parseJSON(): Object of Layers
-  // Parses the USGS JSON, creates layer objects for a particular
-  // target and projection, and stores them in a JS object.
+  /**
+   * Parses the USGS JSON, creates layer objects for a particular
+   * target and projection, and stores them in a JS object.
+   * @return {Object} - Dictionary containing the layer information in
+   *                    the format: {base: , overlays}
+   */
   parseJSON: function() {
     let layers = {
       base: [],
@@ -70,8 +73,10 @@ export default L.LayerCollection = L.Class.extend({
     return layers;
   },
 
-  // @method createBaseLayers(layers: Object of layers)
-  // Creates WMS layers and adds them to the list of base layers.
+  /**
+   * Creates WMS layers and adds them to the list of base layers.
+   * @param  {List} layers - List of base layer information. 
+   */
   createBaseLayers: function(layers) {
     for (let i = 0; i < layers.length; i++) {
       let layer = layers[i];
@@ -88,8 +93,10 @@ export default L.LayerCollection = L.Class.extend({
     }
   },
 
-  // @method createOverlays(layers: Object of layers)
-  // Creates WMS layers and adds them to the list of overlays.
+  /**
+   * Creates WMS layers and adds them to the list of overlays.
+   * @param  {List} layers - List of overlay information. 
+   */
   createOverlays: function(layers) {
     for (let i = 0; i < layers.length; i++) {
       let layer = layers[i];
@@ -106,9 +113,11 @@ export default L.LayerCollection = L.Class.extend({
     }
   },
 
-  // @method addTo(map: AstroMap)
-  // Removes the current layers, adds the base layers and overlays to the map,
-  // and sets teh default layer.
+  /**
+   * Removes the current layers, adds the base layers and overlays to the map,
+   * and sets teh default layer.
+   * @param {AstroMap} map - Map to add layers to.
+   */
   addTo: function(map) {
     // Remove old layers
     map.eachLayer(function(layer) {
