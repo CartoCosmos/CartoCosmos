@@ -27,9 +27,9 @@ export default class AstroMath {
     constructor(targetName) {
       this.targetName = targetName;
 
-      var targets = MY_JSON_MAPS['targets'];
-      for(var i = 0; i < targets.length; i++) {
-        var currentTarget = targets[i];
+      let targets = MY_JSON_MAPS['targets'];
+      for(let i = 0; i < targets.length; i++) {
+        let currentTarget = targets[i];
 
         if (currentTarget['name'].toLowerCase() == targetName ) {
           this.dMajorRadius = parseFloat(currentTarget['aaxisradius'] * 1000);
