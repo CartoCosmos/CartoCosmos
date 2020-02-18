@@ -38,13 +38,13 @@ export default class AstroMath {
         }
       } 
     }
-  }
+  
   /**
    * Converts degrees to radians.
    * @param  {double} degrees - The degree value that is going to be converted.
    * @return {double} The converted value in radians.
    */
-  toRadians(degrees) {
+  toRadians(degrees){
     return (degrees * Math.PI) / 180;
   }
   /**
@@ -52,7 +52,7 @@ export default class AstroMath {
    * @param  {double} radians - The radian value that is going to be converted.
    * @return {double} The converted value in degrees.
    */
-  toDegrees(radians) {
+  toDegrees(radians){
     return (radians * 180) / Math.PI;
   }
   /**
@@ -60,7 +60,7 @@ export default class AstroMath {
    * @param  {double} lat - The latitude value that is going to be converted
    * @return {double} The latitude converted into planetOgrpahic
    */
-  latToPlanetOgraphic(lat) {
+  latToPlanetOgraphic(lat){
     let convertedLatitude = 0;
     convertedLatitude = this.toRadians(lat);
     convertedLatitude = Math.atan(
@@ -76,7 +76,7 @@ export default class AstroMath {
    * @param  {boolean} projection - The current projection of the map
    * @return {double} The converted longitude range.
    */
-  lonTo360(lon, projection) {
+  lonTo360(lon, projection){
     let convertedLon = lon;
 
     if (projection === "EPSG:4326") {
