@@ -8,43 +8,49 @@ import "leaflet";
  * Uses predefined GUI elements.
  */
 export default L.Control.Projection = L.Control.extend({
-  // @method onAdd(map: AstroMap)
-  // Grabs the button GUI elements and adds onclick events to them.
+ 
+  /**
+   * Grabs the button GUI elements and adds onclick events to them.
+   * @param  {AstroMap} map - The map to add the control to.
+   * @return {Div} Container containing the projection buttons.
+   */
   onAdd: function(map) {
     let container = L.DomUtil.create("div");
 
     this.northPolar = L.DomUtil.get("projectionNorthPole");
     L.DomEvent.on(this.northPolar, "click", this.loadNorthPolar, this);
-    this.geodesic = L.DomUtil.get("projectionCylindrical");
-    L.DomEvent.on(this.geodesic, "click", this.loadGeodesic, this);
+    this.cylindrical = L.DomUtil.get("projectionCylindrical");
+    L.DomEvent.on(this.cylindrical, "click", this.loadCylindrical, this);
     this.southPolar = L.DomUtil.get("projectionSouthPole");
     L.DomEvent.on(this.southPolar, "click", this.loadSouthPolar, this);
 
     return container;
   },
 
-  // @method loadNorthPolar(e: DomEvent)
-  // Sets the map's projection to north-polar stereographic.
+  /**
+   * Sets the map's projection to north-polar stereographic.
+   * @param  {Event} e - Onclick event.
+   */
   loadNorthPolar: function(e) {
     let center = [90, 0];
     this._map.changeProjection("northPolar", center);
   },
 
-  // @method loadSouthPolar(e: DomEvent)
-  // Sets the map's projection to south-polar stereographic.
+  /**
+   * Sets the map's projection to south-polar stereographic.
+   * @param  {Event} e - Onclick event.
+   */
   loadSouthPolar: function(e) {
     let center = [-90, 0];
     this._map.changeProjection("southPolar", center);
   },
 
-  // @method loadGeodesic(e: DomEvent)
-  // Sets the map's projection to geodesic.
-  loadGeodesic: function(e) {
+  /**
+   * Sets the map's projection to cylindrical.
+   * @param  {Event} e - Onclick event.
+   */
+  loadCylindrical: function(e) {
     let center = [0, 0];
-    this._map.changeProjection("geodesic", center);
+    this._map.changeProjection("cylindrical", center);
   }
 });
-
-// exports.L.control.projection = function(options) {
-//   return new L.Control.Projection(options);
-// };
