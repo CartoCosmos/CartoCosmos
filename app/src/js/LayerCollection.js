@@ -19,7 +19,7 @@ export default L.LayerCollection = L.Class.extend({
     this.projName = projName;
     this.baseLayers = {};
     this.overlays = {};
-    this.defaultLayerIndex = 0;
+    this.defaultLayerIndex = null;
     L.LayerCollection.layerControl = null;
 
     let layers = this.parseJSON();
@@ -31,7 +31,7 @@ export default L.LayerCollection = L.Class.extend({
    * Parses the USGS JSON, creates layer objects for a particular
    * target and projection, and stores them in a JS object.
    * @return {Object} - Dictionary containing the layer information in
-   *                    the format: {base: , overlays}
+   *                    the format: {base: [], overlays: []}
    */
   parseJSON: function() {
     let layers = {
@@ -128,13 +128,21 @@ export default L.LayerCollection = L.Class.extend({
       L.LayerCollection.layerControl.remove();
     }
 
-    let defaultLayer = Object.keys(this.baseLayers)[this.defaultLayerIndex];
-    this.baseLayers[defaultLayer].addTo(map);
+    if(this.defaultLayerIndex != null) {
+      let defaultLayer = Object.keys(this.baseLayers)[this.defaultLayerIndex];
+      this.baseLayers[defaultLayer].addTo(map);
+    }
 
-    L.LayerCollection.layerControl = L.control.layers(
-      this.baseLayers,
-      this.overlays
-    );
-    L.LayerCollection.layerControl.addTo(map);
+    if(!this.isEmpty()) {
+      L.LayerCollection.layerControl = L.control.layers(
+        this.baseLayers,
+        this.overlays
+      );
+      L.LayerCollection.layerControl.addTo(map);
+    }
+  },
+
+  isEmpty: function() {
+    return (Object.entries(this.baseLayers).length == 0);
   }
 });

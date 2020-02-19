@@ -44,6 +44,19 @@ export default L.Map.AstroMap = L.Map.extend({
       southPolar: new LayerCollection(this.target, "south-polar stereographic")
     };
 
+    if(this.layers["northPolar"].isEmpty()) {
+      this._hasNorthPolar = false;
+    }
+    else {
+      this._hasNorthPolar = true;
+    }
+    if(this.layers["southPolar"].isEmpty()) {
+      this._hasSouthPolar = false;
+    }
+    else {
+      this._hasSouthPolar = true;
+    }
+
     this.defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this.radii["a"] });
     this.options["crs"] = this.defaultProj;
 
@@ -82,5 +95,13 @@ export default L.Map.AstroMap = L.Map.extend({
     this.options.crs = newCRS;
     this.setView(center, 1, true);
     this.loadLayerCollection(name);
-  }
+  },
+
+  hasNorthPolar: function() {
+    return this._hasNorthPolar;
+  },
+
+  hasSouthPolar: function() {
+    return this._hasSouthPolar;
+  },
 });

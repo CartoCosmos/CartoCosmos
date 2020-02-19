@@ -18,13 +18,21 @@ export default L.Control.Projection = L.Control.extend({
     let container = L.DomUtil.create("div");
 
     this.northPolar = L.DomUtil.get("projectionNorthPole");
-    this.northPolar.disabled = true;
-    L.DomUtil.addClass(this.northPolar, "disabled");
     L.DomEvent.on(this.northPolar, "click", this.loadNorthPolar, this);
-    this.cylindrical = L.DomUtil.get("projectionCylindrical");
-    L.DomEvent.on(this.cylindrical, "click", this.loadCylindrical, this);
+    if(!map.hasNorthPolar()) {
+      this.northPolar.disabled = true;
+      L.DomUtil.addClass(this.northPolar, "disabled");
+    }
+
     this.southPolar = L.DomUtil.get("projectionSouthPole");
     L.DomEvent.on(this.southPolar, "click", this.loadSouthPolar, this);
+    if(!map.hasSouthPolar()) {
+      this.southPolar.disabled = true;
+      L.DomUtil.addClass(this.southPolar, "disabled");
+    }
+  
+    this.cylindrical = L.DomUtil.get("projectionCylindrical");
+    L.DomEvent.on(this.cylindrical, "click", this.loadCylindrical, this);
 
     return container;
   },
