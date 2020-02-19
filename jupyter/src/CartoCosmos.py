@@ -35,17 +35,17 @@ class planetary_maps:
         }
 
     def find_radius(self):
-        if self.target_name == "mars":
-            self.dmajor_radius = 3396190.0
-            self.dminor_radius = 3376200.0
-        elif self.target_name == "moon":
-            self.dmajor_radius = 1737400.0
-            self.dminor_radius = 1737400.0
-        elif self.target_name == "mercury":
-            self.dmajor_radius = 2439400.0
-            self.dminor_radius = 2439400.0
-        else:
-            print("Target Planet Not Supported")
+
+        with open(self.json_file, 'r') as fp:
+            json_dict = json.load(fp)
+
+        targets = json_dict['targets']
+        for i, target in enumerate(targets):
+            current_target = targets[i]
+            if current_target['name'].lower() == self.target_name:
+                self.dmajor_radius = float(current_target['aaxisradius']) * 1000.0
+                self.dminor_radius = float(current_target['caxisradius']) * 1000.0
+                break;
 
     def create_widgets(self):
         self.longitude_range = widgets.ToggleButtons(
@@ -228,7 +228,7 @@ class planetary_maps:
             geo_json = GeoJSON(data=g2, style = {'color': 'yellow', 'opacity':1, 'weight':1.9, 'fillOpacity':0.5})
             self.planet_map.add_layer(geo_json)
         except:
-            self.wktTextBox.value = "Invalid WKT String"
+            self.wkt_Text_Box.value = "Invalid WKT String"
             
         
 
@@ -237,7 +237,7 @@ class planetary_maps:
         geo_json = kwargs.get('geo_json')
         data = geo_json['geometry']
         geom = geo.shape(data)
-        self.wktTextBox.value = geom.wkt
+        self.wkt_text_box.value = geom.wkt
 
     def handle_WKT_button(self, *args, **kwargs):
         self.add_wkt(self.wkt_text_box.value)
