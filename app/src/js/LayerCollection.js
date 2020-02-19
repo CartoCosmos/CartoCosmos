@@ -19,7 +19,7 @@ export default L.LayerCollection = L.Class.extend({
     this.projName = projName;
     this.baseLayers = {};
     this.overlays = {};
-    this.defaultLayerIndex = null;
+    this.defaultLayerIndex = 0;
     L.LayerCollection.layerControl = null;
 
     let layers = this.parseJSON();
@@ -128,12 +128,10 @@ export default L.LayerCollection = L.Class.extend({
       L.LayerCollection.layerControl.remove();
     }
 
-    if(this.defaultLayerIndex != null) {
+    if(!this.isEmpty()) {
       let defaultLayer = Object.keys(this.baseLayers)[this.defaultLayerIndex];
       this.baseLayers[defaultLayer].addTo(map);
-    }
-
-    if(!this.isEmpty()) {
+      
       L.LayerCollection.layerControl = L.control.layers(
         this.baseLayers,
         this.overlays
