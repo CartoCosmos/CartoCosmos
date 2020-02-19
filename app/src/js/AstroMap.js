@@ -1,5 +1,6 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
+import $ from "jquery";
 /*
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -44,16 +45,14 @@ export default L.Map.AstroMap = L.Map.extend({
       southPolar: new LayerCollection(this.target, "south-polar stereographic")
     };
 
-    if(this.layers["northPolar"].isEmpty()) {
+    if (this.layers["northPolar"].isEmpty()) {
       this._hasNorthPolar = false;
-    }
-    else {
+    } else {
       this._hasNorthPolar = true;
     }
-    if(this.layers["southPolar"].isEmpty()) {
+    if (this.layers["southPolar"].isEmpty()) {
       this._hasSouthPolar = false;
-    }
-    else {
+    } else {
       this._hasSouthPolar = true;
     }
 
@@ -63,6 +62,16 @@ export default L.Map.AstroMap = L.Map.extend({
     L.setOptions(this, options);
     L.Map.prototype.initialize.call(this, this.mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
+
+    this.featureLayer = new L.GeoJSON(null, {
+      onEachFeature: function(feature, layer) {
+        if (feature.properties && feature.properties.name) {
+          layer.bindPopup(feature.properties.name);
+        }
+      }
+    }).addTo(this);
+    this.load_wfs();
+    this.on("moveend", this.load_wfs);
   },
 
   /**
@@ -104,4 +113,35 @@ export default L.Map.AstroMap = L.Map.extend({
   hasSouthPolar: function() {
     return this._hasSouthPolar;
   },
+
+  load_wfs: function() {
+    var geoJsonUrl =
+      "https://astrocloud.wr.usgs.gov/dataset/data/nomenclature/" +
+      this.target.toUpperCase() +
+      "/WFS";
+    var defaultParameters = {
+      service: "WFS",
+      version: "1.1.0",
+      request: "GetFeature",
+      outputFormat: "application/json",
+      srsName: "EPSG:4326"
+    };
+
+    var customParams = {
+      bbox: this.getBounds().toBBoxString()
+    };
+    var parameters = L.Util.extend(defaultParameters, customParams);
+    console.log(geoJsonUrl + L.Util.getParamString(parameters));
+
+    var that = this;
+    $.ajax({
+      url: geoJsonUrl + L.Util.getParamString(parameters),
+      dataType: "json",
+      timeout: 30000,
+      success: function(data) {
+        // this.featureLayer.clearLayers();
+        that.featureLayer.addData(data);
+      }
+    });
+  }
 });
