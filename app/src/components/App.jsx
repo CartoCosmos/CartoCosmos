@@ -23,6 +23,7 @@ export default class App extends Component {
       numDigits: 2,
       targetPlanet: "mars"
     });
+    
     projectionControl.addTo(map);
     mouseControl.addTo(map);
   }
