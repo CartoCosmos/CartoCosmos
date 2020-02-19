@@ -16,18 +16,18 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    let map = new AstroMap("map-container", "mars", {});
+    let map = new AstroMap("map-container", "MIMAS", {});
     let projectionControl = new Projection();
+    projectionControl.addTo(map);
 
     let mouseControl = new MousePosition({
       numDigits: 2,
       targetPlanet: "mars"
     });
+    mouseControl.addTo(map);
 
-    projectionControl.addTo(map);
     let scaleControl = new L.Control.Scale({ imperial: false });
     scaleControl.addTo(map);
-    mouseControl.addTo(map);
   }
 
   render() {
