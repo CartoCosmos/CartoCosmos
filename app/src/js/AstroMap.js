@@ -22,53 +22,65 @@ export default L.Map.AstroMap = L.Map.extend({
     center: [0, 0],
     zoom: 1,
     maxZoom: 8,
-    crs: L.CRS.EPSG4326,
     attributionControl: false
   },
 
-  // @method initialize(mapDiv: String, target: String, options?: Zoom/pan options)
-  // Initializes the map by loading the LayerCollection for each supported projection
-  // and setting the default options.
+  /**
+   * @details Initializes the map by loading the LayerCollection for
+   * each supported projection and setting default options.
+   *
+   * @param {String} mapDiv - ID of the div for the map.
+   * @param {String} target - Name of target to display layers for.
+   * @param {Object} options - Options for the map.
+   */
   initialize: function(mapDiv, target, options) {
     this.mapDiv = mapDiv;
     this.target = target;
-    this.AstroProj = new AstroProj();
+    this.astroProj = new AstroProj();
+    this.radii = this.astroProj.getRadii(this.target);
     this.layers = {
-      geodesic: new LayerCollection(this.target, "cylindrical"),
+      cylindrical: new LayerCollection(this.target, "cylindrical"),
       northPolar: new LayerCollection(this.target, "north-polar stereographic"),
       southPolar: new LayerCollection(this.target, "south-polar stereographic")
     };
 
+    this.defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this.radii["a"] });
+    this.options["crs"] = this.defaultProj;
+
     L.setOptions(this, options);
     L.Map.prototype.initialize.call(this, this.mapDiv, this.options);
-    this.loadLayerCollection("geodesic");
+    this.loadLayerCollection("cylindrical");
   },
 
-  // @method loadLayerCollection(name: String)
-  // Adds the LayerCollection with the requrested projection name.
+  /**
+   * @details Adds the LayerCollection with the requrested projection name.
+   *
+   * @param {String} name - Name of the projection.
+   */
   loadLayerCollection: function(name) {
     this.layers[name].addTo(this);
   },
 
-  // @method changeProjection(name: String, center: List)
-  // Changes the projection of the map and resets the center and view.
+  /**
+   * @details Changes the projection of the map and resets the center and view.
+   * 
+   * @param {String} name - Name of Projection.
+   * @param {List} center - Center of map based off of projection.
+]   */
   changeProjection: function(name, center) {
     let newCRS = null;
-    if (name == "geodesic") {
-      newCRS = L.CRS.EPSG4326;
+    if (name == "cylindrical") {
+      newCRS = this.defaultProj;
     } else {
-      let proj = this.AstroProj.getStringAndCode(this.target, name);
+      let proj = this.astroProj.getStringAndCode(this.target, name);
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
         resolutions: [8192, 4096, 2048, 1024, 512, 256, 128],
         origin: [0, 0]
       });
     }
+
     this.options.crs = newCRS;
-    this._resetView(center, 1, true);
+    this.setView(center, 1, true);
     this.loadLayerCollection(name);
   }
 });
-
-// exports.L.map.astroMap = function(mapDiv, target, options) {
-//   return new L.map.astroMap(mapDiv, target, options);
-// };
