@@ -1,6 +1,6 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import $ from "jquery";
+
 /*
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -28,21 +28,29 @@ export default L.Map.AstroMap = L.Map.extend({
 
   /**
    * @details Initializes the map by loading the LayerCollection for
-   * each supported projection and setting default options.
+   *          each supported projection and setting default options.
    *
    * @param {String} mapDiv - ID of the div for the map.
+   *
    * @param {String} target - Name of target to display layers for.
+   *
    * @param {Object} options - Options for the map.
    */
   initialize: function(mapDiv, target, options) {
-    this.mapDiv = mapDiv;
-    this.target = target;
-    this.astroProj = new AstroProj();
-    this.radii = this.astroProj.getRadii(this.target);
+    this._mapDiv = mapDiv;
+    this._target = target;
+    this._astroProj = new AstroProj();
+    this._radii = this._astroProj.getRadii(this._target);
     this.layers = {
-      cylindrical: new LayerCollection(this.target, "cylindrical"),
-      northPolar: new LayerCollection(this.target, "north-polar stereographic"),
-      southPolar: new LayerCollection(this.target, "south-polar stereographic")
+      northPolar: new LayerCollection(
+        this._target,
+        "north-polar stereographic"
+      ),
+      southPolar: new LayerCollection(
+        this._target,
+        "south-polar stereographic"
+      ),
+      cylindrical: new LayerCollection(this._target, "cylindrical")
     };
 
     if (this.layers["northPolar"].isEmpty()) {
@@ -56,22 +64,12 @@ export default L.Map.AstroMap = L.Map.extend({
       this._hasSouthPolar = true;
     }
 
-    this.defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this.radii["a"] });
-    this.options["crs"] = this.defaultProj;
+    this._defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this._radii["a"] });
+    this.options["crs"] = this._defaultProj;
 
     L.setOptions(this, options);
-    L.Map.prototype.initialize.call(this, this.mapDiv, this.options);
+    L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
-
-    this.featureLayer = new L.GeoJSON(null, {
-      onEachFeature: function(feature, layer) {
-        if (feature.properties && feature.properties.name) {
-          layer.bindPopup(feature.properties.name);
-        }
-      }
-    }).addTo(this);
-    this.load_wfs();
-    this.on("moveend", this.load_wfs);
   },
 
   /**
@@ -87,14 +85,15 @@ export default L.Map.AstroMap = L.Map.extend({
    * @details Changes the projection of the map and resets the center and view.
    * 
    * @param {String} name - Name of Projection.
+   * 
    * @param {List} center - Center of map based off of projection.
 ]   */
   changeProjection: function(name, center) {
     let newCRS = null;
     if (name == "cylindrical") {
-      newCRS = this.defaultProj;
+      newCRS = this._defaultProj;
     } else {
-      let proj = this.astroProj.getStringAndCode(this.target, name);
+      let proj = this._astroProj.getStringAndCode(this._target, name);
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
         resolutions: [8192, 4096, 2048, 1024, 512, 256, 128],
         origin: [0, 0]
@@ -106,42 +105,29 @@ export default L.Map.AstroMap = L.Map.extend({
     this.loadLayerCollection(name);
   },
 
+  /**
+   * @details Checks if the map has a layer collection for northPolar.
+   *
+   * @return {Boolean} Returns true if there is a northPolar collection.
+   */
   hasNorthPolar: function() {
     return this._hasNorthPolar;
   },
 
+  /**
+   * @details Checks if the map has a layer collection for southPolar.
+   *
+   * @return {Boolean} Returns true if there is a southPolar collection.
+   */
   hasSouthPolar: function() {
     return this._hasSouthPolar;
   },
 
-  load_wfs: function() {
-    var geoJsonUrl =
-      "https://astrocloud.wr.usgs.gov/dataset/data/nomenclature/" +
-      this.target.toUpperCase() +
-      "/WFS";
-    var defaultParameters = {
-      service: "WFS",
-      version: "1.1.0",
-      request: "GetFeature",
-      outputFormat: "application/json",
-      srsName: "EPSG:4326"
-    };
-
-    var customParams = {
-      bbox: this.getBounds().toBBoxString()
-    };
-    var parameters = L.Util.extend(defaultParameters, customParams);
-    console.log(geoJsonUrl + L.Util.getParamString(parameters));
-
-    var that = this;
-    $.ajax({
-      url: geoJsonUrl + L.Util.getParamString(parameters),
-      dataType: "json",
-      timeout: 30000,
-      success: function(data) {
-        // this.featureLayer.clearLayers();
-        that.featureLayer.addData(data);
-      }
-    });
+  /**
+   * @details Retusn the name of the target.
+   * @return {String} Name of target.
+   */
+  target: function() {
+    return this._target;
   }
 });

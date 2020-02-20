@@ -8,10 +8,11 @@ import "leaflet";
  * Uses predefined GUI elements.
  */
 export default L.Control.Projection = L.Control.extend({
- 
   /**
-   * Grabs the button GUI elements and adds onclick events to them.
+   * @details Grabs the button GUI elements and adds onclick events to them.
+   *
    * @param  {AstroMap} map - The map to add the control to.
+   *
    * @return {Div} Container containing the projection buttons.
    */
   onAdd: function(map) {
@@ -19,18 +20,18 @@ export default L.Control.Projection = L.Control.extend({
 
     this.northPolar = L.DomUtil.get("projectionNorthPole");
     L.DomEvent.on(this.northPolar, "click", this.loadNorthPolar, this);
-    if(!map.hasNorthPolar()) {
+    if (!map.hasNorthPolar()) {
       this.northPolar.disabled = true;
       L.DomUtil.addClass(this.northPolar, "disabled");
     }
 
     this.southPolar = L.DomUtil.get("projectionSouthPole");
     L.DomEvent.on(this.southPolar, "click", this.loadSouthPolar, this);
-    if(!map.hasSouthPolar()) {
+    if (!map.hasSouthPolar()) {
       this.southPolar.disabled = true;
       L.DomUtil.addClass(this.southPolar, "disabled");
     }
-  
+
     this.cylindrical = L.DomUtil.get("projectionCylindrical");
     L.DomEvent.on(this.cylindrical, "click", this.loadCylindrical, this);
 
@@ -38,7 +39,8 @@ export default L.Control.Projection = L.Control.extend({
   },
 
   /**
-   * Sets the map's projection to north-polar stereographic.
+   * @details Sets the map's projection to north-polar stereographic.
+   *
    * @param  {Event} e - Onclick event.
    */
   loadNorthPolar: function(e) {
@@ -47,7 +49,8 @@ export default L.Control.Projection = L.Control.extend({
   },
 
   /**
-   * Sets the map's projection to south-polar stereographic.
+   * @details Sets the map's projection to south-polar stereographic.
+   *
    * @param  {Event} e - Onclick event.
    */
   loadSouthPolar: function(e) {
@@ -56,7 +59,8 @@ export default L.Control.Projection = L.Control.extend({
   },
 
   /**
-   * Sets the map's projection to cylindrical.
+   * @details Sets the map's projection to cylindrical.
+   *
    * @param  {Event} e - Onclick event.
    */
   loadCylindrical: function(e) {
