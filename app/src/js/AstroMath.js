@@ -38,6 +38,25 @@ export default class AstroMath {
         }
       } 
     }
+
+  /**
+   * Returns the Major radius for the specific target.
+   * @return {double} The Major radius value.
+   */
+  getMajorRadius()
+  {
+    return this.dMajorRadius
+  }
+
+  /**
+   * Returns the Minor radius for the specific target.
+   * @return {double} The Minor radius value.
+   */
+  getMinorRadius()
+  {
+    return this.dMinorRadius
+  }
+  
   
   /**
    * Converts degrees to radians.
