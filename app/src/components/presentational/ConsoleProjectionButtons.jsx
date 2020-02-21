@@ -51,6 +51,7 @@ export default function ConsoleProjectionButtons(props) {
       item
       direction="column"
       justify="center"
+      alignItems="center"
       xs
     >
       <Grid item>

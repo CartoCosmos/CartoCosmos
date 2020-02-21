@@ -1,5 +1,6 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
+import "leaflet-fullscreen";
 /*
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -23,7 +24,8 @@ export default L.Map.AstroMap = L.Map.extend({
     zoom: 1,
     maxZoom: 8,
     crs: L.CRS.EPSG4326,
-    attributionControl: false
+    attributionControl: false,
+    fullscreenControl: true
   },
 
   // @method initialize(mapDiv: String, target: String, options?: Zoom/pan options)

@@ -24,9 +24,7 @@ export default function ConsoleCoordinates(props) {
       xs={2}
     >
       <Grid item xs>
-        <Typography noWrap id="coordinateDisplay" variant="subtitle1">
-          (-----, -----)
-        </Typography>
+        <Typography noWrap id="coordinateDisplay" variant="subtitle1" />
       </Grid>
     </Grid>
   );
