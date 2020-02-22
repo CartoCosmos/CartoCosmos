@@ -15,6 +15,28 @@
 	<body>
 	<script src="./autoComplete.js/dist/js/autoComplete.min.js"></script>
 	<script src="./require.js"></script>
+	<script>  
+
+	var nameArray = [];      
+
+	function loadGeoJson(data) {
+    console.log(data);
+    console.log("We are here, autocomplete is empty");
+    var index = 1840;
+    while (data.features[index] != null){
+        console.log(data.features[index].name);
+        nameArray.push(data.features[index].name);
+        index++;
+         }
+	}
+		
+	$.ajax({
+		url: "https://astrocloud.wr.usgs.gov/dataset/data/nomenclature/MARS/WFS?version=1.1.0.0&service=WFS&request=GetFeature&srsname=EPSG4326&outputFormat=application/json",
+		dataType: 'json',
+		success: loadGeoJson,
+		timeout : 320000
+		});
+	</script>
 	<script src="./customIndex.js"></script>
 	<!--<script src="./customIndex.js" type="module"></script> -->
 	
