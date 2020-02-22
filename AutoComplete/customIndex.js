@@ -1,5 +1,9 @@
 //define("require");
 //require(['@tarekraafat/autocomplete.js/dist/js/autoComplete']);
+document.querySelector("#autoComplete").addEventListener("autoComplete", function(event) {
+    console.log(event.detail);
+  });
+
 new autoComplete({
     data: {                              // Data src [Array, Function, Async] | (REQUIRED)
       src: async () => {
@@ -19,11 +23,16 @@ new autoComplete({
       key: ["name"],
       cache: false
     },
-    /*query: {                               // Query Interceptor               | (Optional)
+    query: {                               
           manipulate: (query) => {
-            return query.replace("pizza", "burger");
+            return query;
           }
-    },*/
+    },
+
+    trigger: {
+        event: ["input", "focusin", "focusout"]
+      },
+
     sort: (a, b) => {                    
         if (a.match < b.match) return -1;
         if (a.match > b.match) return 1;
@@ -31,7 +40,7 @@ new autoComplete({
     },
     placeHolder: "Nomenclature",     
     selector: "#autoComplete",          
-    threshold: 3,                       
+    threshold: 2,                       
     debounce: 300,                       
     searchEngine: "strict",              
     resultsList: {                       
@@ -40,7 +49,8 @@ new autoComplete({
         },
         destination: document.querySelector("#autoComplete"),
         position: "afterend",
-        element: "ul"
+        element: "ul",
+        render: true
     },
     maxResults: 5,                         
     highlight: true,                       

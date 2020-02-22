@@ -11,7 +11,7 @@
 	<script src="./autoComplete.js/dist/js/autoComplete.js"></script>
 	<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
 	</head>
-	<input id="autoComplete" tabindex="1">   <!-- Default "id" value = "autoComplete"> -->
+	<input id="autoComplete" tabindex="1"></input>  <!-- Default "id" value = "autoComplete"> -->
 	<body>
 	<script src="./autoComplete.js/dist/js/autoComplete.min.js"></script>
 	<script src="./require.js"></script>
@@ -20,12 +20,10 @@
 	var nameArray = [];      
 
 	function loadGeoJson(data) {
-    console.log(data);
-    console.log("We are here, autocomplete is empty");
-    var index = 1840;
+    var index = 0;
     while (data.features[index] != null){
         console.log(data.features[index].name);
-        nameArray.push(data.features[index].name);
+        nameArray.push(data.features[index]);
         index++;
          }
 	}
