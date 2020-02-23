@@ -11,3 +11,7 @@
   max-width: 800px;
   max-height: 700px;
 }
+
+.disabled {
+    pointer-events: none;
+}

@@ -1,4 +1,7 @@
+import { MY_JSON_MAPS } from "./layers";
 import "./MousePosition";
+
+
 /**
  *
  * @class AstroMap
@@ -21,34 +24,46 @@ export default class AstroMath {
    * dMajorRadius and dMinorRadius that corresponds to that specific target.
    * @param  { String } targetName - the name of the specific target.
    */
-  constructor(targetName) {
-    this.targetName = targetName;
+    constructor(targetName) {
+      this.targetName = targetName;
 
-    switch (this.targetName) {
-      case "mars":
-        this.dMajorRadius = 3396190.0;
-        this.dMinorRadius = 3376200.0;
-        break;
-      case "moon":
-        this.dMajorRadius = 1737400.0;
-        this.dMinorRadius = 1737400.0;
-        break;
-      case "mercury":
-        this.dMajorRadius = 2439400.0;
-        this.dMinorRadius = 2439400.0;
-        break;
-      default:
-        this.dMajorRadius = 0;
-        this.dMinorRadius = 0;
-        console.log("target not supported");
+      let targets = MY_JSON_MAPS['targets'];
+      for(let i = 0; i < targets.length; i++) {
+        let currentTarget = targets[i];
+
+        if (currentTarget['name'].toLowerCase() == targetName ) {
+          this.dMajorRadius = parseFloat(currentTarget['aaxisradius'] * 1000);
+          this.dMinorRadius = parseFloat(currentTarget['caxisradius'] * 1000);
+          break;
+        }
+      } 
     }
+
+  /**
+   * Returns the Major radius for the specific target.
+   * @return {double} The Major radius value.
+   */
+  getMajorRadius()
+  {
+    return this.dMajorRadius
   }
+
+  /**
+   * Returns the Minor radius for the specific target.
+   * @return {double} The Minor radius value.
+   */
+  getMinorRadius()
+  {
+    return this.dMinorRadius
+  }
+  
+  
   /**
    * Converts degrees to radians.
    * @param  {double} degrees - The degree value that is going to be converted.
    * @return {double} The converted value in radians.
    */
-  toRadians(degrees) {
+  toRadians(degrees){
     return (degrees * Math.PI) / 180;
   }
   /**
@@ -56,7 +71,7 @@ export default class AstroMath {
    * @param  {double} radians - The radian value that is going to be converted.
    * @return {double} The converted value in degrees.
    */
-  toDegrees(radians) {
+  toDegrees(radians){
     return (radians * 180) / Math.PI;
   }
   /**
@@ -64,7 +79,7 @@ export default class AstroMath {
    * @param  {double} lat - The latitude value that is going to be converted
    * @return {double} The latitude converted into planetOgrpahic
    */
-  latToPlanetOgraphic(lat) {
+  latToPlanetOgraphic(lat){
     let convertedLatitude = 0;
     convertedLatitude = this.toRadians(lat);
     convertedLatitude = Math.atan(
@@ -80,7 +95,7 @@ export default class AstroMath {
    * @param  {boolean} projection - The current projection of the map
    * @return {double} The converted longitude range.
    */
-  lonTo360(lon, projection) {
+  lonTo360(lon, projection){
     let convertedLon = lon;
 
     if (projection === "EPSG:4326") {
