@@ -229,8 +229,8 @@ export default L.LayerCollection = L.Class.extend({
    */
   sortFeatures: function(data) {
     return data.sort(function(a, b) {
-      var f1 = a["properties"]["diameter"];
-      var f2 = b["properties"]["diameter"];
+      let f1 = parseFloat(a["properties"]["diameter"]);
+      let f2 = parseFloat(b["properties"]["diameter"]);
       if (f1 < f2) {
         return 1;
       } else if (f1 > f2) {
