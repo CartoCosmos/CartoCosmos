@@ -1,44 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">      
+<html lang="en">    
+	<!-- Includes the CDN for the autcomplete functionality.-->  
 	<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+	<!-- Includes JQuery -->
     <script
 			  src="https://code.jquery.com/jquery-3.4.1.js"
 			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 			  crossorigin="anonymous">
-    </script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+	</script>
+	<!-- Declares the stylesheet for the page.-->
+	<link rel="stylesheet" href="cssBeingUsed.css">
+	<!-- Gets the autcomplete.js library for use.-->
 	<script src="./autoComplete.js/dist/js/autoComplete.js"></script>
-	<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
-	</head>
+	<!--Link to demo stylesheet, keeping for now in case I need it.
+		<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+	</head>-->
+	<!-- Declares id of input field which will be used for the autcomplete.-->
 	<input id="autoComplete" tabindex="1"></input>  <!-- Default "id" value = "autoComplete"> -->
 	<body>
+	<!-- Gets the other autocomplete file library for use.-->
 	<script src="./autoComplete.js/dist/js/autoComplete.min.js"></script>
+	<!-- Gets require.js for use in autcomplete.-->
 	<script src="./require.js"></script>
 	<script>  
 
+	//Declares global variable name array.
 	var nameArray = [];      
 
+	//Pushs data onto nameArray variable.
 	function loadGeoJson(data) {
-    var index = 0;
+	//Sets index to 0.
+	var index = 0;
+	//While the feature at the current index is not null.
     while (data.features[index] != null){
-        console.log(data.features[index].name);
-        nameArray.push(data.features[index]);
+		//Log the feature name.
+		console.log(data.features[index].name);
+		//Push the json object at the current index onto nameArray.
+		nameArray.push(data.features[index]);
+		//Increment index.
         index++;
          }
 	}
-		
+	//Ajax call to WFS server with the features/data need.
 	$.ajax({
+		//URL of WFS server.
 		url: "https://astrocloud.wr.usgs.gov/dataset/data/nomenclature/MARS/WFS?version=1.1.0.0&service=WFS&request=GetFeature&srsname=EPSG4326&outputFormat=application/json",
+		//Data type of file on WFS server/above URL.
 		dataType: 'json',
+		//When the server is successfully connect to, run loadGeoJson function.
 		success: loadGeoJson,
+		//Timeout on connection to server (WILL NEED TO LOWER WHEN NEW SERVER IS AVAILABLE).
 		timeout : 320000
 		});
 	</script>
+	<!-- Declares main js file for autocomplete functionality.-->
 	<script src="./customIndex.js"></script>
-	<!--<script src="./customIndex.js" type="module"></script> -->
-	
-	
 </body>
 	
 </html>
