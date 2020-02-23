@@ -16,7 +16,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    let map = new AstroMap("map-container", "MIMAS", {});
+    let map = new AstroMap("map-container", "mars", {});
     let projectionControl = new Projection();
     projectionControl.addTo(map);
 

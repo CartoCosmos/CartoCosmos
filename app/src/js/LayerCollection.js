@@ -67,7 +67,9 @@ export default L.LayerCollection = L.Class.extend({
                 this.defaultLayerIndex = layers["base"].length - 1;
               }
             } else {
-              layers["overlays"].push(currentLayer);
+              if (currentLayer["displayname"] != "Show Feature Names") {
+                layers["overlays"].push(currentLayer);
+              }
             }
           } else {
             layers["wfs"].push(currentLayer);
@@ -124,9 +126,12 @@ export default L.LayerCollection = L.Class.extend({
         if (feature.properties && feature.properties.name) {
           layer.bindPopup(feature.properties.name);
         }
+      },
+      pointToLayer: function(feature, latlng) {
+        return new L.CircleMarker(latlng, { radius: 3, fillOpacity: 1 });
       }
     });
-    this.overlays["Show Feature Names WFS"] = this.wfsLayer;
+    this.overlays["Show Feature Names"] = this.wfsLayer;
   },
 
   /**
@@ -203,8 +208,33 @@ export default L.LayerCollection = L.Class.extend({
       dataType: "json",
       timeout: 30000,
       success: function(data) {
-        // this.featureLayer.clearLayers();
+        let sortedFeatures = thisContext.sortFeatures(data["features"]);
+        data["features"] = sortedFeatures;
+        thisContext.wfsLayer.clearLayers();
         thisContext.wfsLayer.addData(data);
+      }
+    });
+  },
+
+  /**
+   * @details Sorts the features by diameter so that smaller features are on
+   *          top of the larger features on the map. Features with smaller
+   *          diameters will be put at the end of the list.
+   *
+   * @param  {List} data - List of features.
+   *
+   * @return {Integer} Returns -1 if f1 < f2, 1 if f2 > f1, and 0 if f1==f2.
+   */
+  sortFeatures: function(data) {
+    return data.sort(function(a, b) {
+      var f1 = a["properties"]["diameter"];
+      var f2 = b["properties"]["diameter"];
+      if (f1 < f2) {
+        return 1;
+      } else if (f1 > f2) {
+        return -1;
+      } else {
+        return 0;
       }
     });
   }
