@@ -1,7 +1,8 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import { makeStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import northPolar from "../../assets/img/NorthPolar.png";
 import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
 import southPolar from "../../assets/img/SouthPolar.png";
@@ -10,7 +11,6 @@ const useStyles = makeStyles({
   img: {
     width: "100%",
     height: "100%"
-    //paddingBottom: 3
   },
   button: {
     width: 31,
@@ -31,9 +31,6 @@ const useStyles = makeStyles({
     borderRadius: "15%",
     borderStyle: "outset"
   },
-  disabled: {
-
-  },
   grid: {
     maxWidth: 40,
     width: "100%",
@@ -41,6 +38,16 @@ const useStyles = makeStyles({
   },
   focusVisible: {}
 });
+
+const StyledTooltip = withStyles(theme => ({
+  tooltip: {
+    backgroundColor: "#f5f5f9",
+    color: "rgba(0, 0, 0, 0.87)",
+    maxWidth: 250,
+    fontSize: 12,
+    border: "1px solid #dadde9"
+  }
+}))(Tooltip);
 
 export default function ConsoleProjectionButtons(props) {
   const classes = useStyles();

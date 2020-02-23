@@ -13,32 +13,14 @@ export default class MapContainer extends Component {
   handleFullScreenChange() {}
 
   componentDidMount() {
-    let map = new AstroMap("map-container", "Mars", {});
+    let map = new AstroMap("map-container", "DIONE", {});
     new Projection().addTo(map);
     new MousePosition({
       numDigits: 2,
       targetPlanet: "mars"
     }).addTo(map);
-    /* new L.Control.sidebar({
-      container: "fs-menu-container"
-    }).addTo(map); */
 
     map.on("fullscreenchange", this.handleFullScreenChange());
-
-    /* let panelContent = {
-      id: "home",
-      tab: '<i class="fa fa-home"></i>',
-      title: "Your Profile",
-      position: "bottom" //
-    };
-
-    let FullScreenMenu = L.control
-      .sidebar({
-        container: "fs-menu-container"
-      })
-      .addPanel(panelContent)
-      .addTo(map);
-      */
   }
 
   render() {
