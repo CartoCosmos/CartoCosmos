@@ -41,6 +41,7 @@ export default L.Map.AstroMap = L.Map.extend({
     this._target = target;
     this._astroProj = new AstroProj();
     this._radii = this._astroProj.getRadii(this._target);
+    // Could not work with _
     this.layers = {
       northPolar: new LayerCollection(
         this._target,

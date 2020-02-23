@@ -18,12 +18,12 @@ export default L.LayerCollection = L.Class.extend({
    * @param {String} projName Name of the projection.
    */
   initialize: function(target, projName) {
-    this.target = target;
-    this.projName = projName;
-    this.baseLayers = {};
-    this.overlays = {};
-    this.defaultLayerIndex = 0;
-    this.wfsLayer = null;
+    this._target = target;
+    this._projName = projName;
+    this._baseLayers = {};
+    this._overlays = {};
+    this._defaultLayerIndex = 0;
+    this._wfsLayer = null;
     L.LayerCollection.layerControl = null;
 
     let layers = this.parseJSON();
@@ -49,13 +49,13 @@ export default L.LayerCollection = L.Class.extend({
     for (let i = 0; i < targets.length; i++) {
       let currentTarget = targets[i];
 
-      if (currentTarget["name"].toLowerCase() == this.target.toLowerCase()) {
+      if (currentTarget["name"].toLowerCase() == this._target.toLowerCase()) {
         let jsonLayers = currentTarget["webmap"];
         for (let j = 0; j < jsonLayers.length; j++) {
           let currentLayer = jsonLayers[j];
           if (
             currentLayer["projection"].toLowerCase() !=
-            this.projName.toLowerCase()
+            this._projName.toLowerCase()
           ) {
             continue;
           }
@@ -64,7 +64,7 @@ export default L.LayerCollection = L.Class.extend({
             if (currentLayer["transparent"] == "false") {
               layers["base"].push(currentLayer);
               if (currentLayer["primary"] == "true") {
-                this.defaultLayerIndex = layers["base"].length - 1;
+                this._defaultLayerIndex = layers["base"].length - 1;
               }
             } else {
               if (currentLayer["displayname"] != "Show Feature Names") {
@@ -88,7 +88,7 @@ export default L.LayerCollection = L.Class.extend({
   createBaseLayers: function(layers) {
     for (let i = 0; i < layers.length; i++) {
       let layer = layers[i];
-      if (layer["projection"] == this.projName) {
+      if (layer["projection"] == this._projName) {
         let baseLayer = L.tileLayer.wms(
           String(layer["url"]) + "?map=" + String(layer["map"]),
           {
@@ -96,7 +96,7 @@ export default L.LayerCollection = L.Class.extend({
           }
         );
         let name = String(layer["displayname"]);
-        this.baseLayers[name] = baseLayer;
+        this._baseLayers[name] = baseLayer;
       }
     }
   },
@@ -118,10 +118,10 @@ export default L.LayerCollection = L.Class.extend({
         }
       );
       let name = String(layer["displayname"]);
-      this.overlays[name] = overlay;
+      this._overlays[name] = overlay;
     }
 
-    this.wfsLayer = new L.GeoJSON(null, {
+    this._wfsLayer = new L.GeoJSON(null, {
       onEachFeature: function(feature, layer) {
         if (feature.properties && feature.properties.name) {
           layer.bindPopup(feature.properties.name);
@@ -131,7 +131,7 @@ export default L.LayerCollection = L.Class.extend({
         return new L.CircleMarker(latlng, { radius: 3, fillOpacity: 1 });
       }
     });
-    this.overlays["Show Feature Names"] = this.wfsLayer;
+    this._overlays["Show Feature Names"] = this._wfsLayer;
   },
 
   /**
@@ -151,12 +151,12 @@ export default L.LayerCollection = L.Class.extend({
     }
 
     if (!this.isEmpty()) {
-      let defaultLayer = Object.keys(this.baseLayers)[this.defaultLayerIndex];
-      this.baseLayers[defaultLayer].addTo(map);
+      let defaultLayer = Object.keys(this._baseLayers)[this._defaultLayerIndex];
+      this._baseLayers[defaultLayer].addTo(map);
 
       L.LayerCollection.layerControl = L.control.layers(
-        this.baseLayers,
-        this.overlays
+        this._baseLayers,
+        this._overlays
       );
       L.LayerCollection.layerControl.addTo(map);
     }
@@ -172,7 +172,7 @@ export default L.LayerCollection = L.Class.extend({
    *                   false otherwise.
    */
   isEmpty: function() {
-    return Object.entries(this.baseLayers).length == 0;
+    return Object.entries(this._baseLayers).length == 0;
   },
 
   /**
@@ -208,10 +208,12 @@ export default L.LayerCollection = L.Class.extend({
       dataType: "json",
       timeout: 30000,
       success: function(data) {
+        console.log(data["features"]);
         let sortedFeatures = thisContext.sortFeatures(data["features"]);
+        console.log(sortedFeatures);
         data["features"] = sortedFeatures;
-        thisContext.wfsLayer.clearLayers();
-        thisContext.wfsLayer.addData(data);
+        thisContext._wfsLayer.clearLayers();
+        thisContext._wfsLayer.addData(data);
       }
     });
   },

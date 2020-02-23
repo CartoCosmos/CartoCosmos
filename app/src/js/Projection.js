@@ -18,22 +18,22 @@ export default L.Control.Projection = L.Control.extend({
   onAdd: function(map) {
     let container = L.DomUtil.create("div");
 
-    this.northPolar = L.DomUtil.get("projectionNorthPole");
-    L.DomEvent.on(this.northPolar, "click", this.loadNorthPolar, this);
+    this._northPolar = L.DomUtil.get("projectionNorthPole");
+    L.DomEvent.on(this._northPolar, "click", this.loadNorthPolar, this);
     if (!map.hasNorthPolar()) {
-      this.northPolar.disabled = true;
-      L.DomUtil.addClass(this.northPolar, "disabled");
+      this._northPolar.disabled = true;
+      L.DomUtil.addClass(this._northPolar, "disabled");
     }
 
-    this.southPolar = L.DomUtil.get("projectionSouthPole");
-    L.DomEvent.on(this.southPolar, "click", this.loadSouthPolar, this);
+    this._southPolar = L.DomUtil.get("projectionSouthPole");
+    L.DomEvent.on(this._southPolar, "click", this.loadSouthPolar, this);
     if (!map.hasSouthPolar()) {
-      this.southPolar.disabled = true;
-      L.DomUtil.addClass(this.southPolar, "disabled");
+      this._southPolar.disabled = true;
+      L.DomUtil.addClass(this._southPolar, "disabled");
     }
 
-    this.cylindrical = L.DomUtil.get("projectionCylindrical");
-    L.DomEvent.on(this.cylindrical, "click", this.loadCylindrical, this);
+    this._cylindrical = L.DomUtil.get("projectionCylindrical");
+    L.DomEvent.on(this._cylindrical, "click", this.loadCylindrical, this);
 
     return container;
   },
