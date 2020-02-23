@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import AstroMap from "../../js/AstroMap";
 import Projection from "../../js/Projection";
 import MousePosition from "../../js/MousePosition";
-//import "leaflet-sidebar-v2";
-//import "../assets/fontawesome/all.js";
 import "leaflet";
 
 export default class MapContainer extends Component {
