@@ -125,7 +125,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @details Retusn the name of the target.
+   * @details Returns the name of the target.
    * @return {String} Name of target.
    */
   target: function() {

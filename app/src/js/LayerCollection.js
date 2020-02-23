@@ -136,7 +136,7 @@ export default L.LayerCollection = L.Class.extend({
 
   /**
    * @details Removes the current layers, adds the base layers and overlays to the map,
-   *          and sets teh default layer.
+   *          and sets the default layer.
    *
    * @param {AstroMap} map - Map to add layers to.
    */
