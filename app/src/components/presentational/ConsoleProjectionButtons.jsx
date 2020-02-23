@@ -31,6 +31,9 @@ const useStyles = makeStyles({
     borderRadius: "15%",
     borderStyle: "outset"
   },
+  disabled: {
+
+  },
   grid: {
     maxWidth: 40,
     width: "100%",
