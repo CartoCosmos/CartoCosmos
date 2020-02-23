@@ -1,9 +1,9 @@
 .cache/
 coverage/
 dist/*
-./app/node_modules/
+app/node_modules/
 *.log
-./app/package-lock.json
+app/package-lock.json
 .dist/
 
 # OS generated files
