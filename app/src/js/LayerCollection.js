@@ -208,9 +208,7 @@ export default L.LayerCollection = L.Class.extend({
       dataType: "json",
       timeout: 30000,
       success: function(data) {
-        console.log(data["features"]);
         let sortedFeatures = thisContext.sortFeatures(data["features"]);
-        console.log(sortedFeatures);
         data["features"] = sortedFeatures;
         thisContext._wfsLayer.clearLayers();
         thisContext._wfsLayer.addData(data);
