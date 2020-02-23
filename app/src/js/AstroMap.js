@@ -1,5 +1,6 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
+
 /*
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -27,28 +28,48 @@ export default L.Map.AstroMap = L.Map.extend({
 
   /**
    * @details Initializes the map by loading the LayerCollection for
-   * each supported projection and setting default options.
+   *          each supported projection and setting default options.
    *
    * @param {String} mapDiv - ID of the div for the map.
+   *
    * @param {String} target - Name of target to display layers for.
+   *
    * @param {Object} options - Options for the map.
    */
   initialize: function(mapDiv, target, options) {
-    this.mapDiv = mapDiv;
-    this.target = target;
-    this.astroProj = new AstroProj();
-    this.radii = this.astroProj.getRadii(this.target);
+    this._mapDiv = mapDiv;
+    this._target = target;
+    this._astroProj = new AstroProj();
+    this._radii = this._astroProj.getRadii(this._target);
+    // Could not work with _
     this.layers = {
-      cylindrical: new LayerCollection(this.target, "cylindrical"),
-      northPolar: new LayerCollection(this.target, "north-polar stereographic"),
-      southPolar: new LayerCollection(this.target, "south-polar stereographic")
+      northPolar: new LayerCollection(
+        this._target,
+        "north-polar stereographic"
+      ),
+      southPolar: new LayerCollection(
+        this._target,
+        "south-polar stereographic"
+      ),
+      cylindrical: new LayerCollection(this._target, "cylindrical")
     };
 
-    this.defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this.radii["a"] });
-    this.options["crs"] = this.defaultProj;
+    if (this.layers["northPolar"].isEmpty()) {
+      this._hasNorthPolar = false;
+    } else {
+      this._hasNorthPolar = true;
+    }
+    if (this.layers["southPolar"].isEmpty()) {
+      this._hasSouthPolar = false;
+    } else {
+      this._hasSouthPolar = true;
+    }
+
+    this._defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this._radii["a"] });
+    this.options["crs"] = this._defaultProj;
 
     L.setOptions(this, options);
-    L.Map.prototype.initialize.call(this, this.mapDiv, this.options);
+    L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
   },
 
@@ -65,14 +86,15 @@ export default L.Map.AstroMap = L.Map.extend({
    * @details Changes the projection of the map and resets the center and view.
    * 
    * @param {String} name - Name of Projection.
+   * 
    * @param {List} center - Center of map based off of projection.
 ]   */
   changeProjection: function(name, center) {
     let newCRS = null;
     if (name == "cylindrical") {
-      newCRS = this.defaultProj;
+      newCRS = this._defaultProj;
     } else {
-      let proj = this.astroProj.getStringAndCode(this.target, name);
+      let proj = this._astroProj.getStringAndCode(this._target, name);
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
         resolutions: [8192, 4096, 2048, 1024, 512, 256, 128],
         origin: [0, 0]
@@ -82,5 +104,31 @@ export default L.Map.AstroMap = L.Map.extend({
     this.options.crs = newCRS;
     this.setView(center, 1, true);
     this.loadLayerCollection(name);
+  },
+
+  /**
+   * @details Checks if the map has a layer collection for northPolar.
+   *
+   * @return {Boolean} Returns true if there is a northPolar collection.
+   */
+  hasNorthPolar: function() {
+    return this._hasNorthPolar;
+  },
+
+  /**
+   * @details Checks if the map has a layer collection for southPolar.
+   *
+   * @return {Boolean} Returns true if there is a southPolar collection.
+   */
+  hasSouthPolar: function() {
+    return this._hasSouthPolar;
+  },
+
+  /**
+   * @details Returns the name of the target.
+   * @return {String} Name of target.
+   */
+  target: function() {
+    return this._target;
   }
 });

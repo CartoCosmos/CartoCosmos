@@ -1,10 +1,12 @@
 .cache/
 coverage/
+dist/
 dist/*
-/node_modules
+node_modules
+package-lock.json
 *.log
-./app/package-lock.json
-.dist/
+app/package-lock.json
+app/node_modules
 
 # OS generated files
 .DS_Store
