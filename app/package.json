@@ -71,6 +71,8 @@
     "@material-ui/lab": "^4.0.0-alpha.41",
     "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
+    "leaflet-fullscreen": "^1.0.2",
+    "leaflet-sidebar-v2": "^3.2.2",
     "proj4": "^2.6.0",
     "proj4leaflet": "^1.0.2",
     "react": "^16.12.0",

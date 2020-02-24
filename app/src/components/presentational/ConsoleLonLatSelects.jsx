@@ -51,18 +51,19 @@ const StyledTooltip = withStyles(theme => ({
 
 const StyledToggleButton = withStyles(theme => ({
   root: {
-    color: fade("#022", 0.6),
-    background: fade("#ffdb62", 0.2),
+    height: 30,
+    color: fade("#000", 0.8),
+    background: fade("#c2edce", 0.2),
     "&:hover": {
-      backgroundColor: fade("#ffdb62", 0.8)
+      backgroundColor: fade("#f1f1f1", 0.6),
     },
     "&$selected": {
       cursor: "not-allowed",
       pointerEvents: "none",
-      color: "#022",
-      backgroundColor: "#ffdb62",
+      color: "#000",
+      backgroundColor: "#c2edce",
       "&:hover": {
-        backgroundColor: "#ffdb62",
+        backgroundColor: "#c2edce",
         border: `1px solid ${fade(theme.palette.action.active, 0.12)}`
       }
     }
@@ -70,8 +71,8 @@ const StyledToggleButton = withStyles(theme => ({
   selected: {
     cursor: "not-allowed",
     pointerEvents: "none",
-    color: "#022",
-    backgroundColor: "#B0D0D3"
+    color: "black",
+    backgroundColor: "#6fb3e8"
   }
 }))(ToggleButton);
 

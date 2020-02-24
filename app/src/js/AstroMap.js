@@ -1,6 +1,6 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-
+import "leaflet-fullscreen";
 /*
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -23,7 +23,9 @@ export default L.Map.AstroMap = L.Map.extend({
     center: [0, 0],
     zoom: 1,
     maxZoom: 8,
-    attributionControl: false
+    crs: L.CRS.EPSG4326,
+    attributionControl: false,
+    fullscreenControl: true
   },
 
   /**
@@ -84,9 +86,9 @@ export default L.Map.AstroMap = L.Map.extend({
 
   /**
    * @details Changes the projection of the map and resets the center and view.
-   * 
+   *
    * @param {String} name - Name of Projection.
-   * 
+   *
    * @param {List} center - Center of map based off of projection.
 ]   */
   changeProjection: function(name, center) {

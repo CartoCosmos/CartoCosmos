@@ -2,7 +2,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import marsLogo from "../../assets/img/marsLogo.png";
 
 const useStyles = makeStyles({
   img: {
@@ -13,6 +12,11 @@ const useStyles = makeStyles({
   grid: {
     width: "100%",
     maxHeight: 45
+  },
+  title: {
+    color: "#000",
+    fontWeight: 900,
+    letterSpacing: "1.2rem"
   }
 });
 
@@ -28,7 +32,7 @@ export default function ConsoleTargetInfo(props) {
       xs
     >
       <Grid item>
-        <Typography variant="h4">{props.targetName}</Typography>
+        <Typography className={classes.title} variant="h4">{props.targetName}</Typography>
       </Grid>
     </Grid>
   );

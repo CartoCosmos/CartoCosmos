@@ -1,4 +1,6 @@
-@import url("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css");
+@import "../node_modules/leaflet/dist/leaflet.css";
+@import "../node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css";
+@import "../node_modules/leaflet-sidebar-v2/css/leaflet-sidebar.css";
 
 #map-container {
   max-width: 800px;
@@ -10,6 +12,10 @@
   max-height: 700px;
 }
 
+/*
+Controls the CSS for projection buttons when there is no available projection
+*/
 .disabled {
     pointer-events: none;
+    opacity: 40%;
 }
