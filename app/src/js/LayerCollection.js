@@ -208,9 +208,7 @@ export default L.LayerCollection = L.Class.extend({
       dataType: "json",
       timeout: 30000,
       success: function(data) {
-        console.log(data["features"]);
         let sortedFeatures = thisContext.sortFeatures(data["features"]);
-        console.log(sortedFeatures);
         data["features"] = sortedFeatures;
         thisContext._wfsLayer.clearLayers();
         thisContext._wfsLayer.addData(data);
@@ -229,8 +227,8 @@ export default L.LayerCollection = L.Class.extend({
    */
   sortFeatures: function(data) {
     return data.sort(function(a, b) {
-      var f1 = a["properties"]["diameter"];
-      var f2 = b["properties"]["diameter"];
+      let f1 = parseFloat(a["properties"]["diameter"]);
+      let f2 = parseFloat(b["properties"]["diameter"]);
       if (f1 < f2) {
         return 1;
       } else if (f1 > f2) {
