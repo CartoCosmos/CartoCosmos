@@ -55,7 +55,7 @@ const StyledToggleButton = withStyles(theme => ({
     color: fade("#000", 0.8),
     background: fade("#c2edce", 0.2),
     "&:hover": {
-      backgroundColor: fade("#f1f1f1", 0.6),
+      backgroundColor: fade("#f1f1f1", 0.6)
     },
     "&$selected": {
       cursor: "not-allowed",
