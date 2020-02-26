@@ -21,14 +21,12 @@ export default L.Control.Projection = L.Control.extend({
     this._northPolar = L.DomUtil.get("projectionNorthPole");
     L.DomEvent.on(this._northPolar, "click", this.loadNorthPolar, this);
     if (!map.hasNorthPolar()) {
-      this._northPolar.disabled = true;
       L.DomUtil.addClass(this._northPolar, "disabled");
     }
 
     this._southPolar = L.DomUtil.get("projectionSouthPole");
     L.DomEvent.on(this._southPolar, "click", this.loadSouthPolar, this);
     if (!map.hasSouthPolar()) {
-      this._southPolar.disabled = true;
       L.DomUtil.addClass(this._southPolar, "disabled");
     }
 
