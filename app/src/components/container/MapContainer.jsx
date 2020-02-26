@@ -13,11 +13,29 @@ export default class MapContainer extends Component {
   handleFullScreenChange() {}
 
   componentDidMount() {
-    let map = new AstroMap("map-container", "DIONE", {});
+    let map = new AstroMap("map-container", this.props.target, {});
     new Projection().addTo(map);
     new MousePosition({
       numDigits: 2,
-      targetPlanet: "mars"
+      targetPlanet: this.props.target
+    }).addTo(map);
+
+    map.on("fullscreenchange", this.handleFullScreenChange());
+  }
+
+  componentDidUpdate() {
+    let oldContainer = document.getElementById("map-container");
+    let parent = oldContainer.parentNode;
+    let newContainer = document.createElement("div");
+    parent.removeChild(oldContainer);
+    newContainer.setAttribute("id", "map-container");
+    parent.appendChild(newContainer);
+
+    let map = new AstroMap("map-container", this.props.target, {});
+    new Projection().addTo(map);
+    new MousePosition({
+      numDigits: 2,
+      targetPlanet: this.props.target
     }).addTo(map);
 
     map.on("fullscreenchange", this.handleFullScreenChange());
@@ -28,6 +46,6 @@ export default class MapContainer extends Component {
       <div>
         <div id="map-container" />
       </div>
-    )
+    );
   }
 }
