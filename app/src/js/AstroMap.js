@@ -56,16 +56,8 @@ export default L.Map.AstroMap = L.Map.extend({
       cylindrical: new LayerCollection(this._target, "cylindrical")
     };
 
-    if (this.layers["northPolar"].isEmpty()) {
-      this._hasNorthPolar = false;
-    } else {
-      this._hasNorthPolar = true;
-    }
-    if (this.layers["southPolar"].isEmpty()) {
-      this._hasSouthPolar = false;
-    } else {
-      this._hasSouthPolar = true;
-    }
+    this._hasNorthPolar = !this.layers["northPolar"].isEmpty();
+    this._hasSouthPolar = !this.layers["southPolar"].isEmpty();
 
     this._defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this._radii["a"] });
     this.options["crs"] = this._defaultProj;
