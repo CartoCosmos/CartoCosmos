@@ -21,7 +21,8 @@ export default L.Control.MousePosition = L.Control.extend({
     separator: ", ",
     numDigits: 5,
     prefix: "",
-    targetPlanet: ""
+    targetPlanet: "",
+    lngFirst: true
   },
 
   /**
@@ -45,7 +46,7 @@ export default L.Control.MousePosition = L.Control.extend({
 
     this.astroMath = new AstroMath(this.options.targetPlanet);
     this.coordDisplayElement = L.DomUtil.get("coordinateDisplay");
-    this.coordDisplayElement.innerHTML = "(lon, lat)";
+    this.coordDisplayElement.innerHTML = "lon, lat";
 
     this.lonDomain180 = L.DomUtil.get("consoleLon180Btn");
     L.DomEvent.on(this.lonDomain180, "click", this.changeLonDomain, this);
@@ -142,13 +143,13 @@ export default L.Control.MousePosition = L.Control.extend({
       : lat + this.options.separator + lng;
 
     const prefixAndValue = `${this.options.prefix}${value}`;
-    this.coordDisplayElement.innerHTML = "(" + prefixAndValue + ")";
+    this.coordDisplayElement.innerHTML = prefixAndValue;
   },
   onMouseOut(e) {
-    if (!this.options.lngFirst) {
-      this.coordDisplayElement.innerHTML = "(lon, lat)";
+    if (this.options.lngFirst) {
+      this.coordDisplayElement.innerHTML = "lon, lat";
     } else {
-      this.coordDisplayElement.innerHTML = "(lat, lon)";
+      this.coordDisplayElement.innerHTML = "lat, lon";
     }
   }
 });

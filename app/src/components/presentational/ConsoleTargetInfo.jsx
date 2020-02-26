@@ -32,7 +32,9 @@ export default function ConsoleTargetInfo(props) {
       xs
     >
       <Grid item>
-        <Typography className={classes.title} variant="h4">{props.targetName}</Typography>
+        <Typography className={classes.title} variant="h4">
+          {props.target.toUpperCase()}
+        </Typography>
       </Grid>
     </Grid>
   );
