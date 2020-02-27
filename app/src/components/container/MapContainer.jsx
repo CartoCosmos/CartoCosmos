@@ -17,7 +17,6 @@ export default class MapContainer extends Component {
     new Projection().addTo(map);
     new MousePosition({
       numDigits: 2,
-      targetPlanet: this.props.target
     }).addTo(map);
 
     map.on("fullscreenchange", this.handleFullScreenChange());
