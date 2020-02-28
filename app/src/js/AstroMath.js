@@ -31,7 +31,7 @@ export default class AstroMath {
       for(let i = 0; i < targets.length; i++) {
         let currentTarget = targets[i];
 
-        if (currentTarget['name'].toLowerCase() == targetName ) {
+        if (currentTarget['name'].toLowerCase() == this.targetName.toLowerCase()) {
           this.dMajorRadius = parseFloat(currentTarget['aaxisradius'] * 1000);
           this.dMinorRadius = parseFloat(currentTarget['caxisradius'] * 1000);
           break;
