@@ -21,7 +21,6 @@ export default L.Control.MousePosition = L.Control.extend({
     separator: ", ",
     numDigits: 5,
     prefix: "",
-    targetPlanet: "",
     lngFirst: true
   },
 
@@ -44,7 +43,7 @@ export default L.Control.MousePosition = L.Control.extend({
     this.isLatTypeOcentric = true;
     this.isLonDirEast = true;
 
-    this.astroMath = new AstroMath(this.options.targetPlanet);
+    this.astroMath = new AstroMath(map.target());
     this.coordDisplayElement = L.DomUtil.get("coordinateDisplay");
     this.coordDisplayElement.innerHTML = "lon, lat";
 
@@ -120,7 +119,7 @@ export default L.Control.MousePosition = L.Control.extend({
     let { lng } = e.latlng;
     let { lat } = e.latlng;
 
-    lat = L.Util.wrapNum(lat, [-180.0, 180.0]);
+    lat = L.Util.wrapNum(lat, [-90.0, 90.0]);
     lng = L.Util.wrapNum(lng, [-180.0, 180.0]);
 
     if (!this.isLatTypeOcentric) {
