@@ -5,12 +5,12 @@ import json
 import geojson
 import shapely.geometry as geo
 import shapely.wkt
+import os
 
 class planetary_maps:
     def __init__(self, targetName):
         self.target_name = targetName
-        self.json_file = 'geoServerLayers.json'
-        self.base_layers = []
+        self.layers = []
         self.planet_map = None
         self.map_layers = {
             'base': [],
@@ -25,10 +25,17 @@ class planetary_maps:
         self.wkt_button = None
         self.dmajor_radius = 0
         self.dminor_radius = 0
+
+        self.json_dict = None
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        with open(dir_path + "/geoServerLayers.json", 'r') as fp:
+            self.json_dict = json.load(fp)
+
         self.find_radius()
         self.create_layers()
         self.create_widgets()
         self.create_map()
+
         self.feature_collection = {
             'type': 'FeatureCollection',
             'features': []
@@ -36,10 +43,7 @@ class planetary_maps:
 
     def find_radius(self):
 
-        with open(self.json_file, 'r') as fp:
-            json_dict = json.load(fp)
-
-        targets = json_dict['targets']
+        targets = self.json_dict['targets']
         for i, target in enumerate(targets):
             current_target = targets[i]
             if current_target['name'].lower() == self.target_name:
@@ -94,10 +98,8 @@ class planetary_maps:
         self.wkt_button.on_click(self.handle_WKT_button)
 
     def create_layers(self):
-        with open(self.json_file, 'r') as fp:
-            json_dict = json.load(fp)
 
-        targets = json_dict['targets']
+        targets = self.json_dict['targets']
         for i, target in enumerate(targets):
             current_target = targets[i]
             if current_target['name'].lower() == self.target_name:
@@ -114,13 +116,29 @@ class planetary_maps:
         for layer in self.map_layers['base']:
             if layer['projection'] == 'cylindrical':
                 wms_layer = WMSLayer(
-                    url='https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=' + layer['map'],
+                    url=layer["url"] + "?map=" + layer["map"],
                     layers= layer['layer'],
                     name=layer['displayname'],
                     crs='EPSG4326',
-                    base=True
+                    base=True,
+                    show_loading=False,
                 )
-                self.base_layers.append(wms_layer)
+                self.layers.append(wms_layer)
+
+        for layer in self.map_layers['overlays']:
+            if layer['projection'] == 'cylindrical':
+                wms_layer = WMSLayer(
+                    url=layer["url"] + "?map=" + layer["map"],
+                    layers= layer['layer'],
+                    name=layer['displayname'],
+                    crs='EPSG4326',
+                    base=False,
+                    transparent=True,
+                    format="image/png",
+                    show_loading=False,
+                    visible=False,
+                )
+                self.layers.append(wms_layer)
 
     def handle_interaction(self, **kwargs):
         if kwargs.get('type') == 'mousemove':
@@ -160,7 +178,7 @@ class planetary_maps:
             self.lat_lon_label.value = "Lat, Lon: "+ str(round(lat, 2)) + ", " + str(round(lng, 2))
 
     def create_map(self):
-        self.planet_map = Map(layers=tuple(self.base_layers), center=(0, 0), zoom=1, crs='EPSG4326')
+        self.planet_map = Map(layers=tuple(self.layers), center=(0, 0), zoom=1, crs='EPSG4326')
     
         draw_control = DrawControl()
         draw_control.polyline =  {
@@ -241,15 +259,3 @@ class planetary_maps:
 
     def handle_WKT_button(self, *args, **kwargs):
         self.add_wkt(self.wkt_text_box.value)
-        
-
-        
-
-    
-    
-
-        
-        
-
-        
-
