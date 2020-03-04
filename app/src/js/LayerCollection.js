@@ -193,14 +193,17 @@ export default L.LayerCollection = L.Class.extend({
       version: "1.1.0",
       request: "GetFeature",
       typename: map.target().toUpperCase() + "_POLY",
-      outputFormat: "application/json; subtype=geojson"
+      outputFormat: "application/json; subtype=geojson",
+      PropertyName: "clean_feature",
+      Filter:
+        "<Filter><PropertyIsLike wildcard='*' singleChar='.' escape='!'><PropertyName>clean_feature</PropertyName><Literal>*</Literal></PropertyIsLike></Filter>"
     };
 
-    let customParams = {
-      bbox: map.getBounds().toBBoxString()
-    };
+    // let customParams = {
+    //   bbox: map.getBounds().toBBoxString()
+    // };
 
-    let parameters = L.Util.extend(defaultParameters, customParams);
+    let parameters = L.Util.extend(defaultParameters);
     console.log(geoJsonUrl + L.Util.getParamString(parameters));
 
     let thisContext = this;
@@ -211,29 +214,30 @@ export default L.LayerCollection = L.Class.extend({
 
       // MapServer is having problems returning a JSON when requesting polygon features.
       // Adds XML at the end for some reason.
-      error: function(response) {
-        let lines = response.responseText.split("\n");
+      // error: function(response) {
+      //   let lines = response.responseText.split("\n");
 
-        // Remove lines in XML format
-        let numLines = lines.length;
-        let lineCount = 0;
-        while (lineCount < numLines) {
-          if (lines[lineCount].includes("Content-type")) {
-            break;
-          }
-          lineCount++;
-        }
-        lines.splice(lineCount, numLines - 1);
-        let jsonString = lines.join("\n");
+      //   // Remove lines in XML format
+      //   let numLines = lines.length;
+      //   let lineCount = 0;
+      //   while (lineCount < numLines) {
+      //     if (lines[lineCount].includes("Content-type")) {
+      //       break;
+      //     }
+      //     lineCount++;
+      //   }
+      //   lines.splice(lineCount, numLines - 1);
+      //   let jsonString = lines.join("\n");
 
-        let data = $.parseJSON(jsonString);
-        let sortedFeatures = thisContext.sortFeatures(data["features"]);
-        data["features"] = sortedFeatures;
-        thisContext._wfsLayer.clearLayers();
-        thisContext._wfsLayer.addData(data);
-      },
+      //   let data = $.parseJSON(jsonString);
+      //   let sortedFeatures = thisContext.sortFeatures(data["features"]);
+      //   data["features"] = sortedFeatures;
+      //   thisContext._wfsLayer.clearLayers();
+      //   thisContext._wfsLayer.addData(data);
+      // },
 
       success: function(data) {
+        console.log("GOT HERE");
         let sortedFeatures = thisContext.sortFeatures(data["features"]);
         data["features"] = sortedFeatures;
         thisContext._wfsLayer.clearLayers();
