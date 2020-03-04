@@ -24,6 +24,7 @@ export default L.LayerCollection = L.Class.extend({
     this._overlays = {};
     this._defaultLayerIndex = 0;
     this._wfsLayer = null;
+    this._wfsJSON = null;
     L.LayerCollection.layerControl = null;
 
     let layers = this.parseJSON();
@@ -50,6 +51,7 @@ export default L.LayerCollection = L.Class.extend({
       let currentTarget = targets[i];
 
       if (currentTarget["name"].toLowerCase() == this._target.toLowerCase()) {
+        this._targetJSON = currentTarget["webmap"];
         let jsonLayers = currentTarget["webmap"];
         for (let j = 0; j < jsonLayers.length; j++) {
           let currentLayer = jsonLayers[j];
@@ -73,6 +75,7 @@ export default L.LayerCollection = L.Class.extend({
             }
           } else {
             layers["wfs"].push(currentLayer);
+            this._wfsJSON = currentLayer;
           }
         }
       }
@@ -123,8 +126,8 @@ export default L.LayerCollection = L.Class.extend({
 
     this._wfsLayer = new L.GeoJSON(null, {
       onEachFeature: function(feature, layer) {
-        if (feature.properties && feature.properties.name) {
-          layer.bindPopup(feature.properties.name);
+        if (feature.properties && feature.properties.clean_feature) {
+          layer.bindPopup(feature.properties.clean_feature);
         }
       },
       pointToLayer: function(feature, latlng) {
@@ -182,17 +185,15 @@ export default L.LayerCollection = L.Class.extend({
    * @param  {AstroMap} map - The AstroMap to add the GeoJSON layer to.
    */
   loadWFS: function(map) {
-    let geoJsonUrl =
-      "https://astrocloud.wr.usgs.gov/dataset/data/nomenclature/" +
-      map.target().toUpperCase() +
-      "/WFS";
+    let geoJsonUrl = "https://wms.wr.usgs.gov/cgi-bin/mapserv";
 
     let defaultParameters = {
+      map: this._wfsJSON["map"],
       service: "WFS",
       version: "1.1.0",
       request: "GetFeature",
-      outputFormat: "application/json",
-      srsName: "EPSG:4326"
+      typename: map.target().toUpperCase() + "_POLY",
+      outputFormat: "application/json; subtype=geojson"
     };
 
     let customParams = {
@@ -207,6 +208,31 @@ export default L.LayerCollection = L.Class.extend({
       url: geoJsonUrl + L.Util.getParamString(parameters),
       dataType: "json",
       timeout: 30000,
+
+      // MapServer is having problems returning a JSON when requesting polygon features.
+      // Adds XML at the end for some reason.
+      error: function(response) {
+        let lines = response.responseText.split("\n");
+
+        // Remove lines in XML format
+        let numLines = lines.length;
+        let lineCount = 0;
+        while (lineCount < numLines) {
+          if (lines[lineCount].includes("Content-type")) {
+            break;
+          }
+          lineCount++;
+        }
+        lines.splice(lineCount, numLines - 1);
+        let jsonString = lines.join("\n");
+
+        let data = $.parseJSON(jsonString);
+        let sortedFeatures = thisContext.sortFeatures(data["features"]);
+        data["features"] = sortedFeatures;
+        thisContext._wfsLayer.clearLayers();
+        thisContext._wfsLayer.addData(data);
+      },
+
       success: function(data) {
         let sortedFeatures = thisContext.sortFeatures(data["features"]);
         data["features"] = sortedFeatures;
