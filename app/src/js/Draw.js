@@ -17,7 +17,7 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
 			topClassName = 'leaflet-draw-toolbar-top',
       toolbarContainer;
 
-		for (var toolbarId in this._toolbars) {
+		for (let toolbarId in this._toolbars) {
 			if (this._toolbars.hasOwnProperty(toolbarId)) {
 				toolbarContainer = this._toolbars[toolbarId].addToolbar(map);
 
@@ -34,11 +34,12 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
 			}
     }
 
-     this.myLayer = L.geoJSON().addTo(map);
+    this.wktTextBox = L.DomUtil.get("wktTextBox");
+    this.wkt = new Wkt.Wkt();
+    this.myLayer = L.geoJSON().addTo(map);
 
     this.wktButton = L.DomUtil.get("wktButton");
     L.DomEvent.on(this.wktButton, "click", this.mapWKTString, this);
-
 
     map.on("draw:created", this.shapesToWKT, this);
 
@@ -48,36 +49,32 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
   shapesToWKT: function(e){
     this.myLayer.clearLayers();
     this.options.edit['featureGroup'].clearLayers();
-    let wktTextBox = L.DomUtil.get("wktTextBox");
-    let wkt = new Wkt.Wkt();
 
     this.options.edit['featureGroup'].addLayer(e.layer);
     let geoJson = e.layer.toGeoJSON();
     geoJson = geoJson['geometry'];
 
-    wkt.read(JSON.stringify(geoJson));
-    wktTextBox.value = wkt.write();
+    this.wkt.read(JSON.stringify(geoJson));
+    this.wktTextBox.value = this.wkt.write();
   },
 
   mapWKTString: function(e){
     this.myLayer.clearLayers();
     this.options.edit['featureGroup'].clearLayers();
 
-    let wkt = new Wkt.Wkt();
-    let wktTextBox = L.DomUtil.get("wktTextBox");
-    let wktValue = wktTextBox.value;
+    let wktValue = this.wktTextBox.value;
 
-    wktTextBox.value = "";
+    this.wktTextBox.value = "";
 
     try {
-      wkt.read(wktValue);
+      this.wkt.read(wktValue);
     }
     catch (err){
       alert("Invalid Well Known Text String");
       return;
     }
 
-    let geoJson = wkt.toJson();
+    let geoJson = this.wkt.toJson();
 
     let geojsonFeature = {
       "type": "Feature",

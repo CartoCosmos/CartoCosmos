@@ -101,7 +101,7 @@ class planetary_maps:
                 converted_latitude = Math.radians(lat)
                 converted_latitude = Math.atan(((self.dmajor_radius / self.dminor_radius)**2) * (Math.tan(converted_latitude)))
                 converted_latitude = Math.degrees(converted_latitude)
-                lat = converted_latitude;
+                lat = converted_latitude
         
                 
             if self.gui.get_longitude_direction().value == "Positive West":
