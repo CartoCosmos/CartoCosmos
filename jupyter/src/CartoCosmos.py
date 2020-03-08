@@ -6,6 +6,8 @@ import geojson
 import shapely.geometry as geo
 import shapely.wkt
 import os
+import urllib.request
+
 
 class planetary_maps:
     def __init__(self, targetName):
@@ -25,6 +27,12 @@ class planetary_maps:
         self.wkt_button = None
         self.dmajor_radius = 0
         self.dminor_radius = 0
+
+        # Variables to keep track of how many times handle_feature_click is called.
+        # There is a bug where it is called twice, the first time passing in feature
+        # and the second time passing in the coordinates. We need both of those variables
+        self.handle_feature_click_counter = 0
+        self.handle_feature_click_feature = None
 
         self.json_dict = None
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -110,6 +118,8 @@ class planetary_maps:
                         if current_layer['transparent'] == 'false':
                             self.map_layers['base'].append(current_layer)
                         else:
+                            if current_layer['displayname'] == "Show Feature Names":
+                                continue
                             self.map_layers['overlays'].append(current_layer)
 
         
@@ -179,7 +189,9 @@ class planetary_maps:
 
     def create_map(self):
         self.planet_map = Map(layers=tuple(self.layers), center=(0, 0), zoom=1, crs='EPSG4326')
-    
+        
+        self.add_wfs_features()
+
         draw_control = DrawControl()
         draw_control.polyline =  {
             "shapeOptions": {
@@ -248,8 +260,6 @@ class planetary_maps:
         except:
             self.wkt_Text_Box.value = "Invalid WKT String"
             
-        
-
     def handle_draw(self, *args, **kwargs):
         """Do something with the GeoJSON when it's drawn on the map"""
         geo_json = kwargs.get('geo_json')
@@ -259,3 +269,47 @@ class planetary_maps:
 
     def handle_WKT_button(self, *args, **kwargs):
         self.add_wkt(self.wkt_text_box.value)
+
+    def add_wfs_features(self):
+        geoJsonUrl = ("https://astrocloud.wr.usgs.gov/dataset/data/nomenclature/{}/WFS?"
+        "service=WFS&version=1.1.0&request=GetFeature&outputFormat=application%2Fjson"
+        "&srsName=EPSG%3A4326".format(self.target_name.upper()))
+
+        break_out = False
+        while not break_out:
+            try:    # Try until no 404 error is thrown by server
+                with urllib.request.urlopen(geoJsonUrl, timeout=240) as url:
+                    jsonp = json.loads(url.read())
+
+                    # Sort features by diameter
+                    jsonp['features'] = sorted(jsonp['features'], key = lambda feature: feature["properties"]["diameter"]) 
+
+                    geo_json = GeoJSON(data=jsonp, name="Show Feature Names")
+                    geo_json.point_style = {
+                        'fillOpacity': 1,
+                        'radius': 3
+                    }
+
+                    geo_json.on_click(self.handle_feature_click)
+                    self.planet_map.add_layer(geo_json)
+                    break_out = True
+
+            except:
+                continue
+
+    def handle_feature_click(self, feature=None, coordinates=None, **kwargs):
+        self.handle_feature_click_counter += 1
+        if self.handle_feature_click_counter == 1:
+            self.handle_feature_click_feature = feature
+
+        elif self.handle_feature_click_counter == 2:
+            popup = Popup(
+                location=coordinates,
+                child=widgets.HTML(self.handle_feature_click_feature['name']),
+                close_button=True,
+                auto_close=True,
+                close_on_escape_key=False
+            )
+            self.planet_map.add_layer(popup)
+            self.handle_feature_click_counter = 0
+            return
