@@ -126,7 +126,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >
@@ -158,7 +158,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >
@@ -196,7 +196,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >

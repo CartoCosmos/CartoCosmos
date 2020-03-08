@@ -15,7 +15,7 @@
 /*
 Controls the CSS for projection buttons when there is no available projection
 */
+
 .disabled {
-    pointer-events: none;
-    opacity: 40%;
+  opacity: 40%;
 }

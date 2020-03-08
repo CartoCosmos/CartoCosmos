@@ -16,7 +16,7 @@ export default class MapContainer extends Component {
     let map = new AstroMap("map-container", this.props.target, {});
     new Projection().addTo(map);
     new MousePosition({
-      numDigits: 2,
+      numDigits: 2
     }).addTo(map);
 
     map.on("fullscreenchange", this.handleFullScreenChange());
