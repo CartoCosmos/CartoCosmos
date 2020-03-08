@@ -10,6 +10,7 @@ import urllib.request
 
 
 class planetary_maps:
+
     def __init__(self, targetName):
         self.target_name = targetName
         self.layers = []
@@ -17,7 +18,7 @@ class planetary_maps:
         self.map_layers = {
             'base': [],
             'overlays': []
-            }
+        }
         self.display_change = False
         self.fullscreen = False
         self.range_control = None
@@ -54,9 +55,11 @@ class planetary_maps:
         for i, target in enumerate(targets):
             current_target = targets[i]
             if current_target['name'].lower() == self.target_name:
-                self.dmajor_radius = float(current_target['aaxisradius']) * 1000.0
-                self.dminor_radius = float(current_target['caxisradius']) * 1000.0
-                break;
+                self.dmajor_radius = float(
+                    current_target['aaxisradius']) * 1000.0
+                self.dminor_radius = float(
+                    current_target['caxisradius']) * 1000.0
+                break
 
     def create_layers(self):
 
@@ -75,12 +78,11 @@ class planetary_maps:
                                 continue
                             self.map_layers['overlays'].append(current_layer)
 
-        
         for layer in self.map_layers['base']:
             if layer['projection'] == 'cylindrical':
                 wms_layer = WMSLayer(
                     url=layer["url"] + "?map=" + layer["map"],
-                    layers= layer['layer'],
+                    layers=layer['layer'],
                     name=layer['displayname'],
                     crs='EPSG4326',
                     base=True,
@@ -92,7 +94,7 @@ class planetary_maps:
             if layer['projection'] == 'cylindrical':
                 wms_layer = WMSLayer(
                     url=layer["url"] + "?map=" + layer["map"],
-                    layers= layer['layer'],
+                    layers=layer['layer'],
                     name=layer['displayname'],
                     crs='EPSG4326',
                     base=False,
@@ -109,86 +111,91 @@ class planetary_maps:
 
             lat = coords[0]
             lng = coords[1]
-        
+
             if lng < 0:
-                if Math.floor(lng/180)%2 == 0:
+                if Math.floor(lng/180) % 2 == 0:
                     lng = 180 - (abs(lng) % 180)
                 else:
                     lng = (lng % 180) - 180
             else:
-                if Math.floor(lng/180)%2 == 0:
+                if Math.floor(lng/180) % 2 == 0:
                     lng = lng % 180
                 else:
                     lng = -180 + (abs(lng) % 180)
-        
+
             if self.gui.get_longitude_range().value == "0 to 360":
-                lng += 180;
-            
-        
+                lng += 180
+
             if self.gui.get_lat_domain().value == "Planetographic":
                 converted_latitude = Math.radians(lat)
-                converted_latitude = Math.atan(((self.dmajor_radius / self.dminor_radius)**2) * (Math.tan(converted_latitude)))
+                converted_latitude = Math.atan(
+                    ((self.dmajor_radius / self.dminor_radius)**2) * (Math.tan(converted_latitude)))
                 converted_latitude = Math.degrees(converted_latitude)
                 lat = converted_latitude
-        
-                
+
             if self.gui.get_longitude_direction().value == "Positive West":
                 if(self.gui.get_longitude_range().value == "-180 to 180"):
                     lng *= -1
                 else:
                     lng = Math.fabs(lng - 360)
-        
-            self.gui.get_lat_lon_label().value = "Lat, Lon: "+ str(round(lat, 2)) + ", " + str(round(lng, 2))
+
+            self.gui.get_lat_lon_label().value = "Lat, Lon: " + \
+                str(round(lat, 2)) + ", " + str(round(lng, 2))
 
     def create_map(self):
-        self.planet_map = Map(layers=tuple(self.layers), center=(0, 0), zoom=1, crs='EPSG4326')
+        self.planet_map = Map(layers=tuple(self.layers),
+                              center=(0, 0), zoom=1, crs='EPSG4326')
 
         draw_control = DrawControl()
-        draw_control.polyline =  {
+        draw_control.polyline = {
             "shapeOptions": {
-            "color": "#6bc2e5",
-            "weight": 8,
-            "opacity": .5
+                "color": "#6bc2e5",
+                "weight": 8,
+                "opacity": .5
             }
         }
-        
+
         draw_control.polygon = {
             "shapeOptions": {
-            "fillColor": "#6be5c3",
-            "color": "#6be5c3",
-            "fillOpacity": .5
+                "fillColor": "#6be5c3",
+                "color": "#6be5c3",
+                "fillOpacity": .5
             },
             "drawError": {
-            "color": "#dd253b",
-            "message": "Oups!"
+                "color": "#dd253b",
+                "message": "Oups!"
             },
             "allowIntersection": False
         }
-        
+
         draw_control.circle = {
             "shapeOptions": {
-            "fillColor": "#efed69",
-            "color": "#efed69",
-            "fillOpacity": .5
+                "fillColor": "#efed69",
+                "color": "#efed69",
+                "fillOpacity": .5
             }
         }
-        
+
         draw_control.rectangle = {
             "shapeOptions": {
-            "fillColor": "#fca45d",
-            "color": "#fca45d",
-            "fillOpacity": .5
+                "fillColor": "#fca45d",
+                "color": "#fca45d",
+                "fillOpacity": .5
             }
         }
 
         draw_control.on_draw(self.handle_draw)
         self.gui.get_wkt_button().on_click(self.handle_WKT_button)
 
-        self.range_control = WidgetControl(widget=self.gui.get_longitude_range(), position='topright')
-        self.lat_control = WidgetControl(widget=self.gui.get_lat_domain(), position='topright')
-        self.direction_control = WidgetControl(widget=self.gui.get_longitude_direction(), position='topright')
-        self.label_control = WidgetControl(widget=self.gui.get_lat_lon_label(), position='bottomright')
-        
+        self.range_control = WidgetControl(
+            widget=self.gui.get_longitude_range(), position='topright')
+        self.lat_control = WidgetControl(
+            widget=self.gui.get_lat_domain(), position='topright')
+        self.direction_control = WidgetControl(
+            widget=self.gui.get_longitude_direction(), position='topright')
+        self.label_control = WidgetControl(
+            widget=self.gui.get_lat_lon_label(), position='bottomright')
+
         self.planet_map.add_control(draw_control)
         self.planet_map.add_control(LayersControl(position='topright'))
         self.planet_map.on_interaction(self.handle_interaction)
@@ -208,16 +215,17 @@ class planetary_maps:
 
         # Display map first, then add features
         self.add_wfs_features()
-    
+
     def add_wkt(self, wktString):
         try:
             g1 = shapely.wkt.loads(wktString)
             g2 = geojson.Feature(geometry=g1, properties={})
-            geo_json = GeoJSON(data=g2, style = {'color': 'yellow', 'opacity':1, 'weight':1.9, 'fillOpacity':0.5})
+            geo_json = GeoJSON(data=g2, style={
+                               'color': 'yellow', 'opacity': 1, 'weight': 1.9, 'fillOpacity': 0.5})
             self.planet_map.add_layer(geo_json)
         except:
             self.gui.get_wkt_text_box().value = "Invalid WKT String"
-            
+
     def handle_draw(self, *args, **kwargs):
         """Do something with the GeoJSON when it's drawn on the map"""
         geo_json = kwargs.get('geo_json')
@@ -229,7 +237,7 @@ class planetary_maps:
         if self.fullscreen != self.planet_map.fullscreen:
             self.fullscreen = self.planet_map.fullscreen
             self.display_change = True
-            
+
         if self.display_change:
             self.display_change = False
 
@@ -249,8 +257,8 @@ class planetary_maps:
 
     def add_wfs_features(self):
         geoJsonUrl = ("https://astrocloud.wr.usgs.gov/dataset/data/nomenclature/{}/WFS?"
-        "service=WFS&version=1.1.0&request=GetFeature&outputFormat=application%2Fjson"
-        "&srsName=EPSG%3A4326".format(self.target_name.upper()))
+                      "service=WFS&version=1.1.0&request=GetFeature&outputFormat=application%2Fjson"
+                      "&srsName=EPSG%3A4326".format(self.target_name.upper()))
 
         break_out = False
         while not break_out:
@@ -259,7 +267,8 @@ class planetary_maps:
                     jsonp = json.loads(url.read())
 
                     # Sort features by diameter
-                    jsonp['features'] = sorted(jsonp['features'], key = lambda feature: feature["properties"]["diameter"]) 
+                    jsonp['features'] = sorted(
+                        jsonp['features'], key=lambda feature: feature["properties"]["diameter"])
                     geo_json = GeoJSON(data=jsonp, name="Show Feature Names")
                     geo_json.point_style = {
                         'fillOpacity': 1,
@@ -290,79 +299,78 @@ class planetary_maps:
             self.handle_feature_click_counter = 0
             return
 
-        
+
 class planetary_gui:
-        def __init__(self):
-            self.longitude_range = None
-            self.lat_domain = None
-            self.longitude_direction = None
-            self.lat_lon_label = None
-            self.draw_Label = None
-            self.wkt_text_box = None
-            self.wkt_button = None
-            self.create_widgets()
+    def __init__(self):
+        self.longitude_range = None
+        self.lat_domain = None
+        self.longitude_direction = None
+        self.lat_lon_label = None
+        self.draw_Label = None
+        self.wkt_text_box = None
+        self.wkt_button = None
+        self.create_widgets()
 
-        def create_widgets(self):
-            self.longitude_range = widgets.ToggleButtons(
-                options=['0 to 360', '-180 to 180'],
-                description='',
-                disabled=False,
-                button_style='', # 'success', 'info', 'warning', 'danger' or ''
-                tooltips=['Longitude from 0 to 360', 'Longitude from -180 to 180']
-            )
-        
-            self.lat_domain = widgets.ToggleButtons(
-                options=['Planetocentric', 'Planetographic'],
-                description='',
-                disabled=False,
-                button_style='', # 'success', 'info', 'warning', 'danger' or ''
-                tooltips=['Regular Latitude', 'Tangent Latitude']
-            )
+    def create_widgets(self):
+        self.longitude_range = widgets.ToggleButtons(
+            options=['0 to 360', '-180 to 180'],
+            description='',
+            disabled=False,
+            button_style='',  # 'success', 'info', 'warning', 'danger' or ''
+            tooltips=['Longitude from 0 to 360', 'Longitude from -180 to 180']
+        )
 
-            self.lat_lon_label = widgets.Label()
-            self.draw_label = widgets.Label()
+        self.lat_domain = widgets.ToggleButtons(
+            options=['Planetocentric', 'Planetographic'],
+            description='',
+            disabled=False,
+            button_style='',  # 'success', 'info', 'warning', 'danger' or ''
+            tooltips=['Regular Latitude', 'Tangent Latitude']
+        )
 
-            self.longitude_direction = widgets.ToggleButtons(
-                options=['Positive East', 'Positive West'],
-                description='',
-                disabled=False,
-                button_style='', # 'success', 'info', 'warning', 'danger' or ''
-                tooltips=['Longitude increasing east', 'Longitude Increasing West']
-            )
+        self.lat_lon_label = widgets.Label()
+        self.draw_label = widgets.Label()
 
-            self.wkt_text_box = widgets.Text(
-                value='',
-                placeholder='Type something',
-                description='WKT String:',
-                disabled=False,
-                layout=widgets.Layout(width='75%')
-            )
+        self.longitude_direction = widgets.ToggleButtons(
+            options=['Positive East', 'Positive West'],
+            description='',
+            disabled=False,
+            button_style='',  # 'success', 'info', 'warning', 'danger' or ''
+            tooltips=['Longitude increasing east', 'Longitude Increasing West']
+        )
 
-            self.wkt_button = widgets.Button(
-                description='Draw',
-                disabled=False,
-                button_style='', # 'success', 'info', 'warning', 'danger' or ''
-                tooltip='Draw WKT object'
-            )
+        self.wkt_text_box = widgets.Text(
+            value='',
+            placeholder='Type something',
+            description='WKT String:',
+            disabled=False,
+            layout=widgets.Layout(width='75%')
+        )
 
-        def get_wkt_button(self):
-            return self.wkt_button
+        self.wkt_button = widgets.Button(
+            description='Draw',
+            disabled=False,
+            button_style='',  # 'success', 'info', 'warning', 'danger' or ''
+            tooltip='Draw WKT object'
+        )
 
-        def get_wkt_text_box(self):
-            return self.wkt_text_box
+    def get_wkt_button(self):
+        return self.wkt_button
 
-        def get_longitude_direction(self):
-            return self.longitude_direction
+    def get_wkt_text_box(self):
+        return self.wkt_text_box
 
-        def get_draw_label(self):
-            return self.draw_label
+    def get_longitude_direction(self):
+        return self.longitude_direction
 
-        def get_lat_lon_label(self):
-            return self.lat_lon_label
+    def get_draw_label(self):
+        return self.draw_label
 
-        def get_lat_domain(self):
-            return self.lat_domain
+    def get_lat_lon_label(self):
+        return self.lat_lon_label
 
-        def get_longitude_range(self):
-            return self.longitude_range
-            
+    def get_lat_domain(self):
+        return self.lat_domain
+
+    def get_longitude_range(self):
+        return self.longitude_range
