@@ -189,8 +189,6 @@ class planetary_maps:
 
     def create_map(self):
         self.planet_map = Map(layers=tuple(self.layers), center=(0, 0), zoom=1, crs='EPSG4326')
-        
-        self.add_wfs_features()
 
         draw_control = DrawControl()
         draw_control.polyline =  {
@@ -250,6 +248,9 @@ class planetary_maps:
         display(self.planet_map)
         display(self.wkt_text_box)
         display(self.wkt_button)
+
+        # Display map first, then add features
+        self.add_wfs_features()
     
     def add_wkt(self, wktString):
         try:
