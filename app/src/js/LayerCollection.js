@@ -121,17 +121,20 @@ export default L.LayerCollection = L.Class.extend({
       this._overlays[name] = overlay;
     }
 
-    this._wfsLayer = new L.GeoJSON(null, {
-      onEachFeature: function(feature, layer) {
-        if (feature.properties && feature.properties.name) {
-          layer.bindPopup(feature.properties.name);
+    // Only add feature names to cylindrical
+    if (this._projName == "cylindrical") {
+      this._wfsLayer = new L.GeoJSON(null, {
+        onEachFeature: function(feature, layer) {
+          if (feature.properties && feature.properties.name) {
+            layer.bindPopup(feature.properties.name);
+          }
+        },
+        pointToLayer: function(feature, latlng) {
+          return new L.CircleMarker(latlng, { radius: 3, fillOpacity: 1 });
         }
-      },
-      pointToLayer: function(feature, latlng) {
-        return new L.CircleMarker(latlng, { radius: 3, fillOpacity: 1 });
-      }
-    });
-    this._overlays["Show Feature Names"] = this._wfsLayer;
+      });
+      this._overlays["Show Feature Names"] = this._wfsLayer;
+    }
   },
 
   /**
@@ -141,10 +144,9 @@ export default L.LayerCollection = L.Class.extend({
    * @param {AstroMap} map - Map to add layers to.
    */
   addTo: function(map) {
-    // Remove old layers
-    map.eachLayer(function(layer) {
-      map.removeLayer(layer);
-    });
+    if (map.currentLayer() != null) {
+      map.removeLayer(map.currentLayer());
+    }
 
     if (L.LayerCollection.layerControl) {
       L.LayerCollection.layerControl.remove();
@@ -153,6 +155,7 @@ export default L.LayerCollection = L.Class.extend({
     if (!this.isEmpty()) {
       let defaultLayer = Object.keys(this._baseLayers)[this._defaultLayerIndex];
       this._baseLayers[defaultLayer].addTo(map);
+      map.setCurrentLayer(this._baseLayers[defaultLayer]);
 
       L.LayerCollection.layerControl = L.control.layers(
         this._baseLayers,
@@ -161,9 +164,9 @@ export default L.LayerCollection = L.Class.extend({
       L.LayerCollection.layerControl.addTo(map);
     }
 
-    this.loadWFS(map);
-    // Commented out for now because WFS queries are super slow.
-    // map.on("moveend", this.loadWFS);
+    if (this._projName == "cylindrical") {
+      this.loadWFS(map);
+    }
   },
 
   /**
@@ -195,11 +198,7 @@ export default L.LayerCollection = L.Class.extend({
       srsName: "EPSG:4326"
     };
 
-    let customParams = {
-      bbox: map.getBounds().toBBoxString()
-    };
-
-    let parameters = L.Util.extend(defaultParameters, customParams);
+    let parameters = L.Util.extend(defaultParameters);
     console.log(geoJsonUrl + L.Util.getParamString(parameters));
 
     let thisContext = this;

@@ -23,7 +23,6 @@ export default L.Map.AstroMap = L.Map.extend({
     center: [0, 0],
     zoom: 1,
     maxZoom: 8,
-    crs: L.CRS.EPSG4326,
     attributionControl: false,
     fullscreenControl: true
   },
@@ -43,6 +42,9 @@ export default L.Map.AstroMap = L.Map.extend({
     this._target = target;
     this._astroProj = new AstroProj();
     this._radii = this._astroProj.getRadii(this._target);
+
+    this._currentLayer = null;
+
     // Could not work with _
     this.layers = {
       northPolar: new LayerCollection(
@@ -61,10 +63,17 @@ export default L.Map.AstroMap = L.Map.extend({
 
     this._defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this._radii["a"] });
     this.options["crs"] = this._defaultProj;
+    this._currentProj = "EPSG:4326";
 
     L.setOptions(this, options);
     L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
+
+    // Listen to baselayerchange event so that we can set the current layer being
+    // viewed by the map.
+    this.on("baselayerchange", function(e) {
+      this.setCurrentLayer(e["layer"]);
+    });
   },
 
   /**
@@ -93,11 +102,14 @@ export default L.Map.AstroMap = L.Map.extend({
         resolutions: [8192, 4096, 2048, 1024, 512, 256, 128],
         origin: [0, 0]
       });
+      this._currentProj = proj["code"];
     }
 
     this.options.crs = newCRS;
     this.setView(center, 1, true);
     this.loadLayerCollection(name);
+
+    // this.fire("projChange", { proj: this._currentProj });
   },
 
   /**
@@ -120,9 +132,38 @@ export default L.Map.AstroMap = L.Map.extend({
 
   /**
    * @details Returns the name of the target.
+   *
    * @return {String} Name of target.
    */
   target: function() {
     return this._target;
+  },
+
+  /**
+   * @details Returns the name of the current projection of the map.
+   *
+   * @return {String} Proj-code of the projection.
+   */
+  projection: function() {
+    return this._currentProj;
+  },
+
+  /**
+   * @details Sets the value of the current layer of the map.
+   *          Set by the LayerCollection in the onAdd method.
+   */
+  setCurrentLayer: function(layer) {
+    this._currentLayer = layer;
+  },
+
+  /**
+   * @details Returns the current layer of the map. Used by the LayerCollection
+   *          so that it can remove the layer of the map without having to
+   *          remove all layers, including drawn shapes.
+   *
+   * @return {L.Layer} Current layer of the map.
+   */
+  currentLayer: function() {
+    return this._currentLayer;
   }
 });
