@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import AstroMap from "../../js/AstroMap";
 import Projection from "../../js/Projection";
 import MousePosition from "../../js/MousePosition";
+import Draw from "../../js/Draw";
 import "leaflet";
+
 
 export default class MapContainer extends Component {
   constructor(props) {
@@ -19,6 +21,22 @@ export default class MapContainer extends Component {
       numDigits: 2
     }).addTo(map);
 
+    let drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+    
+    let drawControl = new Draw({
+      draw: {
+        circle: false,
+        marker: false,
+        circlemarker: false
+    },
+      edit: {
+        featureGroup: drawnItems
+      },
+      targetMap: map
+    }).addTo(map);
+
+    new L.Control.Scale({ imperial: false }).addTo(map);
     map.on("fullscreenchange", this.handleFullScreenChange());
   }
 
@@ -45,6 +63,22 @@ export default class MapContainer extends Component {
       numDigits: 2,
       targetPlanet: this.props.target
     }).addTo(map);
+
+    let drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+    
+    let drawControl = new Draw({
+      draw: {
+        circle: false,
+        marker: false,
+        circlemarker: false
+    },
+      edit: {
+        featureGroup: drawnItems
+      },
+      targetMap: map
+    }).addTo(map);
+
     new L.Control.Scale({ imperial: false }).addTo(map);
     map.on("fullscreenchange", this.handleFullScreenChange());
   }
