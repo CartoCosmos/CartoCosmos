@@ -3,7 +3,29 @@ import "leaflet-draw";
 import Wkt from "wicket";
 import { func } from "prop-types";
 
-
+/**
+ * @class AstroDraw
+ * @aka L.Control.AstroDraw
+ * @extends L.Control
+ * Class that extends from the class L.Control.Draw and handles the back-end when a user draws on the leaflet map.
+ * Since this class inherits L.Control, it is added to the AstroMap in the same way as other controls, like the zoom control.
+ *
+ * * @example
+ *
+ * ```js
+ * // add a feature group to the map
+ * let drawnItems = new L.FeatureGroup();
+ * map.addLayer(drawnItems);
+ * 
+ * // add draw control to map
+ * let drawControl = new Draw({
+ * edit: {
+ *    featureGroup: drawnItems
+ * },
+ *    targetMap: map
+ * }).addTo(map);
+ * ```
+ */
 export default L.Control.AstroDraw = L.Control.Draw.extend({
 	options: {
 		position: 'topleft',
@@ -11,6 +33,12 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
     edit: false
   },
 
+  /**
+   * Adds the draw control to the map provided. Creates an on-draw and on-click event
+   * that allows users to draw polygons onto the leaflet map. 
+   * @param  {AstroMap} map - The AstroMap to add the control to.
+   * @return {Object} The div-container the control is in.
+   */
   onAdd: function (map) {
     let container = L.DomUtil.create('div', 'leaflet-draw'),
 			addedTopClass = false,
@@ -46,6 +74,13 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
     return container;
   },
 
+
+  /**
+   * Is called when a user draws a shape using the on map drawing features.
+   * Converts the shaped drawn into a Well-Known text string and inserts it into the
+   * Well-Known text box.  
+   * @param  {DomEvent} e  - On draw.
+   */
   shapesToWKT: function(e){
     this.myLayer.clearLayers();
     this.options.edit['featureGroup'].clearLayers();
@@ -58,6 +93,12 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
     this.wktTextBox.value = this.wkt.write();
   },
 
+  /**
+   * Is called when a user clicks the draw button below the AstroMap.
+   * Will take the Well-Known text string and draw the shape onto the map.
+   * If the Well-Known text string is invalid an error will show in the text box. 
+   * @param  {DomEvent} e  - On Click of Well-Known text button.
+   */
   mapWKTString: function(e){
     this.myLayer.clearLayers();
     this.options.edit['featureGroup'].clearLayers();
