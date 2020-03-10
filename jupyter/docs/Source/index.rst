@@ -27,4 +27,4 @@ CartoCosmos: Interactive planetary maps in the Jupyter notebook
     :caption: API
     :maxdepth: 2
 
-    modules
+    CartoCosmos
