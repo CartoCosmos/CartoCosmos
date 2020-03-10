@@ -1,0 +1,7 @@
+ipykernel 
+nbsphinx
+jupyter-sphinx>=0.2.3,<0.3
+ipyleaflet>=0.12.3
+ipywidgets>=7.5.1
+geojson>=2.5.0
+Shapely>=1.7.0
