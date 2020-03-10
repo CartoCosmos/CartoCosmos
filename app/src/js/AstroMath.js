@@ -2,24 +2,13 @@ import { MY_JSON_MAPS } from "./layers";
 import "./MousePosition";
 
 /**
- * @fileOverview A helper class that can be used by any mapping application, not just Leaflet, to calculate different
- *               longitude and latitude domains and ranges for a specific target.
- *               It uses a JSON file in the background to store the targets and their associated radii.
- */
-
-/**
  * @class AstroMath
- * @description A helper class that can be used by any mapping application, not just Leaflet, to calculate different
+ * @classdesc A helper class that can be used by any mapping application, not just Leaflet, to calculate different
  *              longitude and latitude domains and ranges for a specific target.
  *              It uses a JSON file in the background to store the targets and their associated radii.
+ * @param  {String} targetName - the name of the specific target.
  */
 export default class AstroMath {
-  /**
-   * @constructor AstroMath
-   * @description Creates an instance of of AstroMath by taking in a target name and finds the
-   * dMajorRadius and dMinorRadius that corresponds to that specific target.
-   * @param  { String } targetName - the name of the specific target.
-   */
   constructor(targetName) {
     this.targetName = targetName;
 
@@ -38,8 +27,9 @@ export default class AstroMath {
   }
 
   /**
-   * @memberOf AstroMath#
+   * @function AstroMath.prototype.getMajorRadius
    * @description Returns the Major radius for the specific target.
+   *
    * @return {double} The Major radius value.
    */
   getMajorRadius() {
@@ -47,8 +37,9 @@ export default class AstroMath {
   }
 
   /**
-   * @memberOf AstroMath#
+   * @function AstroMath.prototype.getMinorRadius
    * @description Returns the Minor radius for the specific target.
+   *
    * @return {double} The Minor radius value.
    */
   getMinorRadius() {
@@ -56,27 +47,34 @@ export default class AstroMath {
   }
 
   /**
-   * @memberOf AstroMath#
+   * @function AstroMath.prototype.toRadians
    * @description Converts degrees to radians.
+   *
    * @param  {double} degrees - The degree value that is going to be converted.
+   *
    * @return {double} The converted value in radians.
    */
   toRadians(degrees) {
     return (degrees * Math.PI) / 180;
   }
   /**
-   * @memberOf AstroMath#
+   * @function AstroMath.prototype.toDegrees
    * @description Converts radians to degrees
+   *
    * @param  {double} radians - The radian value that is going to be converted.
+   *
    * @return {double} The converted value in degrees.
    */
   toDegrees(radians) {
     return (radians * 180) / Math.PI;
   }
   /**
-   * @memberOf AstroMath#
-   * @description Converts from planetOcentric latitude to planetOgrpahic Latitude based on a target's radii.
+   * @function AstroMath.prototype.latToPlanetOgraphic
+   * @description Converts from planetOcentric latitude to planetOgrpahic Latitude
+   *              based on a target's radii.
+   *
    * @param  {double} lat - The latitude value that is going to be converted
+   *
    * @return {double} The latitude converted into planetOgrpahic
    */
   latToPlanetOgraphic(lat) {
@@ -90,10 +88,13 @@ export default class AstroMath {
     return convertedLatitude;
   }
   /**
-   * @memberOf AstroMath#
+   * @function AstroMath.prototype.lonTo360
    * @description Converts from -180 to 180 longitude range to 0 to 360 longtitude range.
+   *
    * @param  {double} lng - The longitude value that is going to be converted
+   *
    * @param  {boolean} projection - The current projection of the map
+   *
    * @return {double} The converted longitude range.
    */
   lonTo360(lon, projection) {
@@ -110,10 +111,13 @@ export default class AstroMath {
   }
 
   /**
-   * @memberOf AstroMath#
+   * @function AstroMath.prototype.domainToPositiveWest
    * @description Converts the longitude domain from positive east to positive west.
+   *
    * @param  {double} lng - The longitude value that is going to be converted.
+   *
    * @param  {boolean} normalRange - True if the current range is -180 to 180, false otherwise.
+   *
    * @return {double} The longitude value converted to postive west.
    */
   domainToPositiveWest(lng, normalRange) {
@@ -127,9 +131,11 @@ export default class AstroMath {
     return convertedLng;
   }
   /**
-   * @memberOf AstroMath#
+   * @function AstroMath.prototype.wrapLongitude
    * @description Wraps the longitude of the map.
+   *
    * @param  {double} lng - The longitude that needs to be wrapped.
+   *
    * @return {double} The longitude value thats wrapped.
    */
   wrapLongitude(lng) {

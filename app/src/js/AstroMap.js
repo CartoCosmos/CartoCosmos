@@ -1,12 +1,25 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
 import "leaflet-fullscreen";
-
 /**
- * @fileOverview The central class that creates an interactive map in the HTML.
- *               Works with all target bodies supported by the USGS by loading the body's
- *               base layers and overlays in a LayerCollection. Allows users to change
- *               the projection of the map.
+ * @class AstroMap
+ * @aka L.Map.AstroMap
+ * @extends L.Map
+ *
+ * @classdesc The central class that creates an interactive map in the HTML.
+ * Works with all target bodies supported by the USGS by loading the body's
+ * base layers and overlays in a LayerCollection. Allows users to change
+ * the projection of the map.
+ *
+ * @example
+ * // initialize the map on the "map" div with the target Mars
+ * L.Map.AstroMap("map", "Mars", {});
+ *
+ * @param {String} mapDiv - ID of the div for the map.
+ *
+ * @param {String} target - Name of target to display layers for.
+ *
+ * @param {Object} options - Options for the map.
  */
 export default L.Map.AstroMap = L.Map.extend({
   options: {
@@ -17,18 +30,6 @@ export default L.Map.AstroMap = L.Map.extend({
     fullscreenControl: true
   },
 
-  /**
-   * @constructor AstroMap
-   *
-   * @description Initializes the map by loading the LayerCollection for
-   *          each supported projection and setting default options.
-   *
-   * @param {String} mapDiv - ID of the div for the map.
-   *
-   * @param {String} target - Name of target to display layers for.
-   *
-   * @param {Object} options - Options for the map.
-   */
   initialize: function(mapDiv, target, options) {
     this._mapDiv = mapDiv;
     this._target = target;
@@ -69,8 +70,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @method loadLayerCollection
-   * @memberOf AstroMap#
+   * @function AstroMap.prototype.loadLayerCollection
    * @description Adds the LayerCollection with the requrested projection name.
    *
    * @param {String} name - Name of the projection.
@@ -80,8 +80,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @method changeProjection
-   * @memberOf AstroMap#
+   * @function AstroMap.prototype.changeProjection
    * @description Changes the projection of the map and resets the center and view.
    *
    * @param {String} name - Name of Projection.
@@ -109,8 +108,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @method hasNorthPolar
-   * @memberOf AstroMap#
+   * @function AstroMap.prototype.hasNorthPolar
    * @description Checks if the map has a layer collection for northPolar.
    *
    * @return {Boolean} Returns true if there is a northPolar collection.
@@ -120,8 +118,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @method hasSouthPolar
-   * @memberOf AstroMap#
+   * @function AstroMap.prototype.hasSouthPolar
    * @description Checks if the map has a layer collection for southPolar.
    *
    * @return {Boolean} Returns true if there is a southPolar collection.
@@ -131,8 +128,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @method target
-   * @memberOf AstroMap#
+   * @function AstroMap.prototype.target
    * @description Returns the name of the target.
    *
    * @return {String} Name of target.
@@ -142,8 +138,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @method projection
-   * @memberOf AstroMap#
+   * @function AstroMap.prototype.projection
    * @description Returns the name of the current projection of the map.
    *
    * @return {String} Proj-code of the projection.
@@ -153,8 +148,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @method setCurrentLayer
-   * @memberOf AstroMap#
+   * @function AstroMap.prototype.setCurrentLayer
    * @description Sets the value of the current layer of the map.
    *          Set by the LayerCollection in the onAdd method.
    */
@@ -163,8 +157,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @method currentLayer
-   * @memberOf AstroMap#
+   * @function AstroMap.prototype.currentLayer
    * @description Returns the current layer of the map. Used by the LayerCollection
    *          so that it can remove the layer of the map without having to
    *          remove all layers, including drawn shapes.
