@@ -8,9 +8,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import ConsoleContainer from "./ConsoleContainer.jsx";
 import MapContainer from "./MapContainer.jsx";
-import "proj4leaflet";
-import "proj4";
-import { ListSubheader } from "@material-ui/core";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import WellKnownTextInput from "../presentational/WellKnownTextInput.jsx";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -72,6 +71,7 @@ export default function App() {
       <Paper elevation={10}>
         <ConsoleContainer target={targetPlanet} />
         <MapContainer target={targetPlanet} />
+        <WellKnownTextInput />
       </Paper>
     </div>
   );

@@ -154,11 +154,11 @@ export default L.LayerCollection = L.Class.extend({
       let defaultLayer = Object.keys(this._baseLayers)[this._defaultLayerIndex];
       this._baseLayers[defaultLayer].addTo(map);
 
-      /* L.LayerCollection.layerControl = L.control.layers(
+      L.LayerCollection.layerControl = L.control.layers(
         this._baseLayers,
         this._overlays
       );
-      L.LayerCollection.layerControl.addTo(map); */
+      L.LayerCollection.layerControl.addTo(map);
     }
 
     this.loadWFS(map);

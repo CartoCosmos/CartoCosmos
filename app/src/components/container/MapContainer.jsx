@@ -5,7 +5,6 @@ import MousePosition from "../../js/MousePosition";
 import Draw from "../../js/Draw";
 import "leaflet";
 
-
 export default class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -23,13 +22,13 @@ export default class MapContainer extends Component {
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
-    
+
     let drawControl = new Draw({
       draw: {
         circle: false,
         marker: false,
         circlemarker: false
-    },
+      },
       edit: {
         featureGroup: drawnItems
       },
@@ -66,13 +65,13 @@ export default class MapContainer extends Component {
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
-    
-    let drawControl = new Draw({
+
+    new Draw({
       draw: {
         circle: false,
         marker: false,
         circlemarker: false
-    },
+      },
       edit: {
         featureGroup: drawnItems
       },
