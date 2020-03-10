@@ -1,14 +1,19 @@
 import { MY_JSON_MAPS } from "./layers";
 
-/*
- * @class AstroProj
- *
- * Helper class that stores projections for each target supported
+/**
+ * @fileOverview Helper class that stores projections for each target supported
  * by the USGS.
+ */
+
+/**
+ * @class AstroProj
+ * @description Helper class that stores projections for each target supported
+ *              by the USGS.
  */
 export default class AstroProj {
   /**
-   * @details Finds the a and c radii of a given target.
+   * @memberOf AstroProj#
+   * @description Finds the a and c radii of a given target.
    *
    * @param {String} target - Name of the target.
    *
@@ -30,7 +35,8 @@ export default class AstroProj {
   }
 
   /**
-   * @details Returns the proj-string for a requested target and projection name.
+   * @memberOf AstroProj#
+   * @description Returns the proj-string for a requested target and projection name.
    *
    * @param {String} target - Name of the target.
    *
