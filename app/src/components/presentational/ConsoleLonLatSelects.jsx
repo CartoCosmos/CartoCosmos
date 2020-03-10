@@ -10,6 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles(theme => ({
   grid: {
     width: "100%",
@@ -39,6 +42,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/**
+ * Custom Component that uses Tooltip with modified css styling
+ */
 const StyledTooltip = withStyles(theme => ({
   tooltip: {
     backgroundColor: "#f5f5f9",
@@ -49,6 +55,9 @@ const StyledTooltip = withStyles(theme => ({
   }
 }))(Tooltip);
 
+/**
+ * Custom Component that uses ToggleButton with modified css styling
+ */
 const StyledToggleButton = withStyles(theme => ({
   root: {
     height: 30,
@@ -76,7 +85,13 @@ const StyledToggleButton = withStyles(theme => ({
   }
 }))(ToggleButton);
 
-export default function ConsoleLonLatSelects(props) {
+/**
+ * Main component which controls and displays the console's longitude and latitude
+ * selectors and handles user click events.
+ *
+ * @component
+ */
+export default function ConsoleLonLatSelects() {
   const [posEastWest, setPosEastWest] = React.useState("PositiveEast");
   const [coordSystem, setCoordSystem] = React.useState("Planetocentric");
   const [lonRange, setLonRange] = React.useState(180);

@@ -3,6 +3,9 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles({
   img: {
     width: 36,
@@ -20,6 +23,17 @@ const useStyles = makeStyles({
   }
 });
 
+/**
+ * Component that displays target body name in console.
+ * Retrieves target name from target selector
+ *
+ * @component
+ * @example
+ * const target = Mars
+ * return (
+ *   <ConsoleTargetInfo target={target}/>
+ * )
+ */
 export default function ConsoleTargetInfo(props) {
   const classes = useStyles();
   return (

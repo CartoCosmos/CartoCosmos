@@ -9,6 +9,9 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import ConsoleCoordinates from "./ConsoleCoordinates.jsx";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles(theme => ({
   root: {
     height: 100,
@@ -16,8 +19,6 @@ const useStyles = makeStyles(theme => ({
   },
   appbar: {
     background: "#f6f6f4"
-    //background: "-webkit-linear-gradient(to right, #f6f6f2, #badfe7)",
-    //background: "linear-gradient(to right, #f6f6f2, #badfe7)"
   },
   toolbar: {
     height: 100,
@@ -31,6 +32,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/**
+ * Main component of the console, which arranges all subcomponents into a grid
+ * and passes in target information via props.
+ *
+ * @component
+ */
 export default function ConsoleAppBar(props) {
   const classes = useStyles();
 

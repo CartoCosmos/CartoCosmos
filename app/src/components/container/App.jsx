@@ -11,17 +11,32 @@ import MapContainer from "./MapContainer.jsx";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import WellKnownTextInput from "../presentational/WellKnownTextInput.jsx";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: 125
   }
 }));
 
+/**
+ * App is the parent component for all of the other components in the project. It
+ * imports and creates all of the map and console components and contains the
+ * target selector.
+ *
+ * @component
+ */
 export default function App() {
   const classes = useStyles();
   const [targetPlanet, setTargetPlanet] = React.useState("Mercury");
 
+  /**
+   * Handles target selection
+   *
+   * @param {*} event selection event
+   */
   const handleChange = event => {
     setTargetPlanet(event.target.value);
   };

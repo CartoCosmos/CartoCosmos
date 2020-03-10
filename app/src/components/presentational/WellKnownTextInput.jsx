@@ -2,9 +2,11 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
-import { makeStyles, withStyles, fade } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles(theme => ({
   root: {
     textAlign: "center",
@@ -40,6 +42,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/**
+ * Component that accepts user input of Well-Known Text
+ *
+ * @component
+ * @example
+ * <WellKnownTextInput />
+ *
+ */
 export default function WellKnownTextInput() {
   const classes = useStyles();
 

@@ -9,6 +9,9 @@ import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
 import southPolar from "../../assets/img/SouthPolar.png";
 import Zoom from "@material-ui/core/Zoom";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles({
   img: {
     width: "100%",
@@ -47,6 +50,9 @@ const useStyles = makeStyles({
   focusVisible: {}
 });
 
+/**
+ * Custom Component that uses Tooltip with modified css styling
+ */
 const StyledTooltip = withStyles(theme => ({
   tooltip: {
     backgroundColor: "#f5f5f9",
@@ -57,7 +63,14 @@ const StyledTooltip = withStyles(theme => ({
   }
 }))(Tooltip);
 
-function NorthDisabled(props) {
+/**
+ * Component used only in this file, passed in to the Tooltip to
+ * determine which tooltip to use if north polar projection is disabled
+ *
+ * @component
+ *
+ */
+function NorthDisabled() {
   let north = document.getElementById("projectionNorthPole");
   if (north != null && north.classList.contains("disabled")) {
     return (
@@ -74,7 +87,14 @@ function NorthDisabled(props) {
   }
 }
 
-function SouthDisabled(props) {
+/**
+ * Component used only in this file, passed in to the Tooltip to
+ * determine which tooltip to use if south polar projection is disabled
+ *
+ * @component
+ *
+ */
+function SouthDisabled() {
   let south = document.getElementById("projectionSouthPole");
   if (south != null && south.classList.contains("disabled")) {
     return (
@@ -91,7 +111,13 @@ function SouthDisabled(props) {
   }
 }
 
-export default function ConsoleProjectionButtons(props) {
+/**
+ * Main component that displays the console's projection buttons and handles
+ * user click events.
+ *
+ * @component
+ */
+export default function ConsoleProjectionButtons() {
   const classes = useStyles();
 
   const [active, setActive] = React.useState("cylindrical");
