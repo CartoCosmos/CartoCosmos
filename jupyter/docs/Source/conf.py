@@ -15,12 +15,10 @@ import sys
 sys.path.insert(0, os.path.abspath('../'))
 
 
-#extensions = [
-#             'jupyter_sphinx',
-#             'sphinx.ext.autodoc',
-#             ]
-
-extensions = ['sphinx.ext.autodoc',]
+extensions = [
+             'jupyter_sphinx',
+             'sphinx.ext.autodoc',
+             ]
 
 templates_path = ['_templates']
 
