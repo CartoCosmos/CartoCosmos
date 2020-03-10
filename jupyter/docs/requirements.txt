@@ -1,4 +1,3 @@
-ipykernel 
 nbsphinx
 jupyter-sphinx>=0.2.3,<0.3
 ipyleaflet>=0.12.3
