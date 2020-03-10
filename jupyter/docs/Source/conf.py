@@ -21,7 +21,7 @@ sys.path.append('/Users/jkaufy/Desktop/Pydocs/sphinx/scripts')
 #             'sphinx.ext.autodoc',
 #             ]
 
-extensions = []
+extensions = ['sphinx.ext.autodoc']
 
 templates_path = ['_templates']
 
