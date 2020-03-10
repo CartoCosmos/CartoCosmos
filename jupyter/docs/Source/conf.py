@@ -16,12 +16,12 @@ sys.path.append('/Users/jkaufy/Desktop/Pydocs/sphinx/scripts')
 
 # sys.path.insert(0, os.path.abspath('.'))
 
+#extensions = [
+#             'jupyter_sphinx',
+#             'sphinx.ext.autodoc',
+#             ]
 
-
-extensions = [
-              'jupyter_sphinx',
-              'sphinx.ext.autodoc',
-              ]
+extensions = []
 
 templates_path = ['_templates']
 
