@@ -16,7 +16,7 @@ import { func } from "prop-types";
  * // add a feature group to the map
  * let drawnItems = new L.FeatureGroup();
  * map.addLayer(drawnItems);
- * 
+ *
  * // add draw control to map
  * let drawControl = new Draw({
  * edit: {
@@ -27,67 +27,69 @@ import { func } from "prop-types";
  * ```
  */
 export default L.Control.AstroDraw = L.Control.Draw.extend({
-	options: {
-		position: 'topleft',
-		draw: {},
+  options: {
+    position: "topleft",
+    draw: {},
     edit: false
   },
 
   /**
    * Adds the draw control to the map provided. Creates an on-draw and on-click event
-   * that allows users to draw polygons onto the leaflet map. 
+   * that allows users to draw polygons onto the leaflet map.
    * @param  {AstroMap} map - The AstroMap to add the control to.
    * @return {Object} The div-container the control is in.
    */
-  onAdd: function (map) {
-    let container = L.DomUtil.create('div', 'leaflet-draw'),
-			addedTopClass = false,
-			topClassName = 'leaflet-draw-toolbar-top',
+  onAdd: function(map) {
+    this._map = map;
+    let container = L.DomUtil.create("div", "leaflet-draw"),
+      addedTopClass = false,
+      topClassName = "leaflet-draw-toolbar-top",
       toolbarContainer;
 
-		for (let toolbarId in this._toolbars) {
-			if (this._toolbars.hasOwnProperty(toolbarId)) {
-				toolbarContainer = this._toolbars[toolbarId].addToolbar(map);
+    for (let toolbarId in this._toolbars) {
+      if (this._toolbars.hasOwnProperty(toolbarId)) {
+        toolbarContainer = this._toolbars[toolbarId].addToolbar(map);
 
-				if (toolbarContainer) {
-					if (!addedTopClass) {
-						if (!L.DomUtil.hasClass(toolbarContainer, topClassName)) {
-							L.DomUtil.addClass(toolbarContainer.childNodes[0], topClassName);
-						}
-						addedTopClass = true;
-					}
+        if (toolbarContainer) {
+          if (!addedTopClass) {
+            if (!L.DomUtil.hasClass(toolbarContainer, topClassName)) {
+              L.DomUtil.addClass(toolbarContainer.childNodes[0], topClassName);
+            }
+            addedTopClass = true;
+          }
 
-					container.appendChild(toolbarContainer);
-				}
-			}
+          container.appendChild(toolbarContainer);
+        }
+      }
     }
 
     this.wktTextBox = L.DomUtil.get("wktTextBox");
     this.wkt = new Wkt.Wkt();
-    this.myLayer = L.geoJSON().addTo(map);
+    this.myLayer = L.Proj.geoJson().addTo(map);
 
     this.wktButton = L.DomUtil.get("wktButton");
     L.DomEvent.on(this.wktButton, "click", this.mapWKTString, this);
 
     map.on("draw:created", this.shapesToWKT, this);
 
+    // map.on("projChange", this.reprojectFeature, this);
+
     return container;
   },
-
 
   /**
    * Is called when a user draws a shape using the on map drawing features.
    * Converts the shaped drawn into a Well-Known text string and inserts it into the
-   * Well-Known text box.  
+   * Well-Known text box.
    * @param  {DomEvent} e  - On draw.
    */
-  shapesToWKT: function(e){
+  shapesToWKT: function(e) {
     this.myLayer.clearLayers();
-    this.options.edit['featureGroup'].clearLayers();
+    this.options.edit["featureGroup"].clearLayers();
 
-    this.options.edit['featureGroup'].addLayer(e.layer);
+    this.options.edit["featureGroup"].addLayer(e.layer);
     let geoJson = e.layer.toGeoJSON();
-    geoJson = geoJson['geometry'];
+    geoJson = geoJson["geometry"];
 
     this.wkt.read(JSON.stringify(geoJson));
     this.wktTextBox.value = this.wkt.write();
@@ -96,12 +98,12 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
   /**
    * Is called when a user clicks the draw button below the AstroMap.
    * Will take the Well-Known text string and draw the shape onto the map.
-   * If the Well-Known text string is invalid an error will show in the text box. 
+   * If the Well-Known text string is invalid an error will show in the text box.
    * @param  {DomEvent} e  - On Click of Well-Known text button.
    */
-  mapWKTString: function(e){
+  mapWKTString: function(e) {
     this.myLayer.clearLayers();
-    this.options.edit['featureGroup'].clearLayers();
+    this.options.edit["featureGroup"].clearLayers();
 
     let wktValue = this.wktTextBox.value;
 
@@ -109,8 +111,7 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
 
     try {
       this.wkt.read(wktValue);
-    }
-    catch (err){
+    } catch (err) {
       alert("Invalid Well Known Text String");
       return;
     }
@@ -118,12 +119,14 @@ export default L.Control.AstroDraw = L.Control.Draw.extend({
     let geoJson = this.wkt.toJson();
 
     let geojsonFeature = {
-      "type": "Feature",
-      "geometry": geoJson
+      type: "Feature",
+      geometry: geoJson
     };
 
     this.myLayer.addData(geojsonFeature);
   }
 
+  // reprojectFeature: function(e) {
+
+  // }
 });
-  
