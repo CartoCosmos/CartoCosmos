@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.append('/CartoComos-1/jupyter/src')
+sys.path.append('jupyter/src')
 
 # sys.path.insert(0, os.path.abspath('.'))
 
