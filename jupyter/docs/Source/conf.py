@@ -13,9 +13,9 @@
 import os
 import sys
 sys.path.append('/jupyter/src/')
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../../CartoCosmos-1'))
-sys.path.insert(0, os.path.abspath('../..'))
+#sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../../CartoCosmos-1/jupyter/src'))
+#sys.path.insert(0, os.path.abspath('../../src'))
 
 #extensions = [
 #             'jupyter_sphinx',
