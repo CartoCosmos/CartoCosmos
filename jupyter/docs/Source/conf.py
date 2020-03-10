@@ -21,7 +21,7 @@ sys.path.append('CartoCosmos-1/jupyter/src')
 #             'sphinx.ext.autodoc',
 #             ]
 
-extensions = ['sphinx.ext.autodoc']
+extensions = ['sphinx.ext.autodoc',]
 
 templates_path = ['_templates']
 
