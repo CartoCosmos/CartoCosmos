@@ -34,7 +34,7 @@
     "lint": "eslint --ext .js src",
     "fix": "npm run lint -- --fix",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
-    "generate-docs": "node_modules/.bin/jsdoc src/js/ -d docs -t node_modules/braintree-jsdoc-template/"
+    "generate-docs": "node_modules/.bin/jsdoc src/js/  --configure .jsdoc.json --verbose"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
