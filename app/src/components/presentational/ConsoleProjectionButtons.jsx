@@ -159,15 +159,17 @@ export default function ConsoleProjectionButtons() {
           arrow
           TransitionComponent={Zoom}
         >
-          <ButtonBase
-            id="projectionNorthPole"
-            focusRipple
-            className={active == "north" ? classes.activeBtn : classes.button}
-            focusVisibleClassName={classes.focusVisible}
-            onClick={handleNorthClick}
-          >
-            <img className={classes.img} src={northPolar} />
-          </ButtonBase>
+          <div>
+            <ButtonBase
+              id="projectionNorthPole"
+              focusRipple
+              className={active == "north" ? classes.activeBtn : classes.button}
+              focusVisibleClassName={classes.focusVisible}
+              onClick={handleNorthClick}
+            >
+              <img className={classes.img} src={northPolar} />
+            </ButtonBase>
+          </div>
         </StyledTooltip>
       </Grid>
       <Grid item>
@@ -183,18 +185,20 @@ export default function ConsoleProjectionButtons() {
           arrow
           TransitionComponent={Zoom}
         >
-          <ButtonBase
-            id="projectionCylindrical"
-            focusRipple
-            className={
-              active == "cylindrical" ? classes.activeBtn : classes.button
-            }
-            focusVisibleClassName={classes.focusVisible}
-            value="cylindrical"
-            onClick={() => setActive("cylindrical")}
-          >
-            <img className={classes.img} src={simpleCylindrical} />
-          </ButtonBase>
+          <div>
+            <ButtonBase
+              id="projectionCylindrical"
+              focusRipple
+              className={
+                active == "cylindrical" ? classes.activeBtn : classes.button
+              }
+              focusVisibleClassName={classes.focusVisible}
+              value="cylindrical"
+              onClick={() => setActive("cylindrical")}
+            >
+              <img className={classes.img} src={simpleCylindrical} />
+            </ButtonBase>
+          </div>
         </StyledTooltip>
       </Grid>
       <Grid item>
@@ -206,15 +210,17 @@ export default function ConsoleProjectionButtons() {
           arrow
           TransitionComponent={Zoom}
         >
-          <ButtonBase
-            id="projectionSouthPole"
-            focusRipple
-            className={active == "south" ? classes.activeBtn : classes.button}
-            focusVisibleClassName={classes.focusVisible}
-            onClick={handleSouthClick}
-          >
-            <img className={classes.img} src={southPolar} />
-          </ButtonBase>
+          <div>
+            <ButtonBase
+              id="projectionSouthPole"
+              focusRipple
+              className={active == "south" ? classes.activeBtn : classes.button}
+              focusVisibleClassName={classes.focusVisible}
+              onClick={handleSouthClick}
+            >
+              <img className={classes.img} src={southPolar} />
+            </ButtonBase>
+          </div>
         </StyledTooltip>
       </Grid>
     </Grid>
