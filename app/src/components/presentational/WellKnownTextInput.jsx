@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, fade } from "@material-ui/core/styles";
 
 /**
  * Controls css styling for this component using js to css
@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     maxHeight: 100,
     height: 100,
-    backgroundColor: "#f6f6f4",
+    backgroundColor: "#f8f9fa",
     overflow: "hidden"
   },
   container: {
@@ -26,17 +26,25 @@ const useStyles = makeStyles(theme => ({
   },
   textbox: {
     flex: "3 1 auto",
-    paddingRight: "0.5rem"
+    backgroundColor: "#e9ecef",
+    "&:focus": {
+      borderColor: "#1971c2"
+    }
   },
   button: {
     height: 40,
-    backgroundColor: "#c2edce",
+    color: "#e7f5ff",
+    backgroundColor: "#1971c2",
     width: "9rem",
-    paddingLeft: "0.5rem",
-    alignSelf: "center"
+    marginLeft: "1rem",
+    alignSelf: "center",
+    "&:hover": {
+      backgroundColor: fade("#1971c2", 0.7)
+    }
   },
   title: {
     padding: "0.2rem",
+    color: "#343a40",
     fontSize: 18,
     fontWeight: 600
   }
@@ -66,6 +74,7 @@ export default function WellKnownTextInput() {
           id="wktTextBox"
           name="fname"
           type="text"
+          autoComplete="off"
         />
         <Button variant="contained" className={classes.button} id="wktButton">
           Draw On Map

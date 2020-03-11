@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles, fade } from "@material-ui/core/styles";
 import northPolar from "../../assets/img/NorthPolar.png";
 import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
 import southPolar from "../../assets/img/SouthPolar.png";
@@ -22,15 +22,17 @@ const useStyles = makeStyles({
     height: 31,
     "&.disabled": {
       border: "none",
+      cursor: "not-allowed",
+      pointerEvents: "none",
       "&:hover": {
         border: "none"
       }
     },
     "&:active": {
-      background: "yellow"
+      background: fade("#004170", 0.5)
     },
     "&:hover, &$focusVisible": {
-      border: "2px orange solid",
+      border: "2px #004170 solid",
       borderRadius: "15%",
       borderStyle: "outset"
     }
@@ -38,7 +40,7 @@ const useStyles = makeStyles({
   activeBtn: {
     width: 31,
     height: 31,
-    border: "2px orange solid",
+    border: "2px #004170 solid",
     borderRadius: "15%",
     borderStyle: "outset"
   },
@@ -122,11 +124,18 @@ export default function ConsoleProjectionButtons() {
 
   const [active, setActive] = React.useState("cylindrical");
 
-  const handleClick = (event, newValue) => {
+  const handleNorthClick = event => {
     if (!event.currentTarget.classList.contains("disabled")) {
-      setActive(newValue);
+      setActive("north");
     } else {
-      setActive(active);
+      event.stopPropagation();
+    }
+  };
+
+  const handleSouthClick = event => {
+    if (!event.currentTarget.classList.contains("disabled")) {
+      setActive("south");
+    } else {
       event.stopPropagation();
     }
   };
@@ -155,8 +164,7 @@ export default function ConsoleProjectionButtons() {
             focusRipple
             className={active == "north" ? classes.activeBtn : classes.button}
             focusVisibleClassName={classes.focusVisible}
-            value="north"
-            onClick={handleClick}
+            onClick={handleNorthClick}
           >
             <img className={classes.img} src={northPolar} />
           </ButtonBase>
@@ -182,8 +190,8 @@ export default function ConsoleProjectionButtons() {
               active == "cylindrical" ? classes.activeBtn : classes.button
             }
             focusVisibleClassName={classes.focusVisible}
-            value="cylyndrical"
-            onClick={handleClick}
+            value="cylindrical"
+            onClick={() => setActive("cylindrical")}
           >
             <img className={classes.img} src={simpleCylindrical} />
           </ButtonBase>
@@ -203,8 +211,7 @@ export default function ConsoleProjectionButtons() {
             focusRipple
             className={active == "south" ? classes.activeBtn : classes.button}
             focusVisibleClassName={classes.focusVisible}
-            value="south"
-            onClick={handleClick}
+            onClick={handleSouthClick}
           >
             <img className={classes.img} src={southPolar} />
           </ButtonBase>

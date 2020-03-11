@@ -14,7 +14,9 @@ const useStyles = makeStyles({
     height: "100%",
     maxHeight: 60
   },
-  title: {}
+  title: {
+    color: "#343a40"
+  }
 });
 
 /**

@@ -5,7 +5,7 @@ import ConsoleLonLatSelects from "../presentational/ConsoleLonLatSelects.jsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import ConsoleCoordinates from "./ConsoleCoordinates.jsx";
 
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%"
   },
   appbar: {
-    background: "#f6f6f4"
+    background: "#f8f9fa"
   },
   toolbar: {
     height: 100,

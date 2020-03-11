@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     maxHeight: 45
   },
   title: {
-    color: "#000",
+    color: "#343a40",
     fontWeight: 900,
     letterSpacing: "1.2rem"
   }

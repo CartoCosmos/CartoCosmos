@@ -38,7 +38,7 @@ export default class MapContainer extends Component {
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
-    let drawControl = new Draw({
+    new Draw({
       draw: {
         circle: false,
         marker: false,
@@ -97,7 +97,6 @@ export default class MapContainer extends Component {
     }).addTo(map);
 
     new L.Control.Scale({ imperial: false }).addTo(map);
-    map.on("fullscreenchange", this.handleFullScreenChange());
   }
 
   render() {
