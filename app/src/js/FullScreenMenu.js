@@ -9,6 +9,11 @@ var panelContent = {
   position: "bottom" //
 };
 
+/**
+ * @class FullScreenMenu
+ * @aka L.Control
+ * Class that adds menu container from L.control.
+ */
 export let FullScreenMenu = L.control
   .sidebar({
     container: "fs-menu-container"

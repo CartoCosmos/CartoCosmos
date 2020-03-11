@@ -1,0 +1,27 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  },
+  "source": {
+    "include": ["package.json", "README.md"],
+    "includePattern": "./src/js/",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "referenceTitle": "CartoCosmos",
+    "disableSort": false,
+    "collapse": false,
+    "resources": {
+      "GitHub": "https://github.com/CartoCosmos/CartoCosmos"
+    }
+  },
+  "opts": {
+    "destination": "./docs/",
+    "encoding": "utf8",
+    "private": true,
+    "recurse": true,
+    "template": "node_modules/braintree-jsdoc-template/"
+  }
+}
