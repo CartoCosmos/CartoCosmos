@@ -1,5 +1,5 @@
 CartoCosmos: Interactive planetary maps in the Jupyter notebook
-====================================================
+===============================================================
 
 .. toctree::
     :caption: Installation
@@ -13,15 +13,10 @@ CartoCosmos: Interactive planetary maps in the Jupyter notebook
     usage
 
 .. toctree::
-    :caption: Well-Known Text
+    :caption: User Manual
     :maxdepth: 2
 
-    api_reference/map
-    api_reference/basemaps
-
-.. toctree::
-    :caption: Examples
-    :maxdepth: 2
+    manual
 
 .. toctree::
     :caption: API
