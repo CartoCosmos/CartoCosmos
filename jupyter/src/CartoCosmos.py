@@ -10,8 +10,16 @@ import urllib.request
 
 
 class planetary_maps:
-
+    """ The Central class that creates interactive planetary maps in Jupyter Notebooks. 
+    Works with all target bodies supported by the USGS by loading the body’s base layers 
+    and overlays in a LayerCollection."""
+    
     def __init__(self, targetName):
+        """ Initializes planetary map of the specific target.
+    
+        :type targetName: String
+        :param targetName: The name of the target you wish to map.
+        """
         self.target_name = targetName
         self.layers = []
         self.planet_map = None
@@ -50,7 +58,7 @@ class planetary_maps:
         }
 
     def find_radius(self):
-
+        """ Finds the a and c axis radii of that specific target."""
         targets = self.json_dict['targets']
         for i, target in enumerate(targets):
             current_target = targets[i]
@@ -62,7 +70,7 @@ class planetary_maps:
                 break
 
     def create_layers(self):
-
+        """ Grabs all the layers for the specific target."""
         targets = self.json_dict['targets']
         for i, target in enumerate(targets):
             current_target = targets[i]
@@ -106,6 +114,13 @@ class planetary_maps:
                 self.layers.append(wms_layer)
 
     def handle_interaction(self, **kwargs):
+        """ Gets and displays the coordinates of the user’s mouse position on the map. 
+        Takes in the GUI coordinate handler in order to display different longitude directions 
+        and ranges as well as different latitude types.
+    
+        :type kwargs: Event
+        :param kwargs: Leaflet’s Interaction Object.
+        """
         if kwargs.get('type') == 'mousemove':
             coords = kwargs.get('coordinates')
 
@@ -143,6 +158,9 @@ class planetary_maps:
                 str(round(lat, 2)) + ", " + str(round(lng, 2))
 
     def create_map(self):
+
+        """ Creates the map instance of the specific target. 
+        Also adds all the controls to the map."""
         self.planet_map = Map(layers=tuple(self.layers),
                               center=(0, 0), zoom=1, crs='EPSG4326')
 
@@ -202,8 +220,10 @@ class planetary_maps:
         fullscreen_control = FullScreenControl(position='bottomleft')
         self.planet_map.add_control(fullscreen_control)
         self.planet_map.on_interaction(self.handle_fullscreen)
+        self.planet_map.add_control(ScaleControl(position='bottomleft'))
 
     def display_map(self):
+        """ Displays the map and the GUI elements to the screen."""
         display(self.gui.get_longitude_range())
         display(self.gui.get_lat_domain())
         display(self.gui.get_longitude_direction())
@@ -217,6 +237,14 @@ class planetary_maps:
         self.add_wfs_features()
 
     def add_wkt(self, wktString):
+        """ Takes in a Well-Known text string 
+        and draws it on the planetary map
+    
+        :type wktString: String
+        :param wktString: Well-Known text string to draw on the map.
+    
+        :raises: Invalid WKT String.
+        """
         try:
             g1 = shapely.wkt.loads(wktString)
             g2 = geojson.Feature(geometry=g1, properties={})
@@ -227,13 +255,31 @@ class planetary_maps:
             self.gui.get_wkt_text_box().value = "Invalid WKT String"
 
     def handle_draw(self, *args, **kwargs):
-        """Do something with the GeoJSON when it's drawn on the map"""
+    
+        """ Creates and displays the Well-Known text string when 
+        the user draws a shape on the map.
+    
+        :type args: Event
+        :param args: On draw.
+    
+        :type kwargs: Object
+        :param kwargs: The GeoJson of the shape that was drawn.
+        """
         geo_json = kwargs.get('geo_json')
         data = geo_json['geometry']
         geom = geo.shape(data)
         self.gui.get_wkt_text_box().value = geom.wkt
 
     def handle_fullscreen(self, *args, **kwargs):
+        """ On fullscreen will add GUI elements to the map. 
+        The GUI elements will go away when fullscreen is closed.
+
+        :type args: Event
+        :param args: On interaction with Leaflet map.
+
+        :type kwargs: Object
+        :param kwargs: Leaflet’s map object.
+        """
         if self.fullscreen != self.planet_map.fullscreen:
             self.fullscreen = self.planet_map.fullscreen
             self.display_change = True
@@ -253,9 +299,22 @@ class planetary_maps:
                 self.planet_map.remove_control(self.label_control)
 
     def handle_WKT_button(self, *args, **kwargs):
+    
+        """ Will draw the Well-Known text string 
+        in the text box on click of draw button.
+
+        :type args: Event
+        :param args: On click of drawn button
+    
+        :type kwargs: Object
+        :param kwargs: WKT button.
+        """
         self.add_wkt(self.gui.get_wkt_text_box().value)
 
     def add_wfs_features(self):
+    
+        """Grabs and Adds the wfs surface features layer 
+        to the map for the specific target."""
         geoJsonUrl = ("https://astrocloud.wr.usgs.gov/dataset/data/nomenclature/{}/WFS?"
                       "service=WFS&version=1.1.0&request=GetFeature&outputFormat=application%2Fjson"
                       "&srsName=EPSG%3A4326".format(self.target_name.upper()))
@@ -283,6 +342,20 @@ class planetary_maps:
                 continue
 
     def handle_feature_click(self, feature=None, coordinates=None, **kwargs):
+
+        """ Highlights the specific feature when you click on it on the map.
+
+        :type feature: String
+        :param feature: feature name.
+    
+        :type coordinates: List
+        :param coordinates: Coordinates of the clicked position.
+    
+        :type kwargs: Event
+        :param kwargs: On click.
+    
+        :rtype: NULL
+        """
         self.handle_feature_click_counter += 1
         if self.handle_feature_click_counter == 1:
             self.handle_feature_click_feature = feature
@@ -301,7 +374,11 @@ class planetary_maps:
 
 
 class planetary_gui:
+
+    """ Creates the GUI elements needed for the Planetary Maps.	"""
     def __init__(self):
+
+        """ Creates Planetary GUI class"""
         self.longitude_range = None
         self.lat_domain = None
         self.longitude_direction = None
@@ -312,6 +389,8 @@ class planetary_gui:
         self.create_widgets()
 
     def create_widgets(self):
+    
+        """ Initializes the different GUI elements"""
         self.longitude_range = widgets.ToggleButtons(
             options=['0 to 360', '-180 to 180'],
             description='',
@@ -355,22 +434,57 @@ class planetary_gui:
         )
 
     def get_wkt_button(self):
+    
+        """ Getter method for the Well-Known Text button.
+    
+        :rtype: Well-Known Text button Object
+        """
         return self.wkt_button
 
     def get_wkt_text_box(self):
+    
+        """ Getter method for the Well-Known Text Box.
+
+        :rtype: Well-Known Text Box Object
+        """
         return self.wkt_text_box
 
     def get_longitude_direction(self):
+    
+        """ Getter method for the Longitude Direction Selector.
+    
+        :rtype: Longitude Direction Selector Object
+        """
         return self.longitude_direction
 
     def get_draw_label(self):
+    
+        """ Getter method for the Well-Known Text Draw Label.
+    
+        :rtype: Well-Known Text Draw Label Object
+        """    
         return self.draw_label
 
     def get_lat_lon_label(self):
+
+        """ Getter method for the Coordinate Input Box.
+    
+        :rtype: Coordinate Input Box Object
+        """
         return self.lat_lon_label
 
     def get_lat_domain(self):
+    
+        """ Getter method for the Latitude Domain Selector.
+
+        :rtype: Latitude Domain Selector Object
+        """
         return self.lat_domain
 
     def get_longitude_range(self):
+    
+        """ Getter method for the Longitude Range Selector.
+    
+        :rtype: Longitude Range Selector Object
+        """
         return self.longitude_range
