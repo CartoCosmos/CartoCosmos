@@ -1,12 +1,13 @@
 import "leaflet";
-/**
+/** 
  * @class Projection
  * @aka L.Control.Projection
  * @inherits L.Control
- *
+ * 
  * @classdesc Control that allows users to change the projection of the map. Uses predefined GUI elements.
  */
 export default L.Control.Projection = L.Control.extend({
+
   /**
    * @function Projection.prototype.onAdd
    * @description Grabs the button GUI elements and adds onclick events to them.
@@ -33,6 +34,7 @@ export default L.Control.Projection = L.Control.extend({
 
     return container;
   },
+
 
   /**
    * @function Projection.prototype.loadNorthPolar

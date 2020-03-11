@@ -7,9 +7,9 @@ import { func } from "prop-types";
  * @class AstroDraw
  * @aka L.Control.AstroDraw
  * @extends L.Control
- * @classdesc Class that extends from the class L.Control.Draw and handles the back-end
- *            when a user draws on the leaflet map. Since this class inherits L.Control, it is
- *            added to the AstroMap in the same way as other controls, like the zoom control.
+ * @classdesc
+ * Class that extends from the class L.Control.Draw and handles the back-end when a user draws on the leaflet map.
+ * Since this class inherits L.Control, it is added to the AstroMap in the same way as other controls, like the zoom control.
  *
  * @example
  *

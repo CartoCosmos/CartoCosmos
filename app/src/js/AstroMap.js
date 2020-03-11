@@ -6,7 +6,8 @@ import "leaflet-fullscreen";
  * @aka L.Map.AstroMap
  * @extends L.Map
  *
- * @classdesc The central class that creates an interactive map in the HTML.
+ * @classdesc 
+ * The central class that creates an interactive map in the HTML.
  * Works with all target bodies supported by the USGS by loading the body's
  * base layers and overlays in a LayerCollection. Allows users to change
  * the projection of the map.
