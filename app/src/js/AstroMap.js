@@ -71,7 +71,7 @@ export default L.Map.AstroMap = L.Map.extend({
 
   /**
    * @function AstroMap.prototype.loadLayerCollection
-   * @description Adds the LayerCollection with the requrested projection name.
+   * @description Adds the LayerCollection with the requested name.
    *
    * @param {String} name - Name of the projection.
    */

@@ -1,7 +1,6 @@
 import "leaflet";
 import "leaflet-draw";
 import Wkt from "wicket";
-import { func } from "prop-types";
 
 /**
  * @class AstroDraw

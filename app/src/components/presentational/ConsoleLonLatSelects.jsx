@@ -10,6 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles(theme => ({
   grid: {
     width: "100%",
@@ -39,6 +42,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/**
+ * Custom Component that uses Tooltip with modified css styling
+ */
 const StyledTooltip = withStyles(theme => ({
   tooltip: {
     backgroundColor: "#f5f5f9",
@@ -49,22 +55,25 @@ const StyledTooltip = withStyles(theme => ({
   }
 }))(Tooltip);
 
+/**
+ * Custom Component that uses ToggleButton with modified css styling
+ */
 const StyledToggleButton = withStyles(theme => ({
   root: {
     height: 30,
-    color: fade("#000", 0.8),
-    background: fade("#c2edce", 0.2),
+    color: "#e7f5ff",
+    background: fade("#004170", 0.6),
+    border: "none",
     "&:hover": {
-      backgroundColor: fade("#f1f1f1", 0.6)
+      backgroundColor: fade("#004170", 0.8)
     },
     "&$selected": {
       cursor: "not-allowed",
       pointerEvents: "none",
-      color: "#000",
-      backgroundColor: "#c2edce",
+      color: "#e7f5ff",
+      backgroundColor: "#004170",
       "&:hover": {
-        backgroundColor: "#c2edce",
-        border: `1px solid ${fade(theme.palette.action.active, 0.12)}`
+        backgroundColor: "#004170"
       }
     }
   },
@@ -72,11 +81,17 @@ const StyledToggleButton = withStyles(theme => ({
     cursor: "not-allowed",
     pointerEvents: "none",
     color: "black",
-    backgroundColor: "#6fb3e8"
+    backgroundColor: "#004170"
   }
 }))(ToggleButton);
 
-export default function ConsoleLonLatSelects(props) {
+/**
+ * Main component which controls and displays the console's longitude and latitude
+ * selectors and handles user click events.
+ *
+ * @component
+ */
+export default function ConsoleLonLatSelects() {
   const [posEastWest, setPosEastWest] = React.useState("PositiveEast");
   const [coordSystem, setCoordSystem] = React.useState("Planetocentric");
   const [lonRange, setLonRange] = React.useState(180);
@@ -126,7 +141,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >
@@ -158,7 +173,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >
@@ -196,7 +211,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >
