@@ -55,14 +55,7 @@ export default function ConsoleAppBar(props) {
             <Divider orientation="vertical" />
             <Grid container item direction="column" xs>
               <ConsoleTargetInfo target={props.target} />
-              <Grid
-                container
-                item
-                xs
-                justify="center"
-                wrap="nowrap"
-                spacing={1}
-              >
+              <Grid container item xs justify="center" wrap="nowrap">
                 <ConsoleLonLatSelects />
                 <ConsoleCoordinates />
               </Grid>

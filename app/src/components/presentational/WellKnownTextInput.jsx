@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     height: 40,
-    color: "#e7f5ff",
+    color: "#fff",
     backgroundColor: "#1971c2",
     width: "9rem",
     marginLeft: "1rem",
