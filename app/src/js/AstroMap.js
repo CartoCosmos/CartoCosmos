@@ -6,7 +6,7 @@ import "leaflet-fullscreen";
  * @aka L.Map.AstroMap
  * @extends L.Map
  *
- * @classdesc 
+ * @classdesc
  * The central class that creates an interactive map in the HTML.
  * Works with all target bodies supported by the USGS by loading the body's
  * base layers and overlays in a LayerCollection. Allows users to change
@@ -92,11 +92,11 @@ export default L.Map.AstroMap = L.Map.extend({
     let newCRS = null;
     if (name == "cylindrical") {
       newCRS = this._defaultProj;
+      this._currentProj = "EPSG:4326";
     } else {
       let proj = this._astroProj.getStringAndCode(this._target, name);
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
-        resolutions: [8192, 4096, 2048, 1024, 512, 256, 128],
-        origin: [0, 0]
+        resolutions: [8192, 4096, 2048, 1024, 512, 256, 128]
       });
       this._currentProj = proj["code"];
     }
