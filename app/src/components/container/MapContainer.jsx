@@ -5,31 +5,45 @@ import MousePosition from "../../js/MousePosition";
 import Draw from "../../js/Draw";
 import "leaflet";
 
-
+/**
+ * Component that uses back end JS files to invoke and display the
+ * map. The container handles update events and is the root element
+ * for the map.
+ *
+ *
+ * @class MapContainer
+ * @extends {Component}
+ */
 export default class MapContainer extends Component {
+  /**
+   *
+   * @param {*} props target - target body name
+   */
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  handleFullScreenChange() {}
-
+  /**
+   * Invokes when the component is successfully mounted to the DOM, then
+   * handles all of the map intialization and creation.
+   */
   componentDidMount() {
     let map = new AstroMap("map-container", this.props.target, {});
     new Projection().addTo(map);
     new MousePosition({
-      numDigits: 2,
+      numDigits: 2
     }).addTo(map);
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
-    
-    let drawControl = new Draw({
+
+    new Draw({
       draw: {
         circle: false,
         marker: false,
         circlemarker: false
-    },
+      },
       edit: {
         featureGroup: drawnItems
       },
@@ -37,9 +51,12 @@ export default class MapContainer extends Component {
     }).addTo(map);
 
     new L.Control.Scale({ imperial: false }).addTo(map);
-    map.on("fullscreenchange", this.handleFullScreenChange());
   }
 
+  /**
+   * Invoked after the component's state has changed when the
+   * target selector passes down a new target name from props.
+   */
   componentDidUpdate() {
     // remove old map container and append new container to its parent
     let oldContainer = document.getElementById("map-container");
@@ -66,13 +83,13 @@ export default class MapContainer extends Component {
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
-    
-    let drawControl = new Draw({
+
+    new Draw({
       draw: {
         circle: false,
         marker: false,
         circlemarker: false
-    },
+      },
       edit: {
         featureGroup: drawnItems
       },
@@ -80,7 +97,6 @@ export default class MapContainer extends Component {
     }).addTo(map);
 
     new L.Control.Scale({ imperial: false }).addTo(map);
-    map.on("fullscreenchange", this.handleFullScreenChange());
   }
 
   render() {
