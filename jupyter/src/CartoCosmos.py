@@ -268,7 +268,7 @@ class planetary_maps:
 
                     # Sort features by diameter
                     jsonp['features'] = sorted(
-                        jsonp['features'], key=lambda feature: feature["properties"]["diameter"])
+                        jsonp['features'], key=lambda feature: feature["properties"]["diameter"], reverse=True)
                     geo_json = GeoJSON(data=jsonp, name="Show Feature Names")
                     geo_json.point_style = {
                         'fillOpacity': 1,
