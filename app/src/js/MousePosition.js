@@ -44,8 +44,10 @@ export default L.Control.MousePosition = L.Control.extend({
     this.isLonDirEast = true;
 
     this.astroMath = new AstroMath(map.target());
-    this.coordDisplayElement = L.DomUtil.get("coordinateDisplay");
-    this.coordDisplayElement.innerHTML = "lon, lat";
+    this.lonDisplayElement = L.DomUtil.get("lonCoordinateDisplay");
+    this.latDisplayElement = L.DomUtil.get("latCoordinateDisplay");
+    this.lonDisplayElement.innerHTML = "---.---";
+    this.latDisplayElement.innerHTML = "---.---";
 
     this.lonDomain180 = L.DomUtil.get("consoleLon180Btn");
     L.DomEvent.on(this.lonDomain180, "click", this.changeLonDomain, this);
@@ -137,19 +139,17 @@ export default L.Control.MousePosition = L.Control.extend({
     lng = L.Util.formatNum(lng, this.options.numDigits);
     lat = L.Util.formatNum(lat, this.options.numDigits);
 
-    const value = this.options.lngFirst
-      ? lng + this.options.separator + lat
-      : lat + this.options.separator + lng;
+    //const value = this.options.lngFirst
+    //? lng + this.options.separator + lat
+    //: lat + this.options.separator + lng;
 
-    const prefixAndValue = `${this.options.prefix}${value}`;
-    this.coordDisplayElement.innerHTML = prefixAndValue;
+    //const prefixAndValue = `${this.options.prefix}${value}`;
+    this.lonDisplayElement.innerHTML = lng;
+    this.latDisplayElement.innerHTML = lat;
   },
   onMouseOut(e) {
-    if (this.options.lngFirst) {
-      this.coordDisplayElement.innerHTML = "lon, lat";
-    } else {
-      this.coordDisplayElement.innerHTML = "lat, lon";
-    }
+    this.lonDisplayElement.innerHTML = "---.---";
+    this.latDisplayElement.innerHTML = "---.---";
   }
 });
 

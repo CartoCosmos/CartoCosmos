@@ -130,7 +130,7 @@ export default function ConsoleLonLatSelects() {
       justify="space-evenly"
       alignItems="center"
       className={classes.grid}
-      xs={10}
+      xs={9}
     >
       <Grid item>
         <StyledTooltip

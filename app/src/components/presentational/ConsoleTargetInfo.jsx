@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   title: {
     color: "#343a40",
     fontWeight: 900,
-    letterSpacing: "1.2rem"
+    letterSpacing: "0.8rem"
   }
 });
 

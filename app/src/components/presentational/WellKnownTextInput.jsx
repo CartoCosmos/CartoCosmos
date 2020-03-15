@@ -71,6 +71,9 @@ export default function WellKnownTextInput() {
           className={classes.textbox}
           variant="outlined"
           label="Enter WKT String"
+          InputLabelProps={{
+            shrink: true
+          }}
           id="wktTextBox"
           name="fname"
           type="text"
