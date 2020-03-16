@@ -43,7 +43,12 @@ export default function ConsoleAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appbar} position="static" color="inherit">
+      <AppBar
+        className={classes.appbar}
+        variant="outlined"
+        position="static"
+        color="inherit"
+      >
         <Toolbar className={classes.toolbar}>
           <Grid
             className={classes.grid}

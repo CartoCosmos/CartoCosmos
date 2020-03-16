@@ -17,12 +17,14 @@ const useStyles = makeStyles({
   },
   title: {
     color: "#343a40",
-    fontSize: 14,
+    fontSize: "0.7rem",
+    lineHeight: "1rem",
     fontWeight: 600
   },
   coords: {
     color: "#343a40",
-    fontSize: 14
+    lineHeight: "1.5rem"
+    //fontSize: "0.7rem"
   },
   container: {
     display: "flex",
@@ -32,9 +34,9 @@ const useStyles = makeStyles({
       margin: 0,
       padding: 0,
       width: "47.5%",
-      height: "50%",
-      //maxHeight: 50,
-      //maxWidth: "100%",
+      height: "100%",
+      maxHeight: "3rem",
+      maxWidth: "47.5%",
       backgroundColor: "#f1f3f5",
       textAlign: "center"
     }
@@ -76,7 +78,8 @@ export default function ConsoleCoordinates() {
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
-              Displays coordinates in the form: (Lon, Lat).
+              Displays the longitude and latitude of the area on the map
+              underneath the cursor.
             </Typography>
           }
           enterDelay={800}
@@ -86,21 +89,27 @@ export default function ConsoleCoordinates() {
         >
           <div className={classes.container}>
             <Paper variant="outlined" square>
-              <Typography className={classes.title}>Longitude</Typography>
+              <Typography variant="overline" className={classes.title}>
+                Longitude
+              </Typography>
+              <Divider variant="fullWidth" />
               <Typography
                 noWrap
                 className={classes.coords}
                 id="lonCoordinateDisplay"
-                variant="subtitle1"
+                variant="subtitle2"
               />
             </Paper>
             <Paper variant="outlined" square>
-              <Typography className={classes.title}>Latitude</Typography>
+              <Typography variant="overline" className={classes.title}>
+                Latitude
+              </Typography>
+              <Divider variant="fullWidth" />
               <Typography
                 noWrap
                 className={classes.coords}
                 id="latCoordinateDisplay"
-                variant="subtitle1"
+                variant="subtitle2"
               />
             </Paper>
           </div>

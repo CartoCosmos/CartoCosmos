@@ -10,6 +10,7 @@ import ConsoleContainer from "./ConsoleContainer.jsx";
 import MapContainer from "./MapContainer.jsx";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import WellKnownTextInput from "../presentational/WellKnownTextInput.jsx";
+import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
 
 /**
  * Controls css styling for this component using js to css
@@ -87,6 +88,7 @@ export default function App() {
         <ConsoleContainer target={targetPlanet} />
         <MapContainer target={targetPlanet} />
         <WellKnownTextInput />
+        <CreditsDisplay style={{ width: 800, maxWidth: 800 }} />
       </Paper>
     </div>
   );
