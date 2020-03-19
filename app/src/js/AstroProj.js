@@ -47,18 +47,27 @@ export default class AstroProj {
       return {
         code: "EPSG:32661",
         string:
-          "+proj=stere +lat_0=90 +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=${radii['a']} +b=${radii['c']} +units=m +no_defs"
+          "+proj=stere +lat_0=90 +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=" +
+          radii["a"] +
+          " +b=" +
+          radii["c"] +
+          " +units=m +no_defs"
       };
     } else if (name == "southPolar") {
       return {
         code: "EPSG:32761",
         string:
-          "+proj=stere +lat_0=-90 +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=${radii['a']} +b=${radii['c']} +units=m +no_defs"
+          "+proj=stere +lat_0=-90 +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=" +
+          radii["a"] +
+          " +b=" +
+          radii["c"] +
+          " +units=m +no_defs"
       };
     } else if (name == "cylindrical") {
       return {
         code: "EPSG:4326",
-        string: "+proj=longlat +a=${radii['a']} +b=${radii['c']} +no_defs"
+        string:
+          "+proj=longlat +a=" + radii["a"] + " +b=" + radii["c"] + " +no_defs"
       };
     } else {
       console.log("No projection found for the target and name given.");
