@@ -43,7 +43,12 @@ export default function ConsoleAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appbar} position="static" color="inherit">
+      <AppBar
+        className={classes.appbar}
+        variant="outlined"
+        position="static"
+        color="inherit"
+      >
         <Toolbar className={classes.toolbar}>
           <Grid
             className={classes.grid}
@@ -55,14 +60,7 @@ export default function ConsoleAppBar(props) {
             <Divider orientation="vertical" />
             <Grid container item direction="column" xs>
               <ConsoleTargetInfo target={props.target} />
-              <Grid
-                container
-                item
-                xs
-                justify="center"
-                wrap="nowrap"
-                spacing={1}
-              >
+              <Grid container item xs justify="center" wrap="nowrap">
                 <ConsoleLonLatSelects />
                 <ConsoleCoordinates />
               </Grid>

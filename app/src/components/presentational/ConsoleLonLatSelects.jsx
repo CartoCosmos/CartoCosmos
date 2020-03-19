@@ -23,22 +23,20 @@ const useStyles = makeStyles(theme => ({
     transform: "scaleY(-1)"
   },
   oval: {
-    width: 20,
-    height: 14,
+    width: 18,
+    height: 12,
     borderRadius: "50%",
     border: "2px solid",
     background: "transparent",
-    marginRight: 1,
-    marginBottom: 3
+    marginBottom: 2
   },
   circle: {
-    width: 14,
-    height: 14,
+    width: 12,
+    height: 12,
     borderRadius: "50%",
     border: "2px solid",
     background: "transparent",
-    marginRight: 1,
-    marginBottom: 3
+    marginBottom: 2
   }
 }));
 
@@ -60,28 +58,30 @@ const StyledTooltip = withStyles(theme => ({
  */
 const StyledToggleButton = withStyles(theme => ({
   root: {
-    height: 30,
-    color: "#e7f5ff",
-    background: fade("#004170", 0.6),
+    height: 32,
+    minHeight: 32,
+    maxHeight: 32,
+    color: "#fff",
+    background: fade("#1971c2", 0.6),
     border: "none",
     "&:hover": {
-      backgroundColor: fade("#004170", 0.8)
+      backgroundColor: fade("#1971c2", 0.8)
     },
     "&$selected": {
       cursor: "not-allowed",
       pointerEvents: "none",
-      color: "#e7f5ff",
-      backgroundColor: "#004170",
+      color: "#fff",
+      backgroundColor: "#1971c2",
       "&:hover": {
-        backgroundColor: "#004170"
+        backgroundColor: "#1971c2"
       }
     }
   },
   selected: {
     cursor: "not-allowed",
     pointerEvents: "none",
-    color: "black",
-    backgroundColor: "#004170"
+    color: "#fff",
+    backgroundColor: "#1971c2"
   }
 }))(ToggleButton);
 
@@ -130,7 +130,7 @@ export default function ConsoleLonLatSelects() {
       justify="space-evenly"
       alignItems="center"
       className={classes.grid}
-      xs={10}
+      xs={9}
     >
       <Grid item>
         <StyledTooltip

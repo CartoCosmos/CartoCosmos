@@ -4,13 +4,13 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css";
 
 #map-container {
-  max-width: 800px;
+  width: 800px;
   height: 600px;
 }
 
 #map {
-  max-width: 800px;
-  max-height: 920px;
+  width: 800px;
+  max-height: 950px;
 }
 
 /*

@@ -4,18 +4,42 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
+import Paper from "@material-ui/core/Paper";
+import Divider from "@material-ui/core/Divider";
 
 /**
  * Controls css styling for this component using js to css
  */
 const useStyles = makeStyles({
   grid: {
-    width: "100%",
     height: "100%",
     maxHeight: 60
   },
   title: {
-    color: "#343a40"
+    color: "#343a40",
+    fontSize: "0.7rem",
+    lineHeight: "1rem",
+    fontWeight: 600
+  },
+  coords: {
+    color: "#343a40",
+    lineHeight: "1.5rem"
+    //fontSize: "0.7rem"
+  },
+  container: {
+    display: "flex",
+    flexWrap: "noWrap",
+    //maxHeight: 60,
+    "& > *": {
+      margin: 0,
+      padding: 0,
+      width: "47.5%",
+      height: "100%",
+      maxHeight: "3rem",
+      maxWidth: "47.5%",
+      backgroundColor: "#f1f3f5",
+      textAlign: "center"
+    }
   }
 });
 
@@ -48,13 +72,14 @@ export default function ConsoleCoordinates() {
       justify="flex-end"
       alignItems="center"
       item
-      xs={2}
+      xs={3}
     >
       <Grid item xs>
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
-              Displays coordinates in the form: (Lon, Lat).
+              Displays the longitude and latitude of the area on the map
+              underneath the cursor.
             </Typography>
           }
           enterDelay={800}
@@ -62,12 +87,32 @@ export default function ConsoleCoordinates() {
           arrow
           TransitionComponent={Zoom}
         >
-          <Typography
-            noWrap
-            className={classes.title}
-            id="coordinateDisplay"
-            variant="subtitle1"
-          />
+          <div className={classes.container}>
+            <Paper variant="outlined" square>
+              <Typography variant="overline" className={classes.title}>
+                Longitude
+              </Typography>
+              <Divider variant="fullWidth" />
+              <Typography
+                noWrap
+                className={classes.coords}
+                id="lonCoordinateDisplay"
+                variant="subtitle2"
+              />
+            </Paper>
+            <Paper variant="outlined" square>
+              <Typography variant="overline" className={classes.title}>
+                Latitude
+              </Typography>
+              <Divider variant="fullWidth" />
+              <Typography
+                noWrap
+                className={classes.coords}
+                id="latCoordinateDisplay"
+                variant="subtitle2"
+              />
+            </Paper>
+          </div>
         </StyledTooltip>
       </Grid>
     </Grid>

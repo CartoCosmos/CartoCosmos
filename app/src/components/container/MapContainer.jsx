@@ -32,7 +32,7 @@ export default class MapContainer extends Component {
     let map = new AstroMap("map-container", this.props.target, {});
     new Projection().addTo(map);
     new MousePosition({
-      numDigits: 2
+      numDigits: 3
     }).addTo(map);
 
     let drawnItems = new L.FeatureGroup();
