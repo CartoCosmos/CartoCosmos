@@ -5,19 +5,20 @@ import ConsoleLonLatSelects from "../presentational/ConsoleLonLatSelects.jsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import ConsoleCoordinates from "./ConsoleCoordinates.jsx";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles(theme => ({
   root: {
     height: 100,
     width: "100%"
   },
   appbar: {
-    background: "#f5dd95",
-    background: "-webkit-linear-gradient(to right, #f5dd95, #faf5e6)",
-    background: "linear-gradient(to right, #f5dd95, #faf5e6)"
+    background: "#f8f9fa"
   },
   toolbar: {
     height: 100,
@@ -31,12 +32,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/**
+ * Main component of the console, which arranges all subcomponents into a grid
+ * and passes in target information via props.
+ *
+ * @component
+ */
 export default function ConsoleAppBar(props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appbar} position="static" color="inherit">
+      <AppBar
+        className={classes.appbar}
+        variant="outlined"
+        position="static"
+        color="inherit"
+      >
         <Toolbar className={classes.toolbar}>
           <Grid
             className={classes.grid}
@@ -47,15 +59,8 @@ export default function ConsoleAppBar(props) {
             <ConsoleProjectionButtons />
             <Divider orientation="vertical" />
             <Grid container item direction="column" xs>
-              <ConsoleTargetInfo targetName="MARS" />
-              <Grid
-                container
-                item
-                xs
-                justify="center"
-                wrap="nowrap"
-                spacing={1}
-              >
+              <ConsoleTargetInfo target={props.target} />
+              <Grid container item xs justify="center" wrap="nowrap">
                 <ConsoleLonLatSelects />
                 <ConsoleCoordinates />
               </Grid>

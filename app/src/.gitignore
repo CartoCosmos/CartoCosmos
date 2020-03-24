@@ -8,6 +8,7 @@ package-lock.json
 *.log
 app/package-lock.json
 app/node_modules
+app/docs
 
 # OS generated files
 .DS_Store

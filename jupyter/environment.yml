@@ -1,0 +1,12 @@
+name: leaflet
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - geojson
+  - jupyter
+  - ipyleaflet
+  - ipywidgets
+  - shapely

@@ -10,6 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles(theme => ({
   grid: {
     width: "100%",
@@ -20,25 +23,26 @@ const useStyles = makeStyles(theme => ({
     transform: "scaleY(-1)"
   },
   oval: {
-    width: 20,
-    height: 14,
+    width: 18,
+    height: 12,
     borderRadius: "50%",
     border: "2px solid",
     background: "transparent",
-    marginRight: 1,
-    marginBottom: 3
+    marginBottom: 2
   },
   circle: {
-    width: 14,
-    height: 14,
+    width: 12,
+    height: 12,
     borderRadius: "50%",
     border: "2px solid",
     background: "transparent",
-    marginRight: 1,
-    marginBottom: 3
+    marginBottom: 2
   }
 }));
 
+/**
+ * Custom Component that uses Tooltip with modified css styling
+ */
 const StyledTooltip = withStyles(theme => ({
   tooltip: {
     backgroundColor: "#f5f5f9",
@@ -49,33 +53,45 @@ const StyledTooltip = withStyles(theme => ({
   }
 }))(Tooltip);
 
+/**
+ * Custom Component that uses ToggleButton with modified css styling
+ */
 const StyledToggleButton = withStyles(theme => ({
   root: {
-    color: fade("#022", 0.6),
-    background: fade("#ffdb62", 0.2),
+    height: 32,
+    minHeight: 32,
+    maxHeight: 32,
+    color: "#fff",
+    background: fade("#1971c2", 0.6),
+    border: "none",
     "&:hover": {
-      backgroundColor: fade("#ffdb62", 0.8)
+      backgroundColor: fade("#1971c2", 0.8)
     },
     "&$selected": {
       cursor: "not-allowed",
       pointerEvents: "none",
-      color: "#022",
-      backgroundColor: "#ffdb62",
+      color: "#fff",
+      backgroundColor: "#1971c2",
       "&:hover": {
-        backgroundColor: "#ffdb62",
-        border: `1px solid ${fade(theme.palette.action.active, 0.12)}`
+        backgroundColor: "#1971c2"
       }
     }
   },
   selected: {
     cursor: "not-allowed",
     pointerEvents: "none",
-    color: "#022",
-    backgroundColor: "#B0D0D3"
+    color: "#fff",
+    backgroundColor: "#1971c2"
   }
 }))(ToggleButton);
 
-export default function ConsoleLonLatSelects(props) {
+/**
+ * Main component which controls and displays the console's longitude and latitude
+ * selectors and handles user click events.
+ *
+ * @component
+ */
+export default function ConsoleLonLatSelects() {
   const [posEastWest, setPosEastWest] = React.useState("PositiveEast");
   const [coordSystem, setCoordSystem] = React.useState("Planetocentric");
   const [lonRange, setLonRange] = React.useState(180);
@@ -114,7 +130,7 @@ export default function ConsoleLonLatSelects(props) {
       justify="space-evenly"
       alignItems="center"
       className={classes.grid}
-      xs={10}
+      xs={9}
     >
       <Grid item>
         <StyledTooltip
@@ -125,7 +141,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >
@@ -157,7 +173,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >
@@ -195,7 +211,7 @@ export default function ConsoleLonLatSelects(props) {
             </Typography>
           }
           enterDelay={800}
-          leaveDelay={150}
+          leaveDelay={0}
           arrow
           TransitionComponent={Zoom}
         >

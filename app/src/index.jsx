@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "leaflet";
-import "proj4leaflet";
+import App from "./components/container/App.jsx";
 import "proj4";
+import "proj4leaflet";
 import "./styles.css";
-import "./js/AstroMath";
-import App from "./components/App.jsx";
+import "leaflet";
 
 ReactDOM.render(<App />, document.getElementById("map"));

@@ -2,8 +2,10 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import marsLogo from "../../assets/img/marsLogo.png";
 
+/**
+ * Controls css styling for this component using js to css
+ */
 const useStyles = makeStyles({
   img: {
     width: 36,
@@ -13,9 +15,25 @@ const useStyles = makeStyles({
   grid: {
     width: "100%",
     maxHeight: 45
+  },
+  title: {
+    color: "#343a40",
+    fontWeight: 900,
+    letterSpacing: "0.8rem"
   }
 });
 
+/**
+ * Component that displays target body name in console.
+ * Retrieves target name from target selector
+ *
+ * @component
+ * @example
+ * const target = Mars
+ * return (
+ *   <ConsoleTargetInfo target={target}/>
+ * )
+ */
 export default function ConsoleTargetInfo(props) {
   const classes = useStyles();
   return (
@@ -28,7 +46,9 @@ export default function ConsoleTargetInfo(props) {
       xs
     >
       <Grid item>
-        <Typography variant="h4">{props.targetName}</Typography>
+        <Typography className={classes.title} variant="h4">
+          {props.target.toUpperCase()}
+        </Typography>
       </Grid>
     </Grid>
   );
