@@ -1,4 +1,0 @@
-ipyleaflet
-ipywidgets
-geojson
-Shapely

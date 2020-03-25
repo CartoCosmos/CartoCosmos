@@ -55,7 +55,7 @@ export default class AstroMath {
    * @return {double} The converted value in radians.
    */
   toRadians(degrees) {
-    return (degrees * Math.PI) / 180;
+    return degrees * (Math.PI / 180);
   }
   /**
    * @function AstroMath.prototype.toDegrees

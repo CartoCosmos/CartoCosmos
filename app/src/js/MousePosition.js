@@ -1,5 +1,5 @@
 import AstroMath from "./AstroMath";
-import "leaflet-fullscreen";
+import L from "leaflet";
 /**
  * @class MousePosition
  * @aka L.Control.AstroMousePosition
