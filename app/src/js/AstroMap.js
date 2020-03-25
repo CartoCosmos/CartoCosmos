@@ -87,7 +87,7 @@ export default L.Map.AstroMap = L.Map.extend({
    * @param {String} name - Name of Projection.
    *
    * @param {List} center - Center of map based off of projection.
-]   */
+   */
   changeProjection: function(name, center) {
     // Reset the view before changing the projection since
     // an exception may be thrown when swapping to a polar
