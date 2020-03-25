@@ -45,7 +45,7 @@ class planetary_maps:
 
         self.json_dict = None
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        with open(dir_path + "/geoServerLayers.json", 'r') as fp:
+        with open(dir_path + "/../geoServerLayers.json", 'r') as fp:
             self.json_dict = json.load(fp)
 
         self.find_radius()

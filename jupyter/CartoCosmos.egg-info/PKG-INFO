@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: CartoCosmos
+Version: 1.3
+Summary: Virtual planetary mapping
+Home-page: https://github.com/CartoCosmos/CartoCosmos
+Author: CartoComos Development Team
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: CartoCosmos is a virtual planetary mapping application that allows users to create and view maps of different planetary bodies supported by USGS.
+Platform: UNKNOWN

@@ -1,0 +1,11 @@
+MANIFEST.in
+README
+geoServerLayers.json
+setup.py
+CartoCosmos/CartoCosmos.py
+CartoCosmos/__init__.py
+CartoCosmos.egg-info/PKG-INFO
+CartoCosmos.egg-info/SOURCES.txt
+CartoCosmos.egg-info/dependency_links.txt
+CartoCosmos.egg-info/requires.txt
+CartoCosmos.egg-info/top_level.txt
