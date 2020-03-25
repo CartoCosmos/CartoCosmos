@@ -8,6 +8,7 @@ import shapely.wkt
 import os
 import urllib.request
 
+from CartoCosmos import planetary_gui
 
 class planetary_maps:
     """ The Central class that creates interactive planetary maps in Jupyter Notebooks. 
@@ -22,6 +23,7 @@ class planetary_maps:
         """
         self.target_name = targetName
         self.layers = []
+        self.overlays = []
         self.planet_map = None
         self.map_layers = {
             'base': [],
@@ -96,6 +98,7 @@ class planetary_maps:
                     base=True,
                     show_loading=False,
                 )
+
                 self.layers.append(wms_layer)
 
         for layer in self.map_layers['overlays']:
@@ -156,6 +159,7 @@ class planetary_maps:
 
             self.gui.get_lat_lon_label().value = "Lat, Lon: " + \
                 str(round(lat, 2)) + ", " + str(round(lng, 2))
+
 
     def create_map(self):
 

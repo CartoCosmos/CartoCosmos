@@ -45,7 +45,7 @@ class planetary_maps:
 
         self.json_dict = None
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        with open(dir_path + "/../geoServerLayers.json", 'r') as fp:
+        with open(dir_path + "/geoServerLayers.json", 'r') as fp:
             self.json_dict = json.load(fp)
 
         self.find_radius()
@@ -327,7 +327,7 @@ class planetary_maps:
 
                     # Sort features by diameter
                     jsonp['features'] = sorted(
-                        jsonp['features'], key=lambda feature: feature["properties"]["diameter"])
+                        jsonp['features'], key=lambda feature: feature["properties"]["diameter"], reverse=True)
                     geo_json = GeoJSON(data=jsonp, name="Show Feature Names")
                     geo_json.point_style = {
                         'fillOpacity': 1,

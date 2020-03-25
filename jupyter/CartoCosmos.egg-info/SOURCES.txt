@@ -1,9 +1,12 @@
 MANIFEST.in
 README
-geoServerLayers.json
+setup.cfg
 setup.py
 CartoCosmos/CartoCosmos.py
 CartoCosmos/__init__.py
+CartoCosmos/geoServerLayers.json
+CartoCosmos/planetary_gui.py
+CartoCosmos/planetary_maps.py
 CartoCosmos.egg-info/PKG-INFO
 CartoCosmos.egg-info/SOURCES.txt
 CartoCosmos.egg-info/dependency_links.txt
