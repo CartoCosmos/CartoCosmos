@@ -104,7 +104,11 @@ export default class AstroMath {
       convertedLon -= 180;
     }
     if (convertedLon < 0) {
-      convertedLon += 360;
+      convertedLon += 180;
+    }
+    else
+    {
+      convertedLon += 180;
     }
 
     return convertedLon;
