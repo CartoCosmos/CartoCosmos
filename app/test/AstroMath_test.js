@@ -57,10 +57,10 @@ describe('Testing AstroMath Functions', function() {
     })
 
     // testing lonTo360 function
-    it('Testing lonTo360 Non-Cylindrical: -180 should be 180 ', function() {
+    it('Testing lonTo360 Non-Cylindrical: -180 should be 0 ', function() {
       // add an assertion
       let majorRadius = testMath.lonTo360(-180, "");
-      expect(majorRadius).to.equal(180);
+      expect(majorRadius).to.equal(0);
     })
 
     // testing domainToPositiveWest function

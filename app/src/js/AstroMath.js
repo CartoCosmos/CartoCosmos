@@ -103,10 +103,19 @@ export default class AstroMath {
     if (projection === "EPSG:4326") {
       convertedLon -= 180;
     }
+    
+
     if (convertedLon < 0) {
-      convertedLon += 180;
+      if (projection == "EPSG:4326")
+      {
+        convertedLon += 360;
+      }
+      else
+      {
+        convertedLon += 180;
+      }
     }
-    else
+    else if (projection != "EPSG:4326")
     {
       convertedLon += 180;
     }
