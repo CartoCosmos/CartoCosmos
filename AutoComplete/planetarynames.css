@@ -327,7 +327,8 @@ div.search_wrapper {
 }
 
 #autoComplete{
-  border:     none;
+  border-style: solid;
+  border-width: 2px;
   color:   #000000;
   height:     21px;
   width:     150px;
