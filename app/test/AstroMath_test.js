@@ -29,16 +29,16 @@ describe('Testing AstroMath Functions', function() {
   })
 
   // testing toRadians function
-  it('Testing toRadians: 360 degrees should be 6.28', function() {
+  it('Testing toRadians: 360 degrees should be 2pi', function() {
     // add an assertion
     let majorRadius = testMath.toRadians(360);
-    expect(majorRadius).to.be.closeTo(6.28, 0.01);
+    expect(majorRadius).to.be.closeTo((2*Math.PI), 0.01);
   })
 
     // testing toDegrees function
-    it('Testing toDegrees: 6.283185307179586 degrees should be 360', function() {
+    it('Testing toDegrees: 2pi degrees should be 360', function() {
       // add an assertion
-      let majorRadius = testMath.toDegrees(6.283185307179586);
+      let majorRadius = testMath.toDegrees((2*Math.PI));
       expect(majorRadius).to.be.closeTo(360, 1);
     })
 
