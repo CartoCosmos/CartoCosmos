@@ -55,7 +55,7 @@ export default class AstroMath {
    * @return {double} The converted value in radians.
    */
   toRadians(degrees) {
-    return (degrees * Math.PI) / 180;
+    return degrees * (Math.PI / 180);
   }
   /**
    * @function AstroMath.prototype.toDegrees
@@ -103,8 +103,21 @@ export default class AstroMath {
     if (projection === "EPSG:4326") {
       convertedLon -= 180;
     }
+    
+
     if (convertedLon < 0) {
-      convertedLon += 360;
+      if (projection == "EPSG:4326")
+      {
+        convertedLon += 360;
+      }
+      else
+      {
+        convertedLon += 180;
+      }
+    }
+    else if (projection != "EPSG:4326")
+    {
+      convertedLon += 180;
     }
 
     return convertedLon;

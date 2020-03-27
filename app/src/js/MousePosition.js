@@ -119,31 +119,38 @@ export default L.Control.MousePosition = L.Control.extend({
     let { lng } = e.latlng;
     let { lat } = e.latlng;
 
-    lat = L.Util.wrapNum(lat, [-90.0, 90.0]);
-    lng = L.Util.wrapNum(lng, [-180.0, 180.0]);
+    if (lat <= 90 && lat >= -90)
+    {
+      lng = L.Util.wrapNum(lng, [-180.0, 180.0]);
 
-    if (!this.isLatTypeOcentric) {
-      lat = this.astroMath.latToPlanetOgraphic(lat);
+      if (!this.isLatTypeOcentric) {
+        lat = this.astroMath.latToPlanetOgraphic(lat);
+      }
+
+      if (!this.isLonDom180) {
+        lng = this.astroMath.lonTo360(lng, this.map.options.crs.code);
+      }
+
+      if (!this.isLonDirEast) {
+        lng = this.astroMath.domainToPositiveWest(lng, this.isLonDom180);
+      }
+
+      lng = L.Util.formatNum(lng, this.options.numDigits);
+      lat = L.Util.formatNum(lat, this.options.numDigits);
+
+      //const value = this.options.lngFirst
+      //? lng + this.options.separator + lat
+      //: lat + this.options.separator + lng;
+
+      //const prefixAndValue = `${this.options.prefix}${value}`;
+      this.lonDisplayElement.innerHTML = lng;
+      this.latDisplayElement.innerHTML = lat;
     }
-
-    if (!this.isLonDom180) {
-      lng = this.astroMath.lonTo360(lng, this.map.options.crs.code);
+    else
+    {
+      this.lonDisplayElement.innerHTML = "---.---";
+      this.latDisplayElement.innerHTML = "---.---";
     }
-
-    if (!this.isLonDirEast) {
-      lng = this.astroMath.domainToPositiveWest(lng, this.isLonDom180);
-    }
-
-    lng = L.Util.formatNum(lng, this.options.numDigits);
-    lat = L.Util.formatNum(lat, this.options.numDigits);
-
-    //const value = this.options.lngFirst
-    //? lng + this.options.separator + lat
-    //: lat + this.options.separator + lng;
-
-    //const prefixAndValue = `${this.options.prefix}${value}`;
-    this.lonDisplayElement.innerHTML = lng;
-    this.latDisplayElement.innerHTML = lat;
   },
   /**
    * @function MousePosition.prototype.onMouseOut
