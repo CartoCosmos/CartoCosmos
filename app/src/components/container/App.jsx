@@ -88,7 +88,7 @@ export default function App() {
         <ConsoleContainer target={targetPlanet} />
         <MapContainer target={targetPlanet} />
         <WellKnownTextInput />
-        <CreditsDisplay style={{ width: 800, maxWidth: 800 }} />
+        <CreditsDisplay />
       </Paper>
     </div>
   );
