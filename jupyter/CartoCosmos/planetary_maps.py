@@ -238,7 +238,7 @@ class planetary_maps:
         display(self.gui.get_wkt_button())
 
         # Display map first, then add features
-        self.add_wfs_features()
+        # self.add_wfs_features()
 
     def add_wkt(self, wktString):
         """ Takes in a Well-Known text string 
