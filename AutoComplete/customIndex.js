@@ -103,12 +103,3 @@ var newAutocomplete = new autoComplete({
         window.location.href = encodedURLString;
     }
 });
-
-/*
-function unrenderBox(){
-  var newAutocomplete = new autoComplete({
-      resultsList: {
-        render = false,
-      },
-  }),
-}*/
