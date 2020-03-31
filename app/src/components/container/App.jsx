@@ -52,7 +52,7 @@ export default function App() {
           value={targetPlanet}
           input={<Input id="grouped-select" />}
         >
-          <ListSubheader>Planets</ListSubheader>
+          <ListSubheader value="Mercury">Planets</ListSubheader>
           <MenuItem value="Mercury">Mercury</MenuItem>
           <MenuItem value="Venus">Venus</MenuItem>
           <MenuItem value="Earth">Earth</MenuItem>
@@ -62,7 +62,7 @@ export default function App() {
           <MenuItem value="Uranus">Uranus</MenuItem>
           <MenuItem value="Neptune">Neptune</MenuItem>
           <MenuItem value="Pluto">Pluto (yeah, a planet)</MenuItem>
-          <ListSubheader>Moons and Other Bodies</ListSubheader>
+          <ListSubheader value="Moon">Moons and Other Bodies</ListSubheader>
           <MenuItem value="Moon">Moon</MenuItem>
           <MenuItem value="Ceres">Ceres</MenuItem>
           <MenuItem value="Mimas">Mimas</MenuItem>
