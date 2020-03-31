@@ -5,6 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import { makeStyles, withStyles, fade } from "@material-ui/core/styles";
+import "../../js/autocomplete/customIndex.js";
+import "../../js/autocomplete/getServer.js";
+import "../../js/autocomplete/render.js";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -83,8 +86,8 @@ export default function AutoCompleteInput() {
             }}
             id="autoComplete"
             tabIndex="1"
-            onfocusout="unrenderBox()"
-            onfocusin="renderBox()"
+            onBlur="unrenderBox()"
+            onFocus="renderBox()"
           />
           <Button variant="contained" className={classes.button} id="wktButton">
             Search
