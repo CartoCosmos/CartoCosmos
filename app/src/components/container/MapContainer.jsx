@@ -4,6 +4,7 @@ import Projection from "../../js/Projection";
 import MousePosition from "../../js/MousePosition";
 import Draw from "../../js/Draw";
 import "leaflet";
+//import newAutocomplete from "../../js/autocomplete/customIndex";
 
 /**
  * Component that uses back end JS files to invoke and display the
@@ -51,6 +52,8 @@ export default class MapContainer extends Component {
     }).addTo(map);
 
     new L.Control.Scale({ imperial: false }).addTo(map);
+
+    //new newAutocomplete();
   }
 
   /**

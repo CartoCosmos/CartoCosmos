@@ -9,7 +9,7 @@ function loadGeoJson(data) {
   //While the feature at the current index is not null.
   while (data.features[index] != null) {
     //Log the feature name.
-    console.log(data.features[index].properties.clean_feature + " " + index);
+    //console.log(data.features[index].properties.clean_feature + " " + index);
     //Push the json object at the current index onto nameArray.
     nameArray.push(data.features[index].properties);
     //Increment index.

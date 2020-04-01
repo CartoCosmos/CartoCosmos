@@ -86,8 +86,8 @@ export default function AutoCompleteInput() {
             }}
             id="autoComplete"
             tabIndex="1"
-            onBlur="unrenderBox()"
-            onFocus="renderBox()"
+            //onBlur="unrenderBox()"
+            //onFocus="renderBox()"
           />
           <Button variant="contained" className={classes.button} id="wktButton">
             Search

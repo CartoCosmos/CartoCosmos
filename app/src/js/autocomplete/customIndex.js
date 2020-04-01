@@ -1,18 +1,19 @@
 import "./getServer.js";
 import "jquery";
+import autoComplete from "@tarekraafat/autocomplete.js";
 
 // Logs query events into the console.
-document
+/* document
   .querySelector("#autoComplete")
   .addEventListener("autoComplete", function(event) {
     console.log(event.detail);
-  });
+  }); */
 
 /**
  * @class autoComplete
  * @classdesc Declares a new autocomplete that is ran when the user enters more data into the autocomplete box.
  */
-var newAutocomplete = new autoComplete({
+var newAutoComplete = new autoComplete({
   //Defines the data that will be returned inside of the autocomplete.
   data: {
     //Gets data source for autocomplete asyncronusly.
