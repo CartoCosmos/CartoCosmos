@@ -1,10 +1,12 @@
 import AstroMath from "./AstroMath";
 import "leaflet";
+import L from "leaflet";
+
 /**
  * @class MousePosition
  * @aka L.Control.AstroMousePosition
  * @extends L.Control
- * 
+ *
  * @classdesc Class that inherits from the class L.Control and handles the back-end when a user clicks on the lat/lon buttons.
  * Since this class inherits L.Control, it is added to the AstroMap in the same way as other controls, like the zoom control.
  *
@@ -119,8 +121,7 @@ export default L.Control.MousePosition = L.Control.extend({
     let { lng } = e.latlng;
     let { lat } = e.latlng;
 
-    if (lat <= 90 && lat >= -90)
-    {
+    if (lat <= 90 && lat >= -90) {
       lng = L.Util.wrapNum(lng, [-180.0, 180.0]);
 
       if (!this.isLatTypeOcentric) {
@@ -145,9 +146,7 @@ export default L.Control.MousePosition = L.Control.extend({
       //const prefixAndValue = `${this.options.prefix}${value}`;
       this.lonDisplayElement.innerHTML = lng;
       this.latDisplayElement.innerHTML = lat;
-    }
-    else
-    {
+    } else {
       this.lonDisplayElement.innerHTML = "---.---";
       this.latDisplayElement.innerHTML = "---.---";
     }
@@ -164,19 +163,19 @@ export default L.Control.MousePosition = L.Control.extend({
 });
 
 /**
-  * @function MousePosition.prototype.mergeOptions
-  * @aka L.Map.mergeOptions
-  * @description Turns position control false.
-  */
+ * @function MousePosition.prototype.mergeOptions
+ * @aka L.Map.mergeOptions
+ * @description Turns position control false.
+ */
 L.Map.mergeOptions({
   positionControl: false
 });
 
 /**
-  * @function MousePosition.prototype.addInitHook
-  * @aka L.Map.addInitHook
-  * @description Adds position control.
-  */
+ * @function MousePosition.prototype.addInitHook
+ * @aka L.Map.addInitHook
+ * @description Adds position control.
+ */
 L.Map.addInitHook(function() {
   if (this.options.positionControl) {
     this.positionControl = new L.Control.MousePosition();
@@ -185,11 +184,11 @@ L.Map.addInitHook(function() {
 });
 
 /**
-  * @function MousePosition.prototype.mousePosition
-  * @aka L.mousePosition
-  * @description Gets mouse position.
-  * @return {Object} Mouse position.
-  */
+ * @function MousePosition.prototype.mousePosition
+ * @aka L.mousePosition
+ * @description Gets mouse position.
+ * @return {Object} Mouse position.
+ */
 L.mousePosition = function(options) {
   return new L.Control.MousePosition(options);
 };

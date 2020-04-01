@@ -1,6 +1,7 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import "leaflet-fullscreen";
+// import "leaflet-fullscreen";
+import L from "leaflet";
 /**
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -177,5 +178,15 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   currentLayer: function() {
     return this._currentLayer;
+  },
+
+  /**
+   * @function AstroMap.prototype.radii
+   * @description Returns the a and c radii of the target.
+   *
+   * @return {Dictionary} Radii of target in form {'a': . 'c': }.
+   */
+  radii: function() {
+    return this._radii;
   }
 });

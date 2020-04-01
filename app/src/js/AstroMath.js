@@ -1,5 +1,4 @@
 import { MY_JSON_MAPS } from "./layers";
-import "./MousePosition";
 
 /**
  * @class AstroMath
@@ -103,20 +102,14 @@ export default class AstroMath {
     if (projection === "EPSG:4326") {
       convertedLon -= 180;
     }
-    
 
     if (convertedLon < 0) {
-      if (projection == "EPSG:4326")
-      {
+      if (projection == "EPSG:4326") {
         convertedLon += 360;
-      }
-      else
-      {
+      } else {
         convertedLon += 180;
       }
-    }
-    else if (projection != "EPSG:4326")
-    {
+    } else if (projection != "EPSG:4326") {
       convertedLon += 180;
     }
 
