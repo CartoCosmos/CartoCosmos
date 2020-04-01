@@ -1,29 +1,28 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
+import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import { makeStyles, withStyles, fade } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
+import "../../js/autocomplete/customIndex.js";
+import "../../js/autocomplete/getServer.js";
+import "../../js/autocomplete/render.js";
 
-/**
- * Controls css styling for this component using js to css
- */
 const useStyles = makeStyles(theme => ({
   root: {
     textAlign: "center",
     maxHeight: 80,
     height: 80,
-    backgroundColor: "#f8f9fa",
-    overflow: "hidden"
+    width: 500
+    //overflow: "hidden"
   },
   container: {
     padding: "1rem",
     height: 50,
-    width: "75%",
+    width: "90%",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: "center",
     margin: "auto"
   },
@@ -38,18 +37,12 @@ const useStyles = makeStyles(theme => ({
     height: 40,
     color: "#fff",
     backgroundColor: "#1971c2",
-    width: "9rem",
+    width: "6rem",
     marginLeft: "1rem",
     alignSelf: "center",
     "&:hover": {
       backgroundColor: fade("#1971c2", 0.7)
     }
-  },
-  title: {
-    padding: "0.2rem",
-    color: "#343a40",
-    fontSize: 18,
-    fontWeight: 600
   }
 }));
 
@@ -66,50 +59,38 @@ const StyledTooltip = withStyles(theme => ({
   }
 }))(Tooltip);
 
-/**
- * Component that accepts user input of Well-Known Text
- *
- * @component
- * @example
- * <WellKnownTextInput />
- *
- */
-export default function WellKnownTextInput() {
+export default function AutoCompleteInput() {
   const classes = useStyles();
-  const wktLink =
-    "https://www.vertica.com/docs/9.2.x/HTML/Content/Authoring/AnalyzingData/Geospatial/Spatial_Definitions/WellknownTextWKT.htm";
 
   return (
     <div className={classes.root}>
       <StyledTooltip
         title={
           <Typography variant="subtitle1">
-            Enter a <Link href={wktLink}>Well-Known Text</Link>
-            &ensp;string then press "Draw on Map" to plot the polygon on the
-            map.
+            Enter the name of a surface feature and select it to open a web page
+            with information about that feature.
           </Typography>
         }
         enterDelay={800}
         leaveDelay={250}
-        interactive
         arrow
         TransitionComponent={Zoom}
       >
         <div className={classes.container}>
-          <Input
+          <TextField
             className={classes.textbox}
             variant="outlined"
-            label="Enter WKT String"
+            label="Enter Surface Feature Name"
             InputLabelProps={{
               shrink: true
             }}
-            id="wktTextBox"
-            name="fname"
-            type="text"
-            autoComplete="off"
+            id="autoComplete"
+            tabIndex="1"
+            onBlur="unrenderBox()"
+            onFocus="renderBox()"
           />
           <Button variant="contained" className={classes.button} id="wktButton">
-            Draw On Map
+            Search
           </Button>
         </div>
       </StyledTooltip>
