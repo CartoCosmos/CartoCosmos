@@ -178,9 +178,9 @@ export default L.LayerCollection = L.Class.extend({
       L.LayerCollection.layerControl.addTo(map);
     }
 
-    if (this._projName == "cylindrical") {
-      this.loadWFS(map);
-    }
+    // if (this._projName == "cylindrical") {
+    //   this.loadWFS(map);
+    // }
   },
 
   /**
