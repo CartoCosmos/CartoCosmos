@@ -26,7 +26,7 @@ export default class MapContainer extends Component {
   }
 
   /**
-   * Invokes when the component is successfully mounted to the DOM, then
+   * Invoked when the component is successfully mounted to the DOM, then
    * handles all of the map intialization and creation.
    */
   componentDidMount() {

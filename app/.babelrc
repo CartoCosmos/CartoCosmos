@@ -10,6 +10,13 @@
   ],
   "plugins": [
     [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
+
+    [
       "babel-plugin-import",
       {
         "libraryName": "@material-ui/core",

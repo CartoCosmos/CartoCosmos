@@ -11,7 +11,7 @@ import MapContainer from "./MapContainer.jsx";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import WellKnownTextInput from "../presentational/WellKnownTextInput.jsx";
 import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
-import AutoCompleteInput from "../presentational/AutoCompleteInput.jsx";
+//import AutoCompleteInput from "../presentational/AutoCompleteInput.jsx";
 
 /**
  * Controls css styling for this component using js to css
@@ -92,7 +92,7 @@ export default function App() {
             <MenuItem value="Charon">Charon</MenuItem>
           </Select>
         </FormControl>
-        <AutoCompleteInput className={classes.autoComplete} />
+        {/* <AutoCompleteInput className={classes.autoComplete} /> */}
       </div>
       <Paper elevation={10}>
         <ConsoleContainer target={targetPlanet} />
