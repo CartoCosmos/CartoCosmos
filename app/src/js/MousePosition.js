@@ -135,14 +135,9 @@ export default L.Control.MousePosition = L.Control.extend({
         lng = this.astroMath.domainToPositiveWest(lng, this.isLonDom180);
       }
 
-      lng = L.Util.formatNum(lng, this.options.numDigits);
-      lat = L.Util.formatNum(lat, this.options.numDigits);
+      lng = lng.toFixed(this.options.numDigits);
+      lat = lat.toFixed(this.options.numDigits);
 
-      //const value = this.options.lngFirst
-      //? lng + this.options.separator + lat
-      //: lat + this.options.separator + lng;
-
-      //const prefixAndValue = `${this.options.prefix}${value}`;
       this.lonDisplayElement.innerHTML = lng;
       this.latDisplayElement.innerHTML = lat;
     }
