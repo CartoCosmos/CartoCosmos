@@ -87,21 +87,31 @@ export default L.Map.AstroMap = L.Map.extend({
    * @param {String} name - Name of Projection.
    *
    * @param {List} center - Center of map based off of projection.
-]   */
+   */
   changeProjection: function(name, center) {
+    // Reset the view before changing the projection since
+    // an exception may be thrown when swapping to a polar
+    // projection and the zoom level is 7+.
+    this.setView(center, 1, true);
+
     let newCRS = null;
     if (name == "cylindrical") {
       newCRS = this._defaultProj;
       this._currentProj = "EPSG:4326";
+      this.setMaxZoom(8);
     } else {
       let proj = this._astroProj.getStringAndCode(this._target, name);
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
         resolutions: [8192, 4096, 2048, 1024, 512, 256, 128]
       });
       this._currentProj = proj["code"];
+      this.setMaxZoom(6);
     }
-
     this.options.crs = newCRS;
+
+    // Reset the view again because the map refreshses after changing
+    // the projection and you start to zoom in/out. This makes the map do a
+    // weird flashing transition.
     this.setView(center, 1, true);
     this.loadLayerCollection(name);
 
