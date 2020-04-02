@@ -1,5 +1,6 @@
 import "./getServer.js";
-import "jquery";
+import "./render";
+import "./require";
 import autoComplete from "@tarekraafat/autocomplete.js";
 
 // Logs query events into the console.
@@ -50,7 +51,7 @@ var newAutoComplete = new autoComplete({
     return 0;
   },
   //Value displayed in searchbox before any value is entered.
-  //placeHolder: "Enter feature here...",
+  placeHolder: "Enter feature here...",
   //ID of input/searchbox which will be used.
   selector: "#autoComplete",
   //Does not display autocomplete results list until the characters entered into the searchbox exceed the threshold.
