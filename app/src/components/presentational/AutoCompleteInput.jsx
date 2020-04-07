@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import Input from "@material-ui/core/Input";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import { makeStyles, withStyles, fade } from "@material-ui/core/styles";
@@ -77,7 +77,7 @@ export default function AutoCompleteInput() {
         TransitionComponent={Zoom}
       >
         <div className={classes.container}>
-          <TextField
+          <Input
             className={classes.textbox}
             variant="outlined"
             label="Enter Surface Feature Name"
@@ -86,8 +86,8 @@ export default function AutoCompleteInput() {
             }}
             id="autoComplete"
             tabIndex="1"
-            onBlur="unrenderBox()"
-            onFocus="renderBox()"
+            //onBlur="unrenderBox()"
+            //onFocus="renderBox()"
           />
           <Button variant="contained" className={classes.button} id="wktButton">
             Search

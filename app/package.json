@@ -79,6 +79,7 @@
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.41",
+    "@tarekraafat/autocomplete.js": "^7.2.0",
     "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
     "leaflet-draw": "1.0.4",

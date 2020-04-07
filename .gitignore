@@ -1,5 +1,6 @@
 .cache/
 coverage/
+docs/
 dist/
 dist/*
 .dist/
