@@ -41,9 +41,8 @@ describe("AstroMap", function() {
     expect(testMap).to.be.an("Object");
     expect(testMap.target() == target);
   });
-
-  // // Move JSON parsing to map
-  // it("should throw an exception with an invalid target", function() {
-  //   let testMap = new AstroMap("map", "invalidTarget");
-  // });
+  // Move JSON parsing to map
+  it("should throw an exception with an invalid target", function() {
+    let testMap = new AstroMap("map", "invalidTarget");
+  });
 });

@@ -18,8 +18,7 @@ export default L.LayerCollection = L.Class.extend({
    * @param {String} target Name of the target.
    * @param {String} projName Name of the projection.
    */
-  initialize: function(target, projName) {
-    this._target = target;
+  initialize: function(projName, layerInfo) {
     this._projName = projName;
     this._baseLayers = {};
     this._overlays = {};
@@ -27,56 +26,8 @@ export default L.LayerCollection = L.Class.extend({
     this._wfsLayer = null;
     L.LayerCollection.layerControl = null;
 
-    let layers = this.parseJSON();
-    this.createBaseLayers(layers["base"]);
-    this.createOverlays(layers["overlays"]);
-  },
-
-  /**
-   * @function LayerCollection.prototype.parseJSON
-   * @description Parses the USGS JSON, creates layer objects for a particular target and projection, and stores them in a JS object.
-   * @return {Object} - Dictionary containing the layer information in the format: {base: [], overlays: []}
-   */
-  parseJSON: function() {
-    let layers = {
-      base: [],
-      overlays: [],
-      wfs: []
-    };
-
-    let targets = MY_JSON_MAPS["targets"];
-    for (let i = 0; i < targets.length; i++) {
-      let currentTarget = targets[i];
-
-      if (currentTarget["name"].toLowerCase() == this._target.toLowerCase()) {
-        let jsonLayers = currentTarget["webmap"];
-        for (let j = 0; j < jsonLayers.length; j++) {
-          let currentLayer = jsonLayers[j];
-          if (
-            currentLayer["projection"].toLowerCase() !=
-            this._projName.toLowerCase()
-          ) {
-            continue;
-          }
-          if (currentLayer["type"] == "WMS") {
-            // Base layer check
-            if (currentLayer["transparent"] == "false") {
-              layers["base"].push(currentLayer);
-              if (currentLayer["primary"] == "true") {
-                this._defaultLayerIndex = layers["base"].length - 1;
-              }
-            } else {
-              if (currentLayer["displayname"] != "Show Feature Names") {
-                layers["overlays"].push(currentLayer);
-              }
-            }
-          } else {
-            layers["wfs"].push(currentLayer);
-          }
-        }
-      }
-    }
-    return layers;
+    this.createBaseLayers(layerInfo["base"]);
+    this.createOverlays(layerInfo["overlays"]);
   },
 
   /**
@@ -87,16 +38,14 @@ export default L.LayerCollection = L.Class.extend({
   createBaseLayers: function(layers) {
     for (let i = 0; i < layers.length; i++) {
       let layer = layers[i];
-      if (layer["projection"] == this._projName) {
-        let baseLayer = L.tileLayer.wms(
-          String(layer["url"]) + "?map=" + String(layer["map"]),
-          {
-            layers: String(layer["layer"])
-          }
-        );
-        let name = String(layer["displayname"]);
-        this._baseLayers[name] = baseLayer;
-      }
+      let baseLayer = L.tileLayer.wms(
+        String(layer["url"]) + "?map=" + String(layer["map"]),
+        {
+          layers: String(layer["layer"])
+        }
+      );
+      let name = String(layer["displayname"]);
+      this._baseLayers[name] = baseLayer;
     }
   },
 

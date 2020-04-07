@@ -38,23 +38,41 @@ export default L.Map.AstroMap = L.Map.extend({
     this._astroProj = new AstroProj();
     this._radii = this._astroProj.getRadii(this._target);
 
+    // Set by layer collection or baselayerchange event
     this._currentLayer = null;
+
+    // Store layers at map creation so we only need to create layers once.
+    let cylLayerInfo = this.parseJSON("cylindrical");
+    if (Object.entries(cylLayerInfo).length == 0) {
+      throw "No entry in the JSON for {this._target}. Cannot instantiate a map.";
+    }
 
     // Could not work with _
     this.layers = {
-      northPolar: new LayerCollection(
-        this._target,
-        "north-polar stereographic"
-      ),
-      southPolar: new LayerCollection(
-        this._target,
-        "south-polar stereographic"
-      ),
-      cylindrical: new LayerCollection(this._target, "cylindrical")
+      cylindrical: new LayerCollection("cylindrical", cylLayerInfo)
     };
 
-    this._hasNorthPolar = !this.layers["northPolar"].isEmpty();
-    this._hasSouthPolar = !this.layers["southPolar"].isEmpty();
+    let northLayerInfo = this.parseJSON("north-polar stereographic");
+    if (Object.entries(northLayerInfo).length == 0) {
+      this._hasNorthPolar = false;
+    } else {
+      this._hasNorthPolar = true;
+      this.layers[northPolar] = new LayerCollection(
+        "north-polar stereographic",
+        northLayerInfo
+      );
+    }
+
+    let southLayerInfo = this.parseJSON("south-polar stereographic");
+    if (Object.entries(southLayerInfo).length == 0) {
+      this._hasSouthPolar = false;
+    } else {
+      this._hasSouthPolar = true;
+      this.layers[northPolar] = new LayerCollection(
+        "south-polar stereographic",
+        southLayerInfo
+      );
+    }
 
     this._defaultProj = L.extend({}, L.CRS.EPSG4326, { R: this._radii["a"] });
     this.options["crs"] = this._defaultProj;
@@ -79,6 +97,54 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   loadLayerCollection: function(name) {
     this.layers[name].addTo(this);
+  },
+
+  /**
+   * @function AstroMap.prototype.parseJSON
+   * @description Parses the USGS JSON, creates layer objects for a particular target and projection,
+   *              and stores them in a JS object.
+   * @return {Object} - Dictionary containing the layer information in the format: {base: [], overlays: []}
+   */
+  parseJSON: function(projection) {
+    let layers = {
+      base: [],
+      overlays: [],
+      wfs: []
+    };
+
+    let targets = MY_JSON_MAPS["targets"];
+    for (let i = 0; i < targets.length; i++) {
+      let currentTarget = targets[i];
+
+      if (currentTarget["name"].toLowerCase() == this._target.toLowerCase()) {
+        let jsonLayers = currentTarget["webmap"];
+        for (let j = 0; j < jsonLayers.length; j++) {
+          let currentLayer = jsonLayers[j];
+          if (
+            currentLayer["projection"].toLowerCase() != projection.toLowerCase()
+          ) {
+            continue;
+          }
+          if (currentLayer["type"] == "WMS") {
+            // Base layer check
+            if (currentLayer["transparent"] == "false") {
+              layers["base"].push(currentLayer);
+              if (currentLayer["primary"] == "true") {
+                this._defaultLayerIndex = layers["base"].length - 1;
+              }
+            } else {
+              // Do not add "Show Feature Names" PNG layer.
+              if (currentLayer["displayname"] != "Show Feature Names") {
+                layers["overlays"].push(currentLayer);
+              }
+            }
+          } else {
+            layers["wfs"].push(currentLayer);
+          }
+        }
+      }
+    }
+    return layers;
   },
 
   /**
