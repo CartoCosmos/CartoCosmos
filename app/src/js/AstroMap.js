@@ -2,6 +2,8 @@ import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
 // import "leaflet-fullscreen";
 import L from "leaflet";
+import { MY_JSON_MAPS } from "./layers";
+
 /**
  * @class AstroMap
  * @aka L.Map.AstroMap

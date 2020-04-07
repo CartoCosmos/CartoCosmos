@@ -1,6 +1,5 @@
 @import "../node_modules/leaflet/dist/leaflet.css";
 @import "../node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css";
-@import "../node_modules/leaflet-sidebar-v2/css/leaflet-sidebar.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css";
 
 #map-container {
@@ -19,4 +18,84 @@ Controls the CSS for projection buttons when there is no available projection
 
 .disabled {
   opacity: 40%;
+}
+
+#autoComplete {
+  border-style: solid;
+  border-width: 2px;
+  color: #000000;
+  height: 21px;
+  width: 150px;
+  font-size: 1.2em;
+  left: 40px;
+  top: 14px;
+  position: relative;
+}
+
+#autoComplete_list {
+  position: relative;
+  padding: 0;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 18rem;
+  transition: all 0.1s ease-in-out;
+  -webkit-transition: all -webkit-transform 0.1s ease;
+}
+.autoComplete_result {
+  /*display: inline-block;*/ /*margin:0rem auto;padding:.6rem;*/ /*SAME WIDTH AS TEXTBOX*/
+  max-width: 150px; /*RESTYLE, OUTSIDE BORDER OF LIST*/
+  border: 0.05rem solid #e3e3e3; /*NO BULLETS*/
+  list-style: none; /*text-align:left;*/
+  font-size: 1.1rem;
+  color: #7b7b7b;
+  transition: all 0.1s ease-in-out;
+  background-color: #fff;
+}
+.autoComplete_result::selection {
+  color: rgba(#fff, 0);
+  background-color: rgba(#fff, 0);
+}
+.autoComplete_result:last-child {
+  border-radius: 0 0 1rem 1rem;
+}
+.autoComplete_result:hover {
+  cursor: pointer;
+  background-color: rgba(255, 248, 248, 0.9);
+  border-left: 2px solid rgb(0, 0, 0);
+  border-right: 2px solid rgb(0, 0, 0);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+.autoComplete_result:focus {
+  outline: 0;
+  background-color: rgba(255, 248, 248, 0.9);
+  border-left: 2px solid rgb(0, 0, 0);
+  border-right: 2px solid rgb(0, 0, 0);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+.autoComplete_highlighted {
+  opacity: 1;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+}
+.autoComplete_highlighted::selection {
+  color: rgba(#fff, 0);
+  background-color: rgba(#fff, 0);
+}
+.autoComplete_selected {
+  cursor: pointer;
+  background-color: rgba(255, 248, 248, 0.9);
+  border-left: 2px solid rgb(0, 0, 0);
+  border-right: 2px solid rgb(0, 0, 0);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+@media only screen and (max-width: 600px) {
+  #autoComplete {
+    width: 5rem;
+  }
 }

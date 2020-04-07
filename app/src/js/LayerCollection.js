@@ -1,4 +1,3 @@
-import { MY_JSON_MAPS } from "./layers";
 import $ from "jquery";
 import L from "leaflet";
 
@@ -68,33 +67,36 @@ export default L.LayerCollection = L.Class.extend({
       let name = String(layer["displayname"]);
       this._overlays[name] = overlay;
     }
+    // Adds WFS feature names to map.
+    // Commented out for now.
+    // if (this._projName == "cylindrical") {
+    //   this._wfsLayer = new L.GeoJSON(null, {
 
-    // Only add feature names to cylindrical
-    if (this._projName == "cylindrical") {
-      this._wfsLayer = new L.GeoJSON(null, {
-        /**
-         * @function LayerCollection.prototype.onEachFeature
-         * @description Select each feature.
-         * @param  {String} layer - Overlay information.
-         * @param  {JSON} feature - Feature from json.
-         */
-        onEachFeature: function(feature, layer) {
-          if (feature.properties && feature.properties.name) {
-            layer.bindPopup(feature.properties.name);
-          }
-        },
-        /**
-         * @function LayerCollection.prototype.pointToLayer
-         * @description Get point to layer.
-         * @param  {Constructor} latlng - Latitude and longitude.
-         * @param  {JSON} feature - Feature from json.
-         */
-        pointToLayer: function(feature, latlng) {
-          return new L.CircleMarker(latlng, { radius: 3, fillOpacity: 1 });
-        }
-      });
-      this._overlays["Show Feature Names"] = this._wfsLayer;
-    }
+    //       /**
+    //       * @function LayerCollection.prototype.onEachFeature
+    //       * @description Binds the feature name so that when the feature is clicked,
+    //                      a pop-up with the name is displayed.
+    //       * @param  {String} layer - Vector layer to add name to.
+    //       * @param  {JSON} feature - JSON representing feature clicked on.
+    //       */
+    //     onEachFeature: function(feature, layer) {
+    //       if (feature.properties && feature.properties.name) {
+    //         layer.bindPopup(feature.properties.name);
+    //       }
+    //     },
+    //       /**
+    //       * @function LayerCollection.prototype.pointToLayer
+    //       * @description Add styling so that feature points get created as
+    //                      circles instead of markers.
+    //       * @param  {Constructor} latlng - Latitude and longitude where mouse was clicked.
+    //       * @param  {JSON} feature - JSON representing feature clicked on.
+    //       */
+    //     pointToLayer: function(feature, latlng) {
+    //       return new L.CircleMarker(latlng, { radius: 3, fillOpacity: 1 });
+    //     }
+    //   });
+    //   this._overlays["Show Feature Names"] = this._wfsLayer;
+    // }
   },
 
   /**
