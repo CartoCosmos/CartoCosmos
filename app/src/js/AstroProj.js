@@ -7,29 +7,6 @@ import { MY_JSON_MAPS } from "./layers";
  */
 export default class AstroProj {
   /**
-   * @function AstroProj.prototype.getRadii
-   * @description Finds the a and c radii of a given target.
-   *
-   * @param {String} target - Name of the target.
-   *
-   * @return {Object} Radii Object in form: {'a': , 'c': }.
-   */
-  getRadii(target) {
-    var targets = MY_JSON_MAPS["targets"];
-
-    let radii = {};
-    for (let i = 0; i < targets.length; i++) {
-      let currentTarget = targets[i];
-      if (currentTarget["name"].toLowerCase() == target.toLowerCase()) {
-        radii["a"] = parseFloat(currentTarget["aaxisradius"] * 1000);
-        radii["c"] = parseFloat(currentTarget["caxisradius"] * 1000);
-        break;
-      }
-    }
-    return radii;
-  }
-
-  /**
    * @function AstroProj.prototype.getStringAndCode
    * @description Returns the proj-string for a requested target and projection name.
    *
@@ -40,9 +17,7 @@ export default class AstroProj {
    * @return {Object} Object storing the proj-string and code
    *                  in the form: {'code': , 'string'}.
    */
-  getStringAndCode(target, name) {
-    let radii = this.getRadii(target);
-
+  getStringAndCode(target, name, radii) {
     if (name == "northPolar") {
       return {
         code: "EPSG:32661",
@@ -70,7 +45,11 @@ export default class AstroProj {
           "+proj=longlat +a=" + radii["a"] + " +b=" + radii["c"] + " +no_defs"
       };
     } else {
-      console.log("No projection found for the target and name given.");
+      throw "No projection found for the target [" +
+        target +
+        "] and the projection [" +
+        name +
+        "] given.";
     }
   }
 }

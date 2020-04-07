@@ -37,6 +37,9 @@ export default L.LayerCollection = L.Class.extend({
   createBaseLayers: function(layers) {
     for (let i = 0; i < layers.length; i++) {
       let layer = layers[i];
+      if (layer["primary"] == "true") {
+        this._defaultLayerIndex = layers.length - 1;
+      }
       let baseLayer = L.tileLayer.wms(
         String(layer["url"]) + "?map=" + String(layer["map"]),
         {
@@ -159,7 +162,7 @@ export default L.LayerCollection = L.Class.extend({
     };
 
     let parameters = L.Util.extend(defaultParameters);
-    console.log(geoJsonUrl + L.Util.getParamString(parameters));
+    // console.log(geoJsonUrl + L.Util.getParamString(parameters));
 
     let thisContext = this;
     $.ajax({

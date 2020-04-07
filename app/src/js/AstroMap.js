@@ -2,6 +2,8 @@ import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
 // import "leaflet-fullscreen";
 import L from "leaflet";
+import "proj4";
+import "proj4leaflet";
 import { MY_JSON_MAPS } from "./layers";
 
 /**
@@ -38,15 +40,20 @@ export default L.Map.AstroMap = L.Map.extend({
     this._mapDiv = mapDiv;
     this._target = target;
     this._astroProj = new AstroProj();
-    this._radii = this._astroProj.getRadii(this._target);
+    this._radii = {
+      a: "",
+      c: ""
+    };
 
     // Set by layer collection or baselayerchange event
     this._currentLayer = null;
 
     // Store layers at map creation so we only need to create layers once.
     let cylLayerInfo = this.parseJSON("cylindrical");
-    if (Object.entries(cylLayerInfo).length == 0) {
-      throw "No entry in the JSON for {this._target}. Cannot instantiate a map.";
+    if (Object.entries(cylLayerInfo["base"]).length == 0) {
+      throw "No entry in the JSON for [" +
+        this._target +
+        "]. Cannot instantiate a map.";
     }
 
     // Could not work with _
@@ -55,7 +62,7 @@ export default L.Map.AstroMap = L.Map.extend({
     };
 
     let northLayerInfo = this.parseJSON("north-polar stereographic");
-    if (Object.entries(northLayerInfo).length == 0) {
+    if (Object.entries(northLayerInfo["base"]).length == 0) {
       this._hasNorthPolar = false;
     } else {
       this._hasNorthPolar = true;
@@ -66,11 +73,11 @@ export default L.Map.AstroMap = L.Map.extend({
     }
 
     let southLayerInfo = this.parseJSON("south-polar stereographic");
-    if (Object.entries(southLayerInfo).length == 0) {
+    if (Object.entries(southLayerInfo["base"]).length == 0) {
       this._hasSouthPolar = false;
     } else {
       this._hasSouthPolar = true;
-      this.layers["northPolar"] = new LayerCollection(
+      this.layers["southPolar"] = new LayerCollection(
         "south-polar stereographic",
         southLayerInfo
       );
@@ -105,6 +112,7 @@ export default L.Map.AstroMap = L.Map.extend({
    * @function AstroMap.prototype.parseJSON
    * @description Parses the USGS JSON, creates layer objects for a particular target and projection,
    *              and stores them in a JS object.
+   * @param {String} [projection - Name of the projection to grab the layer information for.
    * @return {Object} - Dictionary containing the layer information in the format: {base: [], overlays: []}
    */
   parseJSON: function(projection) {
@@ -119,6 +127,8 @@ export default L.Map.AstroMap = L.Map.extend({
       let currentTarget = targets[i];
 
       if (currentTarget["name"].toLowerCase() == this._target.toLowerCase()) {
+        this._radii["a"] = parseFloat(currentTarget["aaxisradius"] * 1000);
+        this._radii["c"] = parseFloat(currentTarget["caxisradius"] * 1000);
         let jsonLayers = currentTarget["webmap"];
         for (let j = 0; j < jsonLayers.length; j++) {
           let currentLayer = jsonLayers[j];
@@ -131,9 +141,6 @@ export default L.Map.AstroMap = L.Map.extend({
             // Base layer check
             if (currentLayer["transparent"] == "false") {
               layers["base"].push(currentLayer);
-              if (currentLayer["primary"] == "true") {
-                this._defaultLayerIndex = layers["base"].length - 1;
-              }
             } else {
               // Do not add "Show Feature Names" PNG layer.
               if (currentLayer["displayname"] != "Show Feature Names") {
@@ -173,7 +180,11 @@ export default L.Map.AstroMap = L.Map.extend({
       this._currentProj = "EPSG:4326";
       this.setMaxZoom(8);
     } else {
-      let proj = this._astroProj.getStringAndCode(this._target, name);
+      let proj = this._astroProj.getStringAndCode(
+        this._target,
+        name,
+        this._radii
+      );
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
         resolutions: [8192, 4096, 2048, 1024, 512, 256, 128]
       });
