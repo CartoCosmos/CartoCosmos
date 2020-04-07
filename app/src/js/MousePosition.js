@@ -42,7 +42,7 @@ export default L.Control.MousePosition = L.Control.extend({
     this.isLatTypeOcentric = true;
     this.isLonDirEast = true;
 
-    this.astroMath = new AstroMath(map.target());
+    this.astroMath = new AstroMath(map.target(), map.radii());
     this.lonDisplayElement = L.DomUtil.get("lonCoordinateDisplay");
     this.latDisplayElement = L.DomUtil.get("latCoordinateDisplay");
     this.lonDisplayElement.innerHTML = "---.---";
