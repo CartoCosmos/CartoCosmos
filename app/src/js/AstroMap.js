@@ -59,7 +59,7 @@ export default L.Map.AstroMap = L.Map.extend({
       this._hasNorthPolar = false;
     } else {
       this._hasNorthPolar = true;
-      this.layers[northPolar] = new LayerCollection(
+      this.layers["northPolar"] = new LayerCollection(
         "north-polar stereographic",
         northLayerInfo
       );
@@ -70,7 +70,7 @@ export default L.Map.AstroMap = L.Map.extend({
       this._hasSouthPolar = false;
     } else {
       this._hasSouthPolar = true;
-      this.layers[northPolar] = new LayerCollection(
+      this.layers["northPolar"] = new LayerCollection(
         "south-polar stereographic",
         southLayerInfo
       );
