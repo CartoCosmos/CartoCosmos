@@ -89,10 +89,14 @@ export default L.Map.AstroMap = L.Map.extend({
    * @param {List} center - Center of map based off of projection.
    */
   changeProjection: function(name, center) {
-    // Reset the view before changing the projection since
-    // an exception may be thrown when swapping to a polar
-    // projection and the zoom level is 7+.
-    this.setView(center, 1, true);
+    if (this._currentProj == "EPSG:4326") {
+      // Reset the view before changing the projection since
+      // an exception may be thrown when swapping to a polar
+      // projection from cylindrcal and the zoom level is 7+.
+      // proj has trouble unprojecting points in cylindrical
+      // at such a high zoom level.
+      this.setView(center, 1, true);
+    }
 
     let newCRS = null;
     if (name == "cylindrical") {
