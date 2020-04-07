@@ -1,4 +1,5 @@
 import { MY_JSON_MAPS } from "./layers";
+import L from "leaflet";
 import $ from "jquery";
 
 /**

@@ -1,6 +1,6 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import "leaflet-fullscreen";
+import L from "leaflet";
 /**
  * @class AstroMap
  * @aka L.Map.AstroMap

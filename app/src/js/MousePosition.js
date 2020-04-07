@@ -1,5 +1,5 @@
 import AstroMath from "./AstroMath";
-import "leaflet";
+import L from "Leaflet";
 /**
  * @class MousePosition
  * @aka L.Control.AstroMousePosition

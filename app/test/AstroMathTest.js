@@ -7,6 +7,16 @@ let testMath = new AstroMath("mars");
 
 describe('Testing AstroMath Functions', function() {
 
+  beforeEach(function() {
+    // setup math class
+    let testMath = new AstroMath("mars");
+  });
+ 
+  afterEach(function() {
+    // do nothing
+  })
+
+
   // testing AstroMath created a class object
   it('Testing AstroMath Object', function() {
     // add an assertion
