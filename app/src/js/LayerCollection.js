@@ -26,6 +26,9 @@ export default L.LayerCollection = L.Class.extend({
     L.LayerCollection.layerControl = null;
 
     this.createBaseLayers(layerInfo["base"]);
+    if (this.isEmpty()) {
+      throw "No base layers created. At least one base layer is needed.";
+    }
     this.createOverlays(layerInfo["overlays"]);
   },
 
@@ -140,6 +143,24 @@ export default L.LayerCollection = L.Class.extend({
    */
   isEmpty: function() {
     return Object.entries(this._baseLayers).length == 0;
+  },
+
+  /**
+   * @function LayerCollection.prototype.baseLayers
+   * @description Returns the list of base layers.
+   * @return {List} List of WMS base layers.
+   */
+  baseLayers: function() {
+    return this._baseLayers;
+  },
+
+  /**
+   * @function LayerCollection.prototype.overlays
+   * @description Returns the list of base layers.
+   * @return {List} List of WMS base layers.
+   */
+  overlays: function() {
+    return this._overlays;
   },
 
   /**

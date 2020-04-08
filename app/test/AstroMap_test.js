@@ -102,7 +102,7 @@ describe("AstroMap", function() {
       expect(function() {
         testMap.changeProjection("invalidProjection", [90, 0]);
       }).to.throw(
-        "No projection found for the target [Mars] and the projection [invalidProjection] given."
+        "No projection found for the projection [invalidProjection] given."
       );
     });
   });

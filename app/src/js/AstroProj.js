@@ -10,14 +10,12 @@ export default class AstroProj {
    * @function AstroProj.prototype.getStringAndCode
    * @description Returns the proj-string for a requested target and projection name.
    *
-   * @param {String} target - Name of the target.
-   *
    * @param {String} name - Name of the projection.
    *
    * @return {Object} Object storing the proj-string and code
    *                  in the form: {'code': , 'string'}.
    */
-  getStringAndCode(target, name, radii) {
+  getStringAndCode(name, radii) {
     if (name == "northPolar") {
       return {
         code: "EPSG:32661",
@@ -45,11 +43,7 @@ export default class AstroProj {
           "+proj=longlat +a=" + radii["a"] + " +b=" + radii["c"] + " +no_defs"
       };
     } else {
-      throw "No projection found for the target [" +
-        target +
-        "] and the projection [" +
-        name +
-        "] given.";
+      throw "No projection found for the projection [" + name + "] given.";
     }
   }
 }

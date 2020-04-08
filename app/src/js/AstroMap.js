@@ -180,11 +180,7 @@ export default L.Map.AstroMap = L.Map.extend({
       this._currentProj = "EPSG:4326";
       this.setMaxZoom(8);
     } else {
-      let proj = this._astroProj.getStringAndCode(
-        this._target,
-        name,
-        this._radii
-      );
+      let proj = this._astroProj.getStringAndCode(name, this._radii);
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
         resolutions: [8192, 4096, 2048, 1024, 512, 256, 128]
       });
