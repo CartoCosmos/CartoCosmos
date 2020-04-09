@@ -2,14 +2,17 @@ import 'jsdom-global/register';
 import AstroMath from '../src/js/AstroMath';
 import { expect } from "chai";
 
-// global class AstroMath variable
-let testMath = new AstroMath("mars");
-
 describe('Testing AstroMath Functions', function() {
-
+  let radii;
+  let testMath; 
   beforeEach(function() {
     // setup math class
-    let testMath = new AstroMath("mars");
+    radii  = {
+      a: 3396190, 
+      c: 3376200 
+    };
+    
+    testMath = new AstroMath("mars",radii);
   });
  
   afterEach(function() {

@@ -1,7 +1,7 @@
 import "jsdom-global/register";
 import jsdom from "mocha-jsdom";
 import AstroMap from "../src/js/AstroMap";
-import MousePosition from "../src/js/MousePosition";
+import MousePosition from "../src/js/MousePositionControl";
 import { assert, expect } from "chai";
 
  beforeEach(function() {
