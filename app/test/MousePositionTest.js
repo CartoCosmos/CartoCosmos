@@ -5,8 +5,17 @@ import MousePosition from "../src/js/MousePosition";
 import { assert, expect } from "chai";
 
  beforeEach(function() {
-   // Setup map div
+   // Setup map div and GUI buttons
    document.body.innerHTML = '<div id="map"></div>';
+   document.body.innerHTML += '<button id = "consoleLon180Btn"></button>';
+   document.body.innerHTML += '<button id = "consoleLon360Btn"></button>';
+   document.body.innerHTML += '<button id = "consoleLonEastBtn"></button>';
+   document.body.innerHTML += '<button id = "consoleLonWestBtn"></button>';
+   document.body.innerHTML += '<button id = "consoleLatTypeOcentric"></button>';
+   document.body.innerHTML += '<button id = "consoleLatTypeOgraphic"></button>';
+   document.body.innerHTML +='<div id = "lonCoordinateDisplay"></div>'
+   document.body.innerHTML +='<div id = "latCoordinateDisplay"></div>'
+
  });
 
  afterEach(function() {

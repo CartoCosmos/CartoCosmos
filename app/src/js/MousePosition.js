@@ -71,6 +71,10 @@ export default L.Control.MousePosition = L.Control.extend({
     this.latitudeTypeOgraphic = L.DomUtil.get("consoleLatTypeOgraphic");
     L.DomEvent.on(this.latitudeTypeOgraphic, "click", this.changeLatType, this);
 
+    //this.latitudeTypeOcentric.class = "Planetocentric";
+    console.log(this.latitudeTypeOcentric.class);
+    
+
     return this.container;
   },
 
@@ -90,6 +94,7 @@ export default L.Control.MousePosition = L.Control.extend({
    */
   changeLatType(e) {
     this.isLatTypeOcentric = !this.isLatTypeOcentric;
+    console.log(this.latitudeTypeOcentric);
   },
 
   /**
