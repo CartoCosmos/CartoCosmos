@@ -1,29 +1,15 @@
-import { MY_JSON_MAPS } from "./layers";
-import "./MousePosition";
-
 /**
  * @class AstroMath
  * @classdesc A helper class that can be used by any mapping application, not just Leaflet, to calculate different
  *              longitude and latitude domains and ranges for a specific target.
- *              It uses a JSON file in the background to store the targets and their associated radii.
- * @param  {String} targetName - the name of the specific target.
+ * @param  {String} targetName - The name of the specific target.
+ * @param  {Dictionary} radii - The radii of the target in the form {"a": , "c": }
  */
 export default class AstroMath {
-  constructor(targetName) {
+  constructor(targetName, radii) {
     this.targetName = targetName;
-
-    let targets = MY_JSON_MAPS["targets"];
-    for (let i = 0; i < targets.length; i++) {
-      let currentTarget = targets[i];
-
-      if (
-        currentTarget["name"].toLowerCase() == this.targetName.toLowerCase()
-      ) {
-        this.dMajorRadius = parseFloat(currentTarget["aaxisradius"] * 1000);
-        this.dMinorRadius = parseFloat(currentTarget["caxisradius"] * 1000);
-        break;
-      }
-    }
+    this.majorRadius = radii["a"];
+    this.minorRadius = radii["c"];
   }
 
   /**
@@ -33,7 +19,7 @@ export default class AstroMath {
    * @return {double} The Major radius value.
    */
   getMajorRadius() {
-    return this.dMajorRadius;
+    return this.majorRadius;
   }
 
   /**
@@ -43,7 +29,7 @@ export default class AstroMath {
    * @return {double} The Minor radius value.
    */
   getMinorRadius() {
-    return this.dMinorRadius;
+    return this.minorRadius;
   }
 
   /**
@@ -81,7 +67,7 @@ export default class AstroMath {
     let convertedLatitude = 0;
     convertedLatitude = this.toRadians(lat);
     convertedLatitude = Math.atan(
-      (this.dMajorRadius / this.dMinorRadius) ** 2 * Math.tan(convertedLatitude)
+      (this.majorRadius / this.minorRadius) ** 2 * Math.tan(convertedLatitude)
     );
     convertedLatitude = this.toDegrees(convertedLatitude);
 
@@ -103,20 +89,14 @@ export default class AstroMath {
     if (projection === "EPSG:4326") {
       convertedLon -= 180;
     }
-    
 
     if (convertedLon < 0) {
-      if (projection == "EPSG:4326")
-      {
+      if (projection == "EPSG:4326") {
         convertedLon += 360;
-      }
-      else
-      {
+      } else {
         convertedLon += 180;
       }
-    }
-    else if (projection != "EPSG:4326")
-    {
+    } else if (projection != "EPSG:4326") {
       convertedLon += 180;
     }
 

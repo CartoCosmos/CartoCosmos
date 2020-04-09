@@ -176,7 +176,7 @@ export default function ConsoleProjectionButtons() {
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
-              Switch to a cylindrical polar projection for the target body.
+              Switch to a cylindrical projection for the target body.
             </Typography>
           }
           enterDelay={800}
