@@ -1,14 +1,14 @@
-import "leaflet";
+import L from "leaflet";
 /**
- * @class Projection
- * @aka L.Control.Projection
+ * @class ProjectionControl
+ * @aka L.Control.ProjectionControl
  * @inherits L.Control
  *
  * @classdesc Control that allows users to change the projection of the map. Uses predefined GUI elements.
  */
-export default L.Control.Projection = L.Control.extend({
+export default L.Control.ProjectionControl = L.Control.extend({
   /**
-   * @function Projection.prototype.onAdd
+   * @function ProjectionControl.prototype.onAdd
    * @description Grabs the button GUI elements and adds onclick events to them.
    * @param  {AstroMap} map - The map to add the control to.
    * @return {Div} Container containing the projection buttons.
@@ -35,31 +35,28 @@ export default L.Control.Projection = L.Control.extend({
   },
 
   /**
-   * @function Projection.prototype.loadNorthPolar
+   * @function ProjectionControl.prototype.loadNorthPolar
    * @description Sets the map's projection to north-polar stereographic.
-   * @param  {Event} e - Onclick event.
    */
-  loadNorthPolar: function(e) {
+  loadNorthPolar: function() {
     let center = [90, 0];
     this._map.changeProjection("northPolar", center);
   },
 
   /**
-   * @function Projection.prototype.loadSouthPolar
+   * @function ProjectionControl.prototype.loadSouthPolar
    * @description Sets the map's projection to south-polar stereographic.
-   * @param  {Event} e - Onclick event.
    */
-  loadSouthPolar: function(e) {
+  loadSouthPolar: function() {
     let center = [-90, 0];
     this._map.changeProjection("southPolar", center);
   },
 
   /**
-   * @function Projection.prototype.loadCylindrical
+   * @function ProjectionControl.prototype.loadCylindrical
    * @description Sets the map's projection to cylindrical.
-   * @param  {Event} e - Onclick event.
    */
-  loadCylindrical: function(e) {
+  loadCylindrical: function() {
     let center = [0, 0];
     this._map.changeProjection("cylindrical", center);
   }

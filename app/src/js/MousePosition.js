@@ -3,8 +3,8 @@ import "leaflet";
 import L from "leaflet";
 
 /**
- * @class MousePosition
- * @aka L.Control.AstroMousePosition
+ * @class MousePositionControl
+ * @aka L.Control.MousePositionControl
  * @extends L.Control
  *
  * @classdesc Class that inherits from the class L.Control and handles the back-end when a user clicks on the lat/lon buttons.
@@ -12,11 +12,11 @@ import L from "leaflet";
  *
  * @example
  * // initialize the control with an options object.
- * mouseControl = L.astroMousePosition({numDigits: 2, prefix: "Lat Lon: ",targetPlanet: "mars"});
+ * mouseControl = L.MousePositionControl({numDigits: 2, prefix: "Lat Lon: ",targetPlanet: "mars"});
  * // add control to map
  * mouseControl.addTo(map);
  */
-export default L.Control.MousePosition = L.Control.extend({
+export default L.Control.MousePositionControl = L.Control.extend({
   options: {
     separator: ", ",
     numDigits: 5,
@@ -25,7 +25,7 @@ export default L.Control.MousePosition = L.Control.extend({
   },
 
   /**
-   * @function MousePosition.prototype.onAdd
+   * @function MousePositionControl.prototype.onAdd
    * @description Grabs the lat/lon buttons from the GUI and adds on-change events to them. It also adds an on mouse-over event to the AstroMap to grab the current mouse position of the user's mouse pointer.
    * @param  {AstroMap} map - The AstroMap to add the control to.
    * @return {Object} The div-container the control is in.
@@ -77,7 +77,7 @@ export default L.Control.MousePosition = L.Control.extend({
   },
 
   /**
-   * @function MousePosition.prototype.changeLonDomain
+   * @function MousePositionControl.prototype.changeLonDomain
    * @description Is called when a user changes the longitude domain selector. Changes the longitude domain class variable to false if 0 to 360 is selected and true if -180 to 180 is selected.
    * @param  {DomEvent} e  - On change of consoleLonDomSelect.
    */
@@ -86,7 +86,7 @@ export default L.Control.MousePosition = L.Control.extend({
   },
 
   /**
-   * @function MousePosition.prototype.changeLatType
+   * @function MousePositionControl.prototype.changeLatType
    * @description Is called when a user changes the latitude type selector. Changes the latitude type class variable to false if planetographic is selected and true if isLatTypeOcentric is selected.
    * @param  {DomEvent} e - On change of consoleLatTypeSelect.
    */
@@ -95,7 +95,7 @@ export default L.Control.MousePosition = L.Control.extend({
   },
 
   /**
-   * @function MousePosition.prototype.changeLonDirection
+   * @function MousePositionControl.prototype.changeLonDirection
    * @description Is called when a user changes the longitude direction selector. Changes the longitude direction class variable to false if positive west is selected and true if positive east is selected.
    * @param  {DomEvent} e - On change of consoleLonDirSelect.
    */
@@ -104,7 +104,7 @@ export default L.Control.MousePosition = L.Control.extend({
   },
 
   /**
-   * @function MousePosition.prototype.onRemove
+   * @function MousePositionControl.prototype.onRemove
    * @description Is called when a user unselects a map.
    * @param  {AstroMap} map - The AstroMap to remove the control from.
    */
@@ -113,7 +113,7 @@ export default L.Control.MousePosition = L.Control.extend({
   },
 
   /**
-   * @function MousePosition.prototype.onMouseMove
+   * @function MousePositionControl.prototype.onMouseMove
    * @description Is called when a user moves their mouse over the AstroMap. The function uses the class latitude and longitude class variables combined with the AstroMath class to calculate the correct coordinate mouse position of the users mouse pointer.
    * @param  {DomEvent} e - On mouse move over the AstroMap.
    */
@@ -147,7 +147,7 @@ export default L.Control.MousePosition = L.Control.extend({
     }
   },
   /**
-   * @function MousePosition.prototype.onMouseOut
+   * @function MousePositionControl.prototype.onMouseOut
    * @description Displays lat lon on mouse.
    * @param  {DomEvent} e - On mouse out.
    */
@@ -158,7 +158,7 @@ export default L.Control.MousePosition = L.Control.extend({
 });
 
 /**
- * @function MousePosition.prototype.mergeOptions
+ * @function MousePositionControl.prototype.mergeOptions
  * @aka L.Map.mergeOptions
  * @description Turns position control false.
  */
@@ -167,7 +167,7 @@ L.Map.mergeOptions({
 });
 
 /**
- * @function MousePosition.prototype.addInitHook
+ * @function MousePositionControl.prototype.addInitHook
  * @aka L.Map.addInitHook
  * @description Adds position control.
  */
@@ -179,7 +179,7 @@ L.Map.addInitHook(function() {
 });
 
 /**
- * @function MousePosition.prototype.mousePosition
+ * @function MousePositionControl.prototype.mousePosition
  * @aka L.mousePosition
  * @description Gets mouse position.
  * @return {Object} Mouse position.
