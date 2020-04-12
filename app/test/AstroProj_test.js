@@ -1,7 +1,6 @@
-import "jsdom-global/register";
-import jsdom from "mocha-jsdom";
-import AstroProj from "../src/js/AstroProj";
 import { expect } from "chai";
+
+import AstroProj from "../src/js/AstroProj";
 
 describe("AstroProj", function() {
   it("should return a proj-code and proj-string for a cylindrical projection", function() {

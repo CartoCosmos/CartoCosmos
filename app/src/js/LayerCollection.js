@@ -41,7 +41,7 @@ export default L.LayerCollection = L.Class.extend({
     for (let i = 0; i < layers.length; i++) {
       let layer = layers[i];
       if (layer["primary"] == "true") {
-        this._defaultLayerIndex = layers.length - 1;
+        this._defaultLayerIndex = i;
       }
       let baseLayer = L.tileLayer.wms(
         String(layer["url"]) + "?map=" + String(layer["map"]),
