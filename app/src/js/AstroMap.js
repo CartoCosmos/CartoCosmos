@@ -1,5 +1,6 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
+// import "leaflet-fullscreen";
 import L from "leaflet";
 import "proj4";
 import "proj4leaflet";
