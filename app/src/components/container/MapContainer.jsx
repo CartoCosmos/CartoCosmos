@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AstroMap from "../../js/AstroMap";
 import ProjectionControl from "../../js/ProjectionControl";
 import MousePositionControl from "../../js/MousePositionControl";
-import Draw from "../../js/Draw";
+import AstroDrawControl from "../../js/AstroDrawControl";
 import "leaflet";
 //import newAutocomplete from "../../js/autocomplete/customIndex";
 
@@ -41,17 +41,13 @@ export default class MapContainer extends Component {
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
-    new Draw({
-      draw: {
-        circle: false,
-        marker: false,
-        circlemarker: false
-      },
-      edit: {
-        featureGroup: drawnItems
-      },
-      targetMap: map
-    }).addTo(map);
+    map.addControl(
+      new AstroDrawControl({
+        edit: {
+          featureGroup: drawnItems
+        }
+      })
+    );
 
     map.addControl(new L.Control.Scale({ imperial: false }));
 
@@ -90,17 +86,13 @@ export default class MapContainer extends Component {
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
-    new Draw({
-      draw: {
-        circle: false,
-        marker: false,
-        circlemarker: false
-      },
-      edit: {
-        featureGroup: drawnItems
-      },
-      targetMap: map
-    }).addTo(map);
+    map.addControl(
+      new AstroDrawControl({
+        edit: {
+          featureGroup: drawnItems
+        }
+      })
+    );
 
     map.addControl(new L.Control.Scale({ imperial: false }));
   }

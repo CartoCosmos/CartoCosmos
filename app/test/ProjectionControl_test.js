@@ -1,9 +1,9 @@
+import { expect } from "chai";
 import "jsdom-global/register";
-import jsdom from "mocha-jsdom";
+import L from "leaflet";
+
 import ProjectionControl from "../src/js/ProjectionControl";
 import AstroMap from "../src/js/AstroMap";
-import { expect } from "chai";
-import L from "leaflet";
 
 describe("ProjectionControl", function() {
   let testMap;

@@ -1,8 +1,8 @@
-import "jsdom-global/register";
-import jsdom from "mocha-jsdom";
-import AstroMap from "../src/js/AstroMap";
 import { expect } from "chai";
+import "jsdom-global/register";
 import L from "leaflet";
+
+import AstroMap from "../src/js/AstroMap";
 
 describe("AstroMap", function() {
   beforeEach(function() {
