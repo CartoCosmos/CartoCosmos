@@ -1,7 +1,5 @@
 import AstroMath from "./AstroMath";
-import "leaflet";
 import L from "leaflet";
-
 /**
  * @class MousePositionControl
  * @aka L.Control.MousePositionControl
@@ -72,7 +70,7 @@ export default L.Control.MousePositionControl = L.Control.extend({
     L.DomEvent.on(this.latitudeTypeOcentric, "click", this.changeLatType, this);
     this.latitudeTypeOgraphic = L.DomUtil.get("consoleLatTypeOgraphic");
     L.DomEvent.on(this.latitudeTypeOgraphic, "click", this.changeLatType, this);
-
+    
     return this.container;
   },
 
@@ -92,6 +90,7 @@ export default L.Control.MousePositionControl = L.Control.extend({
    */
   changeLatType(e) {
     this.isLatTypeOcentric = !this.isLatTypeOcentric;
+    console.log(this.latitudeTypeOcentric);
   },
 
   /**
