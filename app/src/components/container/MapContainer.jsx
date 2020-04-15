@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import AstroMap from "../../js/AstroMap";
-import Projection from "../../js/Projection";
-import MousePosition from "../../js/MousePosition";
-import Draw from "../../js/Draw";
+import ProjectionControl from "../../js/ProjectionControl";
+import MousePositionControl from "../../js/MousePositionControl";
+import AstroDrawControl from "../../js/AstroDrawControl";
 import "leaflet";
 //import newAutocomplete from "../../js/autocomplete/customIndex";
 
@@ -31,27 +31,25 @@ export default class MapContainer extends Component {
    */
   componentDidMount() {
     let map = new AstroMap("map-container", this.props.target, {});
-    new Projection().addTo(map);
-    new MousePosition({
-      numDigits: 3
-    }).addTo(map);
+    map.addControl(new ProjectionControl());
+    map.addControl(
+      new MousePositionControl({
+        numDigits: 3
+      })
+    );
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
-    new Draw({
-      draw: {
-        circle: false,
-        marker: false,
-        circlemarker: false
-      },
-      edit: {
-        featureGroup: drawnItems
-      },
-      targetMap: map
-    }).addTo(map);
+    map.addControl(
+      new AstroDrawControl({
+        edit: {
+          featureGroup: drawnItems
+        }
+      })
+    );
 
-    new L.Control.Scale({ imperial: false }).addTo(map);
+    map.addControl(new L.Control.Scale({ imperial: false }));
 
     //new newAutocomplete();
   }
@@ -78,28 +76,25 @@ export default class MapContainer extends Component {
 
     // create new map with updated target
     let map = new AstroMap("map-container", this.props.target, {});
-    new Projection().addTo(map);
-    new MousePosition({
-      numDigits: 2,
-      targetPlanet: this.props.target
-    }).addTo(map);
+    map.addControl(new ProjectionControl());
+    map.addControl(
+      new MousePositionControl({
+        numDigits: 3
+      })
+    );
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
-    new Draw({
-      draw: {
-        circle: false,
-        marker: false,
-        circlemarker: false
-      },
-      edit: {
-        featureGroup: drawnItems
-      },
-      targetMap: map
-    }).addTo(map);
+    map.addControl(
+      new AstroDrawControl({
+        edit: {
+          featureGroup: drawnItems
+        }
+      })
+    );
 
-    new L.Control.Scale({ imperial: false }).addTo(map);
+    map.addControl(new L.Control.Scale({ imperial: false }));
   }
 
   render() {
