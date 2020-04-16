@@ -17,20 +17,20 @@ const useStyles = makeStyles({
   },
   title: {
     color: "#343a40",
-    //fontSize: "12px",
     lineHeight: "1rem",
     paddingBottom: 1,
     fontWeight: 600
   },
   coords: {
     color: "#343a40",
-    lineHeight: "1.5rem",
+    lineHeight: "1.4rem",
     fontSize: "13px"
   },
   container: {
     display: "flex",
     flexWrap: "noWrap",
-    width: "85%",
+    width: "90%",
+    height: 40,
     margin: "auto",
     "& > *": {
       margin: 0,

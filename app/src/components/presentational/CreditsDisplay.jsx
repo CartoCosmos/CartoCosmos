@@ -74,10 +74,7 @@ export default function CreditsDisplay() {
         </Grid>
         <Divider orientation="vertical" />
         <Grid item xs={4}>
-          <Typography
-            style={{ fontSize: 12, margin: "auto" }}
-            variant="caption"
-          >
+          <Typography style={{ fontSize: 12 }} variant="caption">
             Made by{" "}
             <Link
               variant="caption"
@@ -88,17 +85,17 @@ export default function CreditsDisplay() {
               CartoCosmos{" "}
             </Link>
           </Typography>
-          <div style={{ display: "inline" }}>
-            <SvgIcon
-              viewBox="0 0 1000 1000"
-              style={{
-                color: "#343a40",
-                fontSize: 16
-                //margin: "auto"
-              }}
-              component={CartoCosmosIcon}
-            />
-          </div>
+          <SvgIcon
+            viewBox="0 0 1000 1000"
+            style={{
+              color: "#343a40",
+              top: 3,
+              width: 13,
+              height: 13,
+              position: "relative"
+            }}
+            component={CartoCosmosIcon}
+          />
         </Grid>
         <Divider orientation="vertical" />
         <Grid item xs={2}>
@@ -114,7 +111,14 @@ export default function CreditsDisplay() {
         <Divider orientation="vertical" />
         <Grid item xs={2}>
           <Link href="https://github.com/CartoCosmos/CartoCosmos/app">
-            <GitHubIcon style={{ color: "#343a40", fontSize: 20 }} />
+            <GitHubIcon
+              style={{
+                color: "#343a40",
+                fontSize: 16,
+                top: 2,
+                position: "relative"
+              }}
+            />
           </Link>
         </Grid>
       </Grid>

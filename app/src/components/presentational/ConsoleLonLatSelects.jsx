@@ -47,9 +47,9 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     display: "flex",
-    border: `1px solid ${theme.palette.divider}`,
+    border: `1px solid` & fade("#1971c2", 0.7),
     flexWrap: "wrap",
-    backgroundColor: "#f8f9fa"
+    backgroundColor: fade("#1971c2", 0.7)
   }
 }));
 
@@ -74,8 +74,8 @@ const StyledToggleButton = withStyles(theme => ({
     height: 30,
     minHeight: 30,
     maxHeight: 30,
-    color: fade("#343a40", 0.8),
-    backgroundColor: "#f8f9fa",
+    color: fade("#f8f9fa", 0.8),
+    backgroundColor: "transparent",
     border: "none",
     borderRadius: 0,
     "&:hover": {
@@ -84,10 +84,10 @@ const StyledToggleButton = withStyles(theme => ({
     "&$selected": {
       cursor: "not-allowed",
       pointerEvents: "none",
-      color: "#343a40",
-      backgroundColor: fade("#dee2e6", 0.75),
+      color: "#f8f9fa",
+      backgroundColor: "#1971c2",
       "&:hover": {
-        backgroundColor: "transparent"
+        backgroundColor: "#1971c2"
       }
     }
   },
@@ -101,7 +101,7 @@ const StyledToggleButton = withStyles(theme => ({
 
 const StyledToggleButtonGroup = withStyles(theme => ({
   root: {
-    backgroundColor: "#f8f9fa"
+    backgroundColor: "transparent"
   },
   grouped: {
     margin: theme.spacing(0.5),
@@ -121,6 +121,7 @@ const StyledDivider = withStyles(theme => ({
     alignSelf: "stretch",
     height: "auto",
     margin: theme.spacing(1, 0.5),
+    backgroundColor: fade("#f8f9fa", 0.8),
     width: 1
   }
 }))(Divider);
