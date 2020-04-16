@@ -19,7 +19,8 @@ const useStyles = makeStyles({
   title: {
     color: "#343a40",
     fontWeight: 900,
-    letterSpacing: "0.8rem"
+    fontSize: 42,
+    letterSpacing: "0rem"
   }
 });
 
@@ -46,7 +47,7 @@ export default function ConsoleTargetInfo(props) {
       xs
     >
       <Grid item>
-        <Typography className={classes.title} variant="h4">
+        <Typography id="targetName" className={classes.title} variant="h4">
           {props.target.toUpperCase()}
         </Typography>
       </Grid>

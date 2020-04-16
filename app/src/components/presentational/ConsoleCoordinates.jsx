@@ -17,27 +17,29 @@ const useStyles = makeStyles({
   },
   title: {
     color: "#343a40",
-    fontSize: "0.7rem",
+    //fontSize: "12px",
     lineHeight: "1rem",
+    paddingBottom: 1,
     fontWeight: 600
   },
   coords: {
     color: "#343a40",
-    lineHeight: "1.5rem"
-    //fontSize: "0.7rem"
+    lineHeight: "1.5rem",
+    fontSize: "13px"
   },
   container: {
     display: "flex",
     flexWrap: "noWrap",
-    //maxHeight: 60,
+    width: "85%",
+    margin: "auto",
     "& > *": {
       margin: 0,
       padding: 0,
-      width: "47.5%",
+      width: "50%",
       height: "100%",
       maxHeight: "3rem",
-      maxWidth: "47.5%",
-      backgroundColor: "#f1f3f5",
+      maxWidth: "50%",
+      backgroundColor: "#f8f9fa",
       textAlign: "center"
     }
   }
@@ -69,10 +71,10 @@ export default function ConsoleCoordinates() {
     <Grid
       container
       className={classes.grid}
-      justify="flex-end"
+      justify="center"
       alignItems="center"
       item
-      xs={3}
+      xs={4}
     >
       <Grid item xs>
         <StyledTooltip
@@ -88,7 +90,10 @@ export default function ConsoleCoordinates() {
           TransitionComponent={Zoom}
         >
           <div className={classes.container}>
-            <Paper variant="outlined" square>
+            <Paper
+              style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+              variant="outlined"
+            >
               <Typography variant="overline" className={classes.title}>
                 Longitude
               </Typography>
@@ -100,7 +105,14 @@ export default function ConsoleCoordinates() {
                 variant="subtitle2"
               />
             </Paper>
-            <Paper variant="outlined" square>
+            <Paper
+              style={{
+                borderLeft: 0,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0
+              }}
+              variant="outlined"
+            >
               <Typography variant="overline" className={classes.title}>
                 Latitude
               </Typography>

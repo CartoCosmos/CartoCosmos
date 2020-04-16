@@ -9,6 +9,8 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
+import Divider from "@material-ui/core/Divider";
+import { Paper } from "@material-ui/core";
 
 /**
  * Controls css styling for this component using js to css
@@ -23,20 +25,31 @@ const useStyles = makeStyles(theme => ({
     transform: "scaleY(-1)"
   },
   oval: {
-    width: 18,
-    height: 12,
+    width: 16,
+    height: 10,
     borderRadius: "50%",
     border: "2px solid",
     background: "transparent",
-    marginBottom: 2
+    marginBottom: 2,
+    marginRight: 2
   },
   circle: {
-    width: 12,
-    height: 12,
+    width: 10,
+    height: 10,
     borderRadius: "50%",
     border: "2px solid",
     background: "transparent",
-    marginBottom: 2
+    marginBottom: 2,
+    marginRight: 2
+  },
+  buttonText: {
+    fontSize: 13
+  },
+  paper: {
+    display: "flex",
+    border: `1px solid ${theme.palette.divider}`,
+    flexWrap: "wrap",
+    backgroundColor: "#f8f9fa"
   }
 }));
 
@@ -58,33 +71,59 @@ const StyledTooltip = withStyles(theme => ({
  */
 const StyledToggleButton = withStyles(theme => ({
   root: {
-    height: 32,
-    minHeight: 32,
-    maxHeight: 32,
-    color: "#fff",
-    background: fade("#1971c2", 0.6),
+    height: 30,
+    minHeight: 30,
+    maxHeight: 30,
+    color: fade("#343a40", 0.8),
+    backgroundColor: "#f8f9fa",
     border: "none",
+    borderRadius: 0,
     "&:hover": {
-      backgroundColor: fade("#1971c2", 0.8)
+      backgroundColor: "transparent"
     },
     "&$selected": {
       cursor: "not-allowed",
       pointerEvents: "none",
-      color: "#fff",
-      backgroundColor: "#1971c2",
+      color: "#343a40",
+      backgroundColor: fade("#dee2e6", 0.75),
       "&:hover": {
-        backgroundColor: "#1971c2"
+        backgroundColor: "transparent"
       }
     }
   },
   selected: {
     cursor: "not-allowed",
     pointerEvents: "none",
-    color: "#fff",
-    backgroundColor: "#1971c2"
+    color: "#343a40",
+    backgroundColor: "#e9ecef"
   }
 }))(ToggleButton);
 
+const StyledToggleButtonGroup = withStyles(theme => ({
+  root: {
+    backgroundColor: "#f8f9fa"
+  },
+  grouped: {
+    margin: theme.spacing(0.5),
+    border: "none",
+    padding: theme.spacing(0, 0.75),
+    "&:not(:first-child)": {
+      borderRadius: theme.shape.borderRadius
+    },
+    "&:first-child": {
+      borderRadius: theme.shape.borderRadius
+    }
+  }
+}))(ToggleButtonGroup);
+
+const StyledDivider = withStyles(theme => ({
+  root: {
+    alignSelf: "stretch",
+    height: "auto",
+    margin: theme.spacing(1, 0.5),
+    width: 1
+  }
+}))(Divider);
 /**
  * Main component which controls and displays the console's longitude and latitude
  * selectors and handles user click events.
@@ -97,26 +136,20 @@ export default function ConsoleLonLatSelects() {
   const [lonRange, setLonRange] = React.useState(180);
 
   const handlePosEastWest = (event, newPosEastWest) => {
-    if (newPosEastWest != null) {
+    if (newPosEastWest !== null) {
       setPosEastWest(newPosEastWest);
-    } else {
-      event.stopPropagation();
     }
   };
 
   const handleCoordSystem = (event, newCoordSystem) => {
-    if (newCoordSystem != null) {
+    if (newCoordSystem !== null) {
       setCoordSystem(newCoordSystem);
-    } else {
-      event.stopPropagation();
     }
   };
 
   const handleLonRange = (event, newLonRange) => {
-    if (newLonRange != null) {
+    if (newLonRange !== null) {
       setLonRange(newLonRange);
-    } else {
-      event.stopPropagation();
     }
   };
 
@@ -127,12 +160,12 @@ export default function ConsoleLonLatSelects() {
       container
       item
       wrap="nowrap"
-      justify="space-evenly"
+      justify="center"
       alignItems="center"
       className={classes.grid}
-      xs={9}
+      xs={8}
     >
-      <Grid item>
+      <Paper variant="outlined" className={classes.paper}>
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
@@ -146,25 +179,24 @@ export default function ConsoleLonLatSelects() {
           TransitionComponent={Zoom}
         >
           <div>
-            <ToggleButtonGroup
+            <StyledToggleButtonGroup
               exclusive
               size="small"
               value={posEastWest}
               onChange={handlePosEastWest}
             >
               <StyledToggleButton id="consoleLonEastBtn" value="PositiveEast">
-                <AutorenewIcon className={classes.flip} />
-                <Typography>East</Typography>
+                <AutorenewIcon fontSize="small" className={classes.flip} />
+                <Typography className={classes.buttonText}>East</Typography>
               </StyledToggleButton>
               <StyledToggleButton id="consoleLonWestBtn" value="PositiveWest">
-                <AutorenewIcon />
-                <Typography>West</Typography>
+                <AutorenewIcon fontSize="small" />
+                <Typography className={classes.buttonText}>West</Typography>
               </StyledToggleButton>
-            </ToggleButtonGroup>
+            </StyledToggleButtonGroup>
           </div>
         </StyledTooltip>
-      </Grid>
-      <Grid item>
+        <StyledDivider orientation="vertical" />
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
@@ -178,7 +210,7 @@ export default function ConsoleLonLatSelects() {
           TransitionComponent={Zoom}
         >
           <div>
-            <ToggleButtonGroup
+            <StyledToggleButtonGroup
               exclusive
               size="small"
               value={coordSystem}
@@ -189,20 +221,19 @@ export default function ConsoleLonLatSelects() {
                 id="consoleLatTypeOcentric"
               >
                 <i className={classes.circle} />
-                <Typography>centric</Typography>
+                <Typography className={classes.buttonText}>centric</Typography>
               </StyledToggleButton>
               <StyledToggleButton
                 id="consoleLatTypeOgraphic"
                 value="Planetographic"
               >
                 <i className={classes.oval} />
-                <Typography>graphic</Typography>
+                <Typography className={classes.buttonText}>graphic</Typography>
               </StyledToggleButton>
-            </ToggleButtonGroup>
+            </StyledToggleButtonGroup>
           </div>
         </StyledTooltip>
-      </Grid>
-      <Grid item>
+        <StyledDivider orientation="vertical" />
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
@@ -216,24 +247,24 @@ export default function ConsoleLonLatSelects() {
           TransitionComponent={Zoom}
         >
           <div>
-            <ToggleButtonGroup
+            <StyledToggleButtonGroup
               exclusive
               size="small"
               value={lonRange}
               onChange={handleLonRange}
             >
               <StyledToggleButton id="consoleLon180Btn" value={180}>
-                <ExposureIcon />
-                <Typography>180&deg;</Typography>
+                <ExposureIcon fontSize="small" />
+                <Typography className={classes.buttonText}>180&deg;</Typography>
               </StyledToggleButton>
               <StyledToggleButton id="consoleLon360Btn" value={360}>
-                <AddBoxIcon />
-                <Typography>360&deg;</Typography>
+                <AddBoxIcon fontSize="small" />
+                <Typography className={classes.buttonText}>360&deg;</Typography>
               </StyledToggleButton>
-            </ToggleButtonGroup>
+            </StyledToggleButtonGroup>
           </div>
         </StyledTooltip>
-      </Grid>
+      </Paper>
     </Grid>
   );
 }

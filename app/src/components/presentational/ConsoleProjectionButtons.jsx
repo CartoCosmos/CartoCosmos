@@ -29,10 +29,10 @@ const useStyles = makeStyles({
       }
     },
     "&:active": {
-      background: fade("#004170", 0.5)
+      background: fade("#1971c2", 0.5)
     },
     "&:hover, &$focusVisible": {
-      border: "2px #004170 solid",
+      border: "2px #1971c2 solid",
       borderRadius: "15%",
       borderStyle: "outset"
     }
@@ -40,7 +40,8 @@ const useStyles = makeStyles({
   activeBtn: {
     width: 31,
     height: 31,
-    border: "2px #004170 solid",
+    border: "2px #1971c2 solid",
+    background: fade("#ffa500", 0.2),
     borderRadius: "15%",
     borderStyle: "outset"
   },

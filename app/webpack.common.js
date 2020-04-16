@@ -59,6 +59,10 @@ module.exports = {
             loader: "url-loader"
           }
         ]
+      },
+      {
+        test: /\.svg$/,
+        use: ["@svgr/webpack"]
       }
     ]
   }
