@@ -1,8 +1,7 @@
 import React from "react";
 import ConsoleTargetInfo from "../presentational/ConsoleTargetInfo.jsx";
 import ConsoleProjectionButtons from "../presentational/ConsoleProjectionButtons.jsx";
-import NewConsoleLonLatSelects from "../presentational/NewConsoleLonLatSelects.jsx";
-//import ConsoleLonLatSelects from "../presentational/ConsoleLonLatSelects.jsx";
+import ConsoleLonLatSelects from "../presentational/ConsoleLonLatSelects.jsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
@@ -62,7 +61,7 @@ export default function ConsoleAppBar(props) {
             <Grid container item direction="column" xs>
               <ConsoleTargetInfo target={props.target} />
               <Grid container item xs justify="space-around" wrap="nowrap">
-                <NewConsoleLonLatSelects />
+                <ConsoleLonLatSelects />
                 <ConsoleCoordinates />
               </Grid>
             </Grid>
