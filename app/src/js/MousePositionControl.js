@@ -1,4 +1,6 @@
+import L from "leaflet";
 import AstroMath from "./AstroMath";
+
 /**
  * @class MousePositionControl
  * @aka L.Control.MousePositionControl
@@ -18,7 +20,7 @@ export default L.Control.MousePositionControl = L.Control.extend({
     separator: ", ",
     numDigits: 5,
     prefix: "",
-    lngFirst: true
+    lngFirst: true,
   },
 
   /**
@@ -152,7 +154,7 @@ export default L.Control.MousePositionControl = L.Control.extend({
   onMouseOut(e) {
     this.lonDisplayElement.innerHTML = "---.---";
     this.latDisplayElement.innerHTML = "---.---";
-  }
+  },
 });
 
 /**
@@ -161,7 +163,7 @@ export default L.Control.MousePositionControl = L.Control.extend({
  * @description Turns position control false.
  */
 L.Map.mergeOptions({
-  positionControl: false
+  positionControl: false,
 });
 
 /**

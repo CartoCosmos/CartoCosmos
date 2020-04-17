@@ -1,3 +1,4 @@
+import L from "leaflet";
 import "leaflet-draw";
 import Wkt from "wicket";
 
@@ -26,7 +27,7 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
   options: {
     position: "topleft",
     draw: { circle: false, marker: false, circlemarker: false },
-    edit: false
+    edit: false,
   },
 
   /**
@@ -119,11 +120,11 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
     let geojsonFeature = {
       type: "Feature",
-      geometry: geoJson
+      geometry: geoJson,
     };
 
     this.myLayer.addData(geojsonFeature);
-  }
+  },
 
   // reprojectFeature: function(e) {
 

@@ -1,3 +1,5 @@
+import L from "leaflet";
+
 /**
  * @class ProjectionControl
  * @aka L.Control.ProjectionControl
@@ -58,5 +60,5 @@ export default L.Control.ProjectionControl = L.Control.extend({
   loadCylindrical: function() {
     let center = [0, 0];
     this._map.changeProjection("cylindrical", center);
-  }
+  },
 });

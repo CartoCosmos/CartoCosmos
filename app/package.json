@@ -33,7 +33,7 @@
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint --ext .js src",
     "test": "mocha --require @babel/register",
-    "fix": "npm run lint -- --fix",
+    "fix": "npm run lint --fix",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
     "generate-docs": "node_modules/.bin/jsdoc src/js/  --configure .jsdoc.json --verbose"
   },
