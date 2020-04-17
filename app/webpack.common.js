@@ -14,6 +14,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       L: "leaflet",
       Leaflet: "leaflet"
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery"
     })
   ],
   watch: true,

@@ -1,6 +1,7 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
 import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
+import Zoom from "@material-ui/core/Zoom";
+import Grid from "@material-ui/core/Grid";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import AddBoxIcon from "@material-ui/icons/AddBoxOutlined";
 import ExposureIcon from "@material-ui/icons/Exposure";
@@ -8,9 +9,8 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
-import Zoom from "@material-ui/core/Zoom";
 import Divider from "@material-ui/core/Divider";
-import { Paper } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
 
 /**
  * Controls css styling for this component using js to css

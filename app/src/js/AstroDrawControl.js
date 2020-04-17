@@ -1,4 +1,3 @@
-import L from "leaflet";
 import "leaflet-draw";
 import Wkt from "wicket";
 

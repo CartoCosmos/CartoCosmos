@@ -3,8 +3,6 @@ import AstroMap from "../../js/AstroMap";
 import ProjectionControl from "../../js/ProjectionControl";
 import MousePositionControl from "../../js/MousePositionControl";
 import AstroDrawControl from "../../js/AstroDrawControl";
-import "leaflet";
-//import newAutocomplete from "../../js/autocomplete/customIndex";
 
 /**
  * Component that uses back end JS files to invoke and display the

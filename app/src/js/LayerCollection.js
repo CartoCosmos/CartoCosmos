@@ -1,7 +1,3 @@
-import { MY_JSON_MAPS } from "./layers";
-import $ from "jquery";
-import L from "leaflet";
-
 /**
  * @class LayerCollection
  * @aka L.Class.LayerCollection

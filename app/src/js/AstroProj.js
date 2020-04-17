@@ -1,5 +1,3 @@
-import { MY_JSON_MAPS } from "./layers";
-
 /**
  * @class AstroProj
  * @classdesc Helper class that stores projections for each target supported
