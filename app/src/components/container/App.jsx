@@ -11,7 +11,6 @@ import MapContainer from "./MapContainer.jsx";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import WellKnownTextInput from "../presentational/WellKnownTextInput.jsx";
 import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
-//import AutoCompleteInput from "../presentational/AutoCompleteInput.jsx";
 
 /**
  * Controls css styling for this component using js to css

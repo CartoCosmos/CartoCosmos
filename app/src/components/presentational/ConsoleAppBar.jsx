@@ -2,12 +2,12 @@ import React from "react";
 import ConsoleTargetInfo from "../presentational/ConsoleTargetInfo.jsx";
 import ConsoleProjectionButtons from "../presentational/ConsoleProjectionButtons.jsx";
 import ConsoleLonLatSelects from "../presentational/ConsoleLonLatSelects.jsx";
+import ConsoleCoordinates from "./ConsoleCoordinates.jsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
-import ConsoleCoordinates from "./ConsoleCoordinates.jsx";
 
 /**
  * Controls css styling for this component using js to css
@@ -60,7 +60,14 @@ export default function ConsoleAppBar(props) {
             <Divider orientation="vertical" />
             <Grid container item direction="column" xs>
               <ConsoleTargetInfo target={props.target} />
-              <Grid container item xs justify="center" wrap="nowrap">
+              <Grid
+                container
+                item
+                xs
+                justify="space-around"
+                alignItems="center"
+                wrap="nowrap"
+              >
                 <ConsoleLonLatSelects />
                 <ConsoleCoordinates />
               </Grid>

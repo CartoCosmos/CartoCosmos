@@ -1,5 +1,5 @@
 {
-  "name": "cartocosmos",
+  "name": "leaflet-planetary",
   "version": "1.0.0",
   "license": "UNLICENSED",
   "main": "index.js",
@@ -33,7 +33,7 @@
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint --ext .js src",
     "test": "mocha --require @babel/register",
-    "fix": "npm run lint -- --fix",
+    "fix": "npm run lint --fix",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
     "generate-docs": "node_modules/.bin/jsdoc src/js/  --configure .jsdoc.json --verbose"
   },
@@ -79,7 +79,7 @@
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.41",
-    "@tarekraafat/autocomplete.js": "^7.2.0",
+    "@svgr/webpack": "^5.3.1",
     "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
     "leaflet-draw": "1.0.4",

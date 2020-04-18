@@ -14,6 +14,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       L: "leaflet",
       Leaflet: "leaflet"
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery"
     })
   ],
   watch: true,
@@ -59,6 +62,10 @@ module.exports = {
             loader: "url-loader"
           }
         ]
+      },
+      {
+        test: /\.svg$/,
+        use: ["@svgr/webpack"]
       }
     ]
   }

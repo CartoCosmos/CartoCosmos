@@ -5,7 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
+import SvgIcon from "@material-ui/core/SvgIcon";
+import CartoCosmosIcon from "../../assets/img/cartocosmos-logo.svg";
 
 /**
  * Controls css styling for this component using js to css
@@ -30,6 +31,10 @@ const useStyles = makeStyles(theme => ({
     "& > *": {
       maxHeight: 25
     }
+  },
+  link: {
+    fontSize: 12,
+    fontWeight: "600px !important"
   }
 }));
 
@@ -49,9 +54,9 @@ export default function CreditsDisplay() {
         <Grid item xs={2}>
           <Link
             color="inherit"
-            style={{ fontSize: 12, fontWeight: 600 }}
+            style={{ fontWeight: 600 }}
             variant="caption"
-            href=""
+            href="https://cartocosmos.github.io/docs/index.html"
           >
             Documentation
           </Link>
@@ -60,45 +65,60 @@ export default function CreditsDisplay() {
         <Grid item xs={2}>
           <Link
             color="inherit"
-            style={{ fontSize: 12, fontWeight: 600 }}
+            style={{ fontWeight: 600 }}
             variant="caption"
-            href=""
+            href="https://docs.google.com/document/d/1Wy5rwjEU7qACsI3jc-JdGEjh8jkq_v5DyQelfNOkjO4/edit?usp=sharing"
           >
             User Manual
           </Link>
         </Grid>
         <Divider orientation="vertical" />
         <Grid item xs={4}>
-          <Typography
-            style={{ fontSize: 12, fontStyle: "italic" }}
-            variant="caption"
-          >
+          <Typography style={{ fontSize: 12 }} variant="caption">
             Made by{" "}
+            <Link
+              variant="caption"
+              color="inherit"
+              style={{ fontWeight: 600 }}
+              href="https://cefns.nau.edu/capstone/projects/CS/2020/CartoCosmos-S20/"
+            >
+              CartoCosmos{" "}
+            </Link>
           </Typography>
-          <Link
-            variant="caption"
-            color="inherit"
-            style={{ fontSize: 12, fontWeight: 600 }}
-            href="https://cefns.nau.edu/capstone/projects/CS/2020/CartoCosmos-S20/#/"
-          >
-            CartoCosmos
-          </Link>
+          <SvgIcon
+            viewBox="0 0 1000 1000"
+            style={{
+              color: "#343a40",
+              top: 3,
+              width: 13,
+              height: 13,
+              position: "relative"
+            }}
+            component={CartoCosmosIcon}
+          />
         </Grid>
         <Divider orientation="vertical" />
         <Grid item xs={2}>
           <Link
             color="inherit"
-            style={{ fontSize: 12, fontWeight: 600 }}
             variant="caption"
-            href=""
+            style={{ fontWeight: 600 }}
+            href="https://cartocosmos-test.readthedocs.io/en/latest/"
           >
             Jupyter Notebooks
           </Link>
         </Grid>
         <Divider orientation="vertical" />
         <Grid item xs={2}>
-          <Link href="https://github.com/CartoCosmos/CartoCosmos">
-            <GitHubIcon style={{ color: "#343a40", fontSize: 20 }} />
+          <Link href="https://github.com/CartoCosmos/CartoCosmos/app">
+            <GitHubIcon
+              style={{
+                color: "#343a40",
+                fontSize: 16,
+                top: 2,
+                position: "relative"
+              }}
+            />
           </Link>
         </Grid>
       </Grid>

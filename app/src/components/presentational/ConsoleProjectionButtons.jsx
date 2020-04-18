@@ -2,12 +2,12 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
-import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles, withStyles, fade } from "@material-ui/core/styles";
 import northPolar from "../../assets/img/NorthPolar.png";
 import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
 import southPolar from "../../assets/img/SouthPolar.png";
 import Zoom from "@material-ui/core/Zoom";
+import StyledTooltip from "./StyledTooltip.jsx";
 
 /**
  * Controls css styling for this component using js to css
@@ -29,10 +29,10 @@ const useStyles = makeStyles({
       }
     },
     "&:active": {
-      background: fade("#004170", 0.5)
+      background: fade("#1971c2", 0.5)
     },
     "&:hover, &$focusVisible": {
-      border: "2px #004170 solid",
+      border: "2px #1971c2 solid",
       borderRadius: "15%",
       borderStyle: "outset"
     }
@@ -40,7 +40,8 @@ const useStyles = makeStyles({
   activeBtn: {
     width: 31,
     height: 31,
-    border: "2px #004170 solid",
+    border: "2px #1971c2 solid",
+    background: fade("#ffa500", 0.2),
     borderRadius: "15%",
     borderStyle: "outset"
   },
@@ -51,19 +52,6 @@ const useStyles = makeStyles({
   },
   focusVisible: {}
 });
-
-/**
- * Custom Component that uses Tooltip with modified css styling
- */
-const StyledTooltip = withStyles(theme => ({
-  tooltip: {
-    backgroundColor: "#f5f5f9",
-    color: "rgba(0, 0, 0, 0.87)",
-    maxWidth: 250,
-    fontSize: 12,
-    border: "1px solid #dadde9"
-  }
-}))(Tooltip);
 
 /**
  * Component used only in this file, passed in to the Tooltip to

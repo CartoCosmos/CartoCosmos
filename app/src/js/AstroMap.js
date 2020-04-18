@@ -1,8 +1,6 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
 import L from "leaflet";
-import "proj4";
-import "proj4leaflet";
 import { MY_JSON_MAPS } from "./layers";
 
 /**

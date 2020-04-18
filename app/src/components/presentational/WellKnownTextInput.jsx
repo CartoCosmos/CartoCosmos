@@ -2,10 +2,10 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import { makeStyles, withStyles, fade } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
+import StyledTooltip from "./StyledTooltip.jsx";
 
 /**
  * Controls css styling for this component using js to css
@@ -54,19 +54,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 /**
- * Custom Component that uses Tooltip with modified css styling
- */
-const StyledTooltip = withStyles(theme => ({
-  tooltip: {
-    backgroundColor: "#f5f5f9",
-    color: "rgba(0, 0, 0, 0.87)",
-    maxWidth: 250,
-    fontSize: 12,
-    border: "1px solid #dadde9"
-  }
-}))(Tooltip);
-
-/**
  * Component that accepts user input of Well-Known Text
  *
  * @component
@@ -83,10 +70,9 @@ export default function WellKnownTextInput() {
     <div className={classes.root}>
       <StyledTooltip
         title={
-          <Typography variant="subtitle1">
-            Enter a <Link href={wktLink}>Well-Known Text</Link>
-            &ensp;string then press "Draw on Map" to plot the polygon on the
-            map.
+          <Typography>
+            Enter a <Link href={wktLink}>Well-Known Text</Link> string then
+            press "Draw on Map" to plot the polygon on the map.
           </Typography>
         }
         enterDelay={800}

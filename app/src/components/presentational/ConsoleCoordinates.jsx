@@ -2,10 +2,10 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
+import StyledTooltip from "./StyledTooltip.jsx";
 
 /**
  * Controls css styling for this component using js to css
@@ -13,48 +13,38 @@ import Divider from "@material-ui/core/Divider";
 const useStyles = makeStyles({
   grid: {
     height: "100%",
-    maxHeight: 60
+    maxHeight: 60,
+    paddingRight: 8
   },
   title: {
     color: "#343a40",
-    fontSize: "0.7rem",
     lineHeight: "1rem",
+    paddingBottom: 1,
     fontWeight: 600
   },
   coords: {
     color: "#343a40",
-    lineHeight: "1.5rem"
-    //fontSize: "0.7rem"
+    lineHeight: "1.4rem",
+    fontSize: "13px"
   },
   container: {
     display: "flex",
     flexWrap: "noWrap",
-    //maxHeight: 60,
+    width: "100%",
+    height: 40,
+    margin: "auto",
     "& > *": {
       margin: 0,
       padding: 0,
-      width: "47.5%",
+      width: "50%",
       height: "100%",
       maxHeight: "3rem",
-      maxWidth: "47.5%",
-      backgroundColor: "#f1f3f5",
+      maxWidth: "50%",
+      backgroundColor: "#f8f9fa",
       textAlign: "center"
     }
   }
 });
-
-/**
- * Custom Component that uses Tooltip with modified css styling
- */
-const StyledTooltip = withStyles(theme => ({
-  tooltip: {
-    backgroundColor: "#f5f5f9",
-    color: "rgba(0, 0, 0, 0.87)",
-    maxWidth: 250,
-    fontSize: 12,
-    border: "1px solid #dadde9"
-  }
-}))(Tooltip);
 
 /**
  * Main component that displays the container for the coordinate display
@@ -69,7 +59,7 @@ export default function ConsoleCoordinates() {
     <Grid
       container
       className={classes.grid}
-      justify="flex-end"
+      justify="center"
       alignItems="center"
       item
       xs={3}
@@ -88,7 +78,10 @@ export default function ConsoleCoordinates() {
           TransitionComponent={Zoom}
         >
           <div className={classes.container}>
-            <Paper variant="outlined" square>
+            <Paper
+              style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+              variant="outlined"
+            >
               <Typography variant="overline" className={classes.title}>
                 Longitude
               </Typography>
@@ -100,7 +93,14 @@ export default function ConsoleCoordinates() {
                 variant="subtitle2"
               />
             </Paper>
-            <Paper variant="outlined" square>
+            <Paper
+              style={{
+                borderLeft: 0,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0
+              }}
+              variant="outlined"
+            >
               <Typography variant="overline" className={classes.title}>
                 Latitude
               </Typography>
