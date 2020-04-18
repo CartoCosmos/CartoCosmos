@@ -30,7 +30,7 @@ export default L.Map.AstroMap = L.Map.extend({
     zoom: 1,
     maxZoom: 8,
     attributionControl: false,
-    fullscreenControl: true,
+    fullscreenControl: true
   },
 
   initialize: function(mapDiv, target, options) {
@@ -39,7 +39,7 @@ export default L.Map.AstroMap = L.Map.extend({
     this._astroProj = new AstroProj();
     this._radii = {
       a: "",
-      c: "",
+      c: ""
     };
 
     // Set by layer collection or baselayerchange event
@@ -55,7 +55,7 @@ export default L.Map.AstroMap = L.Map.extend({
 
     // Could not work with _
     this.layers = {
-      cylindrical: new LayerCollection("cylindrical", cylLayerInfo),
+      cylindrical: new LayerCollection("cylindrical", cylLayerInfo)
     };
 
     let northLayerInfo = this.parseJSON("north-polar stereographic");
@@ -116,7 +116,7 @@ export default L.Map.AstroMap = L.Map.extend({
     let layers = {
       base: [],
       overlays: [],
-      wfs: [],
+      wfs: []
     };
 
     let targets = MY_JSON_MAPS["targets"];
@@ -179,7 +179,7 @@ export default L.Map.AstroMap = L.Map.extend({
     } else {
       let proj = this._astroProj.getStringAndCode(name, this._radii);
       newCRS = new L.Proj.CRS(proj["code"], proj["string"], {
-        resolutions: [8192, 4096, 2048, 1024, 512, 256, 128],
+        resolutions: [8192, 4096, 2048, 1024, 512, 256, 128]
       });
       this._currentProj = proj["code"];
       this.setMaxZoom(6);
@@ -264,5 +264,5 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   radii: function() {
     return this._radii;
-  },
+  }
 });

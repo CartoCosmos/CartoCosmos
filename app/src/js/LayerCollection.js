@@ -45,7 +45,7 @@ export default L.LayerCollection = L.Class.extend({
       let baseLayer = L.tileLayer.wms(
         String(layer["url"]) + "?map=" + String(layer["map"]),
         {
-          layers: String(layer["layer"]),
+          layers: String(layer["layer"])
         }
       );
       let name = String(layer["displayname"]);
@@ -66,7 +66,7 @@ export default L.LayerCollection = L.Class.extend({
         {
           layers: String(layer["layer"]),
           transparent: true,
-          format: "image/png",
+          format: "image/png"
         }
       );
       let name = String(layer["displayname"]);
@@ -178,7 +178,7 @@ export default L.LayerCollection = L.Class.extend({
       version: "1.1.0",
       request: "GetFeature",
       outputFormat: "application/json",
-      srsName: "EPSG:4326",
+      srsName: "EPSG:4326"
     };
 
     let parameters = L.Util.extend(defaultParameters);
@@ -194,7 +194,7 @@ export default L.LayerCollection = L.Class.extend({
         data["features"] = sortedFeatures;
         thisContext._wfsLayer.clearLayers();
         thisContext._wfsLayer.addData(data);
-      },
+      }
     });
   },
 
@@ -216,5 +216,5 @@ export default L.LayerCollection = L.Class.extend({
         return 0;
       }
     });
-  },
+  }
 });

@@ -15,17 +15,17 @@ import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
 /**
  * Controls css styling for this component using js to css
  */
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
     alignContent: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 125,
+    minWidth: 125
   },
-  autoComplete: {},
+  autoComplete: {}
 }));
 
 /**
@@ -44,7 +44,7 @@ export default function App() {
    *
    * @param {*} event selection event
    */
-  const handleChange = (event) => {
+  const handleChange = event => {
     setTargetPlanet(event.target.value);
   };
 
