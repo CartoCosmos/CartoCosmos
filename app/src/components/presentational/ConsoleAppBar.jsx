@@ -64,7 +64,7 @@ export default function ConsoleAppBar(props) {
                 container
                 item
                 xs
-                justify="space-evenly"
+                justify="space-around"
                 alignItems="center"
                 wrap="nowrap"
               >

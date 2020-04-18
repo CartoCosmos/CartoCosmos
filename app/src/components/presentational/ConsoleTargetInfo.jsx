@@ -20,7 +20,8 @@ const useStyles = makeStyles({
     color: "#343a40",
     fontWeight: 900,
     fontSize: 42,
-    letterSpacing: "0rem"
+    letterSpacing: "0rem",
+    paddingRight: 55
   }
 });
 
