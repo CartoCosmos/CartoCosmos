@@ -48,8 +48,6 @@ export default class MapContainer extends Component {
     );
 
     map.addControl(new L.Control.Scale({ imperial: false }));
-
-    //new newAutocomplete();
   }
 
   /**

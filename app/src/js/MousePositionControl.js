@@ -131,10 +131,22 @@ export default L.Control.MousePositionControl = L.Control.extend({
       if (!this.isLonDom180) {
         lng = this.astroMath.lonTo360(lng, this.map.options.crs.code);
       }
+      else {
+        if (this.map.options.crs.code != "EPSG:4326")
+        {
+          if (lng < 0) {
+            lng += 180;
+          }
+          else {
+            lng -= 180;
+          }
+        }
+      }
 
       if (!this.isLonDirEast) {
         lng = this.astroMath.domainToPositiveWest(lng, this.isLonDom180);
       }
+
 
       lng = lng.toFixed(this.options.numDigits);
       lat = lat.toFixed(this.options.numDigits);

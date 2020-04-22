@@ -91,14 +91,8 @@ export default class AstroMath {
     }
 
     if (convertedLon < 0) {
-      if (projection == "EPSG:4326") {
-        convertedLon += 360;
-      } else {
-        convertedLon += 180;
-      }
-    } else if (projection != "EPSG:4326") {
-      convertedLon += 180;
-    }
+      convertedLon += 360;
+    } 
 
     return convertedLon;
   }
