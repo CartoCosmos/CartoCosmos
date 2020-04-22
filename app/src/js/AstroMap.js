@@ -1,6 +1,7 @@
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
 import L from "leaflet";
+import "leaflet-fullscreen";
 import { MY_JSON_MAPS } from "./layers";
 
 /**
