@@ -77,26 +77,26 @@ export default L.Control.MousePositionControl = L.Control.extend({
 
   moveControl: function(container, isFullscreen) {
     if (isFullscreen) {
-      container.appendChild(this.lonDisplayElement);
-      container.appendChild(this.latDisplayElement);
-      container.appendChild(this.lonDomain180);
-      container.appendChild(this.lonDomain360);
+      // container.appendChild(this.lonDisplayElement);
+      // container.appendChild(this.latDisplayElement);
       container.appendChild(this.lonDirectionEast);
       container.appendChild(this.lonDirectionWest);
       container.appendChild(this.latitudeTypeOcentric);
       container.appendChild(this.latitudeTypeOgraphic);
+      container.appendChild(this.lonDomain180);
+      container.appendChild(this.lonDomain360);
     } else {
-      let coordContainer = L.DomUtil.get("coordContainer");
-      coordContainer.appendChild(this.lonDisplayElement);
-      coordContainer.appendChild(this.latDisplayElement);
+      // let coordContainer = L.DomUtil.get("coordContainer");
+      // coordContainer.appendChild(this.lonDisplayElement);
+      // coordContainer.appendChild(this.latDisplayElement);
 
       let lonLatContainer = L.DomUtil.get("lonLatContainer");
-      lonLatContainer.appendChild(this.lonDomain180);
-      lonLatContainer.appendChild(this.lonDomain360);
       lonLatContainer.appendChild(this.lonDirectionEast);
       lonLatContainer.appendChild(this.lonDirectionWest);
       lonLatContainer.appendChild(this.latitudeTypeOcentric);
       lonLatContainer.appendChild(this.latitudeTypeOgraphic);
+      lonLatContainer.appendChild(this.lonDomain180);
+      lonLatContainer.appendChild(this.lonDomain360);
     }
   },
 

@@ -20,3 +20,7 @@ Controls the CSS for projection buttons when there is no available projection
 .disabled {
   opacity: 40%;
 }
+
+.leaflet-sidebar {
+  width: 200px;
+}
