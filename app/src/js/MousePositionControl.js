@@ -75,6 +75,31 @@ export default L.Control.MousePositionControl = L.Control.extend({
     return this.container;
   },
 
+  moveControl: function(container, isFullscreen) {
+    if (isFullscreen) {
+      container.appendChild(this.lonDisplayElement);
+      container.appendChild(this.latDisplayElement);
+      container.appendChild(this.lonDomain180);
+      container.appendChild(this.lonDomain360);
+      container.appendChild(this.lonDirectionEast);
+      container.appendChild(this.lonDirectionWest);
+      container.appendChild(this.latitudeTypeOcentric);
+      container.appendChild(this.latitudeTypeOgraphic);
+    } else {
+      let coordContainer = L.DomUtil.get("coordContainer");
+      coordContainer.appendChild(this.lonDisplayElement);
+      coordContainer.appendChild(this.latDisplayElement);
+
+      let lonLatContainer = L.DomUtil.get("lonLatContainer");
+      lonLatContainer.appendChild(this.lonDomain180);
+      lonLatContainer.appendChild(this.lonDomain360);
+      lonLatContainer.appendChild(this.lonDirectionEast);
+      lonLatContainer.appendChild(this.lonDirectionWest);
+      lonLatContainer.appendChild(this.latitudeTypeOcentric);
+      lonLatContainer.appendChild(this.latitudeTypeOgraphic);
+    }
+  },
+
   /**
    * @function MousePositionControl.prototype.changeLonDomain
    * @description Is called when a user changes the longitude domain selector. Changes the longitude domain class variable to false if 0 to 360 is selected and true if -180 to 180 is selected.
@@ -130,14 +155,11 @@ export default L.Control.MousePositionControl = L.Control.extend({
 
       if (!this.isLonDom180) {
         lng = this.astroMath.lonTo360(lng, this.map.options.crs.code);
-      }
-      else {
-        if (this.map.options.crs.code != "EPSG:4326")
-        {
+      } else {
+        if (this.map.options.crs.code != "EPSG:4326") {
           if (lng < 0) {
             lng += 180;
-          }
-          else {
+          } else {
             lng -= 180;
           }
         }
@@ -146,7 +168,6 @@ export default L.Control.MousePositionControl = L.Control.extend({
       if (!this.isLonDirEast) {
         lng = this.astroMath.domainToPositiveWest(lng, this.isLonDom180);
       }
-
 
       lng = lng.toFixed(this.options.numDigits);
       lat = lat.toFixed(this.options.numDigits);

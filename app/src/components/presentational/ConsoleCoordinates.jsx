@@ -63,6 +63,7 @@ export default function ConsoleCoordinates() {
       alignItems="center"
       item
       xs={3}
+      id="coordContainer"
     >
       <Grid item xs>
         <StyledTooltip

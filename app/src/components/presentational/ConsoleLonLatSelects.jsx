@@ -171,6 +171,7 @@ export default function ConsoleLonLatSelects() {
             size="small"
             value={posEastWest}
             onChange={handlePosEastWest}
+            id="lonLatContainer"
           >
             <StyledToggleButton id="consoleLonEastBtn" value="PositiveEast">
               <AutorenewIcon fontSize="small" className={classes.flip} />

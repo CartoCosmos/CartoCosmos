@@ -14,8 +14,13 @@ export default L.Control.ProjectionControl = L.Control.extend({
    * @param  {AstroMap} map - The map to add the control to.
    * @return {Div} Container containing the projection buttons.
    */
+
+  options: {
+    position: "topleft"
+  },
+
   onAdd: function(map) {
-    let container = L.DomUtil.create("div");
+    this._container = L.DomUtil.create("div");
 
     this._northPolar = L.DomUtil.get("projectionNorthPole");
     L.DomEvent.on(this._northPolar, "click", this.loadNorthPolar, this);
@@ -32,7 +37,21 @@ export default L.Control.ProjectionControl = L.Control.extend({
     this._cylindrical = L.DomUtil.get("projectionCylindrical");
     L.DomEvent.on(this._cylindrical, "click", this.loadCylindrical, this);
 
-    return container;
+    return this._container;
+  },
+
+  moveControl: function(container, isFullscreen) {
+    if (isFullscreen) {
+      container.appendChild(this._northPolar);
+      container.appendChild(this._cylindrical);
+      container.appendChild(this._southPolar);
+    } else {
+      let projContainer = L.DomUtil.get("projButtons");
+      console.log(projContainer);
+      projContainer.appendChild(this._northPolar);
+      projContainer.appendChild(this._cylindrical);
+      projContainer.appendChild(this._southPolar);
+    }
   },
 
   /**
