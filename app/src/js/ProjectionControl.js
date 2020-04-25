@@ -14,11 +14,6 @@ export default L.Control.ProjectionControl = L.Control.extend({
    * @param  {AstroMap} map - The map to add the control to.
    * @return {Div} Container containing the projection buttons.
    */
-
-  options: {
-    position: "topleft"
-  },
-
   onAdd: function(map) {
     this._container = L.DomUtil.create("div");
 
@@ -46,8 +41,7 @@ export default L.Control.ProjectionControl = L.Control.extend({
       container.appendChild(this._cylindrical);
       container.appendChild(this._southPolar);
     } else {
-      let projContainer = L.DomUtil.get("projButtons");
-      console.log(projContainer);
+      let projContainer = L.DomUtil.get("projContainer");
       projContainer.appendChild(this._northPolar);
       projContainer.appendChild(this._cylindrical);
       projContainer.appendChild(this._southPolar);

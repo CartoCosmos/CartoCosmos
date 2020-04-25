@@ -28,27 +28,7 @@ export default class MapContainer extends Component {
   componentDidMount() {
     let map = new AstroMap("map-container", this.props.target, {});
     let controlManager = new AstroControlManager(map);
-
-    // map.addControl(new ProjectionControl());
-    // map.addControl(
-    //   new MousePositionControl({
-    //     numDigits: 3
-    //   })
-    // );
-
-    // let drawnItems = new L.FeatureGroup();
-    // map.addLayer(drawnItems);
-
-    // map.addControl(
-    //   new AstroDrawControl({
-    //     edit: {
-    //       featureGroup: drawnItems
-    //     }
-    //   })
-    // );
-
-    // map.addControl(new L.Control.Scale({ imperial: false }));
-    // map.addControl(new AstroSidebarControl());
+    controlManager.addTo(map);
   }
 
   /**
@@ -73,25 +53,8 @@ export default class MapContainer extends Component {
 
     // create new map with updated target
     let map = new AstroMap("map-container", this.props.target, {});
-    map.addControl(new ProjectionControl());
-    map.addControl(
-      new MousePositionControl({
-        numDigits: 3
-      })
-    );
-
-    let drawnItems = new L.FeatureGroup();
-    map.addLayer(drawnItems);
-
-    map.addControl(
-      new AstroDrawControl({
-        edit: {
-          featureGroup: drawnItems
-        }
-      })
-    );
-
-    map.addControl(new L.Control.Scale({ imperial: false }));
+    let controlManager = new AstroControlManager(map);
+    controlManager.addTo(map);
   }
 
   render() {

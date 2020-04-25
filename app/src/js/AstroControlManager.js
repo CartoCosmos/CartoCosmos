@@ -5,23 +5,26 @@ import AstroDrawControl from "./AstroDrawControl";
 import AstroSidebarControl from "./SidebarControl";
 
 /**
- * @class LayerCollection
- * @aka L.Class.LayerCollection
+ * @class AstroControlManager
+ * @aka L.Class.AstroControlManager
  * @inherits L.Class
  *
  * @classdesc
- * Holds the base layers and overlays of a particular projection
- * for quick and easy use in the AstroMap class.
+ * Adds all of the needed controls to the AstroMap.
  */
 export default L.AstroControlManager = L.Class.extend({
+  /**
+   * @function ProjectionControl.prototype.initialize
+   * @description Creates all of the required controls.
+   * @param {AstroMap} map - The AstroMap to add the controls to. We need to pass in the map here
+   *                         because the drawnItems FeatureGroup needs it when initialized.
+   */
   initialize: function(map) {
     this._projControl = new ProjectionControl();
-    map.addControl(this._projControl);
 
     this._mouseControl = new MousePositionControl({
       numDigits: 3
     });
-    map.addControl(this._mouseControl);
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
@@ -31,13 +34,22 @@ export default L.AstroControlManager = L.Class.extend({
         featureGroup: drawnItems
       }
     });
-    map.addControl(this._drawControl);
 
-    this._sidebarControl = new AstroSidebarControl(map, [
+    this._sidebarControl = new AstroSidebarControl([
       this._projControl,
       this._mouseControl
     ]);
+  },
 
+  /**
+   * @function ProjectionControl.prototype.addTo
+   * @description Adds all of the controls to the AstroMap.
+   * @param {AstroMap} map - The AstroMap to add the controls to.
+   */
+  addTo: function(map) {
+    map.addControl(this._projControl);
+    map.addControl(this._mouseControl);
+    map.addControl(this._drawControl);
     map.addControl(new L.Control.Scale({ imperial: false }));
 
     let that = this;

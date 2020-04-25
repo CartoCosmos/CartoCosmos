@@ -153,6 +153,7 @@ export default function ConsoleLonLatSelects() {
       alignItems="center"
       className={classes.grid}
       xs={7}
+      id="lonLatContainer"
     >
       <StyledTooltip
         title={
@@ -171,7 +172,6 @@ export default function ConsoleLonLatSelects() {
             size="small"
             value={posEastWest}
             onChange={handlePosEastWest}
-            id="lonLatContainer"
           >
             <StyledToggleButton id="consoleLonEastBtn" value="PositiveEast">
               <AutorenewIcon fontSize="small" className={classes.flip} />

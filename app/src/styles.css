@@ -21,6 +21,10 @@ Controls the CSS for projection buttons when there is no available projection
   opacity: 40%;
 }
 
-.leaflet-sidebar {
+.sidebar {
   width: 200px;
+  height: 200px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  background: #fff;
+  border-radius: 5px;
 }

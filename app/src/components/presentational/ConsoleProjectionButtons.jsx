@@ -131,7 +131,7 @@ export default function ConsoleProjectionButtons() {
   return (
     <Grid
       className={classes.grid}
-      id="projButtons"
+      id="projContainer"
       container
       item
       direction="column"
