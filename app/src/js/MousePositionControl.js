@@ -91,7 +91,6 @@ export default L.Control.MousePositionControl = L.Control.extend({
    */
   changeLatType(e) {
     this.isLatTypeOcentric = !this.isLatTypeOcentric;
-    console.log(this.latitudeTypeOcentric);
   },
 
   /**
@@ -130,14 +129,11 @@ export default L.Control.MousePositionControl = L.Control.extend({
 
       if (!this.isLonDom180) {
         lng = this.astroMath.lonTo360(lng, this.map.options.crs.code);
-      }
-      else {
-        if (this.map.options.crs.code != "EPSG:4326")
-        {
+      } else {
+        if (this.map.options.crs.code != "EPSG:4326") {
           if (lng < 0) {
             lng += 180;
-          }
-          else {
+          } else {
             lng -= 180;
           }
         }
@@ -146,7 +142,6 @@ export default L.Control.MousePositionControl = L.Control.extend({
       if (!this.isLonDirEast) {
         lng = this.astroMath.domainToPositiveWest(lng, this.isLonDom180);
       }
-
 
       lng = lng.toFixed(this.options.numDigits);
       lat = lat.toFixed(this.options.numDigits);

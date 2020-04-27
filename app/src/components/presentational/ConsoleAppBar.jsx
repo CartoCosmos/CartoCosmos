@@ -42,12 +42,13 @@ export default function ConsoleAppBar(props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} id="consoleToolbarParent">
       <AppBar
         className={classes.appbar}
         variant="outlined"
         position="static"
         color="inherit"
+        id="consoleToolbar"
       >
         <Toolbar className={classes.toolbar}>
           <Grid
