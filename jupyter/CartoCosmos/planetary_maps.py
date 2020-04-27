@@ -21,7 +21,7 @@ class planetary_maps:
         :type targetName: String
         :param targetName: The name of the target you wish to map.
         """
-        self.target_name = targetName
+        self.target_name = targetName.lower()
         self.layers = []
         self.overlays = []
         self.planet_map = None
