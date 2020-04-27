@@ -75,23 +75,6 @@ export default L.Control.MousePositionControl = L.Control.extend({
     return this.container;
   },
 
-  moveControl: function(container, isFullscreen) {
-    if (isFullscreen) {
-      container.appendChild(this.latDisplayElement.parentNode.parentNode);
-      container.appendChild(this.lonDirectionEast.parentNode);
-      container.appendChild(this.latitudeTypeOcentric.parentNode);
-      container.appendChild(this.lonDomain180.parentNode);
-    } else {
-      let coordContainer = L.DomUtil.get("coordContainer");
-      coordContainer.appendChild(this.lonDisplayElement.parentNode.parentNode);
-
-      let lonLatContainer = L.DomUtil.get("lonLatContainer");
-      lonLatContainer.appendChild(this.lonDirectionEast.parentNode);
-      lonLatContainer.appendChild(this.latitudeTypeOcentric.parentNode);
-      lonLatContainer.appendChild(this.lonDomain180.parentNode);
-    }
-  },
-
   /**
    * @function MousePositionControl.prototype.changeLonDomain
    * @description Is called when a user changes the longitude domain selector. Changes the longitude domain class variable to false if 0 to 360 is selected and true if -180 to 180 is selected.
@@ -108,7 +91,6 @@ export default L.Control.MousePositionControl = L.Control.extend({
    */
   changeLatType(e) {
     this.isLatTypeOcentric = !this.isLatTypeOcentric;
-    console.log(this.latitudeTypeOcentric);
   },
 
   /**

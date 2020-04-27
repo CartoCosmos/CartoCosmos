@@ -10,7 +10,7 @@ import L from "leaflet";
  */
 export default L.Control.AstroSidebarControl = L.Control.extend({
   options: {
-    position: "topright"
+    position: "topleft"
   },
 
   /**
@@ -18,8 +18,9 @@ export default L.Control.AstroSidebarControl = L.Control.extend({
    * @description Constructs a sidebar control.
    * @param {Array} controls - List of controls to pull onto the sidebar.
    */
-  initialize: function(controls) {
-    this._controls = controls;
+  initialize: function(console, consoleParent) {
+    this._console = console;
+    this._consoleParent = consoleParent;
   },
 
   /**
@@ -30,9 +31,7 @@ export default L.Control.AstroSidebarControl = L.Control.extend({
    */
   onAdd: function(map) {
     let container = L.DomUtil.create("div", "sidebar");
-    this._controls.forEach(function(control, index) {
-      control.moveControl(container, true);
-    });
+    container.appendChild(this._console);
     return container;
   },
 
@@ -42,8 +41,6 @@ export default L.Control.AstroSidebarControl = L.Control.extend({
    * @param  {AstroMap} map - The AstroMap to remove the control from.
    */
   onRemove: function(map) {
-    this._controls.forEach(function(control, index) {
-      control.moveControl(null, false);
-    });
+    this._consoleParent.appendChild(this._console);
   }
 });

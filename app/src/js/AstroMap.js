@@ -31,7 +31,8 @@ export default L.Map.AstroMap = L.Map.extend({
     zoom: 1,
     maxZoom: 8,
     attributionControl: false,
-    fullscreenControl: true
+    fullscreenControl: true,
+    zoomControl: false
   },
 
   initialize: function(mapDiv, target, options) {

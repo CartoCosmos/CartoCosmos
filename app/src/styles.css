@@ -21,8 +21,7 @@ Controls the CSS for projection buttons when there is no available projection
 }
 
 .sidebar {
-  width: 200px;
-  height: 200px;
+  width: 800px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   background: #fff;
   border-radius: 5px;

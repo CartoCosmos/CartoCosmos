@@ -26,6 +26,8 @@ export default L.AstroControlManager = L.Class.extend({
       numDigits: 3
     });
 
+    this._zoomControl = new L.Control.Zoom();
+
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
@@ -35,10 +37,10 @@ export default L.AstroControlManager = L.Class.extend({
       }
     });
 
-    this._sidebarControl = new AstroSidebarControl([
-      this._projControl,
-      this._mouseControl
-    ]);
+    this._sidebarControl = new AstroSidebarControl(
+      L.DomUtil.get("consoleToolbar"),
+      L.DomUtil.get("consoleToolbarParent")
+    );
   },
 
   /**
@@ -50,12 +52,14 @@ export default L.AstroControlManager = L.Class.extend({
     map.addControl(this._projControl);
     map.addControl(this._mouseControl);
     map.addControl(this._drawControl);
+    map.addControl(this._zoomControl);
     map.addControl(new L.Control.Scale({ imperial: false }));
 
     let that = this;
     map.on("fullscreenchange", function() {
       if (map.isFullscreen()) {
         map.addControl(that._sidebarControl);
+        console.log(that._sidebarControl.getContainer());
       } else {
         map.removeControl(that._sidebarControl);
       }

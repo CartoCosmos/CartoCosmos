@@ -35,19 +35,6 @@ export default L.Control.ProjectionControl = L.Control.extend({
     return this._container;
   },
 
-  moveControl: function(container, isFullscreen) {
-    if (isFullscreen) {
-      container.appendChild(this._northPolar);
-      container.appendChild(this._cylindrical);
-      container.appendChild(this._southPolar);
-    } else {
-      let projContainer = L.DomUtil.get("projContainer");
-      projContainer.appendChild(this._northPolar);
-      projContainer.appendChild(this._cylindrical);
-      projContainer.appendChild(this._southPolar);
-    }
-  },
-
   /**
    * @function ProjectionControl.prototype.loadNorthPolar
    * @description Sets the map's projection to north-polar stereographic.
