@@ -1,9 +1,9 @@
+import L from "leaflet";
+import "proj4leaflet";
+
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import L from "leaflet";
-import "leaflet-fullscreen";
 import { MY_JSON_MAPS } from "./layers";
-import "proj4leaflet";
 
 /**
  * @class AstroMap
@@ -32,7 +32,6 @@ export default L.Map.AstroMap = L.Map.extend({
     zoom: 1,
     maxZoom: 8,
     attributionControl: false,
-    fullscreenControl: true,
     zoomControl: false
   },
 

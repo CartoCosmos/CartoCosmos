@@ -21,8 +21,31 @@ Controls the CSS for projection buttons when there is no available projection
 }
 
 .sidebar {
-  width: 800px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   background: #fff;
   border-radius: 5px;
+  display: grid;
+  grid-template-columns: auto 15px;
+}
+
+.sidebar-collapsed {
+  width: 200px;
+  height: 48px;
+}
+
+.sidebar-expanded {
+  width: 820px;
+}
+
+.sidebar-button {
+  font: bold 18px "Lucida Console", Monaco, monospace;
+  text-indent: 1px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-button:hover {
+  background-color: #ccc;
 }
