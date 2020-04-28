@@ -20,13 +20,71 @@ Controls the CSS for projection buttons when there is no available projection
   opacity: 40%;
 }
 
+.leaflet-control-view-center {
+  background-image: url("https://raw.github.com/pwldp/leaflet.viewcenter/master/icon-viewcenter.png");
+}
 .sidebar {
+  box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2),
+    0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+}
+
+.sidebar-collapsed {
+  width: 200px;
+  height: 48px;
+  background: #f8f9fa;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-bottom: 2px;
+  display: grid;
+  grid-template-columns: auto 20px;
+}
+
+.sidebar-expanded {
   width: 800px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
-  background: #fff;
+  height: 98px;
+  background: #f8f9fa;
+  display: grid;
+  grid-template-columns: auto 20px;
   border-radius: 5px;
 }
 
-.leaflet-control-view-center {
-  background-image: url("https://raw.github.com/pwldp/leaflet.viewcenter/master/icon-viewcenter.png");
+.sidebar-button {
+  font: bold 18px "Lucida Console", Monaco, monospace;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-expanded .sidebar-button {
+  padding: 2px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: thin solid #ccc;
+  background-color: #fff;
+}
+
+.sidebar-collapsed .sidebar-button {
+  font: bold 18px "Lucida Console", Monaco, monospace;
+  margin-left: 5px;
+  margin-bottom: -2px;
+  padding: 2px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: thin solid #ccc;
+  background-color: #fff;
+}
+
+.sidebar-button:hover {
+  background-color: #ccc;
 }

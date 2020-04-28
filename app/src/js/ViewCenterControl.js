@@ -13,17 +13,11 @@ export default L.Control.ViewCenter = L.Control.extend({
     let container = L.DomUtil.create("div", "leaflet-bar");
     let className = "leaflet-control-view-center";
 
-    this._createButton(
-      this.options,
-      className,
-      container,
-      this.setCenterView,
-      map
-    );
+    this._createButton(className, container, this.setCenterView, map);
 
     return container;
   },
-  _createButton: function(options, className, container, fn, map) {
+  _createButton: function(className, container, fn, map) {
     let link = L.DomUtil.create("a", className, container);
     link.href = "#";
     link.title = "Center map";
@@ -33,7 +27,7 @@ export default L.Control.ViewCenter = L.Control.extend({
         link,
         "click",
         function() {
-          map.flyTo([0, 0], map.getZoom());
+          map.setView([0, 0], map.getZoom());
         },
         map
       );

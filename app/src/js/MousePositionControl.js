@@ -1,4 +1,5 @@
 import L from "leaflet";
+
 import AstroMath from "./AstroMath";
 
 /**
@@ -6,8 +7,10 @@ import AstroMath from "./AstroMath";
  * @aka L.Control.MousePositionControl
  * @extends L.Control
  *
- * @classdesc Class that inherits from the class L.Control and handles the back-end when a user clicks on the lat/lon buttons.
- * Since this class inherits L.Control, it is added to the AstroMap in the same way as other controls, like the zoom control.
+ * @classdesc Class that inherits from the class L.Control and handles the back-end when a user
+ *            clicks on the lat/lon buttons.
+ * Since this class inherits L.Control, it is added to the AstroMap in the same way as other controls,
+ *             like the zoom control.
  *
  * @example
  * // initialize the control with an options object.
@@ -25,13 +28,13 @@ export default L.Control.MousePositionControl = L.Control.extend({
 
   /**
    * @function MousePositionControl.prototype.onAdd
-   * @description Grabs the lat/lon buttons from the GUI and adds on-change events to them. It also adds an on mouse-over event to the AstroMap to grab the current mouse position of the user's mouse pointer.
+   * @description Grabs the lat/lon buttons from the GUI and adds on-change events to them. It also
+   *              adds an on mouse-over event to the AstroMap to grab the current mouse position of
+   *              the user's mouse pointer.
    * @param  {AstroMap} map - The AstroMap to add the control to.
    * @return {Object} The div-container the control is in.
    */
   onAdd: function(map) {
-    this.container = L.DomUtil.create("div", "leaflet-control-mouseposition");
-    L.DomEvent.disableClickPropagation(this.container);
     map.on("mousemove", this.onMouseMove, this);
     map.on("mouseout", this.onMouseOut, this);
 
@@ -72,7 +75,8 @@ export default L.Control.MousePositionControl = L.Control.extend({
     this.latitudeTypeOgraphic = L.DomUtil.get("consoleLatTypeOgraphic");
     L.DomEvent.on(this.latitudeTypeOgraphic, "click", this.changeLatType, this);
 
-    return this.container;
+    // We don't want to add the buttons to a div on the map, so just return a blank one.
+    return L.DomUtil.create("div");
   },
 
   /**

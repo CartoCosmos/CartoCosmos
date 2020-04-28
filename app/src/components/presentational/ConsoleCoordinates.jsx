@@ -63,7 +63,7 @@ export default function ConsoleCoordinates() {
       alignItems="center"
       item
       xs={3}
-      id="coordContainer"
+      id="coordContainerParent"
     >
       <Grid item xs>
         <StyledTooltip
@@ -78,7 +78,7 @@ export default function ConsoleCoordinates() {
           arrow
           TransitionComponent={Zoom}
         >
-          <div className={classes.container}>
+          <div id="coordContianer" className={classes.container}>
             <Paper
               style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
               variant="outlined"
