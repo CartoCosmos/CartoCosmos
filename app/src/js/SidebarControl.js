@@ -47,7 +47,6 @@ export default L.Control.AstroSidebarControl = L.Control.extend({
   onAdd: function(map) {
     this._container.appendChild(this._coordContainer);
     this._container.appendChild(this._expandButton);
-    // container.appendChild(this._console);
     return this._container;
   },
 
