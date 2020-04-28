@@ -3,6 +3,7 @@ import ProjectionControl from "./ProjectionControl";
 import MousePositionControl from "./MousePositionControl";
 import AstroDrawControl from "./AstroDrawControl";
 import AstroSidebarControl from "./SidebarControl";
+import ViewCenterControl from "./ViewCenterControl";
 
 /**
  * @class AstroControlManager
@@ -27,6 +28,8 @@ export default L.AstroControlManager = L.Class.extend({
     });
 
     this._zoomControl = new L.Control.Zoom();
+
+    this._viewCenterControl = new ViewCenterControl();
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
@@ -53,13 +56,13 @@ export default L.AstroControlManager = L.Class.extend({
     map.addControl(this._mouseControl);
     map.addControl(this._drawControl);
     map.addControl(this._zoomControl);
+    map.addControl(this._viewCenterControl);
     map.addControl(new L.Control.Scale({ imperial: false }));
 
     let that = this;
     map.on("fullscreenchange", function() {
       if (map.isFullscreen()) {
         map.addControl(that._sidebarControl);
-        console.log(that._sidebarControl.getContainer());
       } else {
         map.removeControl(that._sidebarControl);
       }

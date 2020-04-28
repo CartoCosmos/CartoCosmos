@@ -26,3 +26,7 @@ Controls the CSS for projection buttons when there is no available projection
   background: #fff;
   border-radius: 5px;
 }
+
+.leaflet-control-view-center {
+  background-image: url("https://raw.github.com/pwldp/leaflet.viewcenter/master/icon-viewcenter.png");
+}
