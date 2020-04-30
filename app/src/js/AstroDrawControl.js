@@ -25,7 +25,6 @@ import Wkt from "wicket";
  */
 export default L.Control.AstroDrawControl = L.Control.Draw.extend({
   options: {
-    position: "topleft",
     draw: { circle: false, marker: false, circlemarker: false },
     edit: false
   },

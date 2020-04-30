@@ -153,104 +153,112 @@ export default function ConsoleLonLatSelects() {
       alignItems="center"
       className={classes.grid}
       xs={7}
+      id="lonLatContainer"
     >
-      <StyledTooltip
-        title={
-          <Typography variant="subtitle1">
-            Switch to either positive east or positive west longitude reporting.
-          </Typography>
-        }
-        enterDelay={800}
-        leaveDelay={0}
-        arrow
-        TransitionComponent={Zoom}
-      >
-        <div>
-          <StyledToggleButtonGroup
-            exclusive
-            size="small"
-            value={posEastWest}
-            onChange={handlePosEastWest}
-          >
-            <StyledToggleButton id="consoleLonEastBtn" value="PositiveEast">
-              <AutorenewIcon fontSize="small" className={classes.flip} />
-              <Typography className={classes.buttonText}>East</Typography>
-            </StyledToggleButton>
-            <StyledToggleButton id="consoleLonWestBtn" value="PositiveWest">
-              <AutorenewIcon fontSize="small" />
-              <Typography className={classes.buttonText}>West</Typography>
-            </StyledToggleButton>
-          </StyledToggleButtonGroup>
-        </div>
-      </StyledTooltip>
-      <StyledDivider orientation="vertical" />
-      <StyledTooltip
-        title={
-          <Typography variant="subtitle1">
-            Switch to either a planetocentric or planetographic coordinate
-            system.
-          </Typography>
-        }
-        enterDelay={800}
-        leaveDelay={0}
-        arrow
-        TransitionComponent={Zoom}
-      >
-        <div>
-          <StyledToggleButtonGroup
-            exclusive
-            size="small"
-            value={coordSystem}
-            onChange={handleCoordSystem}
-          >
-            <StyledToggleButton
-              value="Planetocentric"
-              id="consoleLatTypeOcentric"
+      <div>
+        <StyledTooltip
+          title={
+            <Typography variant="subtitle1">
+              Switch to either positive east or positive west longitude
+              reporting.
+            </Typography>
+          }
+          enterDelay={800}
+          leaveDelay={0}
+          arrow
+          TransitionComponent={Zoom}
+        >
+          <div id="lonLatEastWest">
+            <StyledToggleButtonGroup
+              exclusive
+              size="small"
+              value={posEastWest}
+              onChange={handlePosEastWest}
             >
-              <i className={classes.circle} />
-              <Typography className={classes.buttonText}>centric</Typography>
-            </StyledToggleButton>
-            <StyledToggleButton
-              id="consoleLatTypeOgraphic"
-              value="Planetographic"
-            >
-              <i className={classes.oval} />
-              <Typography className={classes.buttonText}>graphic</Typography>
-            </StyledToggleButton>
-          </StyledToggleButtonGroup>
-        </div>
-      </StyledTooltip>
+              <StyledToggleButton id="consoleLonEastBtn" value="PositiveEast">
+                <AutorenewIcon fontSize="small" className={classes.flip} />
+                <Typography className={classes.buttonText}>East</Typography>
+              </StyledToggleButton>
+              <StyledToggleButton id="consoleLonWestBtn" value="PositiveWest">
+                <AutorenewIcon fontSize="small" />
+                <Typography className={classes.buttonText}>West</Typography>
+              </StyledToggleButton>
+            </StyledToggleButtonGroup>
+          </div>
+        </StyledTooltip>
+      </div>
       <StyledDivider orientation="vertical" />
-      <StyledTooltip
-        title={
-          <Typography variant="subtitle1">
-            Switch to either -180&deg; to 180&deg; or 0&deg; to 360&deg;
-            longitude range.
-          </Typography>
-        }
-        enterDelay={800}
-        leaveDelay={0}
-        arrow
-        TransitionComponent={Zoom}
-      >
-        <div>
-          <StyledToggleButtonGroup
-            exclusive
-            size="small"
-            value={lonRange}
-            onChange={handleLonRange}
-          >
-            <StyledToggleButton id="consoleLon180Btn" value={180}>
-              <ExposureIcon fontSize="small" />
-              <Typography className={classes.buttonText}>180&deg;</Typography>
-            </StyledToggleButton>
-            <StyledToggleButton id="consoleLon360Btn" value={360}>
-              <AddBoxIcon fontSize="small" />
-              <Typography className={classes.buttonText}>360&deg;</Typography>
-            </StyledToggleButton>
-          </StyledToggleButtonGroup>
-        </div>
-      </StyledTooltip>
+      <div>
+        <StyledTooltip
+          title={
+            <Typography variant="subtitle1">
+              Switch to either a planetocentric or planetographic coordinate
+              system.
+            </Typography>
+          }
+          enterDelay={800}
+          leaveDelay={0}
+          arrow
+          TransitionComponent={Zoom}
+        >
+          <div id="lonLatType">
+            <StyledToggleButtonGroup
+              exclusive
+              size="small"
+              value={coordSystem}
+              onChange={handleCoordSystem}
+            >
+              <StyledToggleButton
+                value="Planetocentric"
+                id="consoleLatTypeOcentric"
+              >
+                <i className={classes.circle} />
+                <Typography className={classes.buttonText}>centric</Typography>
+              </StyledToggleButton>
+              <StyledToggleButton
+                id="consoleLatTypeOgraphic"
+                value="Planetographic"
+              >
+                <i className={classes.oval} />
+                <Typography className={classes.buttonText}>graphic</Typography>
+              </StyledToggleButton>
+            </StyledToggleButtonGroup>
+          </div>
+        </StyledTooltip>
+      </div>
+      <StyledDivider orientation="vertical" />
+      <div>
+        <StyledTooltip
+          title={
+            <Typography variant="subtitle1">
+              Switch to either -180&deg; to 180&deg; or 0&deg; to 360&deg;
+              longitude range.
+            </Typography>
+          }
+          enterDelay={800}
+          leaveDelay={0}
+          arrow
+          TransitionComponent={Zoom}
+        >
+          <div id="lonLatRange">
+            <StyledToggleButtonGroup
+              exclusive
+              size="small"
+              value={lonRange}
+              onChange={handleLonRange}
+            >
+              <StyledToggleButton id="consoleLon180Btn" value={180}>
+                <ExposureIcon fontSize="small" />
+                <Typography className={classes.buttonText}>180&deg;</Typography>
+              </StyledToggleButton>
+              <StyledToggleButton id="consoleLon360Btn" value={360}>
+                <AddBoxIcon fontSize="small" />
+                <Typography className={classes.buttonText}>360&deg;</Typography>
+              </StyledToggleButton>
+            </StyledToggleButtonGroup>
+          </div>
+        </StyledTooltip>
+      </div>
     </Grid>
   );
 }
