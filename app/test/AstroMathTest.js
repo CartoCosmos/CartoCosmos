@@ -86,8 +86,8 @@ describe('Testing AstroMath Functions', function() {
     // testing domainToPositiveWest function
     it('Testing domainToPositiveWest Not Normal Range: 0 should be 360 ', function() {
       // add an assertion
-      let majorRadius = testMath.domainToPositiveWest(0, false);
-      expect(majorRadius).to.equal(360);
+      let majorRadius = testMath.domainToPositiveWest(-180, false);
+      expect(majorRadius).to.equal(180);
     })
 
     // testing wrapLongitude function
