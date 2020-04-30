@@ -15,8 +15,6 @@ export default L.Control.ProjectionControl = L.Control.extend({
    * @return {Div} Container containing the projection buttons.
    */
   onAdd: function(map) {
-    this._container = L.DomUtil.create("div");
-
     this._northPolar = L.DomUtil.get("projectionNorthPole");
     L.DomEvent.on(this._northPolar, "click", this.loadNorthPolar, this);
     if (!map.hasNorthPolar()) {
@@ -32,7 +30,8 @@ export default L.Control.ProjectionControl = L.Control.extend({
     this._cylindrical = L.DomUtil.get("projectionCylindrical");
     L.DomEvent.on(this._cylindrical, "click", this.loadCylindrical, this);
 
-    return this._container;
+    // We don't want to add the buttons to a div on the map, so just return a blank one.
+    return L.DomUtil.create("div");
   },
 
   /**

@@ -16,11 +16,26 @@ export default L.Control.AstroSidebarControl = L.Control.extend({
   /**
    * @function AstroSidebarControl.prototype.initialize
    * @description Constructs a sidebar control.
-   * @param {Array} controls - List of controls to pull onto the sidebar.
+   * @param {DOMElement} consoleElement - GUI Console element to add to the sidebar.
+   * @param {DOMElement} coordContainer - Div element containing the coordinate displays.
    */
-  initialize: function(console, consoleParent) {
-    this._console = console;
-    this._consoleParent = consoleParent;
+  initialize: function(consoleElement, coordContainer) {
+    this._console = consoleElement;
+    this._consoleParent = consoleElement.parentNode;
+    this._coordContainer = coordContainer;
+    this._coordContainerParent = coordContainer.parentNode;
+
+    this._container = L.DomUtil.create("div", "sidebar");
+    L.DomUtil.addClass(this._container, "sidebar-collapsed");
+    this._expandButton = L.DomUtil.create(
+      "a",
+      "sidebar-button",
+      this._container
+    );
+    this._expandButton.innerHTML = ">";
+    this._expandButton.title = "expand";
+    this._expandButton.setAttribute("role", "button");
+    L.DomEvent.on(this._expandButton, "click", this.buttonClicked, this);
   },
 
   /**
@@ -30,9 +45,9 @@ export default L.Control.AstroSidebarControl = L.Control.extend({
    * @return {Object} The div-container the control is in.
    */
   onAdd: function(map) {
-    let container = L.DomUtil.create("div", "sidebar");
-    container.appendChild(this._console);
-    return container;
+    this._container.appendChild(this._coordContainer);
+    this._container.appendChild(this._expandButton);
+    return this._container;
   },
 
   /**
@@ -41,6 +56,50 @@ export default L.Control.AstroSidebarControl = L.Control.extend({
    * @param  {AstroMap} map - The AstroMap to remove the control from.
    */
   onRemove: function(map) {
+    this.collapse();
+    this._coordContainerParent.appendChild(this._coordContainer);
+  },
+
+  /**
+   * @function AstroSidebarControl.prototype.buttonClicked
+   * @description Is called when the expand/collapse button is clicked.
+   */
+  buttonClicked: function() {
+    if (L.DomUtil.hasClass(this._container, "sidebar-collapsed")) {
+      this.expand();
+    } else {
+      this.collapse();
+    }
+  },
+
+  /**
+   * @function AstroSidebarControl.prototype.expand
+   * @description Expands the sidebar by removing the lat/lon coord display,
+   *              adding the console, and changing the styling of the container.
+   */
+  expand: function() {
+    L.DomUtil.removeClass(this._container, "sidebar-collapsed");
+    L.DomUtil.addClass(this._container, "sidebar-expanded");
+
+    this._coordContainerParent.appendChild(this._coordContainer);
+    this._container.insertBefore(this._console, this._expandButton);
+    this._expandButton.innerHTML = "<";
+    this._expandButton.title = "collapse";
+  },
+
+  /**
+   * @function AstroSidebarControl.prototype.collapse
+   * @description Collapses the sidebar by removing the console,
+   *              adding the lat/lon coord display, and changing t
+   *              he styling of the container.
+   */
+  collapse: function() {
+    L.DomUtil.addClass(this._container, "sidebar-collapsed");
+    L.DomUtil.removeClass(this._container, "sidebar-expanded");
+
     this._consoleParent.appendChild(this._console);
+    this._container.insertBefore(this._coordContainer, this._expandButton);
+    this._expandButton.innerHTML = ">";
+    this._expandButton.title = "expand";
   }
 });

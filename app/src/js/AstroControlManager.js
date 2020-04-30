@@ -1,4 +1,6 @@
 import L from "leaflet";
+import "leaflet-fullscreen";
+
 import ProjectionControl from "./ProjectionControl";
 import MousePositionControl from "./MousePositionControl";
 import AstroDrawControl from "./AstroDrawControl";
@@ -14,19 +16,26 @@ import AstroSidebarControl from "./SidebarControl";
  */
 export default L.AstroControlManager = L.Class.extend({
   /**
-   * @function ProjectionControl.prototype.initialize
+   * @function AstroControlManager.prototype.initialize
    * @description Creates all of the required controls.
    * @param {AstroMap} map - The AstroMap to add the controls to. We need to pass in the map here
    *                         because the drawnItems FeatureGroup needs it when initialized.
    */
   initialize: function(map) {
+    this._controls = [];
     this._projControl = new ProjectionControl();
+    this._controls.push(this._projControl);
 
     this._mouseControl = new MousePositionControl({
       numDigits: 3
     });
+    this._controls.push(this._mouseControl);
 
     this._zoomControl = new L.Control.Zoom();
+    this._controls.push(this._zoomControl);
+
+    this._fullscreenControl = new L.Control.Fullscreen();
+    this._controls.push(this._fullscreenControl);
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
@@ -36,33 +45,50 @@ export default L.AstroControlManager = L.Class.extend({
         featureGroup: drawnItems
       }
     });
+    this._controls.push(this._drawControl);
 
     this._sidebarControl = new AstroSidebarControl(
       L.DomUtil.get("consoleToolbar"),
-      L.DomUtil.get("consoleToolbarParent")
+      L.DomUtil.get("coordContianer")
     );
   },
 
   /**
-   * @function ProjectionControl.prototype.addTo
+   * @function AstroControlManager.prototype.addTo
    * @description Adds all of the controls to the AstroMap.
    * @param {AstroMap} map - The AstroMap to add the controls to.
    */
   addTo: function(map) {
-    map.addControl(this._projControl);
-    map.addControl(this._mouseControl);
-    map.addControl(this._drawControl);
-    map.addControl(this._zoomControl);
+    this._controls.forEach(function(control, index) {
+      map.addControl(control);
+    });
     map.addControl(new L.Control.Scale({ imperial: false }));
 
     let that = this;
     map.on("fullscreenchange", function() {
       if (map.isFullscreen()) {
-        map.addControl(that._sidebarControl);
-        console.log(that._sidebarControl.getContainer());
+        that.reorderControls(map);
       } else {
         map.removeControl(that._sidebarControl);
       }
+    });
+  },
+
+  /**
+   * @function AstroControlManager.prototype.reorderControls
+   * @description Removes/adds the existing controls to the map so that the
+   *              sidebar control is at the top.
+   * @param {AstroMap} map - The AstroMap to add the controls to.
+   */
+  reorderControls: function(map) {
+    this._controls.forEach(function(control, index) {
+      map.removeControl(control);
+    });
+
+    map.addControl(this._sidebarControl);
+
+    this._controls.forEach(function(control, index) {
+      map.addControl(control);
     });
   }
 });
