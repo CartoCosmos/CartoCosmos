@@ -107,8 +107,6 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
     let wktValue = this.wktTextBox.value;
 
-    this.wktTextBox.value = "";
-
     try {
       this.wkt.read(wktValue);
     } catch (err) {
