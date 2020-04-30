@@ -142,7 +142,8 @@ class planetary_maps:
                     lng = -180 + (abs(lng) % 180)
 
             if self.gui.get_longitude_range().value == "0 to 360":
-                lng += 180
+                if(lng < 0):
+                    lng += 360
 
             if self.gui.get_lat_domain().value == "Planetographic":
                 converted_latitude = Math.radians(lat)
@@ -155,7 +156,8 @@ class planetary_maps:
                 if(self.gui.get_longitude_range().value == "-180 to 180"):
                     lng *= -1
                 else:
-                    lng = Math.fabs(lng - 360)
+                    if (lng < 0):
+                        lng += 360
 
             self.gui.get_lat_lon_label().value = "Lat, Lon: " + \
                 str(round(lat, 2)) + ", " + str(round(lng, 2))

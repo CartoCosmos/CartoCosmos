@@ -80,6 +80,7 @@ export default class AstroMath {
    * @param  {double} lng - The longitude value that is going to be converted
    *
    * @param  {boolean} projection - The current projection of the map
+   * 
    *
    * @return {double} The converted longitude range.
    */
@@ -112,7 +113,9 @@ export default class AstroMath {
     if (normalRange) {
       convertedLng *= -1;
     } else {
-      convertedLng = Math.abs(convertedLng - 360);
+      if (convertedLng < 0){
+        convertedLng += 360; 
+      }
     }
 
     return convertedLng;
