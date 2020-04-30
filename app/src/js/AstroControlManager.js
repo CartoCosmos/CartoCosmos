@@ -5,6 +5,7 @@ import ProjectionControl from "./ProjectionControl";
 import MousePositionControl from "./MousePositionControl";
 import AstroDrawControl from "./AstroDrawControl";
 import AstroSidebarControl from "./SidebarControl";
+import ViewCenterControl from "./ViewCenterControl";
 
 /**
  * @class AstroControlManager
@@ -36,6 +37,9 @@ export default L.AstroControlManager = L.Class.extend({
 
     this._fullscreenControl = new L.Control.Fullscreen();
     this._controls.push(this._fullscreenControl);
+
+    this._viewCenterControl = new ViewCenterControl();
+    this._controls.push(this._viewCenterControl);
 
     let drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);

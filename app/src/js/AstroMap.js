@@ -172,7 +172,7 @@ export default L.Map.AstroMap = L.Map.extend({
       // at such a high zoom level.
       this.setView(center, 1, true);
     }
-
+    this.options.center = center;
     let newCRS = null;
     if (name == "cylindrical") {
       newCRS = this._defaultProj;
@@ -266,5 +266,15 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   radii: function() {
     return this._radii;
+  },
+
+  /**
+   * @function AstroMap.prototype.getCenter
+   * @description getter method to access the center of the map.
+   *
+   * @return {LatLng} The center coordinates of the map.
+   */
+  getCenter: function() {
+    return this.options.center;
   }
 });
