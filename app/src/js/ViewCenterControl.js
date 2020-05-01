@@ -39,16 +39,14 @@ export default L.Control.ViewCenter = L.Control.extend({
     let link = L.DomUtil.create("a", className, container);
     link.href = "#";
     link.title = "Center map";
-    L.DomEvent.on(link, "click", L.DomEvent.stopPropagation)
-      .on(link, "click", L.DomEvent.preventDefault)
-      .on(
-        link,
-        "click",
-        function() {
-          map.setView(map.getCenter(), map.getZoom());
-        },
-        map
-      );
+    L.DomEvent.on(
+      link,
+      "click",
+      function() {
+        map.setView(map.getCenter(), map.getZoom());
+      },
+      map
+    );
     return link;
   }
 });
