@@ -43,7 +43,7 @@ export default L.Control.ViewCenter = L.Control.extend({
       link,
       "click",
       function() {
-        map.setView(map.getCenter(), map.getZoom());
+        map.setView(map.center(), map.getZoom());
       },
       map
     );

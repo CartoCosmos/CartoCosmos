@@ -274,7 +274,7 @@ export default L.Map.AstroMap = L.Map.extend({
    *
    * @return {LatLng} The center coordinates of the map.
    */
-  getCenter: function() {
+  center: function() {
     return this.options.center;
   }
 });
