@@ -113,9 +113,7 @@ export default class AstroMath {
     if (normalRange) {
       convertedLng *= -1;
     } else {
-      if (convertedLng < 0){
-        convertedLng += 360; 
-      }
+      convertedLng = 360 - convertedLng;
     }
 
     return convertedLng;
