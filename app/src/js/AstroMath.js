@@ -86,11 +86,6 @@ export default class AstroMath {
    */
   lonTo360(lon, projection) {
     let convertedLon = lon;
-
-    if (projection === "EPSG:4326") {
-      convertedLon -= 180;
-    }
-
     if (convertedLon < 0) {
       convertedLon += 360;
     } 
