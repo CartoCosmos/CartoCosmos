@@ -156,8 +156,7 @@ class planetary_maps:
                 if(self.gui.get_longitude_range().value == "-180 to 180"):
                     lng *= -1
                 else:
-                    if (lng < 0):
-                        lng += 360
+                    lng = 360 - lng
 
             self.gui.get_lat_lon_label().value = "Lat, Lon: " + \
                 str(round(lat, 2)) + ", " + str(round(lng, 2))
