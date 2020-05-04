@@ -269,7 +269,7 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @function AstroMap.prototype.getCenter
+   * @function AstroMap.prototype.center
    * @description getter method to access the center of the map.
    *
    * @return {LatLng} The center coordinates of the map.
