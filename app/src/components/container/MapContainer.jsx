@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import AstroMap from "../../js/AstroMap";
-import ProjectionControl from "../../js/ProjectionControl";
-import MousePositionControl from "../../js/MousePositionControl";
-import AstroDrawControl from "../../js/AstroDrawControl";
+import AstroControlManager from "../../js/AstroControlManager";
 
 /**
  * Component that uses back end JS files to invoke and display the
@@ -29,25 +27,8 @@ export default class MapContainer extends Component {
    */
   componentDidMount() {
     let map = new AstroMap("map-container", this.props.target, {});
-    map.addControl(new ProjectionControl());
-    map.addControl(
-      new MousePositionControl({
-        numDigits: 3
-      })
-    );
-
-    let drawnItems = new L.FeatureGroup();
-    map.addLayer(drawnItems);
-
-    map.addControl(
-      new AstroDrawControl({
-        edit: {
-          featureGroup: drawnItems
-        }
-      })
-    );
-
-    map.addControl(new L.Control.Scale({ imperial: false }));
+    let controlManager = new AstroControlManager(map);
+    controlManager.addTo(map);
   }
 
   /**
@@ -72,25 +53,8 @@ export default class MapContainer extends Component {
 
     // create new map with updated target
     let map = new AstroMap("map-container", this.props.target, {});
-    map.addControl(new ProjectionControl());
-    map.addControl(
-      new MousePositionControl({
-        numDigits: 3
-      })
-    );
-
-    let drawnItems = new L.FeatureGroup();
-    map.addLayer(drawnItems);
-
-    map.addControl(
-      new AstroDrawControl({
-        edit: {
-          featureGroup: drawnItems
-        }
-      })
-    );
-
-    map.addControl(new L.Control.Scale({ imperial: false }));
+    let controlManager = new AstroControlManager(map);
+    controlManager.addTo(map);
   }
 
   render() {

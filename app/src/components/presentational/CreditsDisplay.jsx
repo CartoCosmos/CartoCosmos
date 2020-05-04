@@ -53,6 +53,8 @@ export default function CreditsDisplay() {
       >
         <Grid item xs={2}>
           <Link
+            target="_blank"
+            rel="noopener"
             color="inherit"
             style={{ fontWeight: 600 }}
             variant="caption"
@@ -64,6 +66,8 @@ export default function CreditsDisplay() {
         <Divider orientation="vertical" />
         <Grid item xs={2}>
           <Link
+            target="_blank"
+            rel="noopener"
             color="inherit"
             style={{ fontWeight: 600 }}
             variant="caption"
@@ -77,6 +81,8 @@ export default function CreditsDisplay() {
           <Typography style={{ fontSize: 12 }} variant="caption">
             Made by{" "}
             <Link
+              target="_blank"
+              rel="noopener"
               variant="caption"
               color="inherit"
               style={{ fontWeight: 600 }}
@@ -100,6 +106,8 @@ export default function CreditsDisplay() {
         <Divider orientation="vertical" />
         <Grid item xs={2}>
           <Link
+            target="_blank"
+            rel="noopener"
             color="inherit"
             variant="caption"
             style={{ fontWeight: 600 }}
@@ -110,7 +118,11 @@ export default function CreditsDisplay() {
         </Grid>
         <Divider orientation="vertical" />
         <Grid item xs={2}>
-          <Link href="https://github.com/CartoCosmos/CartoCosmos/app">
+          <Link
+            target="_blank"
+            rel="noopener"
+            href="https://github.com/CartoCosmos/CartoCosmos/"
+          >
             <GitHubIcon
               style={{
                 color: "#343a40",
