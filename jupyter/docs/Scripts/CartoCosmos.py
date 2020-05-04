@@ -8,7 +8,6 @@ import shapely.wkt
 import os
 import urllib.request
 
-from CartoCosmos import planetary_gui
 
 class planetary_maps:
     """ The Central class that creates interactive planetary maps in Jupyter Notebooks. 
@@ -21,9 +20,8 @@ class planetary_maps:
         :type targetName: String
         :param targetName: The name of the target you wish to map.
         """
-        self.target_name = targetName.lower()
+        self.target_name = targetName
         self.layers = []
-        self.overlays = []
         self.planet_map = None
         self.map_layers = {
             'base': [],
@@ -98,7 +96,6 @@ class planetary_maps:
                     base=True,
                     show_loading=False,
                 )
-
                 self.layers.append(wms_layer)
 
         for layer in self.map_layers['overlays']:
@@ -142,8 +139,7 @@ class planetary_maps:
                     lng = -180 + (abs(lng) % 180)
 
             if self.gui.get_longitude_range().value == "0 to 360":
-                if(lng < 0):
-                    lng += 360
+                lng += 180
 
             if self.gui.get_lat_domain().value == "Planetographic":
                 converted_latitude = Math.radians(lat)
@@ -156,11 +152,10 @@ class planetary_maps:
                 if(self.gui.get_longitude_range().value == "-180 to 180"):
                     lng *= -1
                 else:
-                    lng = 360 - lng
+                    lng = Math.fabs(lng - 360)
 
             self.gui.get_lat_lon_label().value = "Lat, Lon: " + \
                 str(round(lat, 2)) + ", " + str(round(lng, 2))
-
 
     def create_map(self):
 
@@ -225,7 +220,6 @@ class planetary_maps:
         fullscreen_control = FullScreenControl(position='bottomleft')
         self.planet_map.add_control(fullscreen_control)
         self.planet_map.on_interaction(self.handle_fullscreen)
-        self.planet_map.add_control(ScaleControl(position='bottomleft'))
 
     def display_map(self):
         """ Displays the map and the GUI elements to the screen."""
@@ -239,7 +233,7 @@ class planetary_maps:
         display(self.gui.get_wkt_button())
 
         # Display map first, then add features
-        # self.add_wfs_features()
+        self.add_wfs_features()
 
     def add_wkt(self, wktString):
         """ Takes in a Well-Known text string 
@@ -332,7 +326,7 @@ class planetary_maps:
 
                     # Sort features by diameter
                     jsonp['features'] = sorted(
-                        jsonp['features'], key=lambda feature: feature["properties"]["diameter"], reverse=True)
+                        jsonp['features'], key=lambda feature: feature["properties"]["diameter"])
                     geo_json = GeoJSON(data=jsonp, name="Show Feature Names")
                     geo_json.point_style = {
                         'fillOpacity': 1,
@@ -354,7 +348,7 @@ class planetary_maps:
         :param feature: feature name.
     
         :type coordinates: List
-        :param coordinates: Coordinates of the clicked position.
+        :param coordinates: Coordinates of the clicked on Feature.
     
         :type kwargs: Event
         :param kwargs: On click.

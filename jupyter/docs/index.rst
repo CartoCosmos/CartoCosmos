@@ -9,6 +9,7 @@ CartoCosmos: Interactive planetary maps in the Jupyter notebook
 
 .. toctree::
     :caption: Usage
+    :maxdepth: 5
 
     usage
 

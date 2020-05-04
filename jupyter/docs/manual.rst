@@ -15,7 +15,7 @@ Components
 - (red) ⇒ Longitude and Latitude Buttons
 - (yellow) ⇒ Under-Cursor Coordinate Display
 
-.. image:: ControlsM.png
+.. image:: imgs/ControlsM.png
 
 **The Map**
 
@@ -24,17 +24,29 @@ Components
 - (yellow) ⇒ Layer Switcher
 - (yellow) ⇒ Draw Control
 
-.. image:: mapM.png
+.. image:: imgs/mapM.png
 
 **Draw Well-Known text strings**
 
 - (red) ⇒  Draw Button
 - (blue) ⇒ Input Box
 
-.. image:: wktM.png
+.. image:: imgs/wktM.png
 
 Instructions
 ============
+
+**How to Create a Map:**
+
+In a new cell in the notebook, copy the lines:
+
+.. code:: python
+
+    map = l.planetary_maps('mars')
+    map.display_map()
+
+This will create and display a map viewing images of Mars. To change the target of the map, just change the name being passed into l.planetary_maps(). 
+
 
 **How to Control Map Movement:**
 
@@ -99,3 +111,12 @@ There are two ways to draw shapes on the planetary maps. You can either use the 
 
 - Using Well-Known text strings
     - Enter the Well-Known text string in the input box and click the draw button.
+
+- Using Well-Knwon text Function
+    
+    .. code:: python
+
+        map.add_wkt("POLYGON ((-187.03125 22.851563, -187.03125 35.15625, -167.34375 35.15625, -167.34375 22.851563, -187.03125 22.851563))")
+
+    This will create a polygon on the map being displayed with the WKT passed in. You can add as many shapes as you please.
+

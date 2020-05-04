@@ -12,12 +12,13 @@
 #
 import os
 import sys
-sys.path.append("/Users/jkaufy/Desktop/Pydocs/sphinx/Scripts")
-
+sys.path.append("/Scripts")
+sys.path.append("/Users/jkaufy/Desktop/Pydocs/sphinx/imgs")
 
 extensions = [
-             'jupyter_sphinx',
+             'nbsphinx',
              'sphinx.ext.autodoc',
+              'jupyter_sphinx.execute',
              ]
 
 templates_path = ['_templates']
