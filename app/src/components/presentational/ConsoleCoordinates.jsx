@@ -13,8 +13,7 @@ import StyledTooltip from "./StyledTooltip.jsx";
 const useStyles = makeStyles({
   grid: {
     height: "100%",
-    maxHeight: 60,
-    paddingRight: 8
+    maxHeight: 60
   },
   title: {
     color: "#343a40",

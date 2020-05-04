@@ -9,64 +9,63 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
-      filename: "./index.html"
+      filename: "./index.html",
     }),
     new webpack.ProvidePlugin({
       L: "leaflet",
-      Leaflet: "leaflet"
+      Leaflet: "leaflet",
     }),
     new webpack.ProvidePlugin({
-      $: "jquery"
-    })
+      $: "jquery",
+    }),
   ],
-  watch: true,
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist"),
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         use: {
-          loader: "babel-loader"
+          loader: "babel-loader",
         },
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.html/,
         use: [
           {
-            loader: "html-loader"
-          }
-        ]
+            loader: "html-loader",
+          },
+        ],
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: "style-loader"
+            loader: "style-loader",
           },
           {
             loader: "css-loader",
             options: {
-              importLoaders: 1
-            }
-          }
-        ]
+              importLoaders: 1,
+            },
+          },
+        ],
       },
       {
         test: /\.png$/,
         use: [
           {
-            loader: "url-loader"
-          }
-        ]
+            loader: "url-loader",
+          },
+        ],
       },
       {
         test: /\.svg$/,
-        use: ["@svgr/webpack"]
-      }
-    ]
-  }
+        use: ["@svgr/webpack"],
+      },
+    ],
+  },
 };
