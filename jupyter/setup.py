@@ -5,7 +5,7 @@ with open("README") as f:
 
 setup (
     name = 'CartoCosmos',
-    version = '1.0.1',
+    version = '1.0.5',
     description = 'Virtual planetary mapping',
     long_description = long_description,
     author = 'CartoComos Development Team',
