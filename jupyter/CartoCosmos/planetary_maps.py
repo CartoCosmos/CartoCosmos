@@ -142,7 +142,7 @@ class planetary_maps:
                     lng = -180 + (abs(lng) % 180)
 
             if self.gui.get_longitude_range().value == "0 to 360":
-                if(lng < 0):
+                if(lng > 0):
                     lng += 360
 
             if self.gui.get_lat_domain().value == "Planetographic":
