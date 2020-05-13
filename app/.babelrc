@@ -9,6 +9,13 @@
     ]
   ],
   "plugins": [
+
+    ["@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
+
     [
       "babel-plugin-import",
       {
@@ -17,6 +24,7 @@
         "camel2DashComponentName": false
       },
       "core"
+      
     ],
     [
       "babel-plugin-import",

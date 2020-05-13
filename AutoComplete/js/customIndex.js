@@ -1,14 +1,13 @@
-// Logs query events into the console.
-document.querySelector("#autoComplete").addEventListener("autoComplete", function(event) {
-    console.log(event.detail);
-  });
-
 /**
  * @class autoComplete
  * @classdesc Declares a new autocomplete that is ran when the user enters more data into the autocomplete box.
  */
 var newAutocomplete = new autoComplete({
     //Defines the data that will be returned inside of the autocomplete.
+    /**
+     * @property data
+     * @description Gets JSON array of features.
+     */
     data: { 
       //Gets data source for autocomplete asyncronusly.
       src: async () => {
@@ -81,13 +80,6 @@ var newAutocomplete = new autoComplete({
         //Displays result items as list items.
         element: "li"
     },
-    /*noResults: () => {                     // Action script on noResults      | (Optional)
-        const result = document.createElement("li");
-        result.setAttribute("class", "no_result");
-        result.setAttribute("tabindex", "1");
-        result.innerHTML = "No Results";
-        document.querySelector("#autoComplete_list").appendChild(result);
-    },*/
 
     /**
      * @function onSelection
