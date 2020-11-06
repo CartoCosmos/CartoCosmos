@@ -170,7 +170,7 @@ export default L.Map.AstroMap = L.Map.extend({
       // projection from cylindrcal and the zoom level is 7+.
       // proj has trouble unprojecting points in cylindrical
       // at such a high zoom level.
-      this.setView(center, 1, true);
+      this.setView(center, this.options.zoom, true);
     }
     this.options.center = center;
     let newCRS = null;
@@ -191,10 +191,8 @@ export default L.Map.AstroMap = L.Map.extend({
     // Reset the view again because the map refreshses after changing
     // the projection and you start to zoom in/out. This makes the map do a
     // weird flashing transition.
-    this.setView(center, 1, true);
+    this.setView(center, this.options.zoom, true);
     this.loadLayerCollection(name);
-
-    // this.fire("projChange", { proj: this._currentProj });
   },
 
   /**
@@ -276,5 +274,13 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   center: function() {
     return this.options.center;
+  },
+
+  /**
+   * @function AstroMap.prototype.setLatLon
+   * @description Sets the current view to a lat and lon.
+   */
+  setLatLon: function(lat, lon) {
+    this.setView([lat, lon], this.options.zoom);
   }
 });

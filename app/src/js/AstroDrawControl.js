@@ -65,11 +65,9 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     this.myLayer = L.Proj.geoJson().addTo(map);
 
     this.wktButton = L.DomUtil.get("wktButton");
-    L.DomEvent.on(this.wktButton, "click", this.mapWKTString, this);
+    L.DomEvent.on(this.wktButton, "click", this.addShapeFromTextBox, this);
 
     map.on("draw:created", this.shapesToWKT, this);
-
-    // map.on("projChange", this.reprojectFeature, this);
 
     return container;
   },
@@ -94,20 +92,30 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
   },
 
   /**
-   * @function AstroDrawControl.prototype.mapWKTString
+   * @function AstroDrawControl.prototype.addShapeFromTextBox
    * @description  Is called when a user clicks the draw button below the AstroMap.
    *               Will take the Well-Known text string and draw the shape onto the map.
    *               If the Well-Known text string is invalid an error will show in the text box.
    * @param  {DomEvent} e  - On Click of Well-Known text button.
    */
-  mapWKTString: function(e) {
+  addShapeFromTextBox: function(e) {
     this.myLayer.clearLayers();
     this.options.edit["featureGroup"].clearLayers();
 
     let wktValue = this.wktTextBox.value;
+    this.addShapeFromWKT(wktValue);
+  },
 
+  /**
+   * @function AstroDrawControl.prototype.addShapeFromWKT
+   * @description  Creates a feature GeoJSON from an input WKT and adds the feature to
+   *               the map.
+   * @param  {String} wktStr  - Well-known text string of geometry.
+   */
+  addShapeFromWKT: function(wktStr) {
+    this.wktTextBox.value = wktStr;
     try {
-      this.wkt.read(wktValue);
+      this.wkt.read(wktStr);
     } catch (err) {
       alert("Invalid Well Known Text String");
       return;
@@ -121,9 +129,8 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     };
 
     this.myLayer.addData(geojsonFeature);
+
+    // Holder for now
+    this._map.setLatLon(23, 102);
   }
-
-  // reprojectFeature: function(e) {
-
-  // }
 });
