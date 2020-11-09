@@ -37,65 +37,13 @@ const useStyles = makeStyles(theme => ({
  */
 export default function App() {
   const classes = useStyles();
-  const [targetPlanet, setTargetPlanet] = React.useState("Mercury");
-
-  /**
-   * Handles target selection
-   *
-   * @param {*} event selection event
-   */
-  const handleChange = event => {
-    setTargetPlanet(event.target.value);
-  };
+  let targetName = document.getElementById("mercury_id");
 
   return (
     <div>
-      <div className={classes.container}>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="grouped-select">Target Body</InputLabel>
-          <Select
-            defaultValue={1}
-            onChange={handleChange}
-            value={targetPlanet}
-            input={<Input id="grouped-select" />}
-          >
-            <ListSubheader value="Mercury">Planets</ListSubheader>
-            <MenuItem value="Mercury">Mercury</MenuItem>
-            <MenuItem value="Venus">Venus</MenuItem>
-            <MenuItem value="Earth">Earth</MenuItem>
-            <MenuItem value="Mars">Mars</MenuItem>
-            <MenuItem value="Jupiter">Jupiter</MenuItem>
-            <MenuItem value="Saturn">Saturn</MenuItem>
-            <MenuItem value="Uranus">Uranus</MenuItem>
-            <MenuItem value="Neptune">Neptune</MenuItem>
-            <MenuItem value="Pluto">Pluto (yeah, a planet)</MenuItem>
-            <ListSubheader value="Moon">Moons and Other Bodies</ListSubheader>
-            <MenuItem value="Moon">Moon</MenuItem>
-            <MenuItem value="Ceres">Ceres</MenuItem>
-            <MenuItem value="Mimas">Mimas</MenuItem>
-            <MenuItem value="Titan">Titan</MenuItem>
-            <MenuItem value="Deimos">Deimos</MenuItem>
-            <MenuItem value="Tethys">Tethys</MenuItem>
-            <MenuItem value="Phoebe">Phoebe</MenuItem>
-            <MenuItem value="Iapetus">Iapetus</MenuItem>
-            <MenuItem value="Dione">Dione</MenuItem>
-            <MenuItem value="Enceladus">Enceladus</MenuItem>
-            <MenuItem value="Hyperion">Hyperion</MenuItem>
-            <MenuItem value="Io">Io</MenuItem>
-            <MenuItem value="Callisto">Callisto</MenuItem>
-            <MenuItem value="Europa">Europa</MenuItem>
-            <MenuItem value="Ganymede">Ganymede</MenuItem>
-            <MenuItem value="Rhea">Rhea</MenuItem>
-            <MenuItem value="Phobos">Phobos</MenuItem>
-            <MenuItem value="Vesta">Vesta</MenuItem>
-            <MenuItem value="Charon">Charon</MenuItem>
-          </Select>
-        </FormControl>
-        {/* <AutoCompleteInput className={classes.autoComplete} /> */}
-      </div>
       <Paper elevation={10}>
-        <ConsoleContainer target={targetPlanet} />
-        <MapContainer target={targetPlanet} />
+        <ConsoleContainer target={targetName.innerText} />
+        <MapContainer target={targetName.innerText} />
         <WellKnownTextInput />
         <CreditsDisplay />
       </Paper>
