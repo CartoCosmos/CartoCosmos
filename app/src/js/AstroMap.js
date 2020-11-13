@@ -142,9 +142,9 @@ export default L.Map.AstroMap = L.Map.extend({
               layers["base"].push(currentLayer);
             } else {
               // Do not add "Show Feature Names" PNG layer.
-              if (currentLayer["displayname"] != "Show Feature Names") {
-                layers["overlays"].push(currentLayer);
-              }
+              // if (currentLayer["displayname"] != "Show Feature Names") {
+              layers["overlays"].push(currentLayer);
+              // }
             }
           } else {
             layers["wfs"].push(currentLayer);
