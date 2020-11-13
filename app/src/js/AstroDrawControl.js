@@ -83,6 +83,15 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
       "draw:created",
       function(e) {
         this.options.edit["featureGroup"].addLayer(e.layer);
+        e.layer.on(
+          "click",
+          function(e) {
+            this.updateWKT(e.target);
+            console.log(e);
+          },
+          this
+        );
+
         this.updateWKT(e.layer);
       },
       this
@@ -169,6 +178,13 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     }
 
     this.options.edit["featureGroup"].addLayer(feature);
+    feature.on(
+      "click",
+      function(e) {
+        this.updateWKT(feature);
+      },
+      this
+    );
 
     // let centroidGeoJSON = centroid(geoJson);
     // this._map.panTo(
