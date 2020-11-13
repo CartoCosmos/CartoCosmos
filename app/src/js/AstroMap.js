@@ -277,10 +277,10 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @function AstroMap.prototype.setLatLon
+   * @function AstroMap.prototype.panTo
    * @description Sets the current view to a lat and lon.
    */
-  setLatLon: function(lat, lon) {
+  panTo: function(lat, lon) {
     this.setView([lat, lon], this.options.zoom);
   }
 });

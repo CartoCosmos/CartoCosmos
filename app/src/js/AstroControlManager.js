@@ -46,7 +46,13 @@ export default L.AstroControlManager = L.Class.extend({
 
     this._drawControl = new AstroDrawControl({
       edit: {
-        featureGroup: drawnItems
+        featureGroup: drawnItems,
+        edit: {
+          selectedPathOptions: {
+            maintainColor: true,
+            moveMarkers: true
+          }
+        }
       }
     });
     this._controls.push(this._drawControl);
