@@ -87,7 +87,6 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
           "click",
           function(e) {
             this.updateWKT(e.target);
-            console.log(e);
           },
           this
         );
