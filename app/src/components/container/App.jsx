@@ -37,13 +37,18 @@ const useStyles = makeStyles(theme => ({
  */
 export default function App() {
   const classes = useStyles();
-  let targetName = document.getElementById("mercury_id");
+  let targetName = document.querySelector("#target-name");
+  if (typeof targetName != "undefined" && targetName != null) {
+    targetName = targetName.innerText;
+  } else {
+    targetName = "Mars"; // default to Mars
+  }
 
   return (
     <div>
       <Paper elevation={10}>
-        <ConsoleContainer target={targetName.innerText} />
-        <MapContainer target={targetName.innerText} />
+        <ConsoleContainer target={targetName} />
+        <MapContainer target={targetName} />
         <WellKnownTextInput />
         <CreditsDisplay />
       </Paper>
