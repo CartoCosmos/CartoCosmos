@@ -48,35 +48,15 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
    * @return {Object} The div-container the control is in.
    */
   onAdd: function(map) {
+    // Update circlemarker tooltip to say point
+    L.drawLocal.draw.toolbar.buttons.circlemarker = "Draw a point";
+
     this._map = map;
-    let container = L.DomUtil.create("div", "leaflet-draw"),
-      addedTopClass = false,
-      topClassName = "leaflet-draw-toolbar-top",
-      toolbarContainer;
-
-    for (let toolbarId in this._toolbars) {
-      if (this._toolbars.hasOwnProperty(toolbarId)) {
-        toolbarContainer = this._toolbars[toolbarId].addToolbar(map);
-
-        if (toolbarContainer) {
-          if (!addedTopClass) {
-            if (!L.DomUtil.hasClass(toolbarContainer, topClassName)) {
-              L.DomUtil.addClass(toolbarContainer.childNodes[0], topClassName);
-            }
-            addedTopClass = true;
-          }
-
-          container.appendChild(toolbarContainer);
-        }
-      }
-    }
-
     this.wktTextBox = L.DomUtil.get("wktTextBox");
     this.wkt = new Wkt.Wkt();
-
     this.myLayer = L.Proj.geoJson().addTo(map);
-
     this.wktButton = L.DomUtil.get("wktButton");
+
     L.DomEvent.on(this.wktButton, "click", this.addShapeFromTextBox, this);
 
     map.on(
@@ -87,6 +67,17 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
           "click",
           function(e) {
             this.updateWKT(e.target);
+            // Easiest way to check type of shape,
+            // since Circle inherits from CircleMarker,
+            // check if not a Circle.
+            if (
+              e.target instanceof L.CircleMarker &&
+              !(e.target instanceof L.Circle)
+            ) {
+              this.zoomOnShape(e.target, "Point");
+            } else {
+              this.zoomOnShape(e.target, "Polygon");
+            }
           },
           this
         );
@@ -106,13 +97,13 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
       this
     );
 
-    return container;
+    return L.Control.Draw.prototype.onAdd.call(this, map);
   },
 
   /**
    * @function AstroDrawControl.prototype.updateWKT
    * @description Updates the Well Known Text (WKT) box with the previously drawn shape.
-   * @param  {L.Layer} shape - Leaflet lay describing shape.
+   * @param  {L.Layer} shape - Leaflet layer describing the shape.
    */
   updateWKT: function(shape) {
     let geoJson = shape.toGeoJSON();
@@ -121,7 +112,7 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
     // GeoJSON does not support circles natively,
     // so approximate a circle with a polygon
-    if (shape.hasOwnProperty("_mRadius")) {
+    if (shape instanceof L.Circle) {
       geoJson = this.createGeoJSONCircle(
         geoJson["coordinates"],
         shape._mRadius,
@@ -131,6 +122,20 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
     this.wkt.read(JSON.stringify(geoJson));
     this.wktTextBox.value = this.wkt.write();
+  },
+
+  /**
+   * @function AstroDrawControl.prototype.zoomOnShape
+   * @description Zooms in on the shape depending on the type.
+   * @param  {L.Layer} shape - Leaflet layer describing the shape.
+   * @param  {String} type - Type of the shape.
+   */
+  zoomOnShape: function(feature, type) {
+    if (type == "Point") {
+      this._map.setView(feature.getLatLng(), this._map.options.maxZoom);
+    } else {
+      this._map.fitBounds(feature.getBounds().pad(0.3));
+    }
   },
 
   /**
@@ -171,16 +176,16 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
         [geoJson["coordinates"][1], geoJson["coordinates"][0]],
         drawControl.options.draw.circlemarker
       );
-      this._map.setView(feature.getLatLng(), 6);
-    } else {
-      this._map.fitBounds(feature.getBounds().pad(0.3));
     }
 
+    this.zoomOnShape(feature, geoJson["type"]);
     this.options.edit["featureGroup"].addLayer(feature);
+
     feature.on(
       "click",
-      function(e) {
+      function() {
         this.updateWKT(feature);
+        this.zoomOnShape(feature, geoJson["type"]);
       },
       this
     );
