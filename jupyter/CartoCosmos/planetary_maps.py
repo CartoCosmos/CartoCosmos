@@ -94,7 +94,7 @@ class planetary_maps:
                     url=layer["url"] + "?map=" + layer["map"],
                     layers=layer['layer'],
                     name=layer['displayname'],
-                    crs='EPSG4326',
+                    crs=projections.EPSG4326,
                     base=True,
                     show_loading=False,
                 )
@@ -107,7 +107,7 @@ class planetary_maps:
                     url=layer["url"] + "?map=" + layer["map"],
                     layers=layer['layer'],
                     name=layer['displayname'],
-                    crs='EPSG4326',
+                    crs=projections.EPSG4326,
                     base=False,
                     transparent=True,
                     format="image/png",
@@ -167,7 +167,7 @@ class planetary_maps:
         """ Creates the map instance of the specific target. 
         Also adds all the controls to the map."""
         self.planet_map = Map(layers=tuple(self.layers),
-                              center=(0, 0), zoom=1, crs='EPSG4326')
+                              center=(0, 0), zoom=1, crs=projections.EPSG4326)
 
         draw_control = DrawControl()
         draw_control.polyline = {
