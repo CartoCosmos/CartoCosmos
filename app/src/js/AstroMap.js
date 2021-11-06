@@ -3,6 +3,7 @@ import "proj4leaflet";
 
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
+import { geojsonFeature } from "./GeoJSONlayer";
 import { MY_JSON_MAPS } from "./layers";
 
 /**
@@ -89,6 +90,10 @@ export default L.Map.AstroMap = L.Map.extend({
     L.setOptions(this, options);
     L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
+    
+    if(target == "Mars") {
+      this.loadGeoJSONlayer(geojsonFeature);
+    }
 
     // Listen to baselayerchange event so that we can set the current layer being
     // viewed by the map.
@@ -105,6 +110,19 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   loadLayerCollection: function(name) {
     this.layers[name].addTo(this);
+  },
+
+  /**
+   * @function AstroMap.prototype.loadGeoJSONlayer
+   * @description Adds the LayerCollection with the requested name.
+   *
+   * @param {String} name - Name of the projection.
+   */
+  loadGeoJSONlayer: function(geojsonFeature) {
+    L.geoJSON(geojsonFeature).addTo(this);
+
+    var myLayer = L.geoJSON().addTo(this);
+    myLayer.addData(geojsonFeature);
   },
 
   /**
