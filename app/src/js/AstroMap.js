@@ -3,7 +3,7 @@ import "proj4leaflet";
 
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import { geojsonFeature } from "./GeoJSONlayer";
+import { getStacItems } from "./ApiJsonCollection";
 import { MY_JSON_MAPS } from "./layers";
 
 /**
@@ -90,9 +90,9 @@ export default L.Map.AstroMap = L.Map.extend({
     L.setOptions(this, options);
     L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
-    
-    if(target == "Mars") {
-      this.loadGeoJSONlayer(geojsonFeature);
+
+    if(target == "Mars" || target == "Europa") {
+      this.loadFootprintLayer(target);
     }
 
     // Listen to baselayerchange event so that we can set the current layer being
@@ -113,16 +113,23 @@ export default L.Map.AstroMap = L.Map.extend({
   },
 
   /**
-   * @function AstroMap.prototype.loadGeoJSONlayer
-   * @description Adds the LayerCollection with the requested name.
+   * @function AstroMap.prototype.loadFootprintLayer
+   * @description Adds the ApiJsonCollection with the requested name.
    *
-   * @param {String} name - Name of the projection.
+   * @param {String} name - Name of the STAC Catalog. example "ctx_dtms"
    */
-  loadGeoJSONlayer: function(geojsonFeature) {
-    L.geoJSON(geojsonFeature).addTo(this);
+  loadFootprintLayer: function(name) {
+    var footprintLayer = L.geoJSON().addTo(this);
 
-    var myLayer = L.geoJSON().addTo(this);
-    myLayer.addData(geojsonFeature);
+    getStacItems(name).then(footprints => {
+
+      // wait 3 seconds to fully grab array of stac items
+      setTimeout(() => {
+        for (let i = 0; i < footprints.length; i++) {
+          footprintLayer.addData(footprints[i]);
+        }
+      }, 3000);
+    })
   },
 
   /**
