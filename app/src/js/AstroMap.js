@@ -3,7 +3,7 @@ import "proj4leaflet";
 
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import { getStacItems } from "./ApiJsonCollection";
+import { getItemCollection } from "./ApiJsonCollection";
 import { MY_JSON_MAPS } from "./layers";
 
 /**
@@ -121,15 +121,25 @@ export default L.Map.AstroMap = L.Map.extend({
   loadFootprintLayer: function(name) {
     var footprintLayer = L.geoJSON().addTo(this);
 
-    getStacItems(name).then(footprints => {
-
-      // wait 3 seconds to fully grab array of stac items
-      setTimeout(() => {
-        for (let i = 0; i < footprints.length; i++) {
-          footprintLayer.addData(footprints[i]);
-        }
-      }, 3000);
-    })
+    getItemCollection(name).then(result => {
+        console.log("STAC Item Collection: ");
+        console.log(result);
+          for (let i = 0; i < result.links.length; i++) {
+            if (result.links[i].rel == 'item') {
+              fetch(result.links[i].href)
+                .then(response => response.json())
+                .then(data => footprintLayer.addData(data))
+            }
+          }
+      });
+    //   // wait 3 seconds to fully grab array of stac items
+    //   setTimeout(() => {
+    //     console.log(footprints.length)
+    //     for (let i = 0; i < footprints.length; i++) {
+    //       footprintLayer.addData(footprints[i]);
+    //     }
+    //   }, 3000);
+    // })
   },
 
   /**
