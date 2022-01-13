@@ -132,14 +132,6 @@ export default L.Map.AstroMap = L.Map.extend({
             }
           }
       });
-    //   // wait 3 seconds to fully grab array of stac items
-    //   setTimeout(() => {
-    //     console.log(footprints.length)
-    //     for (let i = 0; i < footprints.length; i++) {
-    //       footprintLayer.addData(footprints[i]);
-    //     }
-    //   }, 3000);
-    // })
   },
 
   /**

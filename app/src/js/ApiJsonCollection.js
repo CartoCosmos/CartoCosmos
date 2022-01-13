@@ -71,23 +71,4 @@ function getItemCollection(name) {
   }
 }
 
-// function getStacItems(name) {
-//   return getItemCollection(name).then(result => {
-//     console.log("STAC Item Collection: ");
-//     console.log(result);
-//     var items = [];
-//     console.log(result.links.length);
-//       for (let i = 0; i < result.links.length; i++) {
-//         if (result.links[i].rel == 'item') {
-//           fetch(result.links[i].href)
-//             .then(response => response.json())
-//             .then(data => items.push(data))
-//         }
-//       }
-//       console.log(items);
-//       return items;
-//   });
-// }
-
-
 export{ getItemCollection };
