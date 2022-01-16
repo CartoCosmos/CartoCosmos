@@ -3,6 +3,7 @@ import "proj4leaflet";
 
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
+import { getItemCollection } from "./ApiJsonCollection";
 import { MY_JSON_MAPS } from "./layers";
 
 /**
@@ -90,6 +91,10 @@ export default L.Map.AstroMap = L.Map.extend({
     L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
 
+    if(target == "Mars" || target == "Europa") {
+      this.loadFootprintLayer(target);
+    }
+
     // Listen to baselayerchange event so that we can set the current layer being
     // viewed by the map.
     this.on("baselayerchange", function(e) {
@@ -105,6 +110,28 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   loadLayerCollection: function(name) {
     this.layers[name].addTo(this);
+  },
+
+  /**
+   * @function AstroMap.prototype.loadFootprintLayer
+   * @description Adds the ApiJsonCollection with the requested name.
+   *
+   * @param {String} name - Name of the STAC Catalog. example "ctx_dtms"
+   */
+  loadFootprintLayer: function(name) {
+    var footprintLayer = L.geoJSON().addTo(this);
+
+    getItemCollection(name).then(result => {
+        console.log("STAC Item Collection: ");
+        console.log(result);
+          for (let i = 0; i < result.links.length; i++) {
+            if (result.links[i].rel == 'item') {
+              fetch(result.links[i].href)
+                .then(response => response.json())
+                .then(data => footprintLayer.addData(data))
+            }
+          }
+      });
   },
 
   /**
