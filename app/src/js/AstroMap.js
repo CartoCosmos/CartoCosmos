@@ -119,19 +119,26 @@ export default L.Map.AstroMap = L.Map.extend({
    * @param {String} name - Name of the STAC Catalog. example "ctx_dtms"
    */
   loadFootprintLayer: function(name) {
-    var footprintLayer = L.geoJSON().addTo(this);
+    var geoLayers = [];
+    var footprintCollection = {};
 
     getItemCollection(name).then(result => {
-        console.log("STAC Item Collection: ");
-        console.log(result);
-          for (let i = 0; i < result.links.length; i++) {
-            if (result.links[i].rel == 'item') {
-              fetch(result.links[i].href)
-                .then(response => response.json())
-                .then(data => footprintLayer.addData(data))
-            }
+      let geoLayers = new Array(result.length);
+      for (let i = 0; i < result.length; i++) {
+        geoLayers[i] = L.geoJSON().addTo(this);
+        footprintCollection[result[i].id] = geoLayers[i];
+        for (let j = 0; j < result[i].links.length; j++) {
+          if (result[i].links[j].rel == 'item') {
+            fetch(result[i].links[j].href)
+              .then(response => response.json())
+              .then(function(data) {
+                geoLayers[i].addData(data);
+              })
           }
-      });
+        }
+      }
+      L.control.layers(null, footprintCollection).addTo(this);
+    });
   },
 
   /**
