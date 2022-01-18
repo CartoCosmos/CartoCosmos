@@ -8,8 +8,6 @@ function callAPI() {
 function getStacTargetCatalog(name) {
   if (name == "Mars") {
     return callAPI().then(result => {
-      console.log("STAC Catalog for USGS: ");
-      console.log(result);
       for (let i = 0; i < result.links.length; i++) {
         if (result.links[i].title == 'Mars Analysis Ready Data') {
           return fetch(result.links[i].href)
@@ -20,8 +18,6 @@ function getStacTargetCatalog(name) {
   }
   if (name == "Europa") {
     return callAPI().then(result => {
-      console.log("STAC Catalog for USGS: ");
-      console.log(result);
       for (let i = 0; i < result.links.length; i++) {
         if (result.links[i].title == 'Jupiter Analysis Ready Data') {
           return fetch(result.links[i].href)
@@ -35,8 +31,6 @@ function getStacTargetCatalog(name) {
 
 function getStacMissionCatalogs(name) {
   return getStacTargetCatalog(name).then(result => {
-    console.log("STAC Catalog(s) for Specific Target: ");
-    console.log(result);
     for (let i = 0; i < result.links.length; i++) {
       if(result.links[i].rel == 'child'){
         return fetch(result.links[i].href)
@@ -51,10 +45,8 @@ function getItemCollection(name) {
   // takes you straight to the collection from the target catalog
   if (name == "Mars"){
     return getStacTargetCatalog(name).then(result => {
-      console.log("STAC Catalog(s) for Specific Target: ");
-      console.log(result);
       for (let i = 0; i < result.links.length; i++) {
-        if(result.links[i].rel == 'child'){
+        if (result.links[i].rel == 'child') {
           return fetch(result.links[i].href)
             .then(response => response.json())
         }
@@ -63,10 +55,14 @@ function getItemCollection(name) {
   }
   if (name == "Europa") {
     return getStacMissionCatalogs(name).then(result => {
-      console.log("STAC Collection for Specific Mission: ");
-      console.log(result);
-      return fetch(result.links[3].href)
-        .then(response => response.json())
+        return Promise.all([
+          fetch(result.links[3].href),
+          fetch(result.links[4].href)
+        ]).then(function (responses) {
+	         return Promise.all(responses.map(function (response) {
+		           return response.json();
+	         }));
+      });
     })
   }
 }
