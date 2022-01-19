@@ -3,7 +3,7 @@ import "proj4leaflet";
 
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import { getItemCollection } from "./ApiJsonCollection";
+import { getItemCollection, url } from "./ApiJsonCollection";
 import { MY_JSON_MAPS } from "./layers";
 
 /**
@@ -91,9 +91,7 @@ export default L.Map.AstroMap = L.Map.extend({
     L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
 
-    if(target == "Mars" || target == "Europa") {
-      this.loadFootprintLayer(target);
-    }
+    this.loadFootprintLayer(target);
 
     // Listen to baselayerchange event so that we can set the current layer being
     // viewed by the map.
@@ -123,22 +121,17 @@ export default L.Map.AstroMap = L.Map.extend({
     var footprintCollection = {};
 
     getItemCollection(name).then(result => {
-      let geoLayers = new Array(result.length);
-      for (let i = 0; i < result.length; i++) {
-        geoLayers[i] = L.geoJSON().addTo(this);
-        footprintCollection[result[i].id] = geoLayers[i];
-        for (let j = 0; j < result[i].links.length; j++) {
-          if (result[i].links[j].rel == 'item') {
-            fetch(result[i].links[j].href)
-              .then(response => response.json())
-              .then(function(data) {
-                geoLayers[i].addData(data);
-              })
+      if (result != undefined){
+        for (let i = 0; i < result.length; i++) {
+          let geoLayer = L.geoJSON().addTo(this);
+          footprintCollection[result[i].features[0].collection] = geoLayer;
+          for (let j = 0; j < result[i].features.length; j++) {
+            geoLayer.addData(result[i].features[j]);
           }
         }
+        L.control.layers(null, footprintCollection).addTo(this);
       }
-      L.control.layers(null, footprintCollection).addTo(this);
-    });
+    });   
   },
 
   /**
