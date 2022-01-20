@@ -1,70 +1,38 @@
 
+
 function callAPI() {
-    return fetch("http://asc-stacbrowser.s3-website-us-west-2.amazonaws.com/catalog.json")
+    return fetch("https://stac.astrogeology.usgs.gov/api/collections")
            .then(response => response.json());
 }
 
-
-function getStacTargetCatalog(name) {
-  if (name == "Mars") {
-    return callAPI().then(result => {
-      for (let i = 0; i < result.links.length; i++) {
-        if (result.links[i].title == 'Mars Analysis Ready Data') {
-          return fetch(result.links[i].href)
-            .then(response => response.json())
-        }
-      }
-    });
-  }
-  if (name == "Europa") {
-    return callAPI().then(result => {
-      for (let i = 0; i < result.links.length; i++) {
-        if (result.links[i].title == 'Jupiter Analysis Ready Data') {
-          return fetch(result.links[i].href)
-            .then(response => response.json())
-        }
-      }
-    });
-  }
-}
-
-
-function getStacMissionCatalogs(name) {
-  return getStacTargetCatalog(name).then(result => {
-    for (let i = 0; i < result.links.length; i++) {
-      if(result.links[i].rel == 'child'){
-        return fetch(result.links[i].href)
-          .then(response => response.json())
-      }
-    }
-  });
-}
-
 function getItemCollection(name) {
-  // ctx_dtms skips a step in which there is no mission catalog instead it
-  // takes you straight to the collection from the target catalog
-  if (name == "Mars"){
-    return getStacTargetCatalog(name).then(result => {
-      for (let i = 0; i < result.links.length; i++) {
-        if (result.links[i].rel == 'child') {
-          return fetch(result.links[i].href)
-            .then(response => response.json())
-        }
-      }
-    });
-  }
-  if (name == "Europa") {
-    return getStacMissionCatalogs(name).then(result => {
-        return Promise.all([
-          fetch(result.links[3].href),
-          fetch(result.links[4].href)
-        ]).then(function (responses) {
-	         return Promise.all(responses.map(function (response) {
-		           return response.json();
-	         }));
+  var urlArray = [];
+  return callAPI().then(result => {
+    for (let i = 0; i < result.collections.length; i++) {
+      if (result.collections[i].summaries["ssys:targets"] == name.toLowerCase()) {
+        let length = result.collections[i].links.length;
+        for (let j = 0; j < length; j++) {
+          let link = result.collections[i].links[j];
+          if (link.rel == 'items') {
+            var url = new URL(result.collections[i].links[j].href);
+            urlArray.push(url);
+          }
+         }
+       }
+     }
+     if (urlArray.length == 0) {
+       return;
+     }
+     let promiseArray = [];
+     for (let i = 0; i < urlArray.length; i++) {
+       promiseArray.push(fetch(urlArray[i]))
+     }
+     return Promise.all(promiseArray).then(function (responses) {
+        return Promise.all(responses.map(function (response) {
+	           return response.json();
+        }));
       });
-    })
-  }
-}
+   })
+ }
 
 export{ getItemCollection };
