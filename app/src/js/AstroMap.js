@@ -5,6 +5,7 @@ import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
 import { getItemCollection, url } from "./ApiJsonCollection";
 import { MY_JSON_MAPS } from "./layers";
+import "leaflet-html-legend";
 
 /**
  * @class AstroMap
@@ -120,18 +121,59 @@ export default L.Map.AstroMap = L.Map.extend({
     var geoLayers = [];
     var footprintCollection = {};
 
-    getItemCollection(name).then(result => {
-      if (result != undefined){
+    getItemCollection(name, 1).then(result => {
+      if (result != undefined) {
         for (let i = 0; i < result.length; i++) {
-          let geoLayer = L.geoJSON().addTo(this);
+          let geoLayer = L.geoJSON();
           footprintCollection[result[i].features[0].collection] = geoLayer;
           for (let j = 0; j < result[i].features.length; j++) {
             geoLayer.addData(result[i].features[j]);
           }
         }
         L.control.layers(null, footprintCollection).addTo(this);
+        this.addFootprintLegend(name, footprintCollection);
       }
-    });   
+    });
+  },
+
+
+  /**
+   * @function AstroMap.prototype.addFootprintLegend
+   * @description Adds legend for each footprint layer
+   *
+   * @param {Object} footprintCollection - dictonary of footprint layers
+   */
+  addFootprintLegend: function(name, footprintCollection) {
+    for (const layer in footprintCollection) {
+      var legend = L.control.htmllegend({
+        legends: [{
+            name: layer,
+            layer: footprintCollection[layer],
+            elements: [{
+                html: `<div class="pagination">
+                        <a id="left">&laquo;</a>
+                        <a id="pageNumber">1</a>
+                        <a id="right">&raquo;</a>
+                      </div>`
+            }]
+         }]
+      });
+      this.addControl(legend);
+    }
+    var left = document.getElementById('left');
+    var right = document.getElementById('right');
+    var page = document.getElementById('pageNumber');
+
+    left.onclick = function(){
+      if (page.innerHTML > 1){
+        page.innerHTML = parseInt(page.innerHTML) - 1;
+      }
+    };
+    right.onclick = function(){
+      if (page.innerHTML >= 1){
+        page.innerHTML = parseInt(page.innerHTML) + 1;
+      }
+    };
   },
 
   /**

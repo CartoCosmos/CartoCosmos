@@ -1,6 +1,8 @@
 @import "../node_modules/leaflet/dist/leaflet.css";
 @import "../node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css";
+@import "../node_modules/leaflet-html-legend/dist/L.Control.HtmlLegend.css";
+
 
 #map-container {
   width: 800px;
@@ -87,4 +89,15 @@ Controls the CSS for projection buttons when there is no available projection
 
 .sidebar-button:hover {
   background-color: #ccc;
+}
+
+.pagination {
+   display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
 }
