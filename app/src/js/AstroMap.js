@@ -45,6 +45,9 @@ export default L.Map.AstroMap = L.Map.extend({
       a: "",
       c: ""
     };
+    this._footprintCollection = {};
+    this._footprintControl = null;
+    this._geoLayer = null;
 
     // Set by layer collection or baselayerchange event
     this._currentLayer = null;
@@ -92,7 +95,7 @@ export default L.Map.AstroMap = L.Map.extend({
     L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
 
-    this.loadFootprintLayer(target);
+    this.loadFootprintLayer(target, 1);
 
     // Listen to baselayerchange event so that we can set the current layer being
     // viewed by the map.
@@ -117,21 +120,18 @@ export default L.Map.AstroMap = L.Map.extend({
    *
    * @param {String} name - Name of the STAC Catalog. example "ctx_dtms"
    */
-  loadFootprintLayer: function(name) {
-    var geoLayers = [];
-    var footprintCollection = {};
-
-    getItemCollection(name, 1).then(result => {
+  loadFootprintLayer: function(name, page) {
+    getItemCollection(name, page).then(result => {
       if (result != undefined) {
+        this._geoLayer = L.geoJSON().addTo(this);
+        this._footprintCollection["Footprints"] = this._geoLayer;
         for (let i = 0; i < result.length; i++) {
-          let geoLayer = L.geoJSON();
-          footprintCollection[result[i].features[0].collection] = geoLayer;
           for (let j = 0; j < result[i].features.length; j++) {
-            geoLayer.addData(result[i].features[j]);
+            this._geoLayer.addData(result[i].features[j]);
           }
         }
-        L.control.layers(null, footprintCollection).addTo(this);
-        this.addFootprintLegend(name, footprintCollection);
+        this._footprintControl = L.control.layers(null, this._footprintCollection).addTo(this);
+        this.addFootprintLegend(name, page);
       }
     });
   },
@@ -143,37 +143,40 @@ export default L.Map.AstroMap = L.Map.extend({
    *
    * @param {Object} footprintCollection - dictonary of footprint layers
    */
-  addFootprintLegend: function(name, footprintCollection) {
-    for (const layer in footprintCollection) {
-      var legend = L.control.htmllegend({
-        legends: [{
-            name: layer,
-            layer: footprintCollection[layer],
-            elements: [{
-                html: `<div class="pagination">
-                        <a id="left">&laquo;</a>
-                        <a id="pageNumber">1</a>
-                        <a id="right">&raquo;</a>
-                      </div>`
-            }]
-         }]
-      });
-      this.addControl(legend);
-    }
-    var left = document.getElementById('left');
-    var right = document.getElementById('right');
-    var page = document.getElementById('pageNumber');
+  addFootprintLegend: function(name, page) {
+    var self = this;
 
-    left.onclick = function(){
-      if (page.innerHTML > 1){
-        page.innerHTML = parseInt(page.innerHTML) - 1;
+    var legend = L.control.htmllegend({
+      legends: [{
+          name: 'Footprints',
+          layer: this._geoLayer,
+          elements: [{
+              html: `<div class="pagination">
+                      <a id=footprint_left>&laquo;</a>
+                      <a id=footprint_pageNumber>${page}</a>
+                      <a id=footprint_right>&raquo;</a>
+                    </div>`
+          }]
+        }]
+     });
+    this.addControl(legend);
+
+    $('#footprint_right').click(function () {
+      page = page + 1;
+      self._footprintControl.remove();
+      self._geoLayer.clearLayers();
+      self.removeControl(legend);
+      self.loadFootprintLayer(name, page);
+    });
+    $('#footprint_left').click(function () {
+      page = page - 1;
+      if (page > 0) {
+        self._footprintControl.remove();
+        self._geoLayer.clearLayers();
+        self.removeControl(legend);
+        self.loadFootprintLayer(name, page);
       }
-    };
-    right.onclick = function(){
-      if (page.innerHTML >= 1){
-        page.innerHTML = parseInt(page.innerHTML) + 1;
-      }
-    };
+    });
   },
 
   /**
