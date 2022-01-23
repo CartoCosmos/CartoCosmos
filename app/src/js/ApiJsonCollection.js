@@ -1,4 +1,4 @@
-//https://jat52qc8c0.execute-api.us-west-2.amazonaws.com/dev/collections
+
 function callAPI() {
     return fetch("https://stac.astrogeology.usgs.gov/api/collections")
            .then(response => response.json());
