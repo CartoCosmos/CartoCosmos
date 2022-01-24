@@ -118,7 +118,9 @@ export default L.Map.AstroMap = L.Map.extend({
    * @function AstroMap.prototype.loadFootprintLayer
    * @description Adds the ApiJsonCollection with the requested name.
    *
-   * @param {String} name - Name of the STAC Catalog. example "ctx_dtms"
+   * @param {String} name - Name of the target
+   *
+   * @param {Int} page - current selected page number of the pagination
    */
   loadFootprintLayer: function(name, page) {
     getItemCollection(name, page).then(result => {
@@ -141,7 +143,9 @@ export default L.Map.AstroMap = L.Map.extend({
    * @function AstroMap.prototype.addFootprintLegend
    * @description Adds legend for each footprint layer
    *
-   * @param {Object} footprintCollection - dictonary of footprint layers
+   * @param {String} name - Name of the projection
+   *
+   * @param {Int} page - current selected page number of the pagination
    */
   addFootprintLegend: function(name, page) {
     var self = this;
