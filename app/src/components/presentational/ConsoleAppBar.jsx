@@ -54,7 +54,7 @@ export default function ConsoleAppBar(props) {
           <Grid
             className={classes.grid}
             container
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="stretch"
           >
             <ConsoleProjectionButtons />
@@ -65,7 +65,7 @@ export default function ConsoleAppBar(props) {
                 container
                 item
                 xs
-                justify="space-around"
+                justifyContent="space-around"
                 alignItems="center"
                 wrap="nowrap"
               >

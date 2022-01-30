@@ -42,7 +42,7 @@ export default function ConsoleTargetInfo(props) {
     <Grid
       container
       item
-      justify="center"
+      justifyContent="center"
       alignItems="center"
       className={classes.grid}
       xs
