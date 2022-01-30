@@ -1,5 +1,5 @@
 import React from "react";
-import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
+import { alpha, makeStyles, withStyles } from "@material-ui/core/styles";
 import Zoom from "@material-ui/core/Zoom";
 import Grid from "@material-ui/core/Grid";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
@@ -46,9 +46,9 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     display: "flex",
-    border: `1px solid` & fade("#1971c2", 0.7),
+    border: `1px solid` & alpha("#1971c2", 0.7),
     flexWrap: "wrap",
-    backgroundColor: fade("#1971c2", 0.7)
+    backgroundColor: alpha("#1971c2", 0.7)
   }
 }));
 
@@ -60,8 +60,8 @@ const StyledToggleButton = withStyles(theme => ({
     height: 30,
     minHeight: 30,
     maxHeight: 30,
-    color: fade("#f8f9fa", 0.8),
-    backgroundColor: "transparent", //fade("#1971c2", 0.7),
+    color: alpha("#f8f9fa", 0.8),
+    backgroundColor: "transparent", //alpha("#1971c2", 0.7),
     border: "none",
     borderRadius: 0,
     "&:hover": {
@@ -87,7 +87,7 @@ const StyledToggleButton = withStyles(theme => ({
 
 const StyledToggleButtonGroup = withStyles(theme => ({
   root: {
-    backgroundColor: fade("#1971c2", 0.7),
+    backgroundColor: alpha("#1971c2", 0.7),
     border: `1px solid ${theme.palette.divider}`,
     height: 37
   },
@@ -109,7 +109,7 @@ const StyledDivider = withStyles(theme => ({
     alignSelf: "stretch",
     height: "auto",
     margin: theme.spacing(1, 0.5),
-    backgroundColor: fade("#f8f9fa", 0.8),
+    backgroundColor: alpha("#f8f9fa", 0.8),
     width: 1
   }
 }))(Divider);
@@ -149,7 +149,7 @@ export default function ConsoleLonLatSelects() {
       container
       item
       wrap="nowrap"
-      justify="center"
+      justifyContent="center"
       alignItems="center"
       className={classes.grid}
       xs={7}

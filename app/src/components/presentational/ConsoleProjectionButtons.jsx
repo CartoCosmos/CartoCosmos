@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, withStyles, fade } from "@material-ui/core/styles";
+import { makeStyles, withStyles, alpha } from "@material-ui/core/styles";
 import northPolar from "../../assets/img/NorthPolar.png";
 import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
 import southPolar from "../../assets/img/SouthPolar.png";
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
       }
     },
     "&:active": {
-      background: fade("#1971c2", 0.5)
+      background: alpha("#1971c2", 0.5)
     },
     "&:hover, &$focusVisible": {
       border: "2px #1971c2 solid",
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     width: 31,
     height: 31,
     border: "2px #1971c2 solid",
-    background: fade("#ffa500", 0.2),
+    background: alpha("#ffa500", 0.2),
     borderRadius: "15%",
     borderStyle: "outset"
   },
@@ -135,7 +135,7 @@ export default function ConsoleProjectionButtons() {
       container
       item
       direction="column"
-      justify="center"
+      justifyContent="center"
       alignItems="center"
       xs
     >

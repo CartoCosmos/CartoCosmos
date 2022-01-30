@@ -58,7 +58,7 @@ export default function ConsoleCoordinates() {
     <Grid
       container
       className={classes.grid}
-      justify="center"
+      justifyContent="center"
       alignItems="center"
       item
       xs={3}

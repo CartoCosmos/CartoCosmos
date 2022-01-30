@@ -11,11 +11,21 @@ import MapContainer from "./MapContainer.jsx";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import WellKnownTextInput from "../presentational/WellKnownTextInput.jsx";
 import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
+import SearchAndFilterInput from "../presentational/SearchAndFilterInput.jsx";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 /**
  * Controls css styling for this component using js to css
  */
 const useStyles = makeStyles(theme => ({
+  appPaper: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  rightSidebar: {
+    border: `1px solid ${theme.palette.divider}`
+  },
   container: {
     display: "flex",
     alignContent: "center",
@@ -93,11 +103,16 @@ export default function App() {
         </FormControl>
         {/* <AutoCompleteInput className={classes.autoComplete} /> */}
       </div>
-      <Paper elevation={10}>
-        <ConsoleContainer target={targetPlanet} />
-        <MapContainer target={targetPlanet} />
-        <WellKnownTextInput />
-        <CreditsDisplay />
+      <Paper elevation={10} className={classes.appPaper}>
+        <div>
+          <ConsoleContainer target={targetPlanet} />
+          <MapContainer target={targetPlanet} />
+          <WellKnownTextInput />
+          <CreditsDisplay />
+        </div>
+        <div className={classes.rightSidebar}>
+          <SearchAndFilterInput />
+        </div>
       </Paper>
     </div>
   );
