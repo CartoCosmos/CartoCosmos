@@ -143,8 +143,8 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     let filterOptions = [];
 
     if (L.DomUtil.get("dateCheckBox").checked == true) {
-      let fromDate = L.DomUtil.get("fromtest").value;
-      let toDate = L.DomUtil.get("totest").value;
+      let fromDate = L.DomUtil.get("dateFromID").value;
+      let toDate = L.DomUtil.get("dateToID").value;
       fromDate = fromDate.split("/");
       toDate = toDate.split("/");
 
