@@ -1,7 +1,6 @@
 import L from "leaflet";
 import "leaflet-draw";
 import Wkt from "wicket";
-
 /**
  * @class AstroDrawControl
  * @aka L.Control.AstroDrawControl
@@ -81,7 +80,7 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
    *              the Well-Known text box.
    * @param  {DomEvent} e  - On draw.
    */
-   shapesToWKT: function(e) {
+  shapesToWKT: function(e) {
     this.myLayer.clearLayers();
     this.options.edit["featureGroup"].clearLayers();
 
@@ -94,39 +93,39 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     this.shapesToFootprint(this.wktTextBox.value);
   },
 
-    /**
+  /**
    * @function shapesToFootprint
    * @description Is called when a user draws a shape using the on map drawing features.
    *              Renders all footprints that intersect the drawn area.
    *
    * @param {String} coords - The drawn shape’s coordinates.
    */
-     shapesToFootprint: function(coords) {
-      let strArr = coords
-        .slice(coords.indexOf("((") + 2, coords.indexOf("))"))
-        .split(",");
-      let bboxCoordArr = [];
-  
-      for (let i = 0; i < 3; i++) {
-        if (i != 1) {
-          let temp = strArr[i].split(" ");
-          bboxCoordArr.push([parseFloat(temp[0]), parseFloat(temp[1])]);
-        }
+  shapesToFootprint: function(coords) {
+    let strArr = coords
+      .slice(coords.indexOf("((") + 2, coords.indexOf("))"))
+      .split(",");
+    let bboxCoordArr = [];
+
+    for (let i = 0; i < 3; i++) {
+      if (i != 1) {
+        let temp = strArr[i].split(" ");
+        bboxCoordArr.push([parseFloat(temp[0]), parseFloat(temp[1])]);
       }
-      // will proballby end up refactoring this a little bit when the front end of
-      // this is up
-      let bboxArr = [
-        bboxCoordArr[0][0],
-        bboxCoordArr[0][1],
-        bboxCoordArr[1][0],
-        bboxCoordArr[1][1]
-      ];
-      this._map._footprintControl.remove();
-      this._map._geoLayer.clearLayers();
-      this._map.removeControl(this._map._htmllegend);
-      let queryString = "?bbox=" + "[" + bboxArr + "]";
-      this._map.loadFootprintLayer(this._map._name, queryString);
-    },
+    }
+    // will proballby end up refactoring this a little bit when the front end of
+    // this is up
+    let bboxArr = [
+      bboxCoordArr[0][0],
+      bboxCoordArr[0][1],
+      bboxCoordArr[1][0],
+      bboxCoordArr[1][1]
+    ];
+    this._map._footprintControl.remove();
+    this._map._geoLayer.clearLayers();
+    this._map.removeControl(this._map._htmllegend);
+    let queryString = "?bbox=" + "[" + bboxArr + "]";
+    this._map.loadFootprintLayer(this._map._name, queryString);
+  },
 
   /**
    * @function AstroDrawControl.prototype.mapWKTString
@@ -135,7 +134,7 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
    *               If the Well-Known text string is invalid an error will show in the text box.
    * @param  {DomEvent} e  - On Click of Well-Known text button.
    */
-   mapWKTString: function(e) {
+  mapWKTString: function(e) {
     this.myLayer.clearLayers();
     this.options.edit["featureGroup"].clearLayers();
 
@@ -152,7 +151,7 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
     let geojsonFeature = {
       type: "Feature",
-      geometry: geoJson 
+      geometry: geoJson
     };
 
     this.myLayer.addData(geojsonFeature);

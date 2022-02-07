@@ -115,6 +115,8 @@ export default function SearchAndFilterInput() {
     // dateDetails.current.open = false;
   }
 
+
+  
   // Sorting
   const handleSortChange = (event) => {
     setSortVal(event.target.value);
@@ -270,25 +272,26 @@ export default function SearchAndFilterInput() {
                   <div className="panelSectionCheck"><Checkbox id="dateCheckBox" checked={dateCheckVal} onChange={handleDateCheckChange}/></div>
                 </div>
               </summary>
-              <div className="panelItem">
+              <div className="panelItem" id="dateFromDiv">
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
+                    class="testing123"
                     id="dateFromPicker"
                     label="From"
                     value={dateFromVal}
                     onChange={handleDateFromChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField id="fromtest" {...params} />}
                   />
                 </LocalizationProvider>
               </div>
-              <div className="panelItem">
+              <div className="panelItem" id="dateToDiv">
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     id="dateToPicker"
                     label="To"
                     value={dateToVal}
                     onChange={handleDateToChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField id="totest"{...params} />}
                   />
                 </LocalizationProvider>
               </div>
