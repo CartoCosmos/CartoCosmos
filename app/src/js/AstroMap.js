@@ -105,70 +105,6 @@ export default L.Map.AstroMap = L.Map.extend({
     this.on("baselayerchange", function(e) {
       this.setCurrentLayer(e["layer"]);
     });
-
-    L.DomEvent.on(L.DomUtil.get("applyButton"), "click", function() {
-      let filterOptions = [];
-
-      if (L.DomUtil.get("dateCheckBox").checked == true) {
-        let fromDate = L.DomUtil.get("fromtest").value;
-        let toDate = L.DomUtil.get("totest").value;
-        fromDate = fromDate.split("/");
-        toDate = toDate.split("/");
-
-        let newFromDate = "";
-        newFromDate = newFromDate.concat(
-          fromDate[2],
-          "-",
-          fromDate[0],
-          "-",
-          fromDate[1],
-          "T00:00:00Z"
-        );
-
-        let newToDate = "";
-        newToDate = newToDate.concat(
-          toDate[2],
-          "-",
-          toDate[0],
-          "-",
-          toDate[1],
-          "T23:59:59Z"
-        );
-        let timeQuery = "".concat("datetime=", newFromDate, "/", newToDate);
-        filterOptions.push(timeQuery);
-      }
-
-      if (L.DomUtil.get("keywordCheckBox").checked == true) {
-        filterOptions.push(L.DomUtil.get("keywordTextBox").value);
-      }
-
-      // if (L.DomUtil.get("keywordCheckBox").checked == true) {
-      //   filterOptions.push(L.DomUtil.get("keywordTextBox").value);
-      // }
-
-      // if (L.DomUtil.get("keywordCheckBox").checked == true) {
-      //   filterOptions.push(L.DomUtil.get("keywordTextBox").value);
-      // }
-
-      let queryString = "";
-
-      for (let i = 0; i < filterOptions.length; i++) {
-        if (queryString == "") {
-          queryString = queryString.concat("?", filterOptions[i]);
-        } else {
-          queryString = queryString.concat("&", filterOptions[i]);
-        }
-      }
-      // re render map
-      console.log(queryString);
-      self.clearLayers();
-      self.removeControl(this.htmllegend);
-      self.loadFootprintLayer(this._name, queryString);
-    });
-
-    L.DomEvent.on(L.DomUtil.get("clearButton"), "click", function() {
-      alert("clearing map");
-    });
   },
 
   /**
@@ -193,7 +129,6 @@ export default L.Map.AstroMap = L.Map.extend({
    *                                        the FootprintLegend
    */
   loadFootprintLayer: function(name, queryString, loadFootprintLegend = true) {
-    console.log("in loadFootprint\n", queryString);
     getItemCollection(name, queryString).then(result => {
       if (result != undefined) {
         this._name = name;

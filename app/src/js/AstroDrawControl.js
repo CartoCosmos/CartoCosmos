@@ -66,6 +66,14 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     this.wktButton = L.DomUtil.get("wktButton");
     L.DomEvent.on(this.wktButton, "click", this.mapWKTString, this);
 
+    L.DomEvent.on(
+      L.DomUtil.get("applyButton"),
+      "click",
+      this.applyFilter,
+      this
+    );
+    L.DomEvent.on(L.DomUtil.get("clearButton"), "click", this.clearMap, this);
+
     map.on("draw:created", this.shapesToWKT, this);
 
     // map.on("projChange", this.reprojectFeature, this);
@@ -90,7 +98,11 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
     this.wkt.read(JSON.stringify(geoJson));
     this.wktTextBox.value = this.wkt.write();
-    this.shapesToFootprint(this.wktTextBox.value);
+  },
+
+  clearMap: function() {
+    this._map._footprintControl.remove();
+    this._map._geoLayer.clearLayers();
   },
 
   /**
@@ -123,7 +135,66 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     this._map._footprintControl.remove();
     this._map._geoLayer.clearLayers();
     this._map.removeControl(this._map._htmllegend);
-    let queryString = "?bbox=" + "[" + bboxArr + "]";
+    let queryString = "bbox=" + "[" + bboxArr + "]";
+    return queryString;
+  },
+
+  applyFilter: function() {
+    let filterOptions = [];
+
+    if (L.DomUtil.get("dateCheckBox").checked == true) {
+      let fromDate = L.DomUtil.get("fromtest").value;
+      let toDate = L.DomUtil.get("totest").value;
+      fromDate = fromDate.split("/");
+      toDate = toDate.split("/");
+
+      let newFromDate = "";
+      newFromDate = newFromDate.concat(
+        fromDate[2],
+        "-",
+        fromDate[0],
+        "-",
+        fromDate[1],
+        "T00:00:00Z"
+      );
+
+      let newToDate = "";
+      newToDate = newToDate.concat(
+        toDate[2],
+        "-",
+        toDate[0],
+        "-",
+        toDate[1],
+        "T23:59:59Z"
+      );
+
+      let timeQuery = "".concat("datetime=", newFromDate, "/", newToDate);
+      filterOptions.push(timeQuery);
+    }
+
+    if (L.DomUtil.get("keywordCheckBox").checked == true) {
+      filterOptions.push(L.DomUtil.get("keywordTextBox").value);
+    }
+
+    if (L.DomUtil.get("areaCheckBox").checked == true) {
+      console.log("area");
+      let bboxValue = this.shapesToFootprint(this.wktTextBox.value);
+      filterOptions.push(bboxValue);
+    }
+
+    let queryString = "";
+
+    for (let i = 0; i < filterOptions.length; i++) {
+      if (queryString == "") {
+        queryString = queryString.concat("?", filterOptions[i]);
+      } else {
+        queryString = queryString.concat("&", filterOptions[i]);
+      }
+    }
+    // re render map
+    this._map._footprintControl.remove();
+    this._map._geoLayer.clearLayers();
+    this._map.removeControl(this._map._htmllegend);
     this._map.loadFootprintLayer(this._map._name, queryString);
   },
 
