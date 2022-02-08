@@ -60,7 +60,7 @@ export default function ConsoleAppBar(props) {
             <ConsoleProjectionButtons />
             <Divider orientation="vertical" />
             <Grid container item direction="column" xs>
-              <ConsoleTargetInfo target={props.target} />
+              <ConsoleTargetInfo target={props.target} bodyChange={props.bodyChange} />
               <Grid
                 container
                 item

@@ -28,7 +28,7 @@ export default function ConsoleContainer(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <ConsoleAppBar target={props.target} className={classes.consAppbar} />
+      <ConsoleAppBar className={classes.consAppbar} target={props.target} bodyChange={props.bodyChange}  />
     </div>
   );
 }
