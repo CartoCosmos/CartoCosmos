@@ -1,3 +1,5 @@
+var _maxNumberPages = 10000;
+
 function callAPI() {
   return fetch(
     "https://stac.astrogeology.usgs.gov/api/collections"
@@ -44,4 +46,22 @@ function getItemCollection(name, queryString) {
   });
 }
 
-export { getItemCollection };
+/**
+ * @function setMaxNumberPages
+ * @description Sets the value of the max number of pages possible
+ */
+function setMaxNumberPages(pages) {
+  if (pages <= 10000){
+    _maxNumberPages = pages;
+  }
+}
+
+/**
+ * @function getMaxNumberPages
+ * @description Gets the value of the max number of pages possible
+ */
+function getMaxNumberPages() {
+  return _maxNumberPages;
+}
+
+export { getItemCollection, setMaxNumberPages, getMaxNumberPages };

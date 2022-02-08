@@ -111,7 +111,7 @@ export default function App() {
           <CreditsDisplay />
         </div>
         <div className={classes.rightSidebar}>
-          <SearchAndFilterInput />
+          <SearchAndFilterInput target={targetPlanet}/>
         </div>
       </Paper>
     </div>

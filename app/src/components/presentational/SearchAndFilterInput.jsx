@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 // Apply and Clear Buttons
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
@@ -21,6 +21,10 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import Slider from '@mui/material/Slider';
+import Pagination from '@mui/material/Pagination';
+
+import { getMaxNumberPages } from "../../js/ApiJsonCollection";
 
 
 /**
@@ -36,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     padding: "1rem",
     height: "100%",
     display: "flex",
-    flexDirection: "column", 
+    flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "left",
     margin: "auto",
@@ -80,7 +84,7 @@ const useStyles = makeStyles(theme => ({
  * <SearchAndFilterInput />
  *
  */
-export default function SearchAndFilterInput() {
+export default function SearchAndFilterInput(props) {
 
   // import stylesheet from above
   const classes = useStyles();
@@ -99,6 +103,8 @@ export default function SearchAndFilterInput() {
   const [dateCheckVal, setDateCheckVal] = React.useState(false);
   const [dateFromVal, setDateFromVal] = React.useState(null);
   const [dateToVal, setDateToVal] = React.useState(null);
+  const [maxPages, setMaxPages] = React.useState(10000);
+  const [limitVal, setLimitVal] = React.useState(10);
 
   // Clear all values
   const handleClear = (event) => {
@@ -110,6 +116,7 @@ export default function SearchAndFilterInput() {
     setDateCheckVal(false);
     setDateFromVal(null);
     setDateToVal(null);
+    setLimitVal(10);
     //// Uncomment to close details on clear
     // keywordDetails.current.open = false;
     // dateDetails.current.open = false;
@@ -156,6 +163,22 @@ export default function SearchAndFilterInput() {
     setDateCheckVal(true);
   }
 
+  // limit
+  const handleLimitChange = (event) => {
+    setLimitVal(event.target.value);
+  }
+
+  useEffect(() => {
+    setMaxPages(getMaxNumberPages);
+  });
+
+  useEffect(() => {
+    setLimitVal(10);
+    console.log(maxPages);
+    setMaxPages(getMaxNumberPages);
+    console.log(maxPages);
+  }, [props.target]);
+
   /* Control IDs for reference:
   applyButton
   clearButton
@@ -176,7 +199,6 @@ export default function SearchAndFilterInput() {
           <div className="panelSection panelHeader">
             Sort and Filter
           </div>
-          
           <div className="panelSection">
             <ButtonGroup>
               <Button id="applyButton" variant="contained" startIcon={<FilterAltIcon />} className={classes.button}>
@@ -217,7 +239,7 @@ export default function SearchAndFilterInput() {
                 }}
               />
             </div>
-            
+
           </div>
 
           <div className="panelSection panelHeader">
@@ -261,7 +283,7 @@ export default function SearchAndFilterInput() {
               </div>
             </details>
           </div>
-          
+
           <div className="panelSection">
             <details ref={dateDetails}>
               <summary>
@@ -293,7 +315,28 @@ export default function SearchAndFilterInput() {
                 </LocalizationProvider>
               </div>
             </details>
-          </div>
+            </div>
+            <div className="panelSectionHeader">
+              <div className="panelItem">
+                <div className="panelSectionTitle">Number of Displayed Footprints</div>
+                  <Slider
+                    id="valueSlider"
+                    size="small"
+                    defaultValue={10}
+                    aria-label="Small"
+                    valueLabelDisplay="auto"
+                    onChange={handleLimitChange}
+                    value={limitVal}
+                    max={maxPages}
+                  />
+              </div>
+            </div>
+            <div className="panelSectionHeader">
+              <div className="panelItem">
+                <div className="panelSectionTitle">Showing 40 of 256 Footprints</div>
+                  <Pagination count={5} size="small"/>
+              </div>
+            </div>
         </div>
     </div>
   );

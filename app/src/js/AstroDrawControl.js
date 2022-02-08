@@ -102,7 +102,9 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
   clearMap: function() {
     this._map._footprintControl.remove();
-    this._map._geoLayer.clearLayers();
+    for(let i = 0; i < this._map._geoLayers.length; i++){
+      this._map._geoLayers[i].clearLayers();
+    }
   },
 
   /**
@@ -133,8 +135,10 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
       bboxCoordArr[1][1]
     ];
     this._map._footprintControl.remove();
-    this._map._geoLayer.clearLayers();
-    this._map.removeControl(this._map._htmllegend);
+    for(let i = 0; i < this._map._geoLayers.length; i++){
+      this._map._geoLayers[i].clearLayers();
+    }
+    //this._map.removeControl(this._map._htmllegend);
     let queryString = "bbox=" + "[" + bboxArr + "]";
     return queryString;
   },
@@ -182,6 +186,10 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
       filterOptions.push(bboxValue);
     }
 
+    let sliderElement = document.getElementById('valueSlider');
+    let valueQuery = "limit=" + sliderElement.lastChild.firstChild.value;
+    filterOptions.push(valueQuery);
+
     let queryString = "";
 
     for (let i = 0; i < filterOptions.length; i++) {
@@ -193,9 +201,11 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     }
     // re render map
     this._map._footprintControl.remove();
-    this._map._geoLayer.clearLayers();
-    this._map.removeControl(this._map._htmllegend);
-    this._map.loadFootprintLayer(this._map._name, queryString);
+    for(let i = 0; i < this._map._geoLayers.length; i++){
+      this._map._geoLayers[i].clearLayers();
+    }
+    //this._map.removeControl(this._map._htmllegend);
+    this._map.loadFootprintLayer(this._map._target, queryString);
   },
 
   /**

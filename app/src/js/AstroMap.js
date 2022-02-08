@@ -2,7 +2,7 @@ import L from "leaflet";
 import "proj4leaflet";
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import { getItemCollection, url } from "./ApiJsonCollection";
+import { getItemCollection, setMaxNumberPages, getMaxNumberPages } from "./ApiJsonCollection";
 import { MY_JSON_MAPS } from "./layers";
 import "leaflet-html-legend";
 import React from "react";
@@ -47,8 +47,7 @@ export default L.Map.AstroMap = L.Map.extend({
     };
     this._footprintCollection = {};
     this._footprintControl = null;
-    this._geoLayer = null;
-    this._name = null;
+    this._geoLayers = [];
     this._htmllegend = null;
     this._currentPage = 1;
 
@@ -129,27 +128,26 @@ export default L.Map.AstroMap = L.Map.extend({
    *                                        the FootprintLegend
    */
   loadFootprintLayer: function(name, queryString, loadFootprintLegend = true) {
+    var numPages = 0;
     getItemCollection(name, queryString).then(result => {
       if (result != undefined) {
-        this._name = name;
-        this._geoLayer = L.geoJSON()
-          .on('click', function(e){
-            console.log(e);
-        }).addTo(this);
-        this._footprintCollection["Footprints"] = this._geoLayer;
+        this._geoLayers = new Array(result.length);
         for (let i = 0; i < result.length; i++) {
+          this._geoLayers[i] = L.geoJSON().addTo(this);
+          numPages += result[i].numberMatched;
           for (let j = 0; j < result[i].features.length; j++) {
-            this._geoLayer.addData(result[i].features[j]);
+            this._footprintCollection[result[i].features[j].collection] = this._geoLayers[i];
+            this._geoLayers[i].addData(result[i].features[j]);
           }
         }
-
+        setMaxNumberPages(numPages);
         this._footprintControl = L.control
           .layers(null, this._footprintCollection)
           .addTo(this);
 
-        if (loadFootprintLegend) {
-          this.addFootprintLegend(name);
-        }
+        // if (loadFootprintLegend) {
+        //   this.addFootprintLegend(name);
+        // }
       }
     });
   },
@@ -168,7 +166,7 @@ export default L.Map.AstroMap = L.Map.extend({
       legends: [
         {
           name: "Footprints",
-          layer: this._geoLayer,
+          layer: this._geoLayers,
           elements: [
             {
               html: `<div class="pagination">
@@ -187,7 +185,7 @@ export default L.Map.AstroMap = L.Map.extend({
     $("#footprint_right").click(function() {
       self._currentPage += 1;
       self._footprintControl.remove();
-      self._geoLayer.clearLayers();
+      self._geoLayers.clearLayers();
       self.removeControl(legend);
       let queryString = "?page=" + self._currentPage;
       self.loadFootprintLayer(name, queryString);
@@ -197,7 +195,7 @@ export default L.Map.AstroMap = L.Map.extend({
       self._currentPage -= 1;
       if (this._currentPage > 0) {
         self._footprintControl.remove();
-        self._geoLayer.clearLayers();
+        self._geoLayers.clearLayers();
         self.removeControl(legend);
         let queryString = "?page=" + self._currentPage;
         self.loadFootprintLayer(name, queryString);
