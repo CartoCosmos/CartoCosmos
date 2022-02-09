@@ -1,6 +1,8 @@
 import L from "leaflet";
 import "leaflet-draw";
 import Wkt from "wicket";
+import {getCurrentPage} from "./ApiJsonCollection";
+
 /**
  * @class AstroDrawControl
  * @aka L.Control.AstroDrawControl
@@ -74,6 +76,35 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     );
     L.DomEvent.on(L.DomUtil.get("clearButton"), "click", this.clearMap, this);
 
+    let sliderElement = document.getElementById('valueSlider');
+    sliderElement.addEventListener('click', event => {
+      this._map._footprintControl.remove();
+      for(let i = 0; i < this._map._geoLayers.length; i++){
+        this._map._geoLayers[i].clearLayers();
+      }
+      let currentPage = getCurrentPage();
+      let limitVal = sliderElement.lastChild.firstChild.value;
+      let queryString = "?page=" + currentPage;
+      queryString += "&limit=" + limitVal;
+      this._map.loadFootprintLayer(this._map._target, queryString);
+    });
+
+    let pagElement = document.getElementById('pagination');
+    pagElement.addEventListener('click', event => {
+      this._map._footprintControl.remove();
+      for(let i = 0; i < this._map._geoLayers.length; i++){
+        this._map._geoLayers[i].clearLayers();
+      }
+      setTimeout(() => {
+        let currentPage = getCurrentPage();
+        let limitVal = sliderElement.lastChild.firstChild.value;
+        let queryString = "?page=" + currentPage;
+        queryString += "&limit=" + limitVal;
+        this._map.loadFootprintLayer(this._map._target, queryString);
+      }, 1000);
+    });
+
+
     map.on("draw:created", this.shapesToWKT, this);
 
     // map.on("projChange", this.reprojectFeature, this);
@@ -105,6 +136,7 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     for(let i = 0; i < this._map._geoLayers.length; i++){
       this._map._geoLayers[i].clearLayers();
     }
+
   },
 
   /**
@@ -134,11 +166,6 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
       bboxCoordArr[1][0],
       bboxCoordArr[1][1]
     ];
-    this._map._footprintControl.remove();
-    for(let i = 0; i < this._map._geoLayers.length; i++){
-      this._map._geoLayers[i].clearLayers();
-    }
-    //this._map.removeControl(this._map._htmllegend);
     let queryString = "bbox=" + "[" + bboxArr + "]";
     return queryString;
   },
@@ -181,14 +208,9 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     }
 
     if (L.DomUtil.get("areaCheckBox").checked == true) {
-      console.log("area");
       let bboxValue = this.shapesToFootprint(this.wktTextBox.value);
       filterOptions.push(bboxValue);
     }
-
-    let sliderElement = document.getElementById('valueSlider');
-    let valueQuery = "limit=" + sliderElement.lastChild.firstChild.value;
-    filterOptions.push(valueQuery);
 
     let queryString = "";
 
@@ -204,7 +226,6 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     for(let i = 0; i < this._map._geoLayers.length; i++){
       this._map._geoLayers[i].clearLayers();
     }
-    //this._map.removeControl(this._map._htmllegend);
     this._map.loadFootprintLayer(this._map._target, queryString);
   },
 

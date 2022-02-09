@@ -1,4 +1,6 @@
-var _maxNumberPages = 10000;
+var _maxNumberPages = 0;
+var _currentPage = 1;
+var _numberMatched = 0;
 
 function callAPI() {
   return fetch(
@@ -47,13 +49,33 @@ function getItemCollection(name, queryString) {
 }
 
 /**
+ * @function setNumberMatched
+ * @description Sets the value of the return number of footprints
+ */
+function setNumberMatched(matched) {
+  _numberMatched = matched;
+  let sliderElement = document.getElementById('valueSlider');
+  let limitVal = sliderElement.lastChild.firstChild.value;
+  if (limitVal == 0){
+    limitVal = 10;
+  }
+  setMaxNumberPages(Math.floor(_numberMatched/limitVal));
+}
+
+/**
+ * @function getNumberMatched
+ * @description Gets the value of the return number of footprints
+ */
+function getNumberMatched() {
+  return _numberMatched
+}
+
+/**
  * @function setMaxNumberPages
  * @description Sets the value of the max number of pages possible
  */
 function setMaxNumberPages(pages) {
-  if (pages <= 10000){
-    _maxNumberPages = pages;
-  }
+  _maxNumberPages = pages;
 }
 
 /**
@@ -64,4 +86,21 @@ function getMaxNumberPages() {
   return _maxNumberPages;
 }
 
-export { getItemCollection, setMaxNumberPages, getMaxNumberPages };
+/**
+ * @function setCurrentPage
+ * @description Sets the value of the current page
+ */
+function setCurrentPage(page) {
+  _currentPage = page;
+}
+
+/**
+ * @function getMaxNumberPages
+ * @description Gets the value of the max number of pages possible
+ */
+function getCurrentPage() {
+  return _currentPage;
+}
+
+
+export { getItemCollection, getMaxNumberPages, setCurrentPage, getCurrentPage, setNumberMatched, getNumberMatched, setMaxNumberPages };

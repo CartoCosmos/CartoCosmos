@@ -24,7 +24,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Slider from '@mui/material/Slider';
 import Pagination from '@mui/material/Pagination';
 
-import { getMaxNumberPages } from "../../js/ApiJsonCollection";
+import { getMaxNumberPages, setCurrentPage, getCurrentPage, getNumberMatched } from "../../js/ApiJsonCollection";
 
 
 /**
@@ -103,8 +103,9 @@ export default function SearchAndFilterInput(props) {
   const [dateCheckVal, setDateCheckVal] = React.useState(false);
   const [dateFromVal, setDateFromVal] = React.useState(null);
   const [dateToVal, setDateToVal] = React.useState(null);
-  const [maxPages, setMaxPages] = React.useState(10000);
-  const [limitVal, setLimitVal] = React.useState(10);
+  const [maxPages, setMaxPages] = React.useState(getMaxNumberPages);
+  const [maxNumberFootprints, setMaxNumberFootprints] = React.useState(getNumberMatched);
+  const [limitVal, setLimitVal] = React.useState(0);
 
   // Clear all values
   const handleClear = (event) => {
@@ -117,6 +118,8 @@ export default function SearchAndFilterInput(props) {
     setDateFromVal(null);
     setDateToVal(null);
     setLimitVal(10);
+    setMaxPages(getMaxNumberPages);
+    setMaxNumberFootprints(getNumberMatched);
     //// Uncomment to close details on clear
     // keywordDetails.current.open = false;
     // dateDetails.current.open = false;
@@ -166,18 +169,23 @@ export default function SearchAndFilterInput(props) {
   // limit
   const handleLimitChange = (event) => {
     setLimitVal(event.target.value);
+    setTimeout(() => {
+      setMaxPages(getMaxNumberPages);
+    }, 1000);
   }
-
+  // resets pagination and limit when switching targets
   useEffect(() => {
-    setMaxPages(getMaxNumberPages);
-  });
-
-  useEffect(() => {
-    setLimitVal(10);
-    console.log(maxPages);
-    setMaxPages(getMaxNumberPages);
-    console.log(maxPages);
+    setTimeout(() => {
+      setMaxNumberFootprints(getNumberMatched);
+      setMaxPages(getMaxNumberPages);
+      setLimitVal(10);
+    }, 1000);
   }, [props.target]);
+
+  // Pagination
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   /* Control IDs for reference:
   applyButton
@@ -327,14 +335,19 @@ export default function SearchAndFilterInput(props) {
                     valueLabelDisplay="auto"
                     onChange={handleLimitChange}
                     value={limitVal}
-                    max={maxPages}
+                    max={maxNumberFootprints}
                   />
               </div>
             </div>
             <div className="panelSectionHeader">
               <div className="panelItem">
-                <div className="panelSectionTitle">Showing 40 of 256 Footprints</div>
-                  <Pagination count={5} size="small"/>
+                <div className="panelSectionTitle">Showing {limitVal} of {maxNumberFootprints} Footprints</div>
+                  <Pagination
+                    id="pagination"
+                    count={maxPages}
+                    size="small"
+                    onChange={handlePageChange}
+                  />
               </div>
             </div>
         </div>
