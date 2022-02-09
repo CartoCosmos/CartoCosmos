@@ -134,7 +134,10 @@ export default L.Map.AstroMap = L.Map.extend({
       if (result != undefined) {
         this._geoLayers = new Array(result.length);
         for (let i = 0; i < result.length; i++) {
-          this._geoLayers[i] = L.geoJSON().addTo(this);
+          this._geoLayers[i] = L.geoJSON()
+            .on('click', function(e){
+              console.log(e);
+            }).addTo(this);
           matched += result[i].numberMatched;
           for (let j = 0; j < result[i].features.length; j++) {
             this._footprintCollection[result[i].features[j].collection] = this._geoLayers[i];
