@@ -45,8 +45,8 @@ export default function App() {
    *
    * @param {*} event selection event
    */
-  const handleTargetBodyChange = event => {
-    setTargetPlanet(event.target.value);
+  const handleTargetBodyChange = value => {
+    setTargetPlanet(value);
   };
 
 
