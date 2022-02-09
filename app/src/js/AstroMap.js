@@ -132,7 +132,10 @@ export default L.Map.AstroMap = L.Map.extend({
     getItemCollection(name, queryString).then(result => {
       if (result != undefined) {
         this._name = name;
-        this._geoLayer = L.geoJSON().addTo(this);
+        this._geoLayer = L.geoJSON()
+          .on('click', function(e){
+            console.log(e);
+        }).addTo(this);
         this._footprintCollection["Footprints"] = this._geoLayer;
         for (let i = 0; i < result.length; i++) {
           for (let j = 0; j < result[i].features.length; j++) {
