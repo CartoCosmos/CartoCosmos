@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
  */
 export default function App() {
   const classes = useStyles();
-  const [targetPlanet, setTargetPlanet] = React.useState("Mercury");
+  const [targetPlanet, setTargetPlanet] = React.useState("Mars");
 
   /**
    * Handles target selection

@@ -1,7 +1,6 @@
 import L from "leaflet";
 import "leaflet-draw";
 import Wkt from "wicket";
-
 /**
  * @class AstroDrawControl
  * @aka L.Control.AstroDrawControl
@@ -67,6 +66,14 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     this.wktButton = L.DomUtil.get("wktButton");
     L.DomEvent.on(this.wktButton, "click", this.mapWKTString, this);
 
+    L.DomEvent.on(
+      L.DomUtil.get("applyButton"),
+      "click",
+      this.applyFilter,
+      this
+    );
+    L.DomEvent.on(L.DomUtil.get("clearButton"), "click", this.clearMap, this);
+
     map.on("draw:created", this.shapesToWKT, this);
 
     // map.on("projChange", this.reprojectFeature, this);
@@ -91,6 +98,104 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
     this.wkt.read(JSON.stringify(geoJson));
     this.wktTextBox.value = this.wkt.write();
+  },
+
+  clearMap: function() {
+    this._map._footprintControl.remove();
+    this._map._geoLayer.clearLayers();
+  },
+
+  /**
+   * @function shapesToFootprint
+   * @description Is called when a user draws a shape using the on map drawing features.
+   *              Renders all footprints that intersect the drawn area.
+   *
+   * @param {String} coords - The drawn shape’s coordinates.
+   */
+  shapesToFootprint: function(coords) {
+    let strArr = coords
+      .slice(coords.indexOf("((") + 2, coords.indexOf("))"))
+      .split(",");
+    let bboxCoordArr = [];
+
+    for (let i = 0; i < 3; i++) {
+      if (i != 1) {
+        let temp = strArr[i].split(" ");
+        bboxCoordArr.push([parseFloat(temp[0]), parseFloat(temp[1])]);
+      }
+    }
+    // will proballby end up refactoring this a little bit when the front end of
+    // this is up
+    let bboxArr = [
+      bboxCoordArr[0][0],
+      bboxCoordArr[0][1],
+      bboxCoordArr[1][0],
+      bboxCoordArr[1][1]
+    ];
+    this._map._footprintControl.remove();
+    this._map._geoLayer.clearLayers();
+    this._map.removeControl(this._map._htmllegend);
+    let queryString = "bbox=" + "[" + bboxArr + "]";
+    return queryString;
+  },
+
+  applyFilter: function() {
+    let filterOptions = [];
+
+    if (L.DomUtil.get("dateCheckBox").checked == true) {
+      let fromDate = L.DomUtil.get("dateFromID").value;
+      let toDate = L.DomUtil.get("dateToID").value;
+      fromDate = fromDate.split("/");
+      toDate = toDate.split("/");
+
+      let newFromDate = "";
+      newFromDate = newFromDate.concat(
+        fromDate[2],
+        "-",
+        fromDate[0],
+        "-",
+        fromDate[1],
+        "T00:00:00Z"
+      );
+
+      let newToDate = "";
+      newToDate = newToDate.concat(
+        toDate[2],
+        "-",
+        toDate[0],
+        "-",
+        toDate[1],
+        "T23:59:59Z"
+      );
+
+      let timeQuery = "".concat("datetime=", newFromDate, "/", newToDate);
+      filterOptions.push(timeQuery);
+    }
+
+    if (L.DomUtil.get("keywordCheckBox").checked == true) {
+      filterOptions.push(L.DomUtil.get("keywordTextBox").value);
+    }
+
+    if (L.DomUtil.get("areaCheckBox").checked == true) {
+      console.log("area");
+      let bboxValue = this.shapesToFootprint(this.wktTextBox.value);
+      filterOptions.push(bboxValue);
+    }
+
+    let queryString = "";
+
+    for (let i = 0; i < filterOptions.length; i++) {
+      if (queryString == "") {
+        queryString = queryString.concat("?", filterOptions[i]);
+      } else {
+        queryString = queryString.concat("&", filterOptions[i]);
+      }
+    }
+    // re render map
+    this._map._footprintControl.remove();
+    this._map._geoLayer.clearLayers();
+    this._map.removeControl(this._map._htmllegend);
+    this._map.loadFootprintLayer(this._map._name, queryString);
   },
 
   /**
@@ -122,8 +227,4 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
 
     this.myLayer.addData(geojsonFeature);
   }
-
-  // reprojectFeature: function(e) {
-
-  // }
 });
