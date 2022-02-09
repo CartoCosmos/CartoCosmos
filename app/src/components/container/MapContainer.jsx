@@ -59,9 +59,7 @@ export default class MapContainer extends Component {
 
   render() {
     return (
-      <div>
-        <div id="map-container" />
-      </div>
+      <div id="map-container" />
     );
   }
 }

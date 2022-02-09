@@ -4,15 +4,46 @@
 @import "../node_modules/leaflet-html-legend/dist/L.Control.HtmlLegend.css";
 
 
-#map-container {
-  width: 800px;
-  height: 600px;
+body {
+  margin: 0;
 }
 
-#map {
-  width: 1027px;
-  max-height: 950px;
+/*
+App Layout Grid
+*/
+
+#appContainer {
+  height: calc(100vh - 1px);
+  width: calc(100vw - 1px);
+  display: grid;
+  grid-template:
+    "t r" max-content
+    "c r" minmax(250px, auto)
+    "b r" max-content
+    / minmax(250px, auto) max-content;
+  grid-gap: 1px;
 }
+
+#rightBar {
+  grid-area: r;
+  background: lightblue;
+}
+
+#topBar {
+  grid-area: t;
+  background: lightgreen;
+}
+
+#bottomBar {
+  grid-area: b;
+  background: pink;
+}
+
+
+#map-container {
+  grid-area: c;
+}
+
 
 /*
 Controls the CSS for projection buttons when there is no available projection

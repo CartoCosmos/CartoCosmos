@@ -9,25 +9,6 @@ import SearchAndFilterInput from "../presentational/SearchAndFilterInput.jsx";
 /**
  * Controls css styling for this component using js to css
  */
-const useStyles = makeStyles(theme => ({
-  appPaper: {
-    display: "flex",
-    flexDirection: "row"
-  },
-  rightSidebar: {
-    border: `1px solid ${theme.palette.divider}`
-  },
-  container: {
-    display: "flex",
-    alignContent: "center",
-    justifyContent: "space-between"
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 125
-  },
-  autoComplete: {}
-}));
 
 /**
  * App is the parent component for all of the other components in the project. It
@@ -37,7 +18,6 @@ const useStyles = makeStyles(theme => ({
  * @component
  */
 export default function App() {
-  const classes = useStyles();
   const [targetPlanet, setTargetPlanet] = React.useState("Mars");
 
   /**
@@ -52,15 +32,16 @@ export default function App() {
 
 
   return (
-    <div className={classes.appPaper}>
-      <div>
+    <div id="appContainer">
+      <div id="topBar">
         <ConsoleContainer target={targetPlanet} bodyChange={handleTargetBodyChange}/>
-        <MapContainer target={targetPlanet} />
+      </div>
+      <MapContainer target={targetPlanet} />
+      <div id="bottomBar">
         <WellKnownTextInput />
         <CreditsDisplay />
       </div>
-      <div className={classes.rightSidebar}>
-        
+      <div id="rightBar">
         <SearchAndFilterInput />
       </div>
     </div>

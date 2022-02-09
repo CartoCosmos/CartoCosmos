@@ -18,9 +18,9 @@ import { blue } from '@mui/material/colors';
 import Link from "@material-ui/core/Link";
 
 // Icons
-import PublicIcon from '@mui/icons-material/Public';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+//import PublicIcon from '@mui/icons-material/Public';     // Generic Planet/moon, in case
+//import DarkModeIcon from '@mui/icons-material/DarkMode'; // we don't want the colored icons
 
 import MercuryIcon from "../../assets/img/planet-icons/001-mercury.png";
 import VenusIcon from "../../assets/img/planet-icons/002-venus.png";
@@ -65,11 +65,7 @@ const useStyles = makeStyles({
   }
 });
 
-/**
- * Dialog for selecting planets
- * @param {*} props 
- * @returns 
- */
+
  const planets = [ 
    ['Mercury', MercuryIcon ],
    ['Venus', VenusIcon],
@@ -81,9 +77,14 @@ const useStyles = makeStyles({
    ['Neptune', NeptuneIcon],
    ['Pluto', PlutoIcon]
   ];
- const moons = ['Moon', 'Ceres', 'Mimas', 'Titan', 'Deimos', 'Tethys', 'Phoebe', 'Iapetus', 'Dione', 'Enceladus', 	'Hyperion', 'Io', 'Callisto', 'Europa', 'Ganymede', 'Rhea', 'Phobos', 'Vesta', 'Charon' ];
- 
-function SimpleDialog(props) {
+const moons = ['Moon', 'Ceres', 'Mimas', 'Titan', 'Deimos', 'Tethys', 'Phoebe', 'Iapetus', 'Dione', 'Enceladus', 	'Hyperion', 'Io', 'Callisto', 'Europa', 'Ganymede', 'Rhea', 'Phobos', 'Vesta', 'Charon' ];
+
+/**
+ * Dialog for selecting planets
+ * @param {open, onClose, selectedValue} props 
+ * @returns Planet Selection Dialog
+ */
+function PlanetDialog(props) {
 
   const classes = useStyles();
 
@@ -141,15 +142,11 @@ function SimpleDialog(props) {
   );
 }
  
- SimpleDialog.propTypes = {
-   onClose: PropTypes.func.isRequired,
-   open: PropTypes.bool.isRequired,
-   selectedValue: PropTypes.string.isRequired
- };
-
-
-
-
+PlanetDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  selectedValue: PropTypes.string.isRequired
+};
 
 /**
  * Component that displays target body name in console.
@@ -189,10 +186,10 @@ export default function ConsoleTargetInfo(props) {
     >
       <Grid item>
         <Typography id="targetName" className={classes.title} variant="h4" onClick={handleClickOpen}>
-          {props.target.toUpperCase()} <ArrowDropDownIcon/>
+          {props.target.toUpperCase()} <ArrowDropDownIcon fontSize="large" />
         </Typography>
       </Grid>
-      <SimpleDialog
+      <PlanetDialog
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
