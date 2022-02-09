@@ -32,16 +32,16 @@ export default function App() {
 
 
   return (
-    <div id="appContainer">
-      <div id="topBar">
+    <div id="app-container">
+      <div id="top-bar">
         <ConsoleContainer target={targetPlanet} bodyChange={handleTargetBodyChange}/>
       </div>
       <MapContainer target={targetPlanet} />
-      <div id="bottomBar">
+      <div id="bottom-bar">
         <WellKnownTextInput />
         <CreditsDisplay />
       </div>
-      <div id="rightBar">
+      <div id="right-bar">
         <SearchAndFilterInput />
       </div>
     </div>

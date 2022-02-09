@@ -1,7 +1,6 @@
 import React from "react";
 import { alpha, makeStyles, withStyles } from "@material-ui/core/styles";
 import Zoom from "@material-ui/core/Zoom";
-import Grid from "@material-ui/core/Grid";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import AddBoxIcon from "@material-ui/icons/AddBoxOutlined";
 import ExposureIcon from "@material-ui/icons/Exposure";
@@ -16,7 +15,7 @@ import StyledTooltip from "./StyledTooltip.jsx";
  */
 const useStyles = makeStyles(theme => ({
   grid: {
-    width: "100%",
+    width: 600,
     height: "100%",
     maxHeight: 55
   },
@@ -58,8 +57,6 @@ const useStyles = makeStyles(theme => ({
 const StyledToggleButton = withStyles(theme => ({
   root: {
     height: 30,
-    minHeight: 30,
-    maxHeight: 30,
     color: alpha("#f8f9fa", 0.8),
     backgroundColor: "transparent", //alpha("#1971c2", 0.7),
     border: "none",
@@ -145,17 +142,8 @@ export default function ConsoleLonLatSelects() {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      item
-      wrap="nowrap"
-      justifyContent="center"
-      alignItems="center"
-      className={classes.grid}
-      xs={7}
-      id="lonLatContainer"
-    >
-      <div>
+    <div className="flexbar">
+      <div className="flexbar-item">
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
@@ -188,7 +176,8 @@ export default function ConsoleLonLatSelects() {
         </StyledTooltip>
       </div>
       <StyledDivider orientation="vertical" />
-      <div>
+
+      <div className="flexbar-item">
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
@@ -227,7 +216,8 @@ export default function ConsoleLonLatSelects() {
         </StyledTooltip>
       </div>
       <StyledDivider orientation="vertical" />
-      <div>
+
+      <div className="flexbar-item">
         <StyledTooltip
           title={
             <Typography variant="subtitle1">
@@ -259,6 +249,6 @@ export default function ConsoleLonLatSelects() {
           </div>
         </StyledTooltip>
       </div>
-    </Grid>
+    </div>
   );
 }

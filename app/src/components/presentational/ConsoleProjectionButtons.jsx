@@ -46,8 +46,7 @@ const useStyles = makeStyles({
     borderStyle: "outset"
   },
   grid: {
-    maxWidth: 40,
-    width: "100%",
+    width: 120,
     height: "100%"
   },
   focusVisible: {}
@@ -134,7 +133,7 @@ export default function ConsoleProjectionButtons() {
       id="projContainer"
       container
       item
-      direction="column"
+      direction="row"
       justifyContent="center"
       alignItems="center"
       xs

@@ -30,11 +30,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: "#f8f9fa",
     overflow: "hidden",
-    padding: 0
   },
   container: {
     padding: "1rem",
     height: "100%",
+    width: 225,
     display: "flex",
     flexDirection: "column", 
     justifyContent: "space-between",

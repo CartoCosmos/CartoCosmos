@@ -35,8 +35,9 @@ export default L.AstroControlManager = L.Class.extend({
     this._zoomControl = new L.Control.Zoom();
     this._controls.push(this._zoomControl);
 
-    this._fullscreenControl = new L.Control.Fullscreen();
-    this._controls.push(this._fullscreenControl);
+    // Leaflet built-in fullscreen doesn't work for outside controls
+    // this._fullscreenControl = new L.Control.Fullscreen();
+    // this._controls.push(this._fullscreenControl);
 
     this._viewCenterControl = new ViewCenterControl();
     this._controls.push(this._viewCenterControl);
