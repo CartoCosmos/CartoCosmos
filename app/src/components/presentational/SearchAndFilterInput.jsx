@@ -33,7 +33,6 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     padding: "1rem",
-    height: "100%",
     width: 225,
     display: "flex",
     flexDirection: "column", 

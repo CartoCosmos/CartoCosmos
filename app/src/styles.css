@@ -37,6 +37,8 @@ App Layout Grid
 #right-bar {
   grid-area: r;
   background: lightgray;
+  display: flex;
+  flex-direction: row;
 }
 
 #top-bar {
@@ -78,6 +80,18 @@ App Layout Grid
 
 .flexbar-item {
   margin: 5px;
+}
+
+#sort-filter-collapsed {
+  cursor: pointer;
+  font-size: 10pt;
+  font-family: sans-serif;
+  font-weight: 600;
+  text-align: center;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  height: 100%;
 }
 
 #wkt-collapsed {

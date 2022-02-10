@@ -15,6 +15,11 @@ import SearchAndFilterInput from "../presentational/SearchAndFilterInput.jsx";
  */
 export default function App() {
   const [targetPlanet, setTargetPlanet] = React.useState("Mars");
+  const [showSortBar, setShowSortBar] = React.useState(true);
+
+  const ShowHideSort = () => {
+    setShowSortBar(!showSortBar);
+  }
 
   /**
    * Handles target body selection
@@ -37,8 +42,9 @@ export default function App() {
           <CreditsDisplay />
         </div>
       </div>
-      <div id="right-bar">
-        <SearchAndFilterInput />
+      <div id="right-bar">  
+        <div id="sort-filter-collapsed" onClick={ShowHideSort}>Sort and Filter</div>
+        { showSortBar ? <SearchAndFilterInput /> : null }
       </div>
     </div>
   );
