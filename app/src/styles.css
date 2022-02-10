@@ -110,8 +110,7 @@ App Layout Grid
 
 #query-console-container {
   font-family: Arial, Helvetica, sans-serif;
-  color: #FFFFFF;
-	background-color: #242424;
+	background-color: lightgray;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -119,9 +118,22 @@ App Layout Grid
 
 #query-console-collapsed {
 	line-height: 32px;
-	font-weight: 600;
 	text-align: left;
-  padding-left: 15px;
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-content: baseline;
+}
+
+#query-console-title {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+#query-function {
+  display: inline-flex;
+  align-items: center;
 }
 
 #query-command-bar {
@@ -130,21 +142,26 @@ App Layout Grid
 
 #query-textarea-container {
   display: flex;
-  background: #333333;
+  background: #1971c2;
 }
 
 #query-textarea {
   font-family: Consolas 'Lucida Console' 'Cascadia Code' monospace;
-  font-size: 12pt;
+  font-size: 13pt;
   flex: auto;
   resize: none;
   outline: none;
   border-radius: 0;
   border: none;
-  background: #333333;
+  background: #1971c2;
   color: #FFFFFF;
   width: auto;
-  padding: 12px;
+  padding: 15px;
+}
+
+#query-textarea::placeholder {
+  color: #eeeeee;
+  opacity: 1;
 }
 
 /*
