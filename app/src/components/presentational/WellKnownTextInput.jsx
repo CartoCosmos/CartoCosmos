@@ -13,8 +13,6 @@ import StyledTooltip from "./StyledTooltip.jsx";
 const useStyles = makeStyles(theme => ({
   root: {
     textAlign: "center",
-    maxHeight: 85,
-    height: 85,
     backgroundColor: "#f8f9fa",
     overflow: "hidden"
   },
@@ -67,40 +65,48 @@ export default function WellKnownTextInput() {
 
   return (
     <div className={classes.root}>
-      <StyledTooltip
-        title={
-          <Typography>
-            Enter a <Link href={wktLink}>Well-Known Text</Link> string then
-            press "Draw" to plot the polygon on the map.
-          </Typography>
-        }
-        enterDelay={800}
-        leaveDelay={250}
-        interactive
-        arrow
-        TransitionComponent={Zoom}
-      >
-        <div className={classes.container}>
-          <TextField
-            className={classes.textbox}
-            variant="outlined"
-            label="Enter WKT String"
-            InputLabelProps={{
-              shrink: true
-            }}
-            id="wktTextBox"
-            name="fname"
-            type="text"
-            autoComplete="off"
-            multiline
-            rows={2}
-            size="small"
-          />
-          <Button variant="contained" className={classes.button} id="wktButton">
-            Draw
-          </Button>
+      <details>
+        <summary id="wkt-collapsed">
+          WKT String Input
+        </summary>
+        <div id="wkt-expanded">
+          <StyledTooltip
+            title={
+              <Typography>
+                Enter a <Link href={wktLink}>Well-Known Text</Link> string then
+                press "Draw" to plot the polygon on the map.
+              </Typography>
+            }
+            enterDelay={800}
+            leaveDelay={250}
+            interactive
+            arrow
+            placement="top"
+            TransitionComponent={Zoom}
+          >
+            <div className={classes.container}>
+              <TextField
+                className={classes.textbox}
+                variant="outlined"
+                label="Enter WKT String"
+                InputLabelProps={{
+                  shrink: true
+                }}
+                id="wktTextBox"
+                name="fname"
+                type="text"
+                autoComplete="off"
+                multiline
+                rows={2}
+                size="small"
+              />
+              <Button variant="contained" className={classes.button} id="wktButton">
+                Draw
+              </Button>
+            </div>
+          </StyledTooltip>
         </div>
-      </StyledTooltip>
+      </details>
     </div>
   );
 }

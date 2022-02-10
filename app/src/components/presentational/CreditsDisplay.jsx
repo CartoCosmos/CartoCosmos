@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#f8f9fa",
     maxHeight: 25,
     height: 25,
+    marginTop: 1,
     borderTop: `1px solid ${theme.palette.divider}`,
     color: "#343a40",
     textAlign: "center",

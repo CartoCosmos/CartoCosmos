@@ -143,7 +143,7 @@ export default function ConsoleProjectionButtons() {
           title={<NorthDisabled />}
           enterDelay={800}
           leaveDelay={0}
-          placement="right"
+          placement="bottom"
           arrow
           TransitionComponent={Zoom}
         >
@@ -169,7 +169,7 @@ export default function ConsoleProjectionButtons() {
           }
           enterDelay={800}
           leaveDelay={0}
-          placement="right"
+          placement="bottom"
           arrow
           TransitionComponent={Zoom}
         >
@@ -194,7 +194,7 @@ export default function ConsoleProjectionButtons() {
           title={<SouthDisabled />}
           enterDelay={800}
           leaveDelay={0}
-          placement="right"
+          placement="bottom"
           arrow
           TransitionComponent={Zoom}
         >

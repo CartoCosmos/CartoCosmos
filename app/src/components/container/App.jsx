@@ -1,14 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import ConsoleContainer from "./ConsoleContainer.jsx";
+import ConsoleAppBar from "../presentational/ConsoleAppBar.jsx";
 import MapContainer from "./MapContainer.jsx";
 import WellKnownTextInput from "../presentational/WellKnownTextInput.jsx";
+import StacQueryConsole from "../presentational/StacQueryConsole.jsx";
 import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
 import SearchAndFilterInput from "../presentational/SearchAndFilterInput.jsx";
-
-/**
- * Controls css styling for this component using js to css
- */
 
 /**
  * App is the parent component for all of the other components in the project. It
@@ -21,25 +17,25 @@ export default function App() {
   const [targetPlanet, setTargetPlanet] = React.useState("Mars");
 
   /**
-   * Handles target selection
-   *
-   * @param {*} event selection event
+   * Handles target body selection
+   * @param {*} value selection event
    */
   const handleTargetBodyChange = value => {
     setTargetPlanet(value);
   };
 
-
-
   return (
     <div id="app-container">
-      <div id="top-bar">
-        <ConsoleContainer target={targetPlanet} bodyChange={handleTargetBodyChange}/>
-      </div>
-      <MapContainer target={targetPlanet} />
-      <div id="bottom-bar">
-        <WellKnownTextInput />
-        <CreditsDisplay />
+      <div id="main-column">
+        <div id="top-bar">
+          <ConsoleAppBar target={targetPlanet} bodyChange={handleTargetBodyChange}  />
+        </div>
+        <MapContainer target={targetPlanet} />
+        <div id="bottom-bar">
+          <WellKnownTextInput />
+          <StacQueryConsole />
+          <CreditsDisplay />
+        </div>
       </div>
       <div id="right-bar">
         <SearchAndFilterInput />

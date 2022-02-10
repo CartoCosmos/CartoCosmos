@@ -18,10 +18,19 @@ App Layout Grid
   width: calc(100vw - 1px);
   display: grid;
   grid-template:
-    "t r" max-content
-    "c r" minmax(250px, auto)
-    "b r" max-content
+    "m r" auto
     / minmax(250px, auto) max-content;
+  grid-gap: 1px;
+}
+
+#main-column {
+  grid-area: m;
+  display: grid;
+  grid-template:
+    "t" max-content
+    "c" minmax(250px, auto)
+    "b" max-content
+    / minmax(250px, auto);
   grid-gap: 1px;
 }
 
@@ -69,6 +78,59 @@ App Layout Grid
 
 .flexbar-item {
   margin: 5px;
+}
+
+#wkt-collapsed {
+  height: 18px;
+  font-family: sans-serif;
+  font-size: 10pt;
+  font-weight: 600;
+  align-items: baseline;
+  border-bottom: 1px solid lightgray;
+  cursor: pointer;
+}
+
+#wkt-expanded {
+  border-bottom: 1px solid lightgray;
+}
+
+#query-console-container {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #FFFFFF;
+	background-color: #242424;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#query-console-collapsed {
+	line-height: 32px;
+	font-weight: 600;
+	text-align: left;
+  padding-left: 15px;
+}
+
+#query-command-bar {
+  padding: 10px;
+}
+
+#query-textarea-container {
+  display: flex;
+  background: #333333;
+}
+
+#query-textarea {
+  font-family: Consolas 'Lucida Console' 'Cascadia Code' monospace;
+  font-size: 12pt;
+  flex: auto;
+  resize: none;
+  outline: none;
+  border-radius: 0;
+  border: none;
+  background: #333333;
+  color: #FFFFFF;
+  width: auto;
+  padding: 12px;
 }
 
 /*

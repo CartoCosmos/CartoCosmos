@@ -32,7 +32,6 @@ export default function ConsoleAppBar(props) {
   return (
     <AppBar
       className={classes.appbar}
-      variant="outlined"
       position="static"
       color="inherit"
       id="consoleToolbar"
