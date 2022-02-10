@@ -99,6 +99,5 @@
     "requirejs": "^2.3.6",
     "typeface-roboto": "0.0.75",
     "wicket": "1.3.5",
-    "leaflet-html-legend":"0.3.5"
   }
 }
