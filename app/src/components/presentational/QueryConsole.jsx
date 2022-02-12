@@ -29,27 +29,32 @@ const useStyles = makeStyles(theme => ({
  * @example
  * <StacQueryConsole />
  */
-export default function StacQueryConsole() {
+export default function QueryConsole() {
   const classes = useStyles();
 
-  const [consoleFunctionVal, setConsoleFunctionVal] = React.useState(false);
+  const [consoleAuto, setConsoleAuto] = React.useState(true);
+  const [consoleAutoWkt, setConsoleAutoWkt] = React.useState(false);
 
-  const handleConsoleFunctionChange = (event) => {
-    setConsoleFunctionVal(event.target.checked);
+  const handleConsoleAutoChange = (event) => {
+    setConsoleAuto(event.target.checked);
+  }
+
+  const handleConsoleAutoWktChange = (event) => {
+    setConsoleAutoWkt(event.target.checked);
   }
 
   return (
     <details id="query-console-container">
       <summary id="query-console-collapsed">
         <span id="query-console-title">
-          <ArrowDropDownCircleIcon sx={{marginRight:1}}/> STAC Query Console
+          <ArrowDropDownCircleIcon sx={{marginRight:1}}/> Query Console
         </span>
         <span id="query-function">
-          <Checkbox />
+          <Checkbox checked={consoleAuto} onChange={handleConsoleAutoChange} id="query-auto-checkbox"/>
           Auto-populate with: 
-          {consoleFunctionVal ? " WKT String" : " STAC Query"}
-          <Checkbox id="grabWktCheckBox" checked={consoleFunctionVal} onChange={handleConsoleFunctionChange}
-                icon={<SwitchLeftIcon/>} checkedIcon={<SwitchRightIcon/>} color="default"/>
+          {consoleAutoWkt ? " WKT String" : " STAC Query"}
+          <Checkbox id="query-auto-wkt-checkbox" checked={consoleAutoWkt} onChange={handleConsoleAutoWktChange}
+                icon={<SwitchRightIcon/>} checkedIcon={<SwitchLeftIcon/>} color="default"/>
         </span>
       </summary>
       <div id="query-console-expanded">
@@ -61,7 +66,7 @@ export default function StacQueryConsole() {
                 size="small" 
                 variant="contained">
                 <Button className={classes.button} startIcon={<ContentCopyIcon />}>Copy Code</Button>
-                <Button className={classes.button} startIcon={<PolylineIcon />}>Draw WKT String</Button>
+                <Button id="wktButton" className={classes.button} startIcon={<PolylineIcon />}>Draw WKT String</Button>
                 <Button className={classes.button} startIcon={<PlayArrowIcon />}>Run STAC Query</Button>
               </ButtonGroup>
             </div>

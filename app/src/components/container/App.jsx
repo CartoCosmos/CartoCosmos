@@ -1,10 +1,20 @@
 import React from "react";
 import ConsoleAppBar from "../presentational/ConsoleAppBar.jsx";
 import MapContainer from "./MapContainer.jsx";
-import WellKnownTextInput from "../presentational/WellKnownTextInput.jsx";
-import StacQueryConsole from "../presentational/StacQueryConsole.jsx";
+import QueryConsole from "../presentational/QueryConsole.jsx";
 import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
 import SearchAndFilterInput from "../presentational/SearchAndFilterInput.jsx";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+  shown: {
+    display: "block",
+    background: "#f8f9fa"
+  },
+  hidden: {
+    display: "none"
+  }
+}))
 
 /**
  * App is the parent component for all of the other components in the project. It
@@ -14,11 +24,14 @@ import SearchAndFilterInput from "../presentational/SearchAndFilterInput.jsx";
  * @component
  */
 export default function App() {
+  const classes = useStyles();
   const [targetPlanet, setTargetPlanet] = React.useState("Mars");
   const [showSortBar, setShowSortBar] = React.useState(true);
+  const [sortBarStyle, setSortBarStyle] = React.useState(classes.hidden);
 
   const ShowHideSort = () => {
     setShowSortBar(!showSortBar);
+    setSortBarStyle(showSortBar ? classes.shown : classes.hidden);
   }
 
   /**
@@ -37,14 +50,16 @@ export default function App() {
         </div>
         <MapContainer target={targetPlanet} />
         <div id="bottom-bar">
-          <WellKnownTextInput />
-          <StacQueryConsole />
+          <QueryConsole />
           <CreditsDisplay />
         </div>
       </div>
       <div id="right-bar">  
-        <div id="sort-filter-collapsed" onClick={ShowHideSort}>Sort and Filter</div>
-        { showSortBar ? <SearchAndFilterInput /> : null }
+        <div id="sort-filter-collapsed" onClick={ShowHideSort} >Sort and Filter</div>
+          <div className={sortBarStyle}>
+            <SearchAndFilterInput />
+            {/* instead of styled surrounding div: { showSortBar ? <SearchAndFilterInput /> : null } */}
+          </div> 
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 // Keyword Filter
 import TextField from "@material-ui/core/TextField";
 // CSS
-import { makeStyles, withStyles, alpha } from "@material-ui/core/styles";
+import { makeStyles, alpha } from "@material-ui/core/styles";
 // Date Range
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -30,14 +30,15 @@ const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: "#f8f9fa",
     overflow: "hidden",
+    display: "flex",
+    alignItems: "flex-start"
   },
   container: {
     padding: "1rem",
+    height: "100vh",
     width: 225,
     display: "flex",
     flexDirection: "column", 
-    justifyContent: "space-between",
-    alignItems: "left",
     margin: "auto",
     padding: 0
   },

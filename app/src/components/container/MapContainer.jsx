@@ -21,6 +21,10 @@ export default class MapContainer extends Component {
     this.state = {};
   }
 
+  shouldComponentUpdate(){
+    return false;
+  }
+
   /**
    * Invoked when the component is successfully mounted to the DOM, then
    * handles all of the map intialization and creation.

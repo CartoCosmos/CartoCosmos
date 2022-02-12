@@ -83,8 +83,10 @@ App Layout Grid
 }
 
 #sort-filter-collapsed {
+  background: lightgray;
   cursor: pointer;
-  font-size: 10pt;
+  font-size: 12pt;
+  line-height: 20px;
   font-family: sans-serif;
   font-weight: 600;
   text-align: center;
@@ -94,23 +96,9 @@ App Layout Grid
   height: 100%;
 }
 
-#wkt-collapsed {
-  height: 18px;
-  font-family: sans-serif;
-  font-size: 10pt;
-  font-weight: 600;
-  align-items: baseline;
-  border-bottom: 1px solid lightgray;
-  cursor: pointer;
-}
-
-#wkt-expanded {
-  border-bottom: 1px solid lightgray;
-}
-
 #query-console-container {
   font-family: Arial, Helvetica, sans-serif;
-	background-color: lightgray;
+	background-color: #cecedb;
   padding: 0;
   display: flex;
   flex-direction: column;
