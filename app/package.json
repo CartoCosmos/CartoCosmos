@@ -23,10 +23,10 @@
       "url": "https://github.com/cgm78"
     }
   ],
-  "homepage": "https://github.com/CartoCosmos/CartoCosmos",
+  "homepage": "https://github.com/GeoSTAC/CartoCosmos-with-STAC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CartoCosmos/CartoCosmos.git"
+    "url": "https://github.com/GeoSTAC/CartoCosmos-with-STAC.git"
   },
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
@@ -35,7 +35,9 @@
     "test": "mocha --require @babel/register",
     "fix": "npm run lint --fix",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
-    "generate-docs": "node_modules/.bin/jsdoc src/js/  --configure .jsdoc.json --verbose"
+    "generate-docs": "node_modules/.bin/jsdoc src/js/  --configure .jsdoc.json --verbose",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
