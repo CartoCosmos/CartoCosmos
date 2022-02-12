@@ -59,9 +59,6 @@ export default class MapContainer extends Component {
       controlManager.addTo(map);
       this.setState({oldTarget: this.props.target})
     }
-    else {
-      // TODO: L.Map.invalidateSize(); // but in a different file???
-    }
   }
 
   render() {
