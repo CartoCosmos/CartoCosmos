@@ -14,6 +14,8 @@ jobs:
     # Download our master branch
     steps:
     - uses: actions/checkout@v2
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     # Run our deployment command
     - name: Deploying the static website to gh-pages
