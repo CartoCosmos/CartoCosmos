@@ -103,8 +103,8 @@ export default function SearchAndFilterInput(props) {
   const [dateCheckVal, setDateCheckVal] = React.useState(false);
   const [dateFromVal, setDateFromVal] = React.useState(null);
   const [dateToVal, setDateToVal] = React.useState(null);
-  const [maxPages, setMaxPages] = React.useState(getMaxNumberPages);
-  const [maxNumberFootprints, setMaxNumberFootprints] = React.useState(getNumberMatched);
+  const [maxPages, setMaxPages] = React.useState(0);
+  const [maxNumberFootprints, setMaxNumberFootprints] = React.useState(0);
   const [limitVal, setLimitVal] = React.useState(0);
 
   // Clear all values
@@ -167,18 +167,19 @@ export default function SearchAndFilterInput(props) {
   }
 
   // limit
-  const handleLimitChange = (event) => {
-    setLimitVal(event.target.value);
+  const handleLimitChange = (event, value) => {
+    setLimitVal(value);
     setTimeout(() => {
       setMaxPages(getMaxNumberPages);
     }, 1000);
   }
+
   // resets pagination and limit when switching targets
   useEffect(() => {
     setTimeout(() => {
       setMaxNumberFootprints(getNumberMatched);
-      setMaxPages(getMaxNumberPages);
       setLimitVal(10);
+      setMaxPages(getMaxNumberPages);
     }, 1000);
   }, [props.target]);
 
@@ -186,6 +187,7 @@ export default function SearchAndFilterInput(props) {
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
+
 
   /* Control IDs for reference:
   applyButton
@@ -330,12 +332,11 @@ export default function SearchAndFilterInput(props) {
                   <Slider
                     id="valueSlider"
                     size="small"
-                    defaultValue={10}
-                    aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={handleLimitChange}
                     value={limitVal}
                     max={maxNumberFootprints}
+                    defaultValue={10}
                   />
               </div>
             </div>

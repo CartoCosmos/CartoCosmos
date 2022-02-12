@@ -95,8 +95,6 @@ export default L.Map.AstroMap = L.Map.extend({
     this.loadLayerCollection("cylindrical");
 
     setCurrentPage(1);
-    setMaxNumberPages(0);
-    setNumberMatched(0);
     this.loadFootprintLayer(target, "?page=1");
 
     // Listen to baselayerchange event so that we can set the current layer being
@@ -128,6 +126,7 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   loadFootprintLayer: function(name, queryString) {
     var matched = 0;
+    
     getItemCollection(name, queryString).then(result => {
       if (result != undefined) {
         this._geoLayers = new Array(result.length);
@@ -142,11 +141,11 @@ export default L.Map.AstroMap = L.Map.extend({
             this._geoLayers[i].addData(result[i].features[j]);
           }
         }
-        setNumberMatched(matched);
         this._footprintControl = L.control
           .layers(null, this._footprintCollection)
           .addTo(this);
       }
+      setNumberMatched(matched);
     });
   },
 

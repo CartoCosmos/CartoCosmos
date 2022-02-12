@@ -76,34 +76,11 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     );
     L.DomEvent.on(L.DomUtil.get("clearButton"), "click", this.clearMap, this);
 
-    let sliderElement = document.getElementById('valueSlider');
-    sliderElement.addEventListener('click', event => {
-      this._map._footprintControl.remove();
-      for(let i = 0; i < this._map._geoLayers.length; i++){
-        this._map._geoLayers[i].clearLayers();
-      }
-      let currentPage = getCurrentPage();
-      let limitVal = sliderElement.lastChild.firstChild.value;
-      let queryString = "?page=" + currentPage;
-      queryString += "&limit=" + limitVal;
-      this._map.loadFootprintLayer(this._map._target, queryString);
-    });
+    this.valueSlider = L.DomUtil.get("valueSlider")
+    L.DomEvent.on(this.valueSlider, "click", this.applyLimit, this);
 
-    let pagElement = document.getElementById('pagination');
-    pagElement.addEventListener('click', event => {
-      this._map._footprintControl.remove();
-      for(let i = 0; i < this._map._geoLayers.length; i++){
-        this._map._geoLayers[i].clearLayers();
-      }
-      setTimeout(() => {
-        let currentPage = getCurrentPage();
-        let limitVal = sliderElement.lastChild.firstChild.value;
-        let queryString = "?page=" + currentPage;
-        queryString += "&limit=" + limitVal;
-        this._map.loadFootprintLayer(this._map._target, queryString);
-      }, 1000);
-    });
-
+    this.pagination = L.DomUtil.get("pagination")
+    L.DomEvent.on(this.pagination, "click", this.applyPage, this);
 
     map.on("draw:created", this.shapesToWKT, this);
 
@@ -136,8 +113,45 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     for(let i = 0; i < this._map._geoLayers.length; i++){
       this._map._geoLayers[i].clearLayers();
     }
-
   },
+
+
+  applyLimit: function() {
+    this._map._footprintControl.remove();
+
+    for(let i = 0; i < this._map._geoLayers.length; i++){
+      this._map._geoLayers[i].clearLayers();
+    }
+    let currentPage = getCurrentPage();
+
+    let sliderElement = L.DomUtil.get("valueSlider");
+    let limitVal = sliderElement.lastChild.firstChild.value;
+
+    let queryString = "?page=" + currentPage;
+    queryString += "&limit=" + limitVal;
+
+    this._map.loadFootprintLayer(this._map._target, queryString);
+  },
+
+
+
+  applyPage: function() {
+    this._map._footprintControl.remove();
+
+    for(let i = 0; i < this._map._geoLayers.length; i++){
+      this._map._geoLayers[i].clearLayers();
+    }
+    let currentPage = getCurrentPage();
+
+    let sliderElement = L.DomUtil.get("valueSlider");
+    let limitVal = sliderElement.lastChild.firstChild.value;
+
+    let queryString = "?page=" + currentPage;
+    queryString += "&limit=" + limitVal;
+
+    this._map.loadFootprintLayer(this._map._target, queryString);
+  },
+
 
   /**
    * @function shapesToFootprint

@@ -56,10 +56,9 @@ function setNumberMatched(matched) {
   _numberMatched = matched;
   let sliderElement = document.getElementById('valueSlider');
   let limitVal = sliderElement.lastChild.firstChild.value;
-  if (limitVal == 0){
-    limitVal = 10;
-  }
-  setMaxNumberPages(Math.floor(_numberMatched/limitVal));
+    if (limitVal != 0 && matched != 0){
+      setMaxNumberPages(Math.floor(matched/limitVal));
+    }
 }
 
 /**
