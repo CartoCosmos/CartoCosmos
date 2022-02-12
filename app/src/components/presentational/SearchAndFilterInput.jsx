@@ -277,7 +277,7 @@ export default function SearchAndFilterInput() {
                     label="From"
                     value={dateFromVal}
                     onChange={handleDateFromChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField id="dateFromID" {...params} />}
                   />
                 </LocalizationProvider>
               </div>
@@ -288,7 +288,7 @@ export default function SearchAndFilterInput() {
                     label="To"
                     value={dateToVal}
                     onChange={handleDateToChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField id="dateToID"{...params} />}
                   />
                 </LocalizationProvider>
               </div>
