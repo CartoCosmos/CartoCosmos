@@ -2,10 +2,8 @@ import L from "leaflet";
 import "proj4leaflet";
 import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
-import { getItemCollection, url } from "./ApiJsonCollection";
+import { getItemCollection, setNumberMatched, setMaxNumberPages, getCurrentPage, setCurrentPage } from "./ApiJsonCollection";
 import { MY_JSON_MAPS } from "./layers";
-import "leaflet-html-legend";
-import React from "react";
 
 /**
  * @class AstroMap
@@ -47,10 +45,8 @@ export default L.Map.AstroMap = L.Map.extend({
     };
     this._footprintCollection = {};
     this._footprintControl = null;
-    this._geoLayer = null;
-    this._name = null;
+    this._geoLayers = [];
     this._htmllegend = null;
-    this._currentPage = 1;
 
     // Set by layer collection or baselayerchange event
     this._currentLayer = null;
@@ -98,7 +94,8 @@ export default L.Map.AstroMap = L.Map.extend({
     L.Map.prototype.initialize.call(this, this._mapDiv, this.options);
     this.loadLayerCollection("cylindrical");
 
-    this.loadFootprintLayer(target, "?page=" + this._currentPage);
+    setCurrentPage(1);
+    this.loadFootprintLayer(target, "?page=1");
 
     // Listen to baselayerchange event so that we can set the current layer being
     // viewed by the map.
@@ -125,6 +122,7 @@ export default L.Map.AstroMap = L.Map.extend({
     this.layers[name].addTo(this);
   },
 
+
   /**
    * @function AstroMap.prototype.loadFootprintLayer
    * @description Adds the ApiJsonCollection with the requested name.
@@ -133,84 +131,29 @@ export default L.Map.AstroMap = L.Map.extend({
    *
    * @param {String} queryString - Filter for deisered footprints ie: ?page=1
    *
-   * @param {Boolean} loadFootprintLegend - Boolean value used to bypass adding
-   *                                        the FootprintLegend
    */
-  loadFootprintLayer: function(name, queryString, loadFootprintLegend = true) {
+  loadFootprintLayer: function(name, queryString) {
+    var matched = 0;
+    
     getItemCollection(name, queryString).then(result => {
       if (result != undefined) {
-        this._name = name;
-        this._geoLayer = L.geoJSON()
-          .on('click', function(e){
-            console.log(e);
-        }).addTo(this);
-        this._footprintCollection["Footprints"] = this._geoLayer;
+        this._geoLayers = new Array(result.length);
         for (let i = 0; i < result.length; i++) {
+          this._geoLayers[i] = L.geoJSON()
+            .on('click', function(e){
+              console.log(e);
+            }).addTo(this);
+          matched += result[i].numberMatched;
           for (let j = 0; j < result[i].features.length; j++) {
-            this._geoLayer.addData(result[i].features[j]);
+            this._footprintCollection[result[i].features[j].collection] = this._geoLayers[i];
+            this._geoLayers[i].addData(result[i].features[j]);
           }
         }
-
         this._footprintControl = L.control
           .layers(null, this._footprintCollection)
           .addTo(this);
-
-        if (loadFootprintLegend) {
-          this.addFootprintLegend(name);
-        }
       }
-    });
-  },
-
-  /**
-   * @function AstroMap.prototype.addFootprintLegend
-   * @description Adds legend for each footprint layer
-   *
-   * @param {String} name - Name of the projection
-   *
-   */
-  addFootprintLegend: function(name) {
-    var self = this;
-
-    var legend = L.control.htmllegend({
-      legends: [
-        {
-          name: "Footprints",
-          layer: this._geoLayer,
-          elements: [
-            {
-              html: `<div class="pagination">
-                      <a id=footprint_left>&laquo;</a>
-                      <a id=footprint_pageNumber>${self._currentPage}</a>
-                      <a id=footprint_right>&raquo;</a>
-                    </div>`
-            }
-          ]
-        }
-      ]
-    });
-    this._htmllegend = legend;
-    this.addControl(legend);
-
-    $("#footprint_right").click(function() {
-      self._currentPage += 1;
-      self._footprintControl.remove();
-      self._geoLayer.clearLayers();
-      self.removeControl(legend);
-      let queryString = "?page=" + self._currentPage;
-      self.loadFootprintLayer(name, queryString);
-    });
-
-    $("#footprint_left").click(function() {
-      self._currentPage -= 1;
-      if (this._currentPage > 0) {
-        self._footprintControl.remove();
-        self._geoLayer.clearLayers();
-        self.removeControl(legend);
-        let queryString = "?page=" + self._currentPage;
-        self.loadFootprintLayer(name, queryString);
-      }
-      // should add some error message here eventually
+      setNumberMatched(matched);
     });
   },
 

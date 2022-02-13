@@ -1,7 +1,6 @@
 @import "../node_modules/leaflet/dist/leaflet.css";
 @import "../node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css";
-@import "../node_modules/leaflet-html-legend/dist/L.Control.HtmlLegend.css";
 
 
 body {

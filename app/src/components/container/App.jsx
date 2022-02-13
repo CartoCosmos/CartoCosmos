@@ -62,7 +62,7 @@ export default function App() {
           <ArrowLeftIcon/>
         </div>
           <div className={sortBarStyle}>
-            <SearchAndFilterInput />
+            <SearchAndFilterInput target={targetPlanet}/>
             {/* instead of styled surrounding div: { showSortBar ? <SearchAndFilterInput /> : null } 
                 ^ simpler but might break things if another part of the program is looking for it and it's not there? */}
           </div> 
