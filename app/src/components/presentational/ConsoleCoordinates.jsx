@@ -13,7 +13,8 @@ import StyledTooltip from "./StyledTooltip.jsx";
 const useStyles = makeStyles({
   grid: {
     height: "100%",
-    maxHeight: 60
+    maxHeight: 60,
+    width: 200
   },
   title: {
     color: "#343a40",
@@ -29,9 +30,10 @@ const useStyles = makeStyles({
   container: {
     display: "flex",
     flexWrap: "noWrap",
-    width: "100%",
+    width: 170,
     height: 40,
-    margin: "auto",
+    marginTop: 5,
+    verticalAlign: "middle",
     "& > *": {
       margin: 0,
       padding: 0,
@@ -55,66 +57,54 @@ export default function ConsoleCoordinates() {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      className={classes.grid}
-      justifyContent="center"
-      alignItems="center"
-      item
-      xs={3}
-      id="coordContainerParent"
+    <StyledTooltip
+      title={
+        <Typography variant="subtitle1">
+          Displays the longitude and latitude of the area on the map
+          underneath the cursor.
+        </Typography>
+      }
+      enterDelay={800}
+      leaveDelay={0}
+      arrow
+      TransitionComponent={Zoom}
     >
-      <Grid item xs>
-        <StyledTooltip
-          title={
-            <Typography variant="subtitle1">
-              Displays the longitude and latitude of the area on the map
-              underneath the cursor.
-            </Typography>
-          }
-          enterDelay={800}
-          leaveDelay={0}
-          arrow
-          TransitionComponent={Zoom}
+      <div id="coordContianer" className={classes.container}>
+        <Paper
+          style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+          variant="outlined"
         >
-          <div id="coordContianer" className={classes.container}>
-            <Paper
-              style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-              variant="outlined"
-            >
-              <Typography variant="overline" className={classes.title}>
-                Longitude
-              </Typography>
-              <Divider variant="fullWidth" />
-              <Typography
-                noWrap
-                className={classes.coords}
-                id="lonCoordinateDisplay"
-                variant="subtitle2"
-              />
-            </Paper>
-            <Paper
-              style={{
-                borderLeft: 0,
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0
-              }}
-              variant="outlined"
-            >
-              <Typography variant="overline" className={classes.title}>
-                Latitude
-              </Typography>
-              <Divider variant="fullWidth" />
-              <Typography
-                noWrap
-                className={classes.coords}
-                id="latCoordinateDisplay"
-                variant="subtitle2"
-              />
-            </Paper>
-          </div>
-        </StyledTooltip>
-      </Grid>
-    </Grid>
+          <Typography variant="overline" className={classes.title}>
+            Longitude
+          </Typography>
+          <Divider variant="fullWidth" />
+          <Typography
+            noWrap
+            className={classes.coords}
+            id="lonCoordinateDisplay"
+            variant="subtitle2"
+          />
+        </Paper>
+        <Paper
+          style={{
+            borderLeft: 0,
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0
+          }}
+          variant="outlined"
+        >
+          <Typography variant="overline" className={classes.title}>
+            Latitude
+          </Typography>
+          <Divider variant="fullWidth" />
+          <Typography
+            noWrap
+            className={classes.coords}
+            id="latCoordinateDisplay"
+            variant="subtitle2"
+          />
+        </Paper>
+      </div>
+    </StyledTooltip>
   );
 }

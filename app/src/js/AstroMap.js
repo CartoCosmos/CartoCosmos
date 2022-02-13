@@ -105,6 +105,14 @@ export default L.Map.AstroMap = L.Map.extend({
     this.on("baselayerchange", function(e) {
       this.setCurrentLayer(e["layer"]);
     });
+    
+    // Resize Observer
+    const mapDivEl = document.getElementById(mapDiv);
+    const resizeObserver = new ResizeObserver(() => {
+      this.invalidateSize();
+    });
+    
+    resizeObserver.observe(mapDivEl);
   },
 
   /**

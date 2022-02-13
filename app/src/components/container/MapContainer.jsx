@@ -18,7 +18,7 @@ export default class MapContainer extends Component {
    */
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {oldTarget: ""};
   }
 
   /**
@@ -29,6 +29,7 @@ export default class MapContainer extends Component {
     let map = new AstroMap("map-container", this.props.target, {});
     let controlManager = new AstroControlManager(map);
     controlManager.addTo(map);
+    this.setState({oldTarget: this.props.target})
   }
 
   /**
@@ -36,32 +37,33 @@ export default class MapContainer extends Component {
    * target selector passes down a new target name from props.
    */
   componentDidUpdate() {
-    // remove old map container and append new container to its parent
-    let oldContainer = document.getElementById("map-container");
-    let parent = oldContainer.parentNode;
-    let newContainer = document.createElement("div");
-    parent.removeChild(oldContainer);
-    newContainer.setAttribute("id", "map-container");
-    parent.appendChild(newContainer);
+    if (this.props.target != this.state.oldTarget ) {
+      // remove old map container and append new container to its parent
+      let oldContainer = document.getElementById("map-container");
+      let parent = oldContainer.parentNode;
+      let newContainer = document.createElement("div");
+      parent.removeChild(oldContainer);
+      newContainer.setAttribute("id", "map-container");
+      parent.appendChild(newContainer);
 
-    // remove disabled classes from projection buttons so that the css is reset to default
-    document.getElementById("projectionNorthPole").classList.remove("disabled");
-    document
-      .getElementById("projectionCylindrical")
-      .classList.remove("disabled");
-    document.getElementById("projectionSouthPole").classList.remove("disabled");
+      // remove disabled classes from projection buttons so that the css is reset to default
+      document.getElementById("projectionNorthPole").classList.remove("disabled");
+      document
+        .getElementById("projectionCylindrical")
+        .classList.remove("disabled");
+      document.getElementById("projectionSouthPole").classList.remove("disabled");
 
-    // create new map with updated target
-    let map = new AstroMap("map-container", this.props.target, {});
-    let controlManager = new AstroControlManager(map);
-    controlManager.addTo(map);
+      // create new map with updated target
+      let map = new AstroMap("map-container", this.props.target, {});
+      let controlManager = new AstroControlManager(map);
+      controlManager.addTo(map);
+      this.setState({oldTarget: this.props.target})
+    }
   }
 
   render() {
     return (
-      <div>
-        <div id="map-container" />
-      </div>
+      <div id="map-container" />
     );
   }
 }
