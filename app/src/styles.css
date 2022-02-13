@@ -3,14 +3,152 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css";
 
 
-#map-container {
-  width: 800px;
-  height: 600px;
+body {
+  margin: 0;
+  background: lightgray;
 }
 
-#map {
-  width: 1027px;
-  max-height: 950px;
+/*
+App Layout Grid
+*/
+
+#app-container {
+  height: calc(100vh - 1px);
+  width: calc(100vw - 1px);
+  display: grid;
+  grid-template:
+    "m r" auto
+    / minmax(250px, auto) max-content;
+  grid-gap: 1px;
+}
+
+#main-column {
+  grid-area: m;
+  display: grid;
+  grid-template:
+    "t" max-content
+    "c" minmax(250px, auto)
+    "b" max-content
+    / minmax(250px, auto);
+  grid-gap: 1px;
+}
+
+#right-bar {
+  grid-area: r;
+  background: lightgray;
+  display: flex;
+  flex-direction: row;
+}
+
+#top-bar {
+  grid-area: t;
+  background: lightgray;
+}
+
+#bottom-bar {
+  grid-area: b;
+  background: lightgray;
+}
+
+#map-container {
+  grid-area: c;
+}
+
+#credits-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.credit-item {
+  background: #f8f9fa;
+  color: #343a40;
+  border: 5px #ff0000;
+  flex-grow: 1;
+  align-content: center;
+  text-align: center;
+}
+
+.flexbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.flexbar-item {
+  margin: 5px;
+}
+
+#sort-filter-collapsed {
+  background: lightgray;
+  cursor: pointer;
+  font-size: 12pt;
+  line-height: 20px;
+  font-family: sans-serif;
+  font-weight: 600;
+  text-align: center;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  height: 100%;
+}
+
+#query-console-container {
+  font-family: Arial, Helvetica, sans-serif;
+	background-color: #cecedb;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#query-console-collapsed {
+	line-height: 32px;
+	text-align: left;
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-content: baseline;
+}
+
+#query-console-title {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+#query-function {
+  display: inline-flex;
+  align-items: center;
+}
+
+#query-command-bar {
+  padding: 10px;
+}
+
+#query-textarea-container {
+  display: flex;
+  background: #1971c2;
+}
+
+#query-textarea {
+  font-family: Consolas 'Lucida Console' 'Cascadia Code' monospace;
+  font-size: 13pt;
+  flex: auto;
+  resize: none;
+  outline: none;
+  border-radius: 0;
+  border: none;
+  background: #1971c2;
+  color: #FFFFFF;
+  width: auto;
+  padding: 15px;
+}
+
+#query-textarea::placeholder {
+  color: #eeeeee;
+  opacity: 1;
 }
 
 /*

@@ -46,8 +46,7 @@ const useStyles = makeStyles({
     borderStyle: "outset"
   },
   grid: {
-    maxWidth: 40,
-    width: "100%",
+    width: 120,
     height: "100%"
   },
   focusVisible: {}
@@ -134,7 +133,7 @@ export default function ConsoleProjectionButtons() {
       id="projContainer"
       container
       item
-      direction="column"
+      direction="row"
       justifyContent="center"
       alignItems="center"
       xs
@@ -144,7 +143,7 @@ export default function ConsoleProjectionButtons() {
           title={<NorthDisabled />}
           enterDelay={800}
           leaveDelay={0}
-          placement="right"
+          placement="bottom"
           arrow
           TransitionComponent={Zoom}
         >
@@ -170,7 +169,7 @@ export default function ConsoleProjectionButtons() {
           }
           enterDelay={800}
           leaveDelay={0}
-          placement="right"
+          placement="bottom"
           arrow
           TransitionComponent={Zoom}
         >
@@ -195,7 +194,7 @@ export default function ConsoleProjectionButtons() {
           title={<SouthDisabled />}
           enterDelay={800}
           leaveDelay={0}
-          placement="right"
+          placement="bottom"
           arrow
           TransitionComponent={Zoom}
         >

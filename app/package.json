@@ -23,10 +23,10 @@
       "url": "https://github.com/cgm78"
     }
   ],
-  "homepage": "https://github.com/CartoCosmos/CartoCosmos",
+  "homepage": "https://github.com/GeoSTAC/CartoCosmos-with-STAC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CartoCosmos/CartoCosmos.git"
+    "url": "https://github.com/GeoSTAC/CartoCosmos-with-STAC.git"
   },
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
@@ -35,7 +35,9 @@
     "test": "mocha --require @babel/register",
     "fix": "npm run lint --fix",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
-    "generate-docs": "node_modules/.bin/jsdoc src/js/  --configure .jsdoc.json --verbose"
+    "generate-docs": "node_modules/.bin/jsdoc src/js/  --configure .jsdoc.json --verbose",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -57,6 +59,7 @@
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "gh-pages": "^3.2.3",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "jsdoc": "^3.6.3",
@@ -92,6 +95,7 @@
     "leaflet": "^1.6.0",
     "leaflet-draw": "1.0.4",
     "leaflet-fullscreen": "^1.0.2",
+    "leaflet-html-legend": "0.3.5",
     "proj4": "^2.6.0",
     "proj4leaflet": "^1.0.2",
     "react": "^16.12.0",

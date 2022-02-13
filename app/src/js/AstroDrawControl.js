@@ -61,7 +61,12 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
       }
     }
 
-    this.wktTextBox = L.DomUtil.get("wktTextBox");
+    this.queryTextBox = L.DomUtil.get("query-textarea");
+    this.queryAuto = L.DomUtil.get("query-auto-checkbox");
+    this.queryAutoWkt = L.DomUtil.get("query-auto-wkt-checkbox");
+    // TODO: STAC Query should auto-populate/set this.queryTextBox.value
+    //       if (this.queryAuto.checked === true && this.queryAutoWkt.checked === false)
+
     this.wkt = new Wkt.Wkt();
     this.myLayer = L.Proj.geoJson().addTo(map);
 
@@ -105,7 +110,9 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     geoJson = geoJson["geometry"];
 
     this.wkt.read(JSON.stringify(geoJson));
-    this.wktTextBox.value = this.wkt.write();
+    if (this.queryAuto.checked === true && this.queryAutoWkt.checked === true) {
+      this.queryTextBox.value = this.wkt.write();
+    }
   },
 
   clearMap: function() {
@@ -254,7 +261,7 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     this.myLayer.clearLayers();
     this.options.edit["featureGroup"].clearLayers();
 
-    let wktValue = this.wktTextBox.value;
+    let wktValue = this.queryTextBox.value;
 
     try {
       this.wkt.read(wktValue);
