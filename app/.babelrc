@@ -19,17 +19,17 @@
     [
       "babel-plugin-import",
       {
-        "libraryName": "@material-ui/core",
+        "libraryName": "@mui/material",
         "libraryDirectory": "esm",
         "camel2DashComponentName": false
       },
       "core"
-      
+
     ],
     [
       "babel-plugin-import",
       {
-        "libraryName": "@material-ui/icons",
+        "libraryName": "@mui/icons-material",
         "libraryDirectory": "esm",
         "camel2DashComponentName": false
       },

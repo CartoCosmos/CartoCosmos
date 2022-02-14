@@ -1,10 +1,10 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import SvgIcon from "@material-ui/core/SvgIcon";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import Divider from "@mui/material/Divider";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import SvgIcon from "@mui/material/SvgIcon";
 import CartoCosmosIcon from "../../assets/img/cartocosmos-logo.svg";
 
 /**

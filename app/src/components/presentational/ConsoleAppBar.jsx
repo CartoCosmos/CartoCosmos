@@ -3,10 +3,10 @@ import ConsoleTargetInfo from "../presentational/ConsoleTargetInfo.jsx";
 import ConsoleProjectionButtons from "../presentational/ConsoleProjectionButtons.jsx";
 import ConsoleLonLatSelects from "../presentational/ConsoleLonLatSelects.jsx";
 import ConsoleCoordinates from "./ConsoleCoordinates.jsx";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar"; // Not sure what this did?
 import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar"; // Not sure what this did?
+import Divider from "@mui/material/Divider";
 
 /**
  * Controls css styling for this component using js to css

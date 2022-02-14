@@ -1,5 +1,4 @@
 import L from "leaflet";
-import "leaflet-fullscreen";
 
 import ProjectionControl from "./ProjectionControl";
 import MousePositionControl from "./MousePositionControl";
@@ -50,7 +49,7 @@ export default L.AstroControlManager = L.Class.extend({
 
     this._sidebarControl = new AstroSidebarControl(
       L.DomUtil.get("consoleToolbar"),
-      L.DomUtil.get("coordContianer")
+      L.DomUtil.get("coordContainer")
     );
   },
 

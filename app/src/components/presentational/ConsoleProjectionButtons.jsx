@@ -1,12 +1,12 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles, alpha } from "@material-ui/core/styles";
+import Grid from "@mui/material/Grid";
+import ButtonBase from "@mui/material/ButtonBase";
+import Typography from "@mui/material/Typography";
 import northPolar from "../../assets/img/NorthPolar.png";
 import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
 import southPolar from "../../assets/img/SouthPolar.png";
-import Zoom from "@material-ui/core/Zoom";
+import Zoom from "@mui/material/Zoom";
 import StyledTooltip from "./StyledTooltip.jsx";
 
 /**

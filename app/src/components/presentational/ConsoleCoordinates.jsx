@@ -1,10 +1,10 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Zoom from "@material-ui/core/Zoom";
-import Paper from "@material-ui/core/Paper";
-import Divider from "@material-ui/core/Divider";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Zoom from "@mui/material/Zoom";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
 import StyledTooltip from "./StyledTooltip.jsx";
 
 /**
@@ -69,7 +69,7 @@ export default function ConsoleCoordinates() {
       arrow
       TransitionComponent={Zoom}
     >
-      <div id="coordContianer" className={classes.container}>
+      <div id="coordContainer" className={classes.container}>
         <Paper
           style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
           variant="outlined"

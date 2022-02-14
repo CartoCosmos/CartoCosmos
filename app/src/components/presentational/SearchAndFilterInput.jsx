@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 // Apply and Clear Buttons
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Button from "@material-ui/core/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Button from "@mui/material/Button";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 // Keyword Filter
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 // CSS
 import { makeStyles, alpha } from "@material-ui/core/styles";
 // Date Range

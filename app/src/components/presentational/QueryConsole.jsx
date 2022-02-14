@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, alpha } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PolylineIcon from '@mui/icons-material/Polyline';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
