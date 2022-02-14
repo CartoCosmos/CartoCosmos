@@ -1,8 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-
 
 // Planet Selection Dialog
 import PropTypes from 'prop-types';
@@ -10,12 +8,12 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
-import ListSubheader from "@material-ui/core/ListSubheader";
+import ListSubheader from "@mui/material/ListSubheader";
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import { blue } from '@mui/material/colors';
-import Link from "@material-ui/core/Link";
+import Link from "@mui/material/Link";
 
 // Icons
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -36,7 +34,7 @@ import MoonIcon from "../../assets/img/planet-icons/010-moon.png";
 /**
  * Controls css styling for this component using js to css
  */
-const useStyles = makeStyles({
+let css = {
   img: {
     width: 32,
     height: 32,
@@ -51,8 +49,8 @@ const useStyles = makeStyles({
     fontWeight: 900,
     fontSize: 42,
     letterSpacing: "0rem",
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: "10px",
+    paddingRight: "10px",
     cursor: "pointer",
     "&:hover": {
       background: "#efefef",
@@ -63,10 +61,10 @@ const useStyles = makeStyles({
     alignContent: "center",
     paddingLeft: 20
   }
-});
+};
 
 
- const planets = [ 
+ const planets = [
    ['Mercury', MercuryIcon ],
    ['Venus', VenusIcon],
    ['Earth', EarthIcon],
@@ -81,12 +79,10 @@ const moons = ['Moon', 'Ceres', 'Mimas', 'Titan', 'Deimos', 'Tethys', 'Phoebe', 
 
 /**
  * Dialog for selecting planets
- * @param {open, onClose, selectedValue} props 
+ * @param {open, onClose, selectedValue} props
  * @returns Planet Selection Dialog
  */
 function PlanetDialog(props) {
-
-  const classes = useStyles();
 
   const { onClose, selectedValue, open } = props;
 
@@ -97,7 +93,7 @@ function PlanetDialog(props) {
   const handleListItemClick = (value) => {
     onClose(value);
   };
- 
+
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Select Target Body</DialogTitle>
@@ -107,7 +103,7 @@ function PlanetDialog(props) {
           <ListItem button onClick={() => handleListItemClick(planet[0])} key={planet[0]}>
             <ListItemAvatar>
               <Avatar sx={{ bgcolor: blue[100] }}>
-                <img className={classes.img} src={planet[1]} />
+                <img style={css.img} src={planet[1]} />
               </Avatar>
             </ListItemAvatar>
             <ListItemText primary={planet[0]} />
@@ -118,14 +114,14 @@ function PlanetDialog(props) {
           <ListItem button onClick={() => handleListItemClick(moon)} key={moon}>
             <ListItemAvatar>
               <Avatar sx={{ bgcolor: blue[100] }}>
-              <img className={classes.img} src={MoonIcon} />
+              <img style={css.img} src={MoonIcon} />
               </Avatar>
             </ListItemAvatar>
             <ListItemText primary={moon} />
           </ListItem>
         ))}
       </List>
-      <div className={classes.attributionContainer}>
+      <div style={css.attributionContainer}>
         <Link
           title="Space Icons"
           target="_blank"
@@ -141,7 +137,7 @@ function PlanetDialog(props) {
     </Dialog>
   );
 }
- 
+
 PlanetDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
@@ -160,7 +156,6 @@ PlanetDialog.propTypes = {
  * )
  */
 export default function ConsoleTargetInfo(props) {
-  const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(planets[3][0]);
@@ -181,11 +176,11 @@ export default function ConsoleTargetInfo(props) {
       item
       justifyContent="center"
       alignItems="center"
-      className={classes.grid}
+      sx={css.grid}
       xs
     >
       <Grid item>
-        <Typography id="targetName" className={classes.title} variant="h4" onClick={handleClickOpen}>
+        <Typography id="targetName" sx={css.title} variant="h4" onClick={handleClickOpen}>
           {props.target.toUpperCase()} <ArrowDropDownIcon fontSize="large" />
         </Typography>
       </Grid>

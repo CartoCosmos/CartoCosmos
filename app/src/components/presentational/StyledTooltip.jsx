@@ -1,14 +1,13 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@mui/material/Tooltip";
 
-const useStyles = makeStyles(theme => ({
+let css = {
   tooltip: {
     backgroundColor: "#f8f9fa",
     color: "rgba(0, 0, 0, 0.87)",
     maxWidth: 250,
     fontSize: 12,
-    border: `2px solid ${theme.palette.divider}`,
+    border: `2px solid black`,
     textAlign: "center"
   },
   arrow: {
@@ -26,10 +25,13 @@ const useStyles = makeStyles(theme => ({
   tooltipPlacementBottom: {
     margin: "8px 0"
   }
-}));
+};
 
 export default function StyledTooltip(props) {
-  const classes = useStyles();
 
-  return <Tooltip classes={classes} {...props} />;
+  return (
+    <Tooltip
+    sx={css}
+    {...props} />
+  );
 }

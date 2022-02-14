@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Divider from "@mui/material/Divider";
@@ -7,37 +6,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import SvgIcon from "@mui/material/SvgIcon";
 import CartoCosmosIcon from "../../assets/img/cartocosmos-logo.svg";
 
-/**
- * Controls css styling for this component using js to css
- */
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: "#f8f9fa",
-    maxHeight: 25,
-    height: 25,
-    marginTop: 1,
-    borderTop: `1px solid ${theme.palette.divider}`,
-    color: "#343a40",
-    textAlign: "center",
-    "& hr": {
-      //margin: theme.spacing(0, 1),
-      height: 25
-    },
-    "& svg": {
-      margin: theme.spacing(0.25)
-    },
-    "& > *": {
-      maxHeight: 25
-    }
-  },
-  link: {
-    fontSize: 12,
-    fontWeight: "600px !important"
-  }
-}));
 
 export default function CreditsDisplay() {
-  const classes = useStyles();
 
   return (
     <div id="credits-bar">

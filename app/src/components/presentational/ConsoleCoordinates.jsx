@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Zoom from "@mui/material/Zoom";
@@ -10,7 +9,7 @@ import StyledTooltip from "./StyledTooltip.jsx";
 /**
  * Controls css styling for this component using js to css
  */
-const useStyles = makeStyles({
+let css = {
   grid: {
     height: "100%",
     maxHeight: 60,
@@ -45,7 +44,7 @@ const useStyles = makeStyles({
       textAlign: "center"
     }
   }
-});
+};
 
 /**
  * Main component that displays the container for the coordinate display
@@ -54,7 +53,6 @@ const useStyles = makeStyles({
  * @component
  */
 export default function ConsoleCoordinates() {
-  const classes = useStyles();
 
   return (
     <StyledTooltip
@@ -69,18 +67,18 @@ export default function ConsoleCoordinates() {
       arrow
       TransitionComponent={Zoom}
     >
-      <div id="coordContainer" className={classes.container}>
+      <div id="coordContainer" style={css.container}>
         <Paper
           style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
           variant="outlined"
         >
-          <Typography variant="overline" className={classes.title}>
+          <Typography variant="overline" sx={css.title}>
             Longitude
           </Typography>
           <Divider variant="fullWidth" />
           <Typography
             noWrap
-            className={classes.coords}
+            sx={css.coords}
             id="lonCoordinateDisplay"
             variant="subtitle2"
           />
@@ -93,13 +91,13 @@ export default function ConsoleCoordinates() {
           }}
           variant="outlined"
         >
-          <Typography variant="overline" className={classes.title}>
+          <Typography variant="overline" sx={css.title}>
             Latitude
           </Typography>
           <Divider variant="fullWidth" />
           <Typography
             noWrap
-            className={classes.coords}
+            sx={css.coords}
             id="latCoordinateDisplay"
             variant="subtitle2"
           />

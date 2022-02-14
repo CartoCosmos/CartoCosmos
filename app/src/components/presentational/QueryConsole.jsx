@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, alpha } from "@material-ui/core/styles";
+import { alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -8,10 +8,10 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SwitchLeftIcon from '@mui/icons-material/SwitchLeft';
 import SwitchRightIcon from '@mui/icons-material/SwitchRight';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
-import Checkbox, {checkboxClasses} from "@mui/material/Checkbox";
+import Checkbox from "@mui/material/Checkbox";
 
 
-const useStyles = makeStyles(theme => ({
+let css = {
   button: {
     width: "auto",
     color: "#000",
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: alpha("#eee", 0.9)
     }
   }
-}));
+};
 
 /**
  * Component lets user view and use stac queries
@@ -30,7 +30,6 @@ const useStyles = makeStyles(theme => ({
  * <StacQueryConsole />
  */
 export default function QueryConsole() {
-  const classes = useStyles();
 
   const [consoleAuto, setConsoleAuto] = React.useState(true);
   const [consoleAutoWkt, setConsoleAutoWkt] = React.useState(false);
@@ -51,7 +50,7 @@ export default function QueryConsole() {
         </span>
         <span id="query-function">
           <Checkbox checked={consoleAuto} onChange={handleConsoleAutoChange} id="query-auto-checkbox"/>
-          Auto-populate with: 
+          Auto-populate with:
           {consoleAutoWkt ? " WKT String" : " STAC Query"}
           <Checkbox id="query-auto-wkt-checkbox" checked={consoleAutoWkt} onChange={handleConsoleAutoWktChange}
                 icon={<SwitchRightIcon/>} checkedIcon={<SwitchLeftIcon/>} color="default"/>
@@ -61,13 +60,13 @@ export default function QueryConsole() {
           <div id="query-textarea-container">
             <textarea id="query-textarea" placeholder="> Type Query Here"></textarea>
             <div id="query-command-bar">
-              <ButtonGroup 
-                orientation="vertical" 
-                size="small" 
+              <ButtonGroup
+                orientation="vertical"
+                size="small"
                 variant="contained">
-                <Button className={classes.button} startIcon={<ContentCopyIcon />}>Copy Code</Button>
-                <Button id="wktButton" className={classes.button} startIcon={<PolylineIcon />}>Draw WKT String</Button>
-                <Button className={classes.button} startIcon={<PlayArrowIcon />}>Run STAC Query</Button>
+                <Button sx={css.button} startIcon={<ContentCopyIcon />}>Copy Code</Button>
+                <Button id="wktButton" sx={css.button} startIcon={<PolylineIcon />}>Draw WKT String</Button>
+                <Button sx={css.button} startIcon={<PlayArrowIcon />}>Run STAC Query</Button>
               </ButtonGroup>
             </div>
           </div>

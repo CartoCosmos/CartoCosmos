@@ -4,10 +4,9 @@ import MapContainer from "./MapContainer.jsx";
 import QueryConsole from "../presentational/QueryConsole.jsx";
 import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
 import SearchAndFilterInput from "../presentational/SearchAndFilterInput.jsx";
-import { makeStyles } from "@material-ui/core/styles";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
-const useStyles = makeStyles(theme => ({
+const css = {
   shown: {
     display: "block",
     background: "#f8f9fa"
@@ -15,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   hidden: {
     display: "none"
   }
-}))
+};
 
 /**
  * App is the parent component for all of the other components in the project. It
@@ -25,14 +24,13 @@ const useStyles = makeStyles(theme => ({
  * @component
  */
 export default function App() {
-  const classes = useStyles();
   const [targetPlanet, setTargetPlanet] = React.useState("Mars");
   const [showSortBar, setShowSortBar] = React.useState(true);
-  const [sortBarStyle, setSortBarStyle] = React.useState(classes.hidden);
+  const [sortBarStyle, setSortBarStyle] = React.useState(css.hidden);
 
   const ShowHideSort = () => {
     setShowSortBar(!showSortBar);
-    setSortBarStyle(showSortBar ? classes.shown : classes.hidden);
+    setSortBarStyle(showSortBar ? css.shown : css.hidden);
   }
 
   /**
@@ -55,7 +53,7 @@ export default function App() {
           <CreditsDisplay />
         </div>
       </div>
-      <div id="right-bar">  
+      <div id="right-bar">
         <div id="sort-filter-collapsed" onClick={ShowHideSort} >
           <ArrowLeftIcon/>
           Sort and Filter
@@ -63,9 +61,9 @@ export default function App() {
         </div>
           <div className={sortBarStyle}>
             <SearchAndFilterInput target={targetPlanet}/>
-            {/* instead of styled surrounding div: { showSortBar ? <SearchAndFilterInput /> : null } 
+            {/* instead of styled surrounding div: { showSortBar ? <SearchAndFilterInput /> : null }
                 ^ simpler but might break things if another part of the program is looking for it and it's not there? */}
-          </div> 
+          </div>
       </div>
     </div>
   );

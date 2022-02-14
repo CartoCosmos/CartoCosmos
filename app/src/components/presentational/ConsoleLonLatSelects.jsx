@@ -1,5 +1,5 @@
 import React from "react";
-import { alpha, makeStyles, withStyles } from "@material-ui/core/styles";
+import { alpha } from "@mui/material/styles";
 import Zoom from "@mui/material/Zoom";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import AddBoxIcon from "@mui/icons-material/AddBoxOutlined";
@@ -8,12 +8,12 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import StyledTooltip from "./StyledTooltip.jsx";
+import Tooltip from "@mui/material/Tooltip";
 
 /**
  * Controls css styling for this component using js to css
  */
-const useStyles = makeStyles(theme => ({
+ let css = {
   grid: {
     width: 600,
     height: "100%",
@@ -49,12 +49,13 @@ const useStyles = makeStyles(theme => ({
     flexWrap: "wrap",
     backgroundColor: alpha("#1971c2", 0.7)
   }
-}));
+};
+
 
 /**
  * Custom Component that uses ToggleButton with modified css styling
  */
-const StyledToggleButton = withStyles(theme => ({
+const styledToggleButton = {
   root: {
     height: 30,
     color: alpha("#f8f9fa", 0.8),
@@ -80,36 +81,63 @@ const StyledToggleButton = withStyles(theme => ({
     color: "#343a40",
     backgroundColor: "#e9ecef"
   }
-}))(ToggleButton);
+};
 
-const StyledToggleButtonGroup = withStyles(theme => ({
+const styledToggleButtonGroup = {
   root: {
     backgroundColor: alpha("#1971c2", 0.7),
-    border: `1px solid ${theme.palette.divider}`,
+    border: `1px solid black`,
     height: 37
   },
   grouped: {
-    margin: theme.spacing(0.5),
+    margin: "4px",
     border: "none",
-    padding: theme.spacing(0, 0.75),
-    "&:not(:first-child)": {
-      borderRadius: theme.shape.borderRadius
+    padding: "0, 6px",
+    "&:not(:first-of-type)": {
+      borderRadius: "4px"
     },
-    "&:first-child": {
-      borderRadius: theme.shape.borderRadius
+    "&:first-of-type": {
+      borderRadius: "4px"
     }
   }
-}))(ToggleButtonGroup);
+};
 
-const StyledDivider = withStyles(theme => ({
+const styledDivider = {
   root: {
     alignSelf: "stretch",
     height: "auto",
-    margin: theme.spacing(1, 0.5),
+    margin: "8px, 4px",
     backgroundColor: alpha("#f8f9fa", 0.8),
     width: 1
   }
-}))(Divider);
+};
+
+const styledTooltip = {
+  root: {
+    backgroundColor: "#f8f9fa",
+    color: "rgba(0, 0, 0, 0.87)",
+    maxWidth: 250,
+    fontSize: 12,
+    border: `2px solid black`,
+    textAlign: "center"
+  },
+  arrow: {
+    color: "#f8f9fa"
+  },
+  tooltipPlacementRight: {
+    margin: "0 8px"
+  },
+  tooltipPlacementLeft: {
+    margin: "0 8px"
+  },
+  tooltipPlacementTop: {
+    margin: "8px 0"
+  },
+  tooltipPlacementBottom: {
+    margin: "8px 0"
+  }
+};
+
 /**
  * Main component which controls and displays the console's longitude and latitude
  * selectors and handles user click events.
@@ -139,12 +167,10 @@ export default function ConsoleLonLatSelects() {
     }
   };
 
-  const classes = useStyles();
-
   return (
     <div className="flexbar">
       <div className="flexbar-item">
-        <StyledTooltip
+        <Tooltip
           title={
             <Typography variant="subtitle1">
               Switch to either positive east or positive west longitude
@@ -153,32 +179,39 @@ export default function ConsoleLonLatSelects() {
           }
           enterDelay={800}
           leaveDelay={0}
-          arrow
           TransitionComponent={Zoom}
         >
           <div id="lonLatEastWest">
-            <StyledToggleButtonGroup
+            <ToggleButtonGroup
               exclusive
               size="small"
               value={posEastWest}
               onChange={handlePosEastWest}
+              sx={styledToggleButtonGroup}
             >
-              <StyledToggleButton id="consoleLonEastBtn" value="PositiveEast">
-                <AutorenewIcon fontSize="small" className={classes.flip} />
-                <Typography className={classes.buttonText}>East</Typography>
-              </StyledToggleButton>
-              <StyledToggleButton id="consoleLonWestBtn" value="PositiveWest">
+              <ToggleButton
+                id="consoleLonEastBtn"
+                value="PositiveEast"
+                style={styledToggleButton}>
+                <AutorenewIcon fontSize="small" sx={css.flip} />
+                <Typography sx={css.buttonText}>East</Typography>
+              </ToggleButton>
+              <ToggleButton
+                id="consoleLonWestBtn"
+                value="PositiveWest"
+                sx={styledToggleButton}>
                 <AutorenewIcon fontSize="small" />
-                <Typography className={classes.buttonText}>West</Typography>
-              </StyledToggleButton>
-            </StyledToggleButtonGroup>
+                <Typography sx={css.buttonText}>West</Typography>
+              </ToggleButton>
+            </ToggleButtonGroup>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </div>
-      <StyledDivider orientation="vertical" />
+      <Divider sx={styledDivider} orientation="vertical" />
 
       <div className="flexbar-item">
-        <StyledTooltip
+        <Tooltip
+          sx={styledTooltip}
           title={
             <Typography variant="subtitle1">
               Switch to either a planetocentric or planetographic coordinate
@@ -191,34 +224,38 @@ export default function ConsoleLonLatSelects() {
           TransitionComponent={Zoom}
         >
           <div id="lonLatType">
-            <StyledToggleButtonGroup
+            <ToggleButtonGroup
               exclusive
               size="small"
               value={coordSystem}
               onChange={handleCoordSystem}
+              sx={styledToggleButton}
             >
-              <StyledToggleButton
+              <ToggleButton
                 value="Planetocentric"
                 id="consoleLatTypeOcentric"
+                sx={styledToggleButton}
               >
-                <i className={classes.circle} />
-                <Typography className={classes.buttonText}>centric</Typography>
-              </StyledToggleButton>
-              <StyledToggleButton
+                <i style={css.circle} />
+                <Typography sx={css.buttonText}>centric</Typography>
+              </ToggleButton>
+              <ToggleButton
                 id="consoleLatTypeOgraphic"
                 value="Planetographic"
+                sx={styledToggleButton}
               >
-                <i className={classes.oval} />
-                <Typography className={classes.buttonText}>graphic</Typography>
-              </StyledToggleButton>
-            </StyledToggleButtonGroup>
+                <i style={css.oval} />
+                <Typography sx={css.buttonText}>graphic</Typography>
+              </ToggleButton>
+            </ToggleButtonGroup>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </div>
-      <StyledDivider orientation="vertical" />
+      <Divider orientation="vertical" sx={styledDivider} />
 
       <div className="flexbar-item">
-        <StyledTooltip
+        <Tooltip
+          sx={styledTooltip}
           title={
             <Typography variant="subtitle1">
               Switch to either -180&deg; to 180&deg; or 0&deg; to 360&deg;
@@ -231,23 +268,24 @@ export default function ConsoleLonLatSelects() {
           TransitionComponent={Zoom}
         >
           <div id="lonLatRange">
-            <StyledToggleButtonGroup
+            <ToggleButtonGroup
               exclusive
               size="small"
               value={lonRange}
               onChange={handleLonRange}
+              sx={styledToggleButtonGroup}
             >
-              <StyledToggleButton id="consoleLon180Btn" value={180}>
+              <ToggleButton sx={styledToggleButton} id="consoleLon180Btn" value={180}>
                 <ExposureIcon fontSize="small" />
-                <Typography className={classes.buttonText}>180&deg;</Typography>
-              </StyledToggleButton>
-              <StyledToggleButton id="consoleLon360Btn" value={360}>
+                <Typography sx={css.buttonText}>180&deg;</Typography>
+              </ToggleButton>
+              <ToggleButton sx={styledToggleButton} id="consoleLon360Btn" value={360}>
                 <AddBoxIcon fontSize="small" />
-                <Typography className={classes.buttonText}>360&deg;</Typography>
-              </StyledToggleButton>
-            </StyledToggleButtonGroup>
+                <Typography sx={css.buttonText}>360&deg;</Typography>
+              </ToggleButton>
+            </ToggleButtonGroup>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </div>
     </div>
   );

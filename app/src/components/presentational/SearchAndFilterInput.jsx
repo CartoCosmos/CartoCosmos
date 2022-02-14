@@ -7,7 +7,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 // Keyword Filter
 import TextField from "@mui/material/TextField";
 // CSS
-import { makeStyles, alpha } from "@material-ui/core/styles";
+import { alpha } from "@mui/material/styles";
 // Date Range
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -30,7 +30,7 @@ import { getMaxNumberPages, setCurrentPage, getCurrentPage, getNumberMatched } f
 /**
  * Controls css styling for this component using js to css
  */
-const useStyles = makeStyles(theme => ({
+let css = {
   root: {
     backgroundColor: "#f8f9fa",
     overflow: "hidden",
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     height: "100vh",
     width: 225,
     display: "flex",
-    flexDirection: "column", 
+    flexDirection: "column",
     margin: "auto",
     padding: 0
   },
@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 18,
     fontWeight: 600
   }
-}));
+};
 
 /**
  * Component that lets user search and filter
@@ -85,9 +85,6 @@ const useStyles = makeStyles(theme => ({
  *
  */
 export default function SearchAndFilterInput(props) {
-
-  // import stylesheet from above
-  const classes = useStyles();
 
   const keywordDetails = React.useRef(null);
   const dateDetails = React.useRef(null);
@@ -204,17 +201,17 @@ export default function SearchAndFilterInput(props) {
 
 
   return (
-    <div className={classes.root}>
-        <div className={classes.container}>
+    <div style={css.root}>
+        <div style={css.container}>
           <div className="panelSection panelHeader">
             Sort and Filter
           </div>
           <div className="panelSection">
             <ButtonGroup>
-              <Button id="applyButton" variant="contained" startIcon={<FilterAltIcon />} className={classes.button}>
+              <Button id="applyButton" variant="contained" startIcon={<FilterAltIcon />} sx={css.button}>
                 Apply
               </Button>
-              <Button id="clearButton" variant="contained" endIcon={<DeleteForeverIcon />} onClick={handleClear} className={classes.buttonRemove}>
+              <Button id="clearButton" variant="contained" endIcon={<DeleteForeverIcon />} onClick={handleClear} sx={css.buttonRemove}>
                 Clear
               </Button>
             </ButtonGroup>
@@ -277,7 +274,7 @@ export default function SearchAndFilterInput(props) {
               </summary>
               <div className="panelItem">
                 <TextField
-                  className={classes.textbox}
+                  sx={css.textbox}
                   value={keywordTextVal}
                   variant="outlined"
                   InputLabelProps={{
