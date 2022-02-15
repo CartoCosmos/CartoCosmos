@@ -244,6 +244,7 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
       }
     }
     // re render map
+    this._map._footprintControl.remove();
     for(let i = 0; i < this._map._geoLayers.length; i++){
       this._map._geoLayers[i].clearLayers();
     }
