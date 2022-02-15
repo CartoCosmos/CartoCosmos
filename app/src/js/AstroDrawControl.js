@@ -225,7 +225,8 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     }
 
     if (L.DomUtil.get("keywordCheckBox").checked == true) {
-      filterOptions.push(L.DomUtil.get("keywordTextBox").value);
+      let keywordString = "keywords=[" + L.DomUtil.get("keywordTextBox").value.split(" ")  + "]"
+      filterOptions.push(keywordString);
     }
 
     if (L.DomUtil.get("areaCheckBox").checked == true) {
@@ -244,10 +245,9 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     }
     // re render map
     this._map._footprintControl.remove();
-    for(let i = 0; i < this._map._geoLayers.length; i++){
-      this._map._geoLayers[i].clearLayers();
-    }
-    this._map.loadFootprintLayer(this._map._target, queryString);
+    this._map._geoLayer.clearLayers();
+    this._map.removeControl(this._map._htmllegend);
+    this._map.loadFootprintLayer(this._map._name, queryString);
   },
 
   /**
