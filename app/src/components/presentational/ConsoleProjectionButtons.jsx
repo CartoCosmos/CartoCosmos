@@ -7,7 +7,8 @@ import northPolar from "../../assets/img/NorthPolar.png";
 import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
 import southPolar from "../../assets/img/SouthPolar.png";
 import Zoom from "@mui/material/Zoom";
-import StyledTooltip from "./StyledTooltip.jsx";
+import Tooltip from "@mui/material/Tooltip";
+
 
 /**
  * Controls css styling for this component using js to css
@@ -51,6 +52,7 @@ let css = {
   },
   focusVisible: {}
 };
+
 
 /**
  * Component used only in this file, passed in to the Tooltip to
@@ -138,12 +140,11 @@ export default function ConsoleProjectionButtons() {
       xs
     >
       <Grid item>
-        <StyledTooltip
+        <Tooltip
           title={<NorthDisabled />}
           enterDelay={800}
           leaveDelay={0}
           placement="bottom"
-          arrow
           TransitionComponent={Zoom}
         >
           <div>
@@ -151,16 +152,16 @@ export default function ConsoleProjectionButtons() {
               id="projectionNorthPole"
               focusRipple
               sx={active == "north" ? css.activeBtn : css.button}
-              //focusVisibleClassName={classes.focusVisible}
+              focusVisibleClassName={css.focusVisible}
               onClick={handleNorthClick}
             >
               <img style={css.img} src={northPolar} />
             </ButtonBase>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </Grid>
       <Grid item>
-        <StyledTooltip
+        <Tooltip
           title={
             <Typography variant="subtitle1">
               Switch to a cylindrical projection for the target body.
@@ -169,7 +170,6 @@ export default function ConsoleProjectionButtons() {
           enterDelay={800}
           leaveDelay={0}
           placement="bottom"
-          arrow
           TransitionComponent={Zoom}
         >
           <div>
@@ -179,22 +179,21 @@ export default function ConsoleProjectionButtons() {
               sx={
                 active == "cylindrical" ? css.activeBtn : css.button
               }
-              //focusVisibleClassName={classes.focusVisible}
+              focusVisibleClassName={css.focusVisible}
               value="cylindrical"
               onClick={() => setActive("cylindrical")}
             >
               <img style={css.img} src={simpleCylindrical} />
             </ButtonBase>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </Grid>
       <Grid item>
-        <StyledTooltip
+        <Tooltip
           title={<SouthDisabled />}
           enterDelay={800}
           leaveDelay={0}
           placement="bottom"
-          arrow
           TransitionComponent={Zoom}
         >
           <div>
@@ -208,7 +207,7 @@ export default function ConsoleProjectionButtons() {
               <img style={css.img} src={southPolar} />
             </ButtonBase>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </Grid>
     </Grid>
   );

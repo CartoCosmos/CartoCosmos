@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Zoom from "@mui/material/Zoom";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
-import StyledTooltip from "./StyledTooltip.jsx";
+import Tooltip from "@mui/material/Tooltip";
 
 /**
  * Controls css styling for this component using js to css
@@ -18,13 +18,15 @@ let css = {
   title: {
     color: "#343a40",
     lineHeight: "1rem",
-    paddingBottom: 1,
-    fontWeight: 600
+    padding: 1,
+    fontWeight: 600,
+    textAlign: "center"
   },
   coords: {
     color: "#343a40",
     lineHeight: "1.4rem",
-    fontSize: "13px"
+    fontSize: "13px",
+    textAlign: "center"
   },
   container: {
     display: "flex",
@@ -33,16 +35,6 @@ let css = {
     height: 40,
     marginTop: 5,
     verticalAlign: "middle",
-    "& > *": {
-      margin: 0,
-      padding: 0,
-      width: "50%",
-      height: "100%",
-      maxHeight: "3rem",
-      maxWidth: "50%",
-      backgroundColor: "#f8f9fa",
-      textAlign: "center"
-    }
   }
 };
 
@@ -55,7 +47,7 @@ let css = {
 export default function ConsoleCoordinates() {
 
   return (
-    <StyledTooltip
+    <Tooltip
       title={
         <Typography variant="subtitle1">
           Displays the longitude and latitude of the area on the map
@@ -64,7 +56,6 @@ export default function ConsoleCoordinates() {
       }
       enterDelay={800}
       leaveDelay={0}
-      arrow
       TransitionComponent={Zoom}
     >
       <div id="coordContainer" style={css.container}>
@@ -103,6 +94,6 @@ export default function ConsoleCoordinates() {
           />
         </Paper>
       </div>
-    </StyledTooltip>
+    </Tooltip>
   );
 }
