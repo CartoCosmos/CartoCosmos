@@ -225,7 +225,8 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
     }
 
     if (L.DomUtil.get("keywordCheckBox").checked == true) {
-      filterOptions.push(L.DomUtil.get("keywordTextBox").value);
+      let keywordString = "keywords=[" + L.DomUtil.get("keywordTextBox").value.split(" ")  + "]"
+      filterOptions.push(keywordString);
     }
 
     if (L.DomUtil.get("areaCheckBox").checked == true) {
