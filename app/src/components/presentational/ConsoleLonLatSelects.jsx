@@ -168,7 +168,6 @@ export default function ConsoleLonLatSelects() {
 
       <div className="flexbar-item">
         <Tooltip
-          sx={styledTooltip}
           title={
             <Typography variant="subtitle1">
               Switch to either -180&deg; to 180&deg; or 0&deg; to 360&deg;

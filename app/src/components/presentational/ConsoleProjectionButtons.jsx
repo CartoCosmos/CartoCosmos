@@ -152,7 +152,6 @@ export default function ConsoleProjectionButtons() {
               id="projectionNorthPole"
               focusRipple
               sx={active == "north" ? css.activeBtn : css.button}
-              focusVisibleClassName={css.focusVisible}
               onClick={handleNorthClick}
             >
               <img style={css.img} src={northPolar} />
@@ -179,7 +178,6 @@ export default function ConsoleProjectionButtons() {
               sx={
                 active == "cylindrical" ? css.activeBtn : css.button
               }
-              focusVisibleClassName={css.focusVisible}
               value="cylindrical"
               onClick={() => setActive("cylindrical")}
             >
@@ -201,7 +199,6 @@ export default function ConsoleProjectionButtons() {
               id="projectionSouthPole"
               focusRipple
               sx={active == "south" ? css.activeBtn : css.button}
-              //focusVisibleClassName={classes.focusVisible}
               onClick={handleSouthClick}
             >
               <img style={css.img} src={southPolar} />
