@@ -244,10 +244,10 @@ export default L.Control.AstroDrawControl = L.Control.Draw.extend({
       }
     }
     // re render map
-    this._map._footprintControl.remove();
-    this._map._geoLayer.clearLayers();
-    this._map.removeControl(this._map._htmllegend);
-    this._map.loadFootprintLayer(this._map._name, queryString);
+    for(let i = 0; i < this._map._geoLayers.length; i++){
+      this._map._geoLayers[i].clearLayers();
+    }
+    this._map.loadFootprintLayer(this._map._target, queryString);
   },
 
   /**
