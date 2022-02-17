@@ -1,18 +1,19 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles, withStyles, alpha } from "@material-ui/core/styles";
+import { alpha } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import ButtonBase from "@mui/material/ButtonBase";
+import Typography from "@mui/material/Typography";
 import northPolar from "../../assets/img/NorthPolar.png";
 import simpleCylindrical from "../../assets/img/SimpleCylindrical.png";
 import southPolar from "../../assets/img/SouthPolar.png";
-import Zoom from "@material-ui/core/Zoom";
-import StyledTooltip from "./StyledTooltip.jsx";
+import Zoom from "@mui/material/Zoom";
+import Tooltip from "@mui/material/Tooltip";
+
 
 /**
  * Controls css styling for this component using js to css
  */
-const useStyles = makeStyles({
+let css = {
   img: {
     width: "100%",
     height: "100%"
@@ -50,7 +51,8 @@ const useStyles = makeStyles({
     height: "100%"
   },
   focusVisible: {}
-});
+};
+
 
 /**
  * Component used only in this file, passed in to the Tooltip to
@@ -107,7 +109,6 @@ function SouthDisabled() {
  * @component
  */
 export default function ConsoleProjectionButtons() {
-  const classes = useStyles();
 
   const [active, setActive] = React.useState("cylindrical");
 
@@ -129,7 +130,7 @@ export default function ConsoleProjectionButtons() {
 
   return (
     <Grid
-      className={classes.grid}
+      sx={css.grid}
       id="projContainer"
       container
       item
@@ -139,29 +140,27 @@ export default function ConsoleProjectionButtons() {
       xs
     >
       <Grid item>
-        <StyledTooltip
+        <Tooltip
           title={<NorthDisabled />}
           enterDelay={800}
           leaveDelay={0}
           placement="bottom"
-          arrow
           TransitionComponent={Zoom}
         >
           <div>
             <ButtonBase
               id="projectionNorthPole"
               focusRipple
-              className={active == "north" ? classes.activeBtn : classes.button}
-              focusVisibleClassName={classes.focusVisible}
+              sx={active == "north" ? css.activeBtn : css.button}
               onClick={handleNorthClick}
             >
-              <img className={classes.img} src={northPolar} />
+              <img style={css.img} src={northPolar} />
             </ButtonBase>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </Grid>
       <Grid item>
-        <StyledTooltip
+        <Tooltip
           title={
             <Typography variant="subtitle1">
               Switch to a cylindrical projection for the target body.
@@ -170,46 +169,42 @@ export default function ConsoleProjectionButtons() {
           enterDelay={800}
           leaveDelay={0}
           placement="bottom"
-          arrow
           TransitionComponent={Zoom}
         >
           <div>
             <ButtonBase
               id="projectionCylindrical"
               focusRipple
-              className={
-                active == "cylindrical" ? classes.activeBtn : classes.button
+              sx={
+                active == "cylindrical" ? css.activeBtn : css.button
               }
-              focusVisibleClassName={classes.focusVisible}
               value="cylindrical"
               onClick={() => setActive("cylindrical")}
             >
-              <img className={classes.img} src={simpleCylindrical} />
+              <img style={css.img} src={simpleCylindrical} />
             </ButtonBase>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </Grid>
       <Grid item>
-        <StyledTooltip
+        <Tooltip
           title={<SouthDisabled />}
           enterDelay={800}
           leaveDelay={0}
           placement="bottom"
-          arrow
           TransitionComponent={Zoom}
         >
           <div>
             <ButtonBase
               id="projectionSouthPole"
               focusRipple
-              className={active == "south" ? classes.activeBtn : classes.button}
-              focusVisibleClassName={classes.focusVisible}
+              sx={active == "south" ? css.activeBtn : css.button}
               onClick={handleSouthClick}
             >
-              <img className={classes.img} src={southPolar} />
+              <img style={css.img} src={southPolar} />
             </ButtonBase>
           </div>
-        </StyledTooltip>
+        </Tooltip>
       </Grid>
     </Grid>
   );

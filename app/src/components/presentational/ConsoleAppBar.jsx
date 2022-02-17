@@ -3,22 +3,17 @@ import ConsoleTargetInfo from "../presentational/ConsoleTargetInfo.jsx";
 import ConsoleProjectionButtons from "../presentational/ConsoleProjectionButtons.jsx";
 import ConsoleLonLatSelects from "../presentational/ConsoleLonLatSelects.jsx";
 import ConsoleCoordinates from "./ConsoleCoordinates.jsx";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar"; // Not sure what this did?
-import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
+import AppBar from "@mui/material/AppBar";
+import Divider from "@mui/material/Divider";
 
 /**
  * Controls css styling for this component using js to css
  */
-const useStyles = makeStyles(theme => ({
+let css = {
   appbar: {
     background: "#f8f9fa"
-  },
-  toolbar: {
-    padding: 0
   }
-}));
+};
 
 /**
  * Main component of the console, which arranges all subcomponents into a grid
@@ -27,11 +22,10 @@ const useStyles = makeStyles(theme => ({
  * @component
  */
 export default function ConsoleAppBar(props) {
-  const classes = useStyles();
 
   return (
     <AppBar
-      className={classes.appbar}
+      sx={css.appbar}
       position="static"
       color="inherit"
       id="consoleToolbar"
@@ -52,7 +46,7 @@ export default function ConsoleAppBar(props) {
           <div className="flexbar-item">
             <ConsoleLonLatSelects />
           </div>
-          
+
         </div>
     </AppBar>
   );
