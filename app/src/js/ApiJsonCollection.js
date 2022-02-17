@@ -20,11 +20,6 @@ function getItemCollection(name, queryString) {
           let link = result.collections[i].links[j];
           if (link.rel == "items") {
             var url = result.collections[i].links[j].href;
-            // this is temporary until stac.astrogeology is working with pagination
-            url = url.replace(
-              "https://stac.astrogeology.usgs.gov/api/collections",
-              "https://jat52qc8c0.execute-api.us-west-2.amazonaws.com/dev/collections"
-            );
             url = url + queryString;
             urlArray.push(url);
           }
