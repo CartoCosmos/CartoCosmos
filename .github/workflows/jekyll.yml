@@ -18,10 +18,9 @@ jobs:
     # Run our deployment command
     - name: Deploying the static website to gh-pages
       run: | 
-        npm install --legacy-peer-deps
-        git config --global user.name $user_name
-        git config --global user.email $user_email
+        npm install
+        git config --global user.name ${{ secrets.USER_NAME }}
+        git config --global user.email ${{ secrets.USER_EMAIL }}
         npm run deploy
       working-directory: app
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+
