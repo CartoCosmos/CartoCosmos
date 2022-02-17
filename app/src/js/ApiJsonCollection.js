@@ -4,7 +4,7 @@ var _numberMatched = 0;
 
 function callAPI() {
   return fetch(
-    "https://stac.astrogeology.usgs.gov/api/collections"
+    "https://6vpdmaqce6.execute-api.us-west-2.amazonaws.com/dev/collections"
   ).then(response => response.json());
 }
 
