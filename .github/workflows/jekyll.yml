@@ -21,8 +21,7 @@ jobs:
         npm install
         git config --global user.name ${{ secrets.USER_NAME }}
         git config --global user.email ${{ secrets.USER_EMAIL }}
+        git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/GeoSTAC/CartoCosmos-with-STAC.git
         npm run deploy
       working-directory: app
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
