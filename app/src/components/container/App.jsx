@@ -5,6 +5,11 @@ import QueryConsole from "../presentational/QueryConsole.jsx";
 import CreditsDisplay from "../presentational/CreditsDisplay.jsx";
 import SearchAndFilterInput from "../presentational/SearchAndFilterInput.jsx";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import Container from '@mui/material/Container';
+import GeoTiffViewer from "./geoTiffViewer";
+//import GeoTiffViewer from "../../js/geoTIffViewer";
 
 const css = {
   shown: {
@@ -27,6 +32,7 @@ export default function App() {
   const [targetPlanet, setTargetPlanet] = React.useState("Mars");
   const [showSortBar, setShowSortBar] = React.useState(true);
   const [sortBarStyle, setSortBarStyle] = React.useState(css.hidden);
+  const geoTiffViewer = new GeoTiffViewer("geoTiff-Container");
 
   const ShowHideSort = () => {
     setShowSortBar(!showSortBar);
@@ -62,6 +68,36 @@ export default function App() {
           <div style={sortBarStyle}>
             <SearchAndFilterInput target={targetPlanet}/>
           </div>
+      </div>
+
+      <div id="geoTiff-Container">
+        <Container>
+          <AppBar position="relative">
+            <Container>
+              <Typography 
+                variant="h6"
+                id="geoTiff-Asset-name"
+                noWrap
+                component="div"
+                align="center"
+                sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                >
+                  Displayed GeoTiff
+                </Typography>
+                <button onClick={geoTiffViewer.toggleViewer()} 
+                id="geoTiffClose">
+                  CLOSE
+                </button>
+            </Container>
+          </AppBar>
+          <div id = "geoTiff-Asset">
+          </div>
+          <AppBar position="relative">
+            <Container>
+              <button id="download-button">Download Asset</button>
+            </Container>
+          </AppBar>
+        </Container>
       </div>
     </div>
   );

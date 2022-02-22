@@ -6,6 +6,7 @@ import { getItemCollection, setNumberMatched, setMaxNumberPages, getCurrentPage,
 import { MY_JSON_MAPS } from "./layers";
 import stacLayer from 'stac-layer/src/index.js';
 
+
 /**
  * @class AstroMap
  * @aka L.Map.AstroMap
@@ -135,13 +136,11 @@ export default L.Map.AstroMap = L.Map.extend({
    */
   loadFootprintLayer: function(name, queryString) {
     var matched = 0;
-    
     getItemCollection(name, queryString).then(result => {
       if (result != undefined) {
         this._geoLayers = new Array(result.length);
         for (let i = 0; i < result.length; i++) {
-          this._geoLayers[i] = L.geoJSON()
-            .on({click: handleClick}).addTo(this);
+          this._geoLayers[i] = L.geoJSON().on({click: handleClick}).addTo(this);
           matched += result[i].numberMatched;
           for (let j = 0; j < result[i].features.length; j++) {
             this._footprintCollection[result[i].features[j].collection] = this._geoLayers[i];
