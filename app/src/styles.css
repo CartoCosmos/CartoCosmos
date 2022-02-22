@@ -274,3 +274,22 @@ summary {
   padding: auto;
   vertical-align: center;
 }
+
+#geoTiff-Container {
+  width: 300px;
+  text-align: center;
+  margin: 0 auto;
+  display: none; 
+  background: lightgray;
+  color: black;
+}
+
+#geoTiff-Asset-name {
+  text-align: center;
+  flex-grow: 1;
+}
+
+#geoTiffClose {
+  text-align: center;
+  background: darkgray;
+}
