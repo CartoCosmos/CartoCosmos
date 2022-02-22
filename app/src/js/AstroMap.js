@@ -4,6 +4,7 @@ import AstroProj from "./AstroProj";
 import LayerCollection from "./LayerCollection";
 import { getItemCollection, setNumberMatched, setMaxNumberPages, getCurrentPage, setCurrentPage } from "./ApiJsonCollection";
 import { MY_JSON_MAPS } from "./layers";
+import stacLayer from 'stac-layer/src/index.js';
 
 
 /**
@@ -139,10 +140,7 @@ export default L.Map.AstroMap = L.Map.extend({
       if (result != undefined) {
         this._geoLayers = new Array(result.length);
         for (let i = 0; i < result.length; i++) {
-          this._geoLayers[i] = L.geoJSON()
-            .on('click', function(e){
-               console.log(e);
-             }).addTo(this);
+          this._geoLayers[i] = L.geoJSON().on({click: handleClick}).addTo(this);
           matched += result[i].numberMatched;
           for (let j = 0; j < result[i].features.length; j++) {
             this._footprintCollection[result[i].features[j].collection] = this._geoLayers[i];
@@ -155,6 +153,17 @@ export default L.Map.AstroMap = L.Map.extend({
       }
       setNumberMatched(matched);
     });
+
+    function handleClick(e) {
+      const url_to_stac_item = e.layer.feature.links[0].href;
+      fetch(url_to_stac_item).then(res => res.json()).then(async feature => {
+        const thumbnail = await L.stacLayer(feature, {displayPreview: true});
+        thumbnail.on("click", e => {
+          this.removeLayer(thumbnail);
+        })
+        thumbnail.addTo(this);
+      });
+    }
   },
 
   /**
